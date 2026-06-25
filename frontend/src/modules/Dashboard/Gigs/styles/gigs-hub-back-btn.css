@@ -1,0 +1,102 @@
+/* Shared circular back control — Gigs Hub inner views */
+
+.ghub-section-head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 16px;
+  gap: 0;
+  min-width: 0;
+}
+
+.ghub-section-head__copy {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.ghub-section-head__title {
+  margin: 0;
+}
+
+.ghub-section-head__sub {
+  margin: 4px 0 0;
+}
+
+.ghub-section-head__actions {
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.ghub-back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  margin-right: 12px;
+  padding: 0;
+  border-radius: 9999px;
+  border: 1px solid #1e293b;
+  background: rgba(15, 23, 42, 0.8);
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.ghub-back-btn:hover {
+  background: #1e293b;
+}
+
+.ghub-back-btn:active {
+  transform: scale(0.95);
+}
+
+.ghub-back-btn__icon {
+  width: 16px;
+  height: 16px;
+  color: #e4e4e7;
+}
+
+.mygigs-head .ghub-section-head,
+.saved-gigs-head .ghub-section-head {
+  flex: 1 1 auto;
+  margin-bottom: 0;
+  min-width: 0;
+}
+
+.ghub-section-head.orders-head .ghub-section-head__title,
+.ghub-section-head.proposals-head .ghub-section-head__title,
+.mygigs-head__main.ghub-section-head .ghub-section-head__title,
+.saved-gigs-head__main.ghub-section-head .ghub-section-head__title {
+  margin: 0;
+  font-size: 26px;
+  color: #eff6ff;
+}
+
+.ghub-section-head.orders-head .ghub-section-head__sub,
+.ghub-section-head.proposals-head .ghub-section-head__sub,
+.mygigs-head__main.ghub-section-head .ghub-section-head__sub,
+.saved-gigs-head__main.ghub-section-head .ghub-section-head__sub {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #92a5bf;
+}
+
+.ghub-section-placeholder {
+  margin: 0;
+  padding: 24px 12px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #e4e4e7;
+}
+
+@media (max-width: 1023px) {
+  .ghub-section-head {
+    margin-bottom: 16px;
+  }
+}

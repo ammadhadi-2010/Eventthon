@@ -1,0 +1,5 @@
+/* Job Management styles — split under ./styles/ (250-line cap per file) */
+@import './styles/jm-chrome.css';
+@import './styles/jm-detail.css';
+@import './styles/jm-table.css';
+@import './styles/jm-modals.css';

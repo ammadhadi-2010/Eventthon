@@ -1,0 +1,147 @@
+/* Gig Management — desktop/mobile stratified layout */
+.gm-page {
+  min-width: 0;
+}
+
+.gm-header--desktop .um-subtitle--compact {
+  display: none;
+}
+
+.gm-card--desktop {
+  margin-top: 12px;
+}
+
+.gm-toolbar-tabs {
+  flex-wrap: nowrap;
+}
+
+.gm-toolbar-actions {
+  width: 100%;
+}
+
+.gm-filter-btn {
+  display: none;
+}
+
+.gm-table-block .um-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.gm-gig-thumb {
+  object-fit: cover;
+  background: #1e293b;
+}
+
+.gm-row--selected {
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.gd-pane {
+  margin: 12px 0;
+  padding: 14px;
+  border-color: rgba(99, 102, 241, 0.22);
+  box-shadow: 0 12px 36px rgba(99, 102, 241, 0.12);
+}
+
+.gd-pane--loading {
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.gd-pane__thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid rgba(139, 92, 246, 0.45);
+  background: #1e293b;
+}
+
+.gd-kpis {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.gd-kpi {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  background: rgba(8, 12, 22, 0.65);
+  padding: 10px 12px;
+}
+
+.gd-kpi span {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+}
+
+.gd-kpi strong {
+  display: block;
+  margin-top: 4px;
+  color: #fff;
+  font-size: 16px;
+}
+
+@media (max-width: 767px) {
+  .gm-page .um-header--tight {
+    margin-bottom: 8px;
+  }
+
+  .gm-toolbar {
+    gap: 8px;
+  }
+
+  .gm-toolbar-actions .gm-filter-btn {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .gm-header--desktop .um-subtitle--compact {
+    display: block;
+  }
+
+  .gm-toolbar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .gm-toolbar-actions {
+    width: auto;
+    flex: 0 1 auto;
+    justify-content: flex-end;
+  }
+
+  .gm-filter-btn {
+    display: inline-flex;
+  }
+
+  .gd-kpis {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .gm-page {
+    margin: -12px -20px;
+    padding: 8px 16px 20px;
+  }
+
+  .gm-header--desktop {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    gap: 12px 16px;
+  }
+
+  .gm-header--desktop .um-title--mobile {
+    font-size: 22px;
+    white-space: normal;
+  }
+}

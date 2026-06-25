@@ -1,0 +1,44 @@
+/* Alert Center — Jobs-style LinkedIn top bar + scroll-hide chrome (< 1024px) */
+
+@media (max-width: 1023px) {
+  .et-app-shell:has(.alerts-mobile-shell) .et-top-nav {
+    display: none !important;
+  }
+
+  .alerts-mobile-shell {
+    --alerts-mobile-chrome-h: 6.75rem;
+  }
+
+  .alerts-mobile-chrome {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 50 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    width: 100% !important;
+    padding: 0 0 6px !important;
+    background: #090d16 !important;
+    border-bottom: 1px solid #1e293b !important;
+    box-sizing: border-box !important;
+    transition: transform 0.3s ease !important;
+    transform: translateY(0) !important;
+  }
+
+  .alerts-mobile-chrome--hidden {
+    transform: translateY(-100%) !important;
+    pointer-events: none !important;
+  }
+
+  .alerts-mobile-shell .alerts-main-content {
+    padding-top: calc(var(--alerts-mobile-chrome-h, 6.75rem) + 4px) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .alerts-mobile-chrome {
+    display: none !important;
+  }
+}

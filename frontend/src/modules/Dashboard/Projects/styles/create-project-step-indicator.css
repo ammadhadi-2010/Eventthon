@@ -1,0 +1,110 @@
+/* Create Project — horizontal step indicator */
+
+.cp-steps {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow-x: auto;
+}
+
+.cp-step {
+  display: flex;
+  align-items: center;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.cp-step:last-child {
+  flex: 0 0 auto;
+}
+
+.cp-step__node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  text-align: center;
+  width: 64px;
+}
+
+.cp-step__num {
+  box-sizing: border-box;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  border: 1px solid #64748b;
+  color: #cbd5e1;
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.cp-step.is-active .cp-step__num {
+  border: none;
+  background: linear-gradient(135deg, #6366f1, #7c3aed);
+  color: #fff;
+  box-shadow: 0 0 16px rgba(99, 102, 241, 0.4);
+}
+
+.cp-step.is-done .cp-step__num {
+  border: 1px solid #6366f1;
+  background: rgba(99, 102, 241, 0.22);
+  color: #c4b5fd;
+  font-size: 10px;
+}
+
+.cp-step__label {
+  font-size: 9px;
+  font-weight: 600;
+  color: #64748b;
+  max-width: 64px;
+  line-height: 1.25;
+}
+
+.cp-step.is-active .cp-step__label {
+  color: #e0e7ff;
+  font-weight: 700;
+}
+
+.cp-step.is-done .cp-step__label {
+  color: #94a3b8;
+}
+
+.cp-step__line {
+  flex: 1 1 auto;
+  height: 1px;
+  min-width: 12px;
+  margin: 0 4px;
+  margin-top: 14px;
+  align-self: flex-start;
+  background: #334155;
+}
+
+.cp-step__line.is-filled {
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  height: 2px;
+  margin-top: 13px;
+}
+
+@media (max-width: 1100px) {
+  .cp-step__label {
+    display: none;
+  }
+
+  .cp-step__node {
+    width: auto;
+  }
+
+  .cp-step__line {
+    margin-top: 13px;
+  }
+}

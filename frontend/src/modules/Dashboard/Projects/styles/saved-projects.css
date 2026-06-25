@@ -1,0 +1,86 @@
+/* Saved Projects — table view */
+
+.ph-saved .ph-hero-title {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.ph-saved .ph-hero-sub {
+  margin-top: 4px;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.ph-sv-table-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.ph-sv-project-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.ph-sv-date,
+.ph-sv-category {
+  font-size: 12px;
+  font-weight: 600;
+  color: #e2e8f0;
+  white-space: nowrap;
+}
+
+.ph-sv-category {
+  color: #cbd5e1;
+}
+
+.ph-sv-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.ph-sv-actions__btn {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.ph-sv-actions__btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #e2e8f0;
+}
+
+.ph-sv-actions__btn.is-saved {
+  color: #a78bfa;
+}
+
+.ph-sv-actions__btn.is-saved svg {
+  fill: rgba(167, 139, 250, 0.35);
+}
+
+.ph-mp-project-icon--marketing {
+  background: linear-gradient(135deg, #ea580c, #f59e0b);
+}
+
+@media (max-width: 900px) {
+  .ph-sv-table .ph-table th:nth-child(2),
+  .ph-sv-table .ph-table td:nth-child(2) {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .ph-sv-table .ph-table th:nth-child(3),
+  .ph-sv-table .ph-table td:nth-child(3) {
+    display: none;
+  }
+}

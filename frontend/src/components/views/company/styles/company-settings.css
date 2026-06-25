@@ -1,0 +1,108 @@
+/* Company Settings — previews, brighter labels, mobile stack */
+
+.cp-settings-form label > span {
+  color: #f1f5f9;
+  font-weight: 600;
+}
+
+.cp-settings-block__hint {
+  color: #cbd5e1 !important;
+}
+
+.cp-settings-form input::placeholder,
+.cp-settings-form textarea::placeholder {
+  color: #94a3b8;
+}
+
+.cp-settings-cover-preview {
+  position: relative;
+  width: 100%;
+  height: 8rem;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #1e293b;
+  background: #111622;
+}
+
+.cp-settings-cover-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cp-settings-preview-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #a5b4fc;
+  background: rgba(15, 23, 42, 0.82);
+  border: 1px solid rgba(51, 65, 85, 0.5);
+}
+
+.cp-settings-logo-preview {
+  width: 5rem;
+  height: 5rem;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #1e293b;
+  background: #111622;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cp-settings-logo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
+  display: block;
+}
+
+.cp-settings-form__media {
+  grid-column: 1 / -1;
+}
+
+.cp-settings-form input[type='file'] {
+  width: 100%;
+  max-width: 100%;
+  font-size: 12px;
+  color: #e2e8f0;
+}
+
+@media (max-width: 1023px) {
+  .cp-settings-form {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  .cp-settings-form label,
+  .cp-settings-form__full,
+  .cp-settings-form__media,
+  .cp-settings-block {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .cp-settings-form input,
+  .cp-settings-form select,
+  .cp-settings-form textarea,
+  .cp-settings-form input[type='file'] {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .cp-settings-cover-preview {
+    height: 7.5rem;
+  }
+}

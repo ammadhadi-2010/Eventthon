@@ -1,0 +1,78 @@
+export const DEFAULT_GENERAL_SETTINGS = {
+  siteName: 'EventThon',
+  siteDescription: 'Find your dream job with EventThon.',
+  timezone: '(UTC+05:00) Asia/Karachi',
+  dateFormat: 'May 25, 2025 (MM/DD/YYYY)',
+  timeFormat: '12 Hours (AM/PM)',
+  siteLanguage: 'English',
+  registrationEnabled: true,
+  emailVerificationEnabled: true,
+  maintenanceModeEnabled: false,
+};
+
+export const GENERAL_SETTING_ROWS = [
+  {
+    id: 'siteName',
+    label: 'Site Name',
+    description: 'The name of your platform',
+    type: 'text',
+    icon: 'globe',
+  },
+  {
+    id: 'siteDescription',
+    label: 'Site Description',
+    description: 'A short description of your platform',
+    type: 'textarea',
+    icon: 'file',
+  },
+  {
+    id: 'timezone',
+    label: 'Timezone',
+    description: 'Set the default timezone',
+    type: 'text',
+    icon: 'clock',
+  },
+  {
+    id: 'dateFormat',
+    label: 'Date Format',
+    description: 'Set the default date format',
+    type: 'text',
+    icon: 'calendar',
+  },
+  {
+    id: 'timeFormat',
+    label: 'Time Format',
+    description: 'Set the default time format',
+    type: 'text',
+    icon: 'clock',
+  },
+  {
+    id: 'siteLanguage',
+    label: 'Site Language',
+    description: 'Select default language',
+    type: 'select',
+    icon: 'globe',
+    options: ['English', 'Urdu', 'Arabic'],
+  },
+  {
+    id: 'registrationEnabled',
+    label: 'Registration',
+    description: 'Allow new user registrations',
+    type: 'toggle',
+    icon: 'userCheck',
+  },
+  {
+    id: 'emailVerificationEnabled',
+    label: 'Email Verification',
+    description: 'Require email verification for new users',
+    type: 'toggle',
+    icon: 'shield',
+  },
+  {
+    id: 'maintenanceModeEnabled',
+    label: 'Maintenance Mode',
+    description: 'Enable maintenance mode',
+    type: 'toggle',
+    icon: 'settings',
+  },
+];

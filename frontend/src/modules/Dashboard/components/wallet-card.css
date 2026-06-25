@@ -1,0 +1,128 @@
+.wallet-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.wallet-card__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.wallet-card__soon-badge {
+  margin-left: auto;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(251, 191, 36, 0.14);
+  color: #fbbf24;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.wallet-card__title {
+  margin: 0;
+  font-size: 10px;
+  color: #64748b;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.wallet-card__balance-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+  margin: 0 0 4px;
+}
+
+.wallet-card__amount {
+  font-size: 28px;
+  font-weight: 900;
+  color: #f8fafc;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.wallet-card__coins {
+  font-size: 13px;
+  font-weight: 800;
+  color: #3b82f6;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.wallet-card__usd {
+  margin: 0 auto 14px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #10b981;
+  letter-spacing: 0.01em;
+}
+
+.wallet-card__growth {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.wallet-card__withdraw {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.wallet-card__withdraw:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.38);
+}
+
+.wallet-card__withdraw:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+@media (max-width: 640px) {
+  .wallet-card {
+    padding: 14px;
+  }
+
+  .wallet-card__amount {
+    font-size: 24px;
+  }
+
+  .wallet-card__withdraw {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}

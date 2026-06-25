@@ -1,0 +1,72 @@
+/* Live preview — same step accents as center column; active block full, others dimmed. */
+
+.ep-live-preview__body-scroll .ep-live-preview__sync-target:not(.ep-live-preview__sync-target--active) {
+  opacity: 0.5;
+  filter: saturate(0.88);
+  transition:
+    opacity 0.3s ease,
+    filter 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.ep-live-preview__body-scroll .ep-live-preview__sync-target.ep-live-preview__sync-target--active {
+  opacity: 1;
+  filter: none;
+}
+
+.ep-live-preview__sync-target[data-ep-preview-step='basic'].ep-live-preview__sync-target--active {
+  box-shadow:
+    inset 0 0 0 2px rgba(14, 165, 233, 0.5),
+    0 0 40px -10px rgba(14, 165, 233, 0.35);
+  background: linear-gradient(180deg, rgba(14, 165, 233, 0.1), transparent 38%);
+  border-radius: 14px;
+}
+
+.ep-live-preview__sync-target[data-ep-preview-step='about'].ep-live-preview__sync-target--active {
+  box-shadow:
+    inset 0 0 0 2px rgba(139, 92, 246, 0.52),
+    0 0 40px -10px rgba(139, 92, 246, 0.32);
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.1), transparent 40%);
+  border-radius: 12px;
+}
+
+.ep-live-preview__sync-target[data-ep-preview-step='experience'].ep-live-preview__sync-target--active {
+  box-shadow:
+    inset 0 0 0 2px rgba(245, 158, 11, 0.52),
+    0 0 40px -10px rgba(245, 158, 11, 0.28);
+  background: linear-gradient(180deg, rgba(245, 158, 11, 0.09), transparent 40%);
+  border-radius: 12px;
+}
+
+.ep-live-preview__sync-target[data-ep-preview-step='projects'].ep-live-preview__sync-target--active {
+  box-shadow:
+    inset 0 0 0 2px rgba(16, 185, 129, 0.5),
+    0 0 40px -10px rgba(16, 185, 129, 0.3);
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.09), transparent 40%);
+  border-radius: 12px;
+}
+
+.ep-live-preview__sync-target[data-ep-preview-step='skills'].ep-live-preview__sync-target--active {
+  box-shadow:
+    inset 0 0 0 2px rgba(217, 70, 239, 0.52),
+    0 0 40px -10px rgba(217, 70, 239, 0.28);
+  background: linear-gradient(180deg, rgba(217, 70, 239, 0.1), transparent 40%);
+  border-radius: 12px;
+}
+
+.ep-live-preview__sync-target[data-ep-preview-step='identity'].ep-live-preview__sync-target--active {
+  box-shadow:
+    inset 0 0 0 2px rgba(45, 212, 191, 0.52),
+    0 0 40px -10px rgba(45, 212, 191, 0.3);
+  background: linear-gradient(180deg, rgba(45, 212, 191, 0.1), transparent 40%);
+  border-radius: 12px;
+}
+
+.ep-live-preview__sync-target[data-ep-preview-step='preferences'].ep-live-preview__sync-target--active {
+  box-shadow:
+    inset 0 0 0 2px rgba(99, 102, 241, 0.52),
+    0 0 40px -10px rgba(99, 102, 241, 0.28);
+  background: linear-gradient(180deg, rgba(99, 102, 241, 0.1), transparent 45%);
+  border-radius: 12px;
+}

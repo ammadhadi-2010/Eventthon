@@ -1,0 +1,116 @@
+/* Public Explore Squad — same premium glass as workspace */
+@import '../../Dashboard/SquadNetwork/styles/squad-workspace.css';
+
+.sq-public-page {
+  width: 100%;
+  max-width: 1320px;
+  min-width: 0;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 2.5rem;
+  background: #050811;
+  color: #e2e8f0;
+  box-sizing: border-box;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.sq-public-page::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 10%;
+  right: 5%;
+  height: 180px;
+  background: radial-gradient(ellipse at 30% 50%, rgba(139, 92, 246, 0.18), transparent 65%),
+    radial-gradient(ellipse at 70% 40%, rgba(59, 130, 246, 0.12), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sq-public-breadcrumb {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-bottom: 1rem;
+}
+
+.sq-public-breadcrumb a {
+  color: #93c5fd;
+  text-decoration: none;
+}
+
+.sq-public-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.sq-public-showroom {
+  position: relative;
+  z-index: 1;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(10, 15, 29, 0.85);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.sq-public-showroom .sq-ws-root {
+  background: transparent;
+}
+
+.sq-public-showroom .sq-ws-header {
+  background: linear-gradient(135deg, rgba(19, 25, 38, 0.75), rgba(10, 15, 29, 0.5));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.sq-public-body {
+  padding: 0 16px 16px;
+  max-height: none;
+  font-size: 15px;
+}
+
+.sq-public-showroom .sq-ws-card-title {
+  font-size: 16px;
+}
+
+.sq-public-showroom .sq-ws-feed-item {
+  font-size: 14px;
+}
+
+.sq-public-showroom .sq-ws-member strong {
+  font-size: 14px;
+}
+
+.sq-public-body .sq-ws-dashboard-layout {
+  padding-top: 14px;
+}
+
+.sq-explore-page .sq-ws-tab.is-active {
+  color: #c4b5fd;
+  border-bottom-color: #a78bfa;
+  background: rgba(139, 92, 246, 0.12);
+}
+
+.sq-explore-page .sq-ws-stat-pill {
+  background: linear-gradient(145deg, rgba(13, 19, 33, 0.95), rgba(15, 23, 42, 0.85));
+  border-color: rgba(51, 65, 85, 0.7);
+}
+
+.sq-explore-page .sq-ws-stat-pill strong {
+  color: #ffffff;
+}
+
+/* Public layout: full width main */
+.public-main--squad {
+  max-width: none !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  padding: 0 !important;
+  background: #0a0f1d !important;
+}
+
+.public-layout--squad {
+  background: #0a0f1d;
+}

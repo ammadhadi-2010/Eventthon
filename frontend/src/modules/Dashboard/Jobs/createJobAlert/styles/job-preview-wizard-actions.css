@@ -1,0 +1,242 @@
+/* Job preview wizard — screening, final publish, responsive (part 2) */
+
+.jpw-screen-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.jpw-screen-grid div {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(51, 65, 85, 0.75);
+  background: rgba(17, 22, 34, 0.8);
+}
+
+.jpw-screen-grid span {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.jpw-screen-grid strong {
+  font-size: 12px;
+  color: #f8fafc;
+}
+
+.jpw-toggle-stack {
+  margin-top: 12px;
+  border-top: 1px solid rgba(51, 65, 85, 0.6);
+  padding-top: 8px;
+}
+
+.jpw-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.45);
+  cursor: pointer;
+}
+
+.jpw-toggle-copy span {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.jpw-toggle-copy small {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #e2e8f0;
+}
+
+.jpw-toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border: none;
+  border-radius: 999px;
+  padding: 0;
+  cursor: pointer;
+  background: rgba(51, 65, 85, 0.9);
+  flex-shrink: 0;
+}
+
+.jpw-toggle.is-on {
+  background: linear-gradient(90deg, #3b82f6, #6366f1);
+  box-shadow: 0 0 14px rgba(59, 130, 246, 0.35);
+}
+
+.jpw-toggle__knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #f8fafc;
+  transition: transform 0.2s ease;
+}
+
+.jpw-toggle.is-on .jpw-toggle__knob {
+  transform: translateX(20px);
+}
+
+.jpw-final-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.jpw-final-card {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(51, 65, 85, 0.8);
+  background: rgba(13, 19, 33, 0.9);
+}
+
+.jpw-final-card--stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.jpw-final-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.jpw-final-pills span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #e2e8f0;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.jpw-final-check {
+  margin-left: 6px;
+  color: #818cf8;
+  vertical-align: middle;
+}
+
+.jpw-estimated__label {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #fff;
+}
+
+.jpw-estimated__range {
+  margin: 4px 0 0;
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #fff;
+}
+
+.jpw-estimated__sub {
+  margin: 2px 0 0;
+  font-size: 11px;
+  font-weight: 500;
+  color: #e2e8f0;
+}
+
+.jpw-estimated__icon {
+  margin-top: 8px;
+  align-self: flex-end;
+}
+
+.jpw-publish-btn {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(74, 222, 128, 0.45);
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 8px 28px rgba(34, 197, 94, 0.35);
+}
+
+.jpw-draft-btn {
+  width: 100%;
+  min-height: 40px;
+  margin-top: 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: transparent;
+  color: #f8fafc;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.jpw-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.jpw-nav__prev,
+.jpw-nav__next {
+  flex: 1;
+  min-height: 38px;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(30, 41, 59, 0.65);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.jpw-nav__next {
+  border-color: rgba(59, 130, 246, 0.45);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.35), rgba(99, 102, 241, 0.45));
+}
+
+.jpw-nav__prev:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1023px) {
+  .jpw-dot em {
+    display: none;
+  }
+
+  .jpw-final-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .jpw-screen-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .jpw-stage {
+    min-height: auto;
+  }
+}

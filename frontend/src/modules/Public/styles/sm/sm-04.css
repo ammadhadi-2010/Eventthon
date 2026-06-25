@@ -1,0 +1,202 @@
+﻿.ps-mp-prose {
+  font-size: 0.84rem;
+  line-height: 1.65;
+  color: #94a3b8;
+}
+
+.ps-mp-cta {
+  margin-top: 0.75rem;
+}
+
+.ps-mp-header {
+  margin-bottom: 1rem;
+}
+
+.ps-mp-header h1 {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 900;
+  margin: 0.35rem 0;
+  line-height: 1.2;
+}
+
+.ps-mp-header__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.ps-mp-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.28rem 0.6rem;
+  border-radius: 999px;
+  color: #c4b5fd;
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+}
+
+.ps-mp-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+}
+
+.ps-mp-metric {
+  padding: 0.65rem;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.ps-mp-metric p {
+  margin: 0;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: #64748b;
+  letter-spacing: 0.06em;
+}
+
+.ps-mp-metric strong {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.95rem;
+  color: #e2e8f0;
+}
+
+.ps-job-remote {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.28rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #86efac;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+.ps-job-salary {
+  margin: 0.25rem 0 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #a78bfa;
+}
+
+/* —— Marketplace page shell —— */
+.ps-page--marketplace {
+  max-width: 1280px;
+  min-width: 0;
+  width: 100%;
+}
+
+@media (max-width: 1100px) {
+  .ps-mp-grid {
+    min-width: 0;
+  }
+
+  .ps-page--marketplace .ps-mp-grid,
+  .ps-gig-hero-row {
+    grid-template-columns: 1fr;
+    min-width: 0;
+  }
+
+  .ps-page--marketplace .ps-mp-grid__aside {
+    position: static;
+  }
+
+  .ps-mp-packages {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-mp-trust-banner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.ps-page--marketplace .ps-btn--primary {
+  background: linear-gradient(90deg, #7c3aed, #a855f7);
+  border-color: rgba(167, 139, 250, 0.45);
+  box-shadow: 0 6px 22px rgba(124, 58, 237, 0.35);
+}
+
+.ps-breadcrumb a {
+  color: #94a3b8;
+  text-decoration: none;
+}
+
+.ps-breadcrumb a:hover {
+  color: #c4b5fd;
+}
+
+.ps-gig-hero-row {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+  margin-bottom: 1.25rem;
+}
+
+.ps-gig-hero-copy h1 {
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  font-weight: 900;
+  line-height: 1.25;
+  margin: 0 0 0.85rem;
+}
+
+.ps-gig-hero-copy .ps-mp-seller {
+  margin-bottom: 0.85rem;
+}
+
+.ps-gig-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.ps-gig-hero-actions__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-width: 2.35rem;
+  min-height: 2.35rem;
+  padding: 0.5rem;
+  line-height: 1;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(15, 23, 42, 0.65);
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.ps-gig-hero-actions__btn svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+.ps-gig-hero-actions__btn.is-active {
+  color: #f472b6;
+  border-color: rgba(244, 114, 182, 0.35);
+  background: rgba(244, 114, 182, 0.1);
+}
+
+.ps-gig-hero-actions__hint {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #86efac;
+}
+
+.ps-mp-section-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #64748b;
+  margin: 0 0 0.85rem;
+}

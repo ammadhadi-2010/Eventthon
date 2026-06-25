@@ -1,0 +1,126 @@
+/* Gig Public Showrooms shell + card matrix — responsive overrides. */
+
+@media (max-width: 1023px) {
+  .gigs-showroom-shell {
+    display: block !important;
+    min-height: 0 !important;
+  }
+
+  .gigs-showroom-shell__sidebar {
+    display: none !important;
+  }
+
+  .gigs-showroom-shell__main {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: hidden !important;
+  }
+
+  .sph-page {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  .sph-grid {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .sph-card {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .sph-card__copy {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .sph-card__actions {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    width: 100% !important;
+    gap: 12px !important;
+    margin-left: 0 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .sph-card__actions .ps-btn {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gigs-showroom-shell {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    min-height: 100vh !important;
+  }
+
+  .gigs-showroom-shell__sidebar {
+    display: block !important;
+    width: 16rem !important;
+    flex-shrink: 0 !important;
+  }
+
+  .gigs-showroom-shell__main {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+    overflow-y: auto !important;
+  }
+
+  .sph-page {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .sph-card {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .sph-card__copy {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    padding-right: 1rem !important;
+  }
+
+  .sph-card__actions {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    width: auto !important;
+    margin-left: auto !important;
+    flex-shrink: 0 !important;
+    gap: 0.75rem !important;
+  }
+
+  .sph-card__actions .ps-btn {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    white-space: nowrap !important;
+  }
+}

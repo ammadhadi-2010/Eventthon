@@ -1,0 +1,441 @@
+.upd-explorer {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 20px;
+  padding: 20px;
+  color: #e2e8f0;
+  min-height: calc(100vh - 80px);
+}
+
+.upd-explorer__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.upd-explorer__profile,
+.upd-explorer__menu-block,
+.upd-explorer__filters-block {
+  background: rgba(15, 23, 42, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.upd-explorer__profile {
+  text-align: center;
+}
+
+.upd-explorer__profile-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  margin: 0 auto 10px;
+  overflow: hidden;
+  border: 2px solid rgba(59, 130, 246, 0.35);
+  display: grid;
+  place-items: center;
+  background: #1e293b;
+}
+
+.upd-explorer__profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.upd-explorer__profile strong {
+  display: block;
+  font-size: 16px;
+}
+
+.upd-explorer__profile span {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.upd-explorer__profile-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.upd-explorer__profile-stats b {
+  display: block;
+  font-size: 18px;
+}
+
+.upd-explorer__profile-stats small {
+  color: #64748b;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.upd-explorer__profile-btn {
+  width: 100%;
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  background: rgba(59, 130, 246, 0.12);
+  color: #93c5fd;
+  border-radius: 10px;
+  padding: 9px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.upd-explorer__menu-block h3,
+.upd-explorer__filters-block h3 {
+  margin: 0 0 10px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.upd-explorer__menu-item,
+.upd-explorer__type-item {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  color: #cbd5e1;
+  padding: 9px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.upd-explorer__menu-item.is-active {
+  background: rgba(59, 130, 246, 0.18);
+  color: #fff;
+  border-left: 3px solid #3b82f6;
+}
+
+.upd-explorer__select-label,
+.upd-explorer__time-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.upd-explorer__select-label select,
+.upd-explorer__time-row select {
+  background: #0f172a;
+  color: #e2e8f0;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.upd-explorer__time-row {
+  flex-direction: row;
+  align-items: center;
+}
+
+.upd-explorer__type-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.upd-explorer__type-item.is-active {
+  background: rgba(148, 163, 184, 0.12);
+  color: #fff;
+}
+
+.upd-explorer__main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.upd-explorer__header h1 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.upd-explorer__header p {
+  margin: 6px 0 0;
+  color: #94a3b8;
+}
+
+.upd-explorer__header-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.upd-explorer__header-back {
+  display: none;
+}
+
+.upd-explorer__header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.upd-explorer__header-actions select {
+  background: #0f172a;
+  color: #e2e8f0;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.upd-explorer__header-actions button {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: #0f172a;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.upd-explorer__header-actions button.is-active {
+  color: #fff;
+  border-color: #3b82f6;
+}
+
+.upd-explorer__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.upd-explorer__pill {
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(15, 23, 42, 0.65);
+  color: #94a3b8;
+  padding: 7px 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.upd-explorer__pill.is-active {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: #fff;
+}
+
+.upd-explorer__pill--project { color: #34d399; }
+.upd-explorer__pill--gig { color: #c084fc; }
+.upd-explorer__pill--achievement { color: #fbbf24; }
+.upd-explorer__pill--squad { color: #60a5fa; }
+.upd-explorer__pill--job { color: #f472b6; }
+.upd-explorer__pill--article { color: #f87171; }
+
+.upd-explorer__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.upd-explorer__grid.is-list {
+  grid-template-columns: 1fr;
+}
+
+.upd-explorer__hint {
+  color: #64748b;
+  padding: 20px 0;
+}
+
+.upd-grid-card {
+  background: rgba(15, 23, 42, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.upd-grid-card.is-list {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.upd-grid-card__head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.upd-grid-card__head time {
+  color: #64748b;
+}
+
+.upd-grid-card__author {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.upd-grid-card__author-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #1e293b;
+  display: grid;
+  place-items: center;
+}
+
+.upd-grid-card__author-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.upd-grid-card__author strong {
+  display: block;
+  font-size: 13px;
+}
+
+.upd-grid-card__author span {
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+.upd-grid-card h3 {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.upd-grid-card p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.upd-grid-card__media {
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: rgba(2, 6, 23, 0.65);
+}
+
+.upd-grid-card__media-round {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+.upd-grid-card__media-fallback,
+.upd-grid-card__badge {
+  min-height: 96px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: rgba(30, 41, 59, 0.75);
+  color: #94a3b8;
+  font-weight: 700;
+}
+
+.upd-grid-card__badge svg {
+  font-size: 42px;
+  color: #fbbf24;
+}
+
+.upd-grid-card__job-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.upd-grid-card__job-meta div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.upd-grid-card__footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.upd-grid-card__stats {
+  display: flex;
+  gap: 12px;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.upd-grid-card__stats span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.upd-grid-card__action {
+  color: #60a5fa;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.upd-explorer__pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.upd-explorer__pagination button {
+  min-width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: #0f172a;
+  color: #cbd5e1;
+  cursor: pointer;
+}
+
+.upd-explorer__pagination button.is-active {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: #fff;
+}
+
+.upd-explorer__gap {
+  color: #64748b;
+  padding: 0 4px;
+}
+
+@media (max-width: 1280px) {
+  .upd-explorer__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 1024px) {
+  .upd-explorer { grid-template-columns: 1fr; }
+  .upd-explorer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .upd-explorer__grid { grid-template-columns: 1fr; }
+}

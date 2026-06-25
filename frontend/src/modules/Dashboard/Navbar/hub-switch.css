@@ -1,0 +1,52 @@
+.dash-nav-hub-switches {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.et-hub-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(15, 23, 42, 0.65);
+  color: #e2e8f0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.et-hub-switch:hover {
+  border-color: rgba(59, 130, 246, 0.45);
+  background: rgba(30, 58, 138, 0.35);
+  color: #fff;
+}
+
+.et-hub-switch--company {
+  border-color: rgba(34, 197, 94, 0.35);
+  background: rgba(22, 101, 52, 0.2);
+}
+
+.et-hub-switch--company:hover {
+  border-color: rgba(74, 222, 128, 0.5);
+  background: rgba(22, 101, 52, 0.35);
+}
+
+.et-hub-switch--member {
+  border-color: rgba(59, 130, 246, 0.35);
+}
+
+.et-hub-switch--admin {
+  border-color: rgba(139, 92, 246, 0.35);
+  background: rgba(76, 29, 149, 0.2);
+}
+
+.et-hub-switch--admin:hover {
+  border-color: rgba(167, 139, 250, 0.5);
+  background: rgba(76, 29, 149, 0.35);
+}

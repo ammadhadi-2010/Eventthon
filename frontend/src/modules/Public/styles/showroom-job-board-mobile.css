@@ -1,0 +1,256 @@
+/* Public Job Board — mobile (< 1024px). Desktop: showroom-marketplace.css */
+
+@media (max-width: 1023px) {
+  .ps-jb-board-shell {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    padding: 1rem 12px 5rem !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  .ps-jb-page--embedded.ps-jb-board-shell {
+    padding: 0.75rem 12px 4rem !important;
+  }
+
+  .ps-jb-board-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.25rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    grid-template-columns: unset !important;
+  }
+
+  .ps-jb-board-layout .ps-mp-grid__main,
+  .ps-jb-board-layout .ps-jb-listings {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .ps-jb-sidebar-rail {
+    display: none !important;
+  }
+
+  .ps-jb-stats.ps-jb-stats-lane {
+    display: flex !important;
+    grid-template-columns: unset !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 0.75rem !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x proximity !important;
+    scroll-behavior: smooth !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 2px 4px !important;
+    margin-bottom: 1rem !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .ps-jb-stats-lane::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .ps-jb-stat--lane-card {
+    flex: 0 0 46% !important;
+    width: 46% !important;
+    min-width: 46% !important;
+    max-width: 46% !important;
+    flex-shrink: 0 !important;
+    scroll-snap-align: start !important;
+    background: #0d1321 !important;
+    border: 1px solid #1e293b !important;
+    border-radius: 12px !important;
+    padding: 1rem !important;
+    box-sizing: border-box !important;
+  }
+
+  @media (min-width: 400px) {
+    .ps-jb-stat--lane-card {
+      flex-basis: 44% !important;
+      width: 44% !important;
+      min-width: 44% !important;
+      max-width: 44% !important;
+    }
+  }
+
+  .ps-jb-stat {
+    min-width: 0 !important;
+  }
+
+  .ps-jb-job-card--responsive {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 1rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    padding: 1rem !important;
+    border-radius: 12px !important;
+    background: #0d1321 !important;
+    border: 1px solid #1e293b !important;
+    box-sizing: border-box !important;
+    grid-template-columns: unset !important;
+  }
+
+  .ps-jb-job-card--responsive .ps-jb-job-card__logo {
+    flex-shrink: 0 !important;
+  }
+
+  .ps-jb-job-card--responsive .ps-jb-job-card__body {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .ps-jb-job-card__tags {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.375rem !important;
+    margin-top: 0.5rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .ps-jb-job-card__side {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+    margin-top: 0.25rem !important;
+  }
+
+  .ps-jb-job-card--responsive .ps-jb-job-card__salary {
+    text-align: left !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    padding: 0.65rem 0.75rem !important;
+    border-radius: 10px !important;
+    background: rgba(15, 23, 42, 0.65) !important;
+    border: 1px solid rgba(51, 65, 85, 0.8) !important;
+  }
+
+  .ps-jb-job-card--responsive .ps-jb-job-card__actions {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+
+  .ps-jb-job-card--responsive .ps-jb-job-card__actions .ps-btn--primary {
+    flex: 1 1 auto !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .ps-jb-header h1 {
+    max-width: 100% !important;
+    font-size: 1.35rem !important;
+  }
+
+  .ps-jb-header__sub {
+    max-width: 100% !important;
+  }
+
+  .ps-jb-filters {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    padding-bottom: 4px !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  .ps-jb-filters::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .ps-jb-filter {
+    flex-shrink: 0 !important;
+  }
+
+  .ps-jb-cta-banner {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1rem !important;
+    padding: 1.1rem !important;
+  }
+
+  .ps-jb-trust {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ps-jb-board-shell {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .ps-jb-board-layout.ps-mp-grid {
+    min-width: 0;
+  }
+
+  .ps-jb-board-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 1.25rem;
+    align-items: start;
+    min-width: 0;
+  }
+
+  .ps-jb-sidebar-rail {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 1rem;
+  }
+
+  .ps-jb-stats.ps-jb-stats-lane {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.65rem;
+    overflow: visible;
+    padding: 0;
+    scroll-snap-type: none;
+  }
+
+  .ps-jb-stat--lane-card {
+    flex: unset;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+  }
+
+  .ps-jb-job-card--responsive {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .ps-jb-job-card__side {
+    display: contents;
+  }
+
+  .ps-jb-job-card--responsive .ps-jb-job-card__salary {
+    text-align: center;
+    min-width: 130px;
+  }
+
+  .ps-jb-job-card--responsive .ps-jb-job-card__actions {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}

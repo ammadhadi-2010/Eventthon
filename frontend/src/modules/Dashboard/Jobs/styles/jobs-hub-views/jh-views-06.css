@@ -1,0 +1,203 @@
+﻿
+.jh-filter-select {
+  min-height: 34px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.65);
+  color: #e2e8f0;
+  font-size: 12px;
+}
+
+.gigs-job-side--actions {
+  align-items: flex-end;
+}
+
+.gigs-job-side__btns {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.jh-apply-btn {
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.jh-apply-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1300;
+  display: grid;
+  place-items: center;
+}
+
+.jh-apply-overlay__backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  background: rgba(2, 6, 23, 0.75);
+  cursor: pointer;
+}
+
+.jh-apply-modal {
+  position: relative;
+  z-index: 1;
+  width: min(420px, 92vw);
+  padding: 20px;
+}
+
+.jh-apply-modal__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.jh-apply-modal__head h3 {
+  margin: 0;
+  color: #f1f5f9;
+  font-size: 17px;
+}
+
+.jh-apply-modal__head p {
+  margin: 4px 0 0;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.jh-apply-modal__close {
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.jh-apply-modal__hint {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.jh-apply-modal__file {
+  display: none;
+}
+
+.jh-apply-modal__pick {
+  width: 100%;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 8px;
+  border: 1px dashed rgba(99, 102, 241, 0.45);
+  background: rgba(99, 102, 241, 0.08);
+  color: #c7d2fe;
+  cursor: pointer;
+}
+
+.jh-apply-modal__file-meta {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: #86efac;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.jh-apply-modal__error {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: #f87171;
+}
+
+.jh-apply-modal__foot {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.jh-rec-tag em {
+  margin-left: 6px;
+  font-style: normal;
+  font-size: 10px;
+  font-weight: 700;
+  color: #86efac;
+}
+
+.jh-rec-tag--match {
+  border-color: rgba(34, 197, 94, 0.45);
+  background: rgba(34, 197, 94, 0.12);
+}
+
+.jh-rec-empty {
+  margin: 0;
+  padding: 16px;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+/* Application tracking drawer */
+.jh-track-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.jh-track-overlay__backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  background: rgba(2, 6, 23, 0.72);
+  cursor: pointer;
+}
+
+.jh-track-drawer {
+  position: relative;
+  z-index: 1;
+  width: min(400px, 100vw);
+  height: 100%;
+  margin: 0;
+  padding: 18px 20px;
+  overflow-y: auto;
+  border-radius: 0;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 23, 42, 0.98);
+}
+
+.jh-track-drawer__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.jh-track-drawer__head h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #f1f5f9;
+}
+
+.jh-track-drawer__head p {
+  margin: 4px 0 8px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.jh-track-drawer__close {
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+}

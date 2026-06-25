@@ -1,0 +1,33 @@
+/* Squads hub — Jobs-style mobile top bar + scroll-hide chrome (< 1024px) */
+
+@media (max-width: 1023px) {
+  .et-app-shell:has(.squad-hub-mobile-shell) .et-top-nav {
+    display: none !important;
+  }
+
+  .et-app-shell:has(.squad-hub-mobile-shell) .et-main-inner {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .squad-hub.squad-hub-mobile-shell {
+    --sq-mobile-chrome-h: var(--hub-mobile-topbar-h, 3.5rem);
+    padding-top: var(--sq-mobile-chrome-h) !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: 100dvh;
+  }
+
+  .squad-hub__list-search {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .squad-hub.squad-hub-mobile-shell {
+    padding-top: 0 !important;
+  }
+}

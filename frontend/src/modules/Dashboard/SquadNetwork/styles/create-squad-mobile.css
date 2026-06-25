@@ -1,0 +1,128 @@
+/* Create Squad — mobile layout, contrast, avatars (< 1024px) */
+
+@media (max-width: 1023px) {
+  .squad-hub--creating {
+    grid-template-columns: 1fr !important;
+  }
+
+  .squad-hub--creating .squad-hub__create-wrap {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    border-left: none !important;
+    height: auto !important;
+    min-height: calc(100dvh - var(--sq-mobile-chrome-h, 3.5rem));
+    overflow: visible !important;
+  }
+
+  .squad-hub--creating .cs-panel {
+    padding: 0.65rem 1rem 6rem;
+    min-height: auto;
+  }
+
+  .cs-panel__header-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    min-width: 0;
+  }
+
+  .cs-panel__back {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    background: rgba(15, 23, 42, 0.75);
+    color: #e2e8f0;
+    cursor: pointer;
+  }
+
+  .cs-panel__header h2 {
+    font-size: 1.05rem;
+    line-height: 1.25;
+  }
+
+  .cs-panel__header p {
+    color: #e2e8f0;
+    line-height: 1.45;
+  }
+
+  .cs-section__head p,
+  .cs-field small,
+  .cs-invite-row span,
+  .cs-toggle-row__copy span,
+  .cs-privacy-card span,
+  .cs-upload span {
+    color: #cbd5e1 !important;
+  }
+
+  .cs-section__head h3,
+  .cs-field span,
+  .cs-invite-row strong,
+  .cs-toggle-row__copy strong,
+  .cs-privacy-card strong,
+  .cs-upload strong {
+    color: #f8fafc !important;
+  }
+
+  .cs-invite-row em {
+    color: #e2e8f0 !important;
+  }
+
+  .cs-btn--ghost {
+    color: #e2e8f0 !important;
+    border-color: rgba(148, 163, 184, 0.35) !important;
+  }
+
+  .cs-btn--outline {
+    color: #e9d5ff !important;
+  }
+
+  .cs-search {
+    color: #94a3b8;
+  }
+
+  .cs-search input::placeholder {
+    color: #94a3b8;
+  }
+
+  .cs-invite-row img {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    background: #1e293b;
+  }
+
+  .cs-invite-list {
+    grid-template-columns: 1fr;
+    max-height: 280px;
+  }
+
+  .cs-panel__footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cs-panel__footer-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .cs-panel__footer-actions .cs-btn,
+  .cs-panel__footer > .cs-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cs-panel__back {
+    display: none;
+  }
+}

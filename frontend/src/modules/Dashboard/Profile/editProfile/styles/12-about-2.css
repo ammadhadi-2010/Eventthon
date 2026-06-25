@@ -1,0 +1,216 @@
+.ep-tag-dropdown-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.48rem 0.85rem;
+  border: none;
+  background: transparent;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  cursor: pointer;
+}
+
+.ep-tag-dropdown-item:hover {
+  background: rgba(99, 102, 241, 0.2);
+}
+
+.ep-tag-dropdown--full-cat {
+  max-height: min(62vh, 22rem);
+}
+
+.ep-tag-dropdown-item--with-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.ep-tag-dd-icon {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(
+    --icon-gradient,
+    linear-gradient(145deg, rgba(71, 85, 105, 0.48), rgba(51, 65, 85, 0.32))
+  );
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 0 8px var(--icon-glow, rgba(96, 165, 250, 0.2));
+}
+
+.ep-tag-dd-icon svg {
+  width: 0.8rem;
+  height: 0.8rem;
+  color: rgba(241, 245, 249, 0.95);
+}
+
+.ep-tag-dd-label {
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+}
+
+.ep-about-opt-sub {
+  margin-top: -0.15rem;
+}
+
+.ep-about-opt-sub-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0.35rem 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #94a3b8;
+  transition: color 0.15s ease;
+}
+
+.ep-about-opt-sub-toggle:hover {
+  color: #cbd5e1;
+}
+
+.ep-about-opt-sub-chevron {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  transition: transform 0.18s ease;
+}
+
+.ep-about-opt-sub-chevron--open {
+  transform: rotate(90deg);
+}
+
+.ep-about-opt-sub-panel {
+  margin-top: 0.5rem;
+  padding: 0.85rem 0.75rem 0.95rem;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  background: rgba(2, 6, 23, 0.35);
+}
+
+.ep-about-sub-saved-row {
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.ep-about-sub-saved-label {
+  margin: 0 0 0.45rem;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.ep-about-sub-saved-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.ep-about-sub-saved-empty {
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: #475569;
+}
+
+.ep-chip--subsaved {
+  background: rgba(45, 212, 191, 0.1);
+  border-color: rgba(45, 212, 191, 0.28);
+  color: #99f6e4;
+}
+
+.ep-about-opt-sub-hint {
+  margin: 0 0 0.65rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.ep-about-cat-tab-strip {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.35rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.15rem;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ep-about-cat-tab-strip::-webkit-scrollbar {
+  height: 4px;
+}
+
+.ep-about-cat-tab-strip::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 4px;
+}
+
+.ep-about-cat-tab {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: min(11rem, 72vw);
+  padding: 0.4rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.55);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.ep-about-cat-tab:hover {
+  border-color: rgba(139, 92, 246, 0.35);
+}
+
+.ep-about-cat-tab--active {
+  border-color: rgba(167, 139, 250, 0.55);
+  background: rgba(99, 102, 241, 0.14);
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.12);
+}
+
+.ep-about-cat-tab-icon {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 7px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(
+    --icon-gradient,
+    linear-gradient(145deg, rgba(71, 85, 105, 0.48), rgba(51, 65, 85, 0.32))
+  );
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 0 6px var(--icon-glow, rgba(96, 165, 250, 0.2));
+}
+
+.ep-about-cat-tab-icon svg {
+  width: 0.72rem;
+  height: 0.72rem;
+  color: rgba(241, 245, 249, 0.95);
+}
+

@@ -1,0 +1,242 @@
+/* Basic form: availability row with dot */
+.ep-avail-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ep-avail-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.ep-avail-dot--green {
+  background: #22c55e;
+}
+
+.ep-avail-dot--amber {
+  background: #fbbf24;
+}
+
+.ep-avail-dot--slate {
+  background: #64748b;
+}
+
+.ep-basic-media__hint {
+  margin: 0.5rem 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  text-align: center;
+  color: #a8b9d4;
+  letter-spacing: 0.01em;
+}
+
+@media (min-width: 640px) {
+  .ep-basic-media__hint {
+    text-align: left;
+  }
+}
+
+/* —— Basic Information (professional solid layout) —— */
+.ep-basic-file-input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ep-basic-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .ep-basic-form {
+    gap: 1.75rem;
+  }
+}
+
+.ep-basic-avatar-placeholder-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  color: #a5b4fc;
+  opacity: 0.9;
+}
+
+.ep-basic-fields-grid {
+  gap: 1.25rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .ep-basic-fields-grid {
+    gap: 1.25rem 1.75rem;
+  }
+}
+
+/* Basic only: labels + placeholders + counter read a bit brighter */
+.ep-basic-form .ep-field-label {
+  color: #94a3b8;
+  margin-bottom: 0.4rem;
+}
+
+.ep-basic-form .ep-input::placeholder {
+  color: #8b9bb8;
+  opacity: 1;
+}
+
+.ep-basic-counter {
+  font-size: 11px;
+  font-weight: 600;
+  color: #8b9bb8;
+}
+
+.ep-basic-input-icon {
+  color: #818cf8;
+  opacity: 0.9;
+}
+
+.ep-basic-media-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (min-width: 768px) {
+  .ep-basic-media-grid {
+    grid-template-columns: minmax(140px, 220px) minmax(0, 1fr);
+    gap: 1.75rem;
+  }
+}
+
+.ep-basic-label-title {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #f8fafc;
+}
+
+.ep-basic-avatar-ring {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+.ep-basic-banner {
+  min-height: 7.75rem;
+}
+
+.ep-basic-banner__glow {
+  background:
+    radial-gradient(ellipse 120% 80% at 80% 20%, rgba(167, 139, 250, 0.25), transparent 50%),
+    radial-gradient(ellipse 80% 60% at 10% 90%, rgba(99, 102, 241, 0.2), transparent 45%);
+}
+
+.ep-basic-links {
+  padding-top: 0.35rem;
+}
+
+.ep-basic-links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ep-basic-link-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0.65rem;
+}
+
+@media (max-width: 639px) {
+  .ep-basic-link-row:not(.ep-basic-link-row--social) {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem 0.65rem;
+    align-items: center;
+  }
+
+  .ep-basic-link-row:not(.ep-basic-link-row--social) .ep-basic-link-meta {
+    grid-column: 1;
+    grid-row: 1;
+    width: auto;
+    min-width: 0;
+  }
+
+  .ep-basic-link-row:not(.ep-basic-link-row--social) .ep-input {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+  }
+
+  .ep-basic-link-row:not(.ep-basic-link-row--social) .ep-basic-link-remove {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    align-self: center;
+  }
+}
+
+.ep-basic-link-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+  width: 7.25rem;
+}
+
+.ep-basic-link-meta--platform {
+  width: auto;
+  min-width: 11.5rem;
+  max-width: 15rem;
+  flex: 0 1 auto;
+}
+
+.ep-basic-link-row--social {
+  align-items: center;
+}
+
+.ep-basic-link-row--social .ep-basic-link-platform {
+  padding-right: 1.75rem;
+}
+
+@media (max-width: 639px) {
+  .ep-basic-link-row--social {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem 0.65rem;
+    align-items: center;
+  }
+
+  .ep-basic-link-row--social .ep-basic-link-meta--platform {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+  }
+
+  .ep-basic-link-row--social .ep-basic-link-meta--platform .ep-basic-link-platform {
+    width: 100%;
+  }
+
+  .ep-basic-link-row--social .ep-basic-link-url {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+  }
+
+  .ep-basic-link-row--social .ep-basic-link-remove {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    align-self: center;
+  }
+}

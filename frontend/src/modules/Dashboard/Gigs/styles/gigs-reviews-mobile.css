@@ -1,0 +1,198 @@
+/* Gigs Reviews mobile (< 1024px). Desktop layouts unchanged. */
+
+@media (max-width: 1023px) {
+  .gigs-reviews-hero h1 {
+    font-size: 1.35rem !important;
+    color: #fff !important;
+  }
+
+  .gigs-reviews-hero p,
+  .gigs-reviews-page .reviews-head p,
+  .gigs-reviews-page .reviews-score-card span,
+  .gigs-reviews-page .reviews-score-card small,
+  .gigs-reviews-page .reviews-row span,
+  .gigs-reviews-page .reviews-row small,
+  .gigs-reviews-page .reviews-empty,
+  .gigs-reviews-page .reviews-tabs button {
+    color: #e4e4e7 !important;
+    font-weight: 500 !important;
+  }
+
+  .gigs-reviews-page .reviews-head h2,
+  .gigs-reviews-page .reviews-score-card strong,
+  .gigs-reviews-page .reviews-tabs button.is-active {
+    color: #fff !important;
+    font-weight: 700 !important;
+  }
+
+  .gigs-reviews-page {
+    padding: 12px !important;
+    overflow: visible !important;
+  }
+
+  .gigs-reviews-page .reviews-head-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+
+  .gigs-reviews-page .reviews-summary {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 16px !important;
+    grid-template-columns: none !important;
+  }
+
+  .gigs-reviews-page .reviews-score-card,
+  .gigs-reviews-page .reviews-breakdown {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .gigs-reviews-page .reviews-score-card strong {
+    font-size: 36px !important;
+  }
+
+  .gigs-reviews-page .reviews-row {
+    width: 100% !important;
+    grid-template-columns: 52px minmax(0, 1fr) 28px !important;
+  }
+
+  .gigs-reviews-page .reviews-track {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .gigs-reviews-page .reviews-tabs {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    gap: 8px !important;
+    width: 100% !important;
+    padding-bottom: 4px !important;
+    margin-top: 12px !important;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .gigs-reviews-page .reviews-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gigs-reviews-page .reviews-tabs button {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    font-size: 12px !important;
+    padding: 6px 12px !important;
+    min-height: 32px !important;
+  }
+
+  .gigs-reviews-desktop-list {
+    display: none !important;
+  }
+
+  .gigs-reviews-mobile-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 100% !important;
+    margin-top: 12px !important;
+  }
+
+  .gr-m-card {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: 100% !important;
+    padding: 16px !important;
+    border: 1px solid rgba(30, 41, 59, 0.8) !important;
+    border-radius: 12px !important;
+    background: rgba(15, 23, 42, 0.3) !important;
+    box-sizing: border-box !important;
+  }
+
+  .gr-m-user {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .gr-m-av {
+    flex-shrink: 0 !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 999px !important;
+    display: grid !important;
+    place-items: center !important;
+    background: #1e293b !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    color: #fff !important;
+  }
+
+  .gr-m-id {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    min-width: 0 !important;
+    flex: 1 !important;
+  }
+
+  .gr-m-id strong {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    color: #fff !important;
+  }
+
+  .gr-m-comment {
+    margin: 0 !important;
+    font-size: 12px !important;
+    line-height: 1.55 !important;
+    color: #e2e8f0 !important;
+    font-weight: 500 !important;
+    word-break: break-word !important;
+  }
+
+  .gr-m-foot {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    width: 100% !important;
+    margin-top: 4px !important;
+    padding-top: 8px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  }
+
+  .gr-m-gig {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: #e4e4e7 !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  .gr-m-foot time {
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    color: #e4e4e7 !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gigs-reviews-mobile-list {
+    display: none !important;
+  }
+}

@@ -1,0 +1,360 @@
+.public-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: #e2e8f0;
+  background: #020617;
+}
+
+.public-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+  backdrop-filter: blur(12px);
+}
+
+.public-logo {
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  font-size: 0.85rem;
+  color: #38bdf8;
+  text-decoration: none;
+}
+
+.public-header nav {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.public-header a {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.public-cta {
+  color: #0f172a !important;
+  background: #38bdf8;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.public-main {
+  flex: 1;
+  max-width: 1240px;
+  min-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+  overflow-x: auto;
+}
+
+.public-main--wide {
+  max-width: 1240px;
+  min-width: 1100px;
+}
+
+.public-layout {
+  overflow-x: auto;
+}
+
+.public-footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.75rem;
+  color: #64748b;
+  border-top: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.public-showroom-card {
+  margin: 0 auto;
+}
+
+.public-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.public-skill-pill {
+  font-size: 0.72rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  color: #7dd3fc;
+}
+
+.public-links {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.public-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #38bdf8;
+  font-size: 0.85rem;
+}
+
+.public-bio {
+  margin-top: 1.25rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+  max-width: 640px;
+}
+
+.public-verified {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+  color: #34d399;
+  font-size: 0.8rem;
+}
+
+.public-members-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.public-member-chip {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.6rem;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.public-member-chip img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.public-member-chip strong {
+  display: block;
+  font-size: 0.85rem;
+}
+
+.public-member-chip span {
+  font-size: 0.72rem;
+  color: #94a3b8;
+}
+
+.public-gig-showcase h1 {
+  font-size: 1.75rem;
+  font-weight: 900;
+  margin: 0.25rem 0 0.5rem;
+}
+
+.public-gig-category {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #94a3b8;
+}
+
+.public-gig-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.public-seller {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.public-seller img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* Marketplace / portfolio / jobs */
+.public-marketplace,
+.public-portfolio,
+.public-job-board {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  border-radius: 20px;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.public-marketplace__hero h1,
+.public-portfolio h1,
+.public-job-board h1 {
+  font-size: 1.85rem;
+  font-weight: 900;
+  margin: 0.35rem 0 0.75rem;
+  line-height: 1.2;
+}
+
+.public-price {
+  color: #38bdf8;
+  font-weight: 800;
+}
+
+.public-creator-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.public-creator-badge img,
+.public-creator-fallback {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.public-creator-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1e3a5f;
+  font-weight: 800;
+  color: #7dd3fc;
+}
+
+.public-verified-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.72rem;
+  color: #34d399;
+}
+
+.public-marketplace section h2,
+.public-portfolio section h2,
+.public-job-board section h2 {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #94a3b8;
+  margin: 1.25rem 0 0.5rem;
+}
+
+.public-marketplace__cta {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+  text-align: center;
+}
+
+.public-marketplace__cta p {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin-bottom: 0.75rem;
+}
+
+.public-preview-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #38bdf8;
+  font-weight: 700;
+}
+
+.public-member-initials {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #1e3a5f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #7dd3fc;
+}
+
+.public-job-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.public-job-category {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(139, 92, 246, 0.15);
+  color: #c4b5fd;
+}
+
+.public-job-remote {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.72rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(34, 197, 94, 0.12);
+  color: #86efac;
+}
+
+.public-job-salary {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #38bdf8;
+}
+
+.public-requirements {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: #cbd5e1;
+  line-height: 1.7;
+}
+
+.public-skills {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.public-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #94a3b8;
+}
+
+.public-state--error {
+  color: #f87171;
+}

@@ -1,0 +1,132 @@
+.et-post-box {
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 18px 18px 16px;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+.et-post-box__greeting {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.et-post-box__greeting h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  flex: 1;
+}
+
+.et-post-box__trigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.et-post-box__thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #162033;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #dbeafe;
+  font-weight: 700;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.et-post-box__thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.et-post-box__input {
+  flex: 1;
+  background: #1e293b;
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: #94a3b8;
+  font-size: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.et-post-box__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 14px;
+  padding: 6px 0 8px;
+}
+
+.et-post-box__chip {
+  flex: 1 1 108px;
+  min-height: 44px;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+
+.et-post-box__chip:hover {
+  transform: translateY(-1px);
+}
+
+.et-post-box__chip--post {
+  background: #1d4ed8;
+}
+
+.et-post-box__chip--squad {
+  background: #4c1d95;
+}
+
+.et-post-box__chip--project {
+  background: #064e3b;
+}
+
+.et-post-box__chip--win {
+  background: #451a03;
+}
+
+.et-post-box__chip--article {
+  background: linear-gradient(135deg, #6d63f1 0%, #f755c6 100%);
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+  flex: 1 1 140px;
+}
+
+.et-post-box__secondary {
+  display: flex;
+  gap: 24px;
+  padding-top: 12px;
+  margin-top: 2px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.et-post-box__secondary-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}

@@ -1,0 +1,286 @@
+/* Inner preview scroll: follows focused wizard step; thin scrollbar */
+
+.ep-live-preview__card {
+  display: flex;
+  flex-direction: column;
+  max-height: min(calc(100vh - 6.5rem), 52rem);
+  overflow: hidden;
+}
+
+.ep-live-preview__body-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.35) rgba(15, 23, 42, 0.4);
+}
+
+.ep-live-preview__body-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ep-live-preview__body-scroll::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.35);
+  border-radius: 999px;
+}
+
+.ep-live-preview__body-scroll::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.35);
+  border-radius: 999px;
+}
+
+.ep-live-preview__body-scroll [id^='ep-preview-section-'] {
+  scroll-margin-top: 12px;
+}
+
+.ep-live-preview__tagline {
+  margin: 0.35rem 0 0;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #64748b;
+  font-weight: 500;
+  max-width: 14rem;
+}
+
+.ep-live-preview__footer-cta {
+  padding: 0.85rem 1rem 1rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.1);
+  margin-top: 0.25rem;
+}
+
+.ep-live-preview__view-full-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #f5f3ff;
+  background: linear-gradient(135deg, #6366f1 0%, #7c3aed 55%, #5b21b6 100%);
+  border: 1px solid rgba(167, 139, 250, 0.35);
+  box-shadow: 0 8px 24px rgba(91, 33, 182, 0.35);
+  transition:
+    filter 0.15s ease,
+    transform 0.15s ease;
+}
+
+.ep-live-preview__view-full-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+/* Full-width stats under hero (reference) */
+.ep-live-preview__stats-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: rgba(148, 163, 184, 0.12);
+  border-top: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+@media (min-width: 380px) {
+  .ep-live-preview__stats-strip {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.ep-live-preview__stats-strip .ep-live-preview__stat-cell {
+  border: none;
+}
+
+/* Featured projects — 3-up grid (reference thumbnail cards) */
+.ep-live-preview__proj-featured-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.ep-live-preview__proj-view-all {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #818cf8;
+  cursor: default;
+}
+
+.ep-live-preview__proj-featured-grid {
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.ep-live-preview__proj-card-mini {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background: rgba(2, 6, 23, 0.45);
+  overflow: hidden;
+}
+
+.ep-live-preview__proj-card-mini-thumb {
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  background: rgba(30, 41, 59, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-size: 8px;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.ep-live-preview__proj-card-mini-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ep-live-preview__proj-card-mini-body {
+  padding: 0.35rem 0.4rem 0.45rem;
+  min-width: 0;
+}
+
+.ep-live-preview__proj-card-mini-title {
+  margin: 0;
+  font-size: 9px;
+  font-weight: 800;
+  color: #f1f5f9;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ep-live-preview__proj-card-mini-kr {
+  margin: 0.2rem 0 0;
+  font-size: 7px;
+  font-weight: 600;
+  color: #64748b;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ep-live-preview__proj-more-row {
+  margin: 0.45rem 0 0;
+  font-size: 9px;
+  font-weight: 600;
+  color: #64748b;
+  text-align: center;
+}
+
+/* Top skills — compact bars */
+.ep-live-preview__skill-bars {
+  margin: 0.45rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.ep-live-preview__skill-bar {
+  min-width: 0;
+}
+
+.ep-live-preview__skill-bar-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.35rem;
+  margin-bottom: 0.2rem;
+}
+
+.ep-live-preview__skill-bar-name {
+  font-size: 10px;
+  font-weight: 700;
+  color: #e2e8f0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ep-live-preview__skill-bar-pct {
+  font-size: 9px;
+  font-weight: 800;
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+.ep-live-preview__skill-bar-track {
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.12);
+  overflow: hidden;
+}
+
+.ep-live-preview__skill-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 55%, #a78bfa 100%);
+  transition: width 0.35s ease;
+}
+
+.ep-live-preview__niche-row {
+  margin-top: 0.65rem;
+  padding-top: 0.65rem;
+  border-top: 1px dashed rgba(148, 163, 184, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ep-live-preview__niche-row--flush {
+  margin-top: 0.35rem;
+  padding-top: 0;
+  border-top: none;
+}
+
+.ep-live-preview__niche-label {
+  margin: 0;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.ep-live-preview__niche-value {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #cbd5e1;
+}
+
+/* Subtle focus ring when this block matches center scroll step */
+.ep-live-preview__sync-target {
+  transition:
+    box-shadow 0.35s ease,
+    background-color 0.35s ease;
+}
+
+/* Per-step active styling: 23-live-preview-step-accents.css */

@@ -1,0 +1,35 @@
+/* User hub previews — full-width member workspace inside admin shell */
+
+.admin-main--preview {
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+.admin-preview-frame {
+  width: 100%;
+  min-height: calc(100vh - 72px);
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.admin-preview-frame .jobs-page,
+.admin-preview-frame .gigs-page,
+.admin-preview-frame .ph-page,
+.admin-preview-frame .squad-hub {
+  min-height: calc(100vh - 72px);
+}
+
+.agn-monitor__tab.is-preview-active {
+  color: #c4b5fd;
+  border-color: rgba(167, 139, 250, 0.45);
+  box-shadow: 0 0 16px rgba(139, 92, 246, 0.18);
+}
+
+.agn-navbar__hub-switch {
+  flex-shrink: 0;
+}

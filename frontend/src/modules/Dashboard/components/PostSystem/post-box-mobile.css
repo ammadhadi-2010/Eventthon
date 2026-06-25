@@ -1,0 +1,75 @@
+@media (max-width: 1023px) {
+  .et-post-box {
+    padding: 12px 10px 10px;
+    margin-bottom: 8px;
+  }
+
+  .et-post-box__greeting {
+    margin-bottom: 10px;
+    gap: 8px;
+  }
+
+  .et-post-box__greeting h3 {
+    font-size: 14px;
+    line-height: 1.3;
+  }
+
+  .et-post-box__trigger {
+    margin-bottom: 10px;
+  }
+
+  .et-post-box__input {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .et-post-box__actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    margin-bottom: 8px;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .et-post-box__actions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .et-post-box__chip {
+    flex: 0 0 auto;
+    min-height: 30px;
+    padding: 6px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 999px;
+    gap: 4px;
+    line-height: 1;
+  }
+
+  .et-post-box__chip svg {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+  }
+
+  .et-post-box__chip--article {
+    flex: 0 0 auto;
+  }
+
+  .et-post-box__secondary {
+    gap: 12px;
+    padding-top: 8px;
+    margin-top: 0;
+  }
+
+  .et-post-box__secondary-item {
+    font-size: 11px;
+  }
+}

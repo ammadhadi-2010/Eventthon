@@ -1,0 +1,207 @@
+/* Create Job Alert wizard — mobile (< 1024px) */
+
+@media (max-width: 1023px) {
+  .ja-page {
+    padding: 0 !important;
+    overflow-x: hidden;
+  }
+
+  .ja-layout .jobs-layout__rail--left {
+    display: none !important;
+  }
+
+  .ja-layout .jobs-layout__rail--right.ja-rail-right {
+    display: none !important;
+  }
+
+  .ja-layout {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .ja-center {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+
+  .ja-mobile-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    height: 3.5rem;
+    padding: 0 12px;
+    background: #090d16;
+    border-bottom: 1px solid #1e293b;
+    box-sizing: border-box;
+  }
+
+  .ja-mobile-header__back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 1px solid #334155;
+    border-radius: 999px;
+    background: #1e293b;
+    color: #e2e8f0;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .ja-mobile-header__copy {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin-left: 12px;
+  }
+
+  .ja-mobile-header__title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .ja-mobile-header__sub {
+    display: none;
+  }
+
+  .ja-header {
+    display: none !important;
+  }
+
+  .ja-wizard-body {
+    width: 100%;
+    padding: 4rem 12px 5rem;
+    box-sizing: border-box;
+  }
+
+  .ja-auth-banner {
+    margin: 0 0 10px !important;
+    border-radius: 12px !important;
+  }
+
+  .ja-stepper {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    gap: 8px !important;
+    margin-bottom: 12px !important;
+    padding-bottom: 10px !important;
+    scrollbar-width: none;
+  }
+
+  .ja-stepper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ja-step {
+    flex-shrink: 0;
+  }
+
+  .ja-form-scroll {
+    max-height: none !important;
+    overflow: visible !important;
+    padding-right: 0 !important;
+    gap: 12px !important;
+  }
+
+  .ja-panel {
+    padding: 14px 12px !important;
+    border-radius: 12px !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+  }
+
+  .ja-field-row {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+
+  .ja-tag-add-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .ja-tag-add-btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .ja-footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 55;
+    margin: 0 !important;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px)) !important;
+    border-radius: 0 !important;
+    border-top: 1px solid #1e293b !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    background: rgba(9, 13, 22, 0.96) !important;
+    backdrop-filter: blur(10px);
+  }
+
+  .ja-label,
+  .ja-panel__sub,
+  .ja-hint {
+    color: #fff !important;
+    font-weight: 500 !important;
+  }
+
+  .ja-label {
+    font-size: 13px !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    margin-bottom: 4px !important;
+  }
+
+  .ja-panel__sub {
+    font-size: 12px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .ja-input,
+  .ja-select,
+  .ja-textarea {
+    background: #111622 !important;
+    border: 1px solid #1e293b !important;
+    border-radius: 12px !important;
+    padding: 10px 14px !important;
+    color: #fff !important;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+  }
+
+  .ja-input:focus,
+  .ja-select:focus,
+  .ja-textarea:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+    outline: none !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ja-mobile-header {
+    display: none;
+  }
+
+  .ja-wizard-body {
+    padding: 0;
+  }
+}

@@ -1,0 +1,284 @@
+/* Per-step accent colors — center cards, top pills, left rail (data-ep-step). */
+
+/* —— Center form shells —— */
+.ep-form-shell[data-ep-step='basic']:not(.ep-form-shell--step-active) {
+  border-color: rgba(14, 165, 233, 0.14);
+  background: linear-gradient(105deg, rgba(14, 165, 233, 0.08), rgba(15, 23, 42, 0.35) 52%);
+}
+.ep-form-shell[data-ep-step='basic'].ep-form-shell--step-active {
+  border-color: rgba(14, 165, 233, 0.45) !important;
+  box-shadow:
+    0 0 0 1px rgba(14, 165, 233, 0.3),
+    0 22px 50px rgba(0, 0, 0, 0.38),
+    0 0 56px -14px rgba(14, 165, 233, 0.28) !important;
+}
+.ep-form-shell[data-ep-step='basic'] .ep-form-shell__step-kicker {
+  color: #7dd3fc;
+}
+
+.ep-form-shell[data-ep-step='about']:not(.ep-form-shell--step-active) {
+  border-color: rgba(139, 92, 246, 0.14);
+  background: linear-gradient(105deg, rgba(139, 92, 246, 0.09), rgba(15, 23, 42, 0.35) 52%);
+}
+.ep-form-shell[data-ep-step='about'].ep-form-shell--step-active {
+  border-color: rgba(139, 92, 246, 0.48) !important;
+  box-shadow:
+    0 0 0 1px rgba(139, 92, 246, 0.32),
+    0 22px 50px rgba(0, 0, 0, 0.38),
+    0 0 56px -14px rgba(139, 92, 246, 0.28) !important;
+}
+.ep-form-shell[data-ep-step='about'] .ep-form-shell__step-kicker {
+  color: #c4b5fd;
+}
+
+.ep-form-shell[data-ep-step='experience']:not(.ep-form-shell--step-active) {
+  border-color: rgba(245, 158, 11, 0.16);
+  background: linear-gradient(105deg, rgba(245, 158, 11, 0.08), rgba(15, 23, 42, 0.35) 52%);
+}
+.ep-form-shell[data-ep-step='experience'].ep-form-shell--step-active {
+  border-color: rgba(245, 158, 11, 0.5) !important;
+  box-shadow:
+    0 0 0 1px rgba(245, 158, 11, 0.32),
+    0 22px 50px rgba(0, 0, 0, 0.38),
+    0 0 56px -14px rgba(245, 158, 11, 0.22) !important;
+}
+.ep-form-shell[data-ep-step='experience'] .ep-form-shell__step-kicker {
+  color: #fcd34d;
+}
+
+.ep-form-shell[data-ep-step='projects']:not(.ep-form-shell--step-active) {
+  border-color: rgba(16, 185, 129, 0.14);
+  background: linear-gradient(105deg, rgba(16, 185, 129, 0.08), rgba(15, 23, 42, 0.35) 52%);
+}
+.ep-form-shell[data-ep-step='projects'].ep-form-shell--step-active {
+  border-color: rgba(16, 185, 129, 0.48) !important;
+  box-shadow:
+    0 0 0 1px rgba(16, 185, 129, 0.3),
+    0 22px 50px rgba(0, 0, 0, 0.38),
+    0 0 56px -14px rgba(16, 185, 129, 0.24) !important;
+}
+.ep-form-shell[data-ep-step='projects'] .ep-form-shell__step-kicker {
+  color: #6ee7b7;
+}
+
+.ep-form-shell[data-ep-step='skills']:not(.ep-form-shell--step-active) {
+  border-color: rgba(217, 70, 239, 0.16);
+  background: linear-gradient(105deg, rgba(217, 70, 239, 0.09), rgba(15, 23, 42, 0.35) 52%);
+}
+.ep-form-shell[data-ep-step='skills'].ep-form-shell--step-active {
+  border-color: rgba(217, 70, 239, 0.5) !important;
+  box-shadow:
+    0 0 0 1px rgba(217, 70, 239, 0.32),
+    0 22px 50px rgba(0, 0, 0, 0.38),
+    0 0 56px -14px rgba(217, 70, 239, 0.26) !important;
+}
+.ep-form-shell[data-ep-step='skills'] .ep-form-shell__step-kicker {
+  color: #f0abfc;
+}
+
+.ep-form-shell[data-ep-step='identity']:not(.ep-form-shell--step-active) {
+  border-color: rgba(45, 212, 191, 0.16);
+  background: linear-gradient(105deg, rgba(45, 212, 191, 0.08), rgba(15, 23, 42, 0.35) 52%);
+}
+.ep-form-shell[data-ep-step='identity'].ep-form-shell--step-active {
+  border-color: rgba(45, 212, 191, 0.48) !important;
+  box-shadow:
+    0 0 0 1px rgba(45, 212, 191, 0.3),
+    0 22px 50px rgba(0, 0, 0, 0.38),
+    0 0 56px -14px rgba(45, 212, 191, 0.24) !important;
+}
+.ep-form-shell[data-ep-step='identity'] .ep-form-shell__step-kicker {
+  color: #5eead4;
+}
+
+.ep-form-shell[data-ep-step='preferences']:not(.ep-form-shell--step-active) {
+  border-color: rgba(99, 102, 241, 0.14);
+  background: linear-gradient(105deg, rgba(99, 102, 241, 0.09), rgba(15, 23, 42, 0.35) 52%);
+}
+.ep-form-shell[data-ep-step='preferences'].ep-form-shell--step-active {
+  border-color: rgba(99, 102, 241, 0.48) !important;
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.32),
+    0 22px 50px rgba(0, 0, 0, 0.38),
+    0 0 56px -14px rgba(99, 102, 241, 0.26) !important;
+}
+.ep-form-shell[data-ep-step='preferences'] .ep-form-shell__step-kicker {
+  color: #a5b4fc;
+}
+
+/* —— Top step pills —— */
+.ep-step-pill[data-ep-step='basic'] {
+  border-color: rgba(14, 165, 233, 0.22);
+}
+.ep-step-pill[data-ep-step='basic'].ep-step-pill--active {
+  border-color: rgba(14, 165, 233, 0.62);
+  background: rgba(14, 165, 233, 0.22);
+  color: #e0f2fe;
+}
+.ep-step-pill[data-ep-step='basic'].ep-step-pill--active .ep-step-pill__num {
+  color: #38bdf8;
+}
+
+.ep-step-pill[data-ep-step='about'] {
+  border-color: rgba(139, 92, 246, 0.22);
+}
+.ep-step-pill[data-ep-step='about'].ep-step-pill--active {
+  border-color: rgba(139, 92, 246, 0.62);
+  background: rgba(139, 92, 246, 0.22);
+  color: #ede9fe;
+}
+.ep-step-pill[data-ep-step='about'].ep-step-pill--active .ep-step-pill__num {
+  color: #c4b5fd;
+}
+
+.ep-step-pill[data-ep-step='experience'] {
+  border-color: rgba(245, 158, 11, 0.24);
+}
+.ep-step-pill[data-ep-step='experience'].ep-step-pill--active {
+  border-color: rgba(245, 158, 11, 0.62);
+  background: rgba(245, 158, 11, 0.18);
+  color: #fffbeb;
+}
+.ep-step-pill[data-ep-step='experience'].ep-step-pill--active .ep-step-pill__num {
+  color: #fbbf24;
+}
+
+.ep-step-pill[data-ep-step='projects'] {
+  border-color: rgba(16, 185, 129, 0.22);
+}
+.ep-step-pill[data-ep-step='projects'].ep-step-pill--active {
+  border-color: rgba(16, 185, 129, 0.6);
+  background: rgba(16, 185, 129, 0.18);
+  color: #ecfdf5;
+}
+.ep-step-pill[data-ep-step='projects'].ep-step-pill--active .ep-step-pill__num {
+  color: #34d399;
+}
+
+.ep-step-pill[data-ep-step='skills'] {
+  border-color: rgba(217, 70, 239, 0.24);
+}
+.ep-step-pill[data-ep-step='skills'].ep-step-pill--active {
+  border-color: rgba(217, 70, 239, 0.62);
+  background: rgba(217, 70, 239, 0.2);
+  color: #fae8ff;
+}
+.ep-step-pill[data-ep-step='skills'].ep-step-pill--active .ep-step-pill__num {
+  color: #e879f9;
+}
+
+.ep-step-pill[data-ep-step='identity'] {
+  border-color: rgba(45, 212, 191, 0.24);
+}
+.ep-step-pill[data-ep-step='identity'].ep-step-pill--active {
+  border-color: rgba(45, 212, 191, 0.58);
+  background: rgba(45, 212, 191, 0.16);
+  color: #ccfbf1;
+}
+.ep-step-pill[data-ep-step='identity'].ep-step-pill--active .ep-step-pill__num {
+  color: #2dd4bf;
+}
+
+.ep-step-pill[data-ep-step='preferences'] {
+  border-color: rgba(99, 102, 241, 0.22);
+}
+.ep-step-pill[data-ep-step='preferences'].ep-step-pill--active {
+  border-color: rgba(99, 102, 241, 0.62);
+  background: rgba(99, 102, 241, 0.22);
+  color: #e0e7ff;
+}
+.ep-step-pill[data-ep-step='preferences'].ep-step-pill--active .ep-step-pill__num {
+  color: #a5b4fc;
+}
+
+/* —— Left rail active step —— */
+.ep-left-rail__step[data-ep-step='basic'].ep-left-rail__step--active {
+  background: rgba(14, 165, 233, 0.18);
+  border-color: rgba(14, 165, 233, 0.42);
+  box-shadow: 0 0 0 1px rgba(14, 165, 233, 0.12);
+}
+.ep-left-rail__step[data-ep-step='basic'].ep-left-rail__step--active .ep-left-rail__step-num {
+  background: #0ea5e9;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.45);
+}
+.ep-left-rail__step[data-ep-step='basic'].ep-left-rail__step--active .ep-left-rail__step-hint {
+  color: #7dd3fc;
+}
+
+.ep-left-rail__step[data-ep-step='about'].ep-left-rail__step--active {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.45);
+  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.12);
+}
+.ep-left-rail__step[data-ep-step='about'].ep-left-rail__step--active .ep-left-rail__step-num {
+  background: #8b5cf6;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.45);
+}
+.ep-left-rail__step[data-ep-step='about'].ep-left-rail__step--active .ep-left-rail__step-hint {
+  color: #c4b5fd;
+}
+
+.ep-left-rail__step[data-ep-step='experience'].ep-left-rail__step--active {
+  background: rgba(245, 158, 11, 0.16);
+  border-color: rgba(245, 158, 11, 0.48);
+  box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.12);
+}
+.ep-left-rail__step[data-ep-step='experience'].ep-left-rail__step--active .ep-left-rail__step-num {
+  background: #d97706;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+.ep-left-rail__step[data-ep-step='experience'].ep-left-rail__step--active .ep-left-rail__step-hint {
+  color: #fcd34d;
+}
+
+.ep-left-rail__step[data-ep-step='projects'].ep-left-rail__step--active {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: rgba(16, 185, 129, 0.42);
+  box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.12);
+}
+.ep-left-rail__step[data-ep-step='projects'].ep-left-rail__step--active .ep-left-rail__step-num {
+  background: #059669;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+.ep-left-rail__step[data-ep-step='projects'].ep-left-rail__step--active .ep-left-rail__step-hint {
+  color: #6ee7b7;
+}
+
+.ep-left-rail__step[data-ep-step='skills'].ep-left-rail__step--active {
+  background: rgba(217, 70, 239, 0.18);
+  border-color: rgba(217, 70, 239, 0.45);
+  box-shadow: 0 0 0 1px rgba(217, 70, 239, 0.12);
+}
+.ep-left-rail__step[data-ep-step='skills'].ep-left-rail__step--active .ep-left-rail__step-num {
+  background: #c026d3;
+  box-shadow: 0 4px 12px rgba(217, 70, 239, 0.4);
+}
+.ep-left-rail__step[data-ep-step='skills'].ep-left-rail__step--active .ep-left-rail__step-hint {
+  color: #f0abfc;
+}
+
+.ep-left-rail__step[data-ep-step='identity'].ep-left-rail__step--active {
+  background: rgba(45, 212, 191, 0.14);
+  border-color: rgba(45, 212, 191, 0.42);
+  box-shadow: 0 0 0 1px rgba(45, 212, 191, 0.12);
+}
+.ep-left-rail__step[data-ep-step='identity'].ep-left-rail__step--active .ep-left-rail__step-num {
+  background: #0d9488;
+  box-shadow: 0 4px 12px rgba(45, 212, 191, 0.4);
+}
+.ep-left-rail__step[data-ep-step='identity'].ep-left-rail__step--active .ep-left-rail__step-hint {
+  color: #5eead4;
+}
+
+.ep-left-rail__step[data-ep-step='preferences'].ep-left-rail__step--active {
+  background: rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.45);
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.12);
+}
+.ep-left-rail__step[data-ep-step='preferences'].ep-left-rail__step--active .ep-left-rail__step-num {
+  background: #6366f1;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.45);
+}
+.ep-left-rail__step[data-ep-step='preferences'].ep-left-rail__step--active .ep-left-rail__step-hint {
+  color: #a5b4fc;
+}

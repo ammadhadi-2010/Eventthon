@@ -1,0 +1,193 @@
+/* View All lists — mobile shell, LinkedIn top bar, scroll-hide chrome, contrast */
+
+@media (max-width: 1023px) {
+  .et-app-shell:has(.pnet-mobile-shell) .et-top-nav {
+    display: none !important;
+  }
+
+  .et-app-shell:has(.pnet-mobile-shell) .et-main-inner {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .et-app-shell:has(.pnet-mobile-shell) .et-footer {
+    display: none !important;
+  }
+
+  .et-app-shell:has(.pnet-mobile-shell) .et-hub-pin-wrap {
+    min-height: 0;
+  }
+
+  .pnet-mobile-shell {
+    padding-top: var(--hub-mobile-topbar-h, 3.5rem);
+  }
+
+  .pnet-root {
+    grid-template-columns: 1fr;
+    padding: 0.65rem 0 2rem;
+    gap: 0;
+  }
+
+  .pnet-main {
+    overflow: visible;
+    padding: 0.5rem 1rem 1.25rem;
+    border-radius: 14px;
+    margin: 0 0.65rem;
+  }
+
+  .pnet-chrome {
+    position: sticky;
+    top: var(--hub-mobile-topbar-h, 3.5rem);
+    z-index: 45;
+    margin: 0 0 0.75rem;
+    padding: 0.75rem 0 0.6rem;
+    background: rgba(8, 10, 18, 0.96);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: transform 0.3s ease, opacity 0.25s ease;
+  }
+
+  .pnet-chrome--hidden {
+    transform: translateY(-110%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .pnet-main__title {
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #f8fafc;
+  }
+
+  .pnet-main__sub {
+    font-size: 11px;
+    line-height: 1.45;
+    color: #e2e8f0;
+  }
+
+  .pnet-toolbar {
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .pnet-search--inline {
+    display: none;
+  }
+
+  .pnet-filter {
+    flex-shrink: 0;
+    border-radius: 999px;
+    padding: 0.5rem 0.75rem;
+    white-space: nowrap;
+    color: #e2e8f0;
+  }
+
+  .pnet-list {
+    border-radius: 12px;
+  }
+
+  .pnet-user-card__name {
+    font-size: 13px;
+    color: #f8fafc;
+    word-break: break-word;
+  }
+
+  .pnet-user-card__squad,
+  .pnet-user-card__stats {
+    font-size: 11px;
+    line-height: 1.4;
+    color: #cbd5e1;
+    word-break: break-word;
+  }
+
+  .pnet-user-card__title {
+    font-size: 11px;
+    color: #93c5fd;
+  }
+
+  .pnet-user-card__status {
+    color: #cbd5e1;
+  }
+
+  .pnet-footer__summary {
+    color: #e2e8f0;
+  }
+
+  .pnet-status {
+    color: #cbd5e1;
+  }
+
+  .pnet-user-card {
+    grid-template-columns: 44px minmax(0, 1fr);
+    grid-template-areas:
+      'av mid'
+      'actions actions';
+    gap: 0.5rem 0.65rem;
+    padding: 0.75rem 0.5rem;
+  }
+
+  .pnet-user-card__av {
+    grid-area: av;
+    width: 44px;
+    height: 44px;
+  }
+
+  .pnet-user-card__mid {
+    grid-area: mid;
+    min-width: 0;
+  }
+
+  .pnet-user-card__actions {
+    grid-area: actions;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  .pnet-footer {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    padding-bottom: 5rem;
+  }
+
+  .pnet-footer__pager {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pnet-mobile-shell {
+    padding-top: 0 !important;
+  }
+
+  .pnet-mobile-chrome {
+    display: none !important;
+  }
+
+  .pnet-nav-rail {
+    display: block;
+  }
+
+  .pnet-chrome {
+    position: sticky;
+    top: 0;
+    z-index: 45;
+    margin-bottom: 0.85rem;
+    padding-bottom: 0.15rem;
+    background: linear-gradient(180deg, rgba(18, 22, 36, 0.98) 70%, transparent);
+    transition: transform 0.3s ease, opacity 0.25s ease;
+  }
+
+  .pnet-chrome--hidden {
+    transform: translateY(-110%);
+    opacity: 0;
+    pointer-events: none;
+  }
+}

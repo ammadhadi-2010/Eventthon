@@ -1,0 +1,201 @@
+﻿
+.jh-assess-grid,
+.jh-companies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.jh-assess-card__badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: #e9d5ff;
+  background: rgba(124, 58, 237, 0.28);
+  border-radius: 999px;
+  padding: 2px 8px;
+  margin-bottom: 8px;
+}
+
+.jh-assess-card h3,
+.jh-company-card h3,
+.jh-prep-card h3,
+.jh-salary-card h3 {
+  margin: 0 0 6px;
+  font-size: 14px;
+  color: #f1f5f9;
+}
+
+.jh-assess-card p,
+.jh-company-card p,
+.jh-prep-card p {
+  margin: 0 0 12px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.jh-company-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.jh-company-card strong {
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.jh-prep-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.jh-prep-card__head span {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.jh-prep-card__bar {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  margin: 10px 0 4px;
+}
+
+.jh-prep-card__bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #4f46e5, #7c3aed);
+}
+
+.jh-prep-card small {
+  display: block;
+  font-size: 11px;
+  color: #64748b;
+  margin-bottom: 10px;
+}
+
+.jh-salary-card__head p {
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.jh-salary-card__bands {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.jh-salary-card__bands div {
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.jh-salary-card__bands span {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  margin-bottom: 4px;
+}
+
+.jh-salary-card__bands strong {
+  font-size: 16px;
+  color: #f1f5f9;
+}
+
+.jh-settings-card {
+  padding: 16px;
+}
+
+.jh-settings-card h3 {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: #f1f5f9;
+}
+
+.jh-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  color: #cbd5e1;
+}
+
+.jh-settings-row + .jh-settings-row {
+  margin-top: 10px;
+}
+
+.jh-side-empty {
+  margin: 0;
+  font-size: 12px;
+  color: #8ea2bf;
+}
+
+.jh-side-empty-pill {
+  font-size: 11px;
+  color: #8ea2bf;
+}
+
+.jh-app-status--applied {
+  color: #93c5fd !important;
+}
+
+.jh-app-status--review {
+  color: #22c55e !important;
+}
+
+.jh-app-status--interview {
+  color: #f59e0b !important;
+}
+
+.jh-app-status--assessment {
+  color: #c4b5fd !important;
+}
+
+/* Skill Assessment */
+.jh-assess-panel {
+  padding: 18px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.jh-assess-panel__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.jh-assess-panel__header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.jh-assess-panel__header p {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.jh-assess-panel__cta {
+  width: auto;
+  min-height: 36px;
+  margin-top: 0;
+  padding: 0 18px;
+}

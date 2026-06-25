@@ -1,0 +1,67 @@
+/* Job board — inline search + stats swipe lane */
+
+.ps-jb-search--inline {
+  margin-bottom: 0.85rem;
+}
+
+.ps-jb-search__box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #0d1321;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.ps-jb-search__box .ps-jb-search__icon {
+  flex-shrink: 0;
+  margin-left: 6px;
+  color: #64748b;
+}
+
+.ps-jb-search__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 0.9rem;
+  outline: none;
+  padding: 10px 8px;
+  padding-right: 6.5rem;
+}
+
+.ps-jb-search__input::placeholder {
+  color: #64748b;
+}
+
+.ps-jb-search__submit {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: calc(100% - 16px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #8b5cf6;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: background 0.15s ease, filter 0.15s ease;
+}
+
+.ps-jb-search__submit:hover {
+  background: #7c3aed;
+  filter: brightness(1.05);
+}

@@ -1,0 +1,129 @@
+/* Profile review — attachment cards grid */
+
+.upr-attachments {
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 23, 42, 0.4);
+}
+
+.upr-attachments__title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  color: #f1f5f9;
+}
+
+.upr-attachments__hint {
+  margin: 4px 0 12px;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.upr-attachments__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  max-height: min(62vh, 560px);
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+}
+
+@media (max-width: 520px) {
+  .upr-attachments__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.upr-attachments--empty .upr-attachments__placeholder {
+  margin-top: 12px;
+  padding: 28px 16px;
+  border-radius: 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  text-align: center;
+  color: #64748b;
+}
+
+.upr-attachments__placeholder p {
+  margin: 8px 0 0;
+  font-size: 12px;
+}
+
+.upr-attachment-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.upr-attachment-card__preview {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: #020617;
+}
+
+.upr-attachment-card__preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 6px;
+}
+
+.upr-attachment-card__doc {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.upr-attachment-card__label {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  right: 8px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #f8fafc;
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.upr-attachment-card__actions {
+  display: flex;
+  gap: 6px;
+  padding: 8px;
+}
+
+.upr-attachment-card__btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #fff;
+  background: #4f46e5;
+}
+
+.upr-attachment-card__btn--ghost {
+  background: rgba(255, 255, 255, 0.06);
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}

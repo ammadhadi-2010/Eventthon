@@ -1,0 +1,224 @@
+/* View Full Profile — Reviews & Ratings mobile cards (< 1024px) */
+
+@media (max-width: 1023px) {
+  .vfps-reviews-count,
+  .vfps-dist-row,
+  .vfps-dist-pct,
+  .vfps-r-project,
+  .vfps-r-when {
+    color: #e4e4e7 !important;
+    font-weight: 500 !important;
+  }
+
+  .vfps-reviews-body {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .vfps-review-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+
+  .vfps-review-item.review-card--list {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    width: 100% !important;
+    padding: 16px !important;
+    margin: 0 !important;
+    border: 1px solid #1e293b !important;
+    border-radius: 12px !important;
+    background: rgba(15, 23, 42, 0.6) !important;
+    border-top: 1px solid #1e293b !important;
+  }
+
+  .vfps-review-item .review-card__avatar {
+    width: 40px !important;
+    height: 40px !important;
+    align-self: flex-start !important;
+  }
+
+  .vfps-review-item .review-card__body {
+    width: 100% !important;
+    flex: none !important;
+  }
+
+  .vfps-review-item .review-card__head {
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+
+  .vfps-review-item .review-card__name {
+    color: #fff !important;
+    font-size: 13px !important;
+  }
+
+  .vfps-review-item .review-card__date {
+    color: #e4e4e7 !important;
+    font-weight: 500 !important;
+  }
+
+  .vfps-review-item .review-card__comment {
+    order: 1 !important;
+    display: block !important;
+    width: 100% !important;
+    margin-top: 8px !important;
+    font-size: 12px !important;
+    line-height: 1.65 !important;
+    color: #fff !important;
+    font-weight: 500 !important;
+  }
+
+  .vfps-review-item .review-card__footer {
+    order: 2 !important;
+    width: 100% !important;
+    margin-top: 8px !important;
+    padding-top: 10px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+
+  .vfps-review-item .review-card__service {
+    color: #e4e4e7 !important;
+    font-size: 11px !important;
+  }
+
+  .vfps-review-item .review-card__reply {
+    display: inline-flex !important;
+    color: #fff !important;
+    font-size: 11px !important;
+  }
+
+  /* ── HIGH CONTRAST: All dim text → bright ── */
+  .vfps-maincol .text-slate-400,
+  .vfps-maincol .text-slate-500,
+  .vfps-maincol .text-zinc-500,
+  .vfps-maincol .text-gray-500 {
+    color: #e4e7f0 !important;
+    font-weight: 500 !important;
+  }
+
+  .vfps-muted {
+    color: #e4e7f0 !important;
+    font-weight: 500 !important;
+  }
+
+  .vfps-exp-period,
+  .vfps-exp-co,
+  .vfps-exp-desc,
+  .vfps-project-desc,
+  .vfps-project-meta {
+    color: #e4e7f0 !important;
+    font-weight: 500 !important;
+  }
+
+  /* ── EXPERIENCE: card conversion ── */
+  .vfps-exp-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+
+  .vfps-exp-item {
+    background: rgba(15, 23, 42, 0.6) !important;
+    border: 1px solid #1e293b !important;
+    border-radius: 12px !important;
+    padding: 14px !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .vfps-exp-row {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  .vfps-exp-head {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+  }
+
+  .vfps-exp-role {
+    color: #fff !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+  }
+
+  /* ── FEATURED PROJECTS: card conversion ── */
+  .vfps-projects {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+  }
+
+  .vfps-project {
+    background: rgba(15, 23, 42, 0.6) !important;
+    border: 1px solid #1e293b !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    width: 100% !important;
+  }
+
+  .vfps-project-thumb {
+    height: 120px !important;
+    width: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .vfps-project-body {
+    padding: 12px !important;
+  }
+
+  .vfps-project-title {
+    color: #fff !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+  }
+
+  /* ── SKILLS + PERFORMANCE ── */
+  .vfps-perf {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+
+  .vfps-perf-item {
+    background: rgba(15, 23, 42, 0.6) !important;
+    border: 1px solid #1e293b !important;
+    border-radius: 10px !important;
+    padding: 10px !important;
+    text-align: center !important;
+  }
+
+  .vfps-perf-val {
+    color: #fff !important;
+    font-size: 18px !important;
+    font-weight: 800 !important;
+  }
+
+  .vfps-perf-lab {
+    color: #e4e7f0 !important;
+    font-size: 11px !important;
+    margin-top: 2px !important;
+  }
+
+  /* ── RATING DISTRIBUTION ── */
+  .vfps-dist-label,
+  .vfps-reviews-num {
+    color: #fff !important;
+    font-weight: 700 !important;
+  }
+
+  .vfps-dist-fill {
+    background: #6366f1 !important;
+  }
+}

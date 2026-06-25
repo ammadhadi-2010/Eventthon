@@ -1,0 +1,133 @@
+/* Company dashboard — mobile stack + brighter muted labels */
+
+.cp-dashboard .cp-hero__stat dt {
+  color: #e2e8f0;
+}
+
+.cp-dashboard .cp-hero__desc {
+  color: #cbd5e1;
+}
+
+.cp-dashboard .cp-hero__meta {
+  color: #c7d2fe;
+}
+
+.cp-dashboard .cp-job-card footer,
+.cp-dashboard .cp-job-tags span {
+  color: #cbd5e1;
+}
+
+.cp-dashboard .cp-applicant-row span,
+.cp-dashboard .cp-applicant-meta em {
+  color: #cbd5e1;
+}
+
+.cp-dashboard .cp-analytics-item p,
+.cp-dashboard .cp-donut__center span,
+.cp-dashboard .cp-empty,
+.cp-dashboard .cp-donut-legend li {
+  color: #cbd5e1;
+}
+
+@media (max-width: 1023px) {
+  .cp-dashboard {
+    gap: 12px;
+  }
+
+  .cp-dashboard .cp-hero__shell {
+    border-radius: 14px;
+  }
+
+  .cp-dashboard .cp-hero__cover {
+    height: 7.5rem;
+  }
+
+  .cp-dashboard .cp-hero__panel {
+    padding: 12px 14px 16px;
+    margin-top: -2.25rem;
+  }
+
+  .cp-dashboard .cp-hero__top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .cp-dashboard .cp-hero__logo {
+    width: 64px;
+    height: 64px;
+  }
+
+  .cp-dashboard .cp-hero__title-row h1 {
+    font-size: 1.25rem;
+  }
+
+  .cp-dashboard .cp-hero__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 14px;
+    padding-top: 12px;
+  }
+
+  .cp-dashboard .cp-section {
+    padding: 14px;
+  }
+
+  .cp-dashboard .cp-mid-row,
+  .cp-dashboard .cp-bottom-row {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .cp-dashboard .cp-donut-wrap {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .cp-dashboard .cp-donut-legend {
+    width: 100%;
+  }
+
+  .cp-dashboard .cp-analytics-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .cp-dashboard .cp-jobs-track {
+    grid-auto-columns: minmax(85%, 1fr);
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cp-dashboard .cp-job-card {
+    scroll-snap-align: start;
+  }
+
+  .cp-dashboard .cp-applicant-row {
+    grid-template-columns: 40px 1fr;
+    grid-template-rows: auto auto;
+    gap: 8px 10px;
+  }
+
+  .cp-dashboard .cp-applicant-meta {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .cp-dashboard .cp-section__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cp-dashboard .cp-hero__stats {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,34 @@
+@media (max-width: 640px) {
+  .fs-page {
+    padding: 8px 10px 28px;
+  }
+
+  .fs-card {
+    padding: 18px 16px;
+    border-radius: 16px;
+  }
+
+  .fs-hero {
+    padding: 18px 8px 4px;
+  }
+
+  .fs-engage {
+    padding: 14px 12px;
+    border-radius: 16px;
+  }
+
+  .fs-engage__meta {
+    width: 100%;
+    margin-left: 0;
+    justify-content: flex-start;
+  }
+
+  .fs-comment-form__row {
+    flex-direction: column;
+  }
+
+  .fs-comment-form__submit {
+    width: 100%;
+    justify-content: center;
+  }
+}

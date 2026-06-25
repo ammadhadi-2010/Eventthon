@@ -1,0 +1,204 @@
+﻿
+.gigx-meta-chip.gigx-meta-squad {
+  border-color: rgba(129, 140, 248, 0.35);
+  color: #e0e7ff;
+}
+
+.gigx-meta-muted {
+  margin-left: 6px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.gigx-html-desc {
+  margin-top: 10px;
+  color: #cbd5e1;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.gigx-html-desc p {
+  margin: 0 0 0.75rem;
+}
+
+.gigx-html-desc ul {
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+.gigx-addons-wrap {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(148, 163, 184, 0.2);
+}
+
+.gigx-addons-wrap h4 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: #e0e7ff;
+}
+
+.gigx-addon-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.gigx-addon-chip {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(79, 70, 229, 0.2);
+  border: 1px solid rgba(129, 140, 248, 0.3);
+  color: #dbeafe;
+}
+
+.gigx-packages-addons-note {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: #8ba3c7;
+  line-height: 1.45;
+}
+
+.gigx-addon-sidebar-list {
+  margin: 10px 0 0;
+  padding: 0 0 0 18px;
+  color: #cbd5e1;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gigx-left-squad {
+  margin-left: 8px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #c7d2fe;
+  border: 1px solid rgba(129, 140, 248, 0.45);
+}
+
+.orders-detail-head {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.orders-detail-head h3 {
+  margin: 0;
+  font-size: 17px;
+  color: #e5eeff;
+}
+
+.orders-detail-head p {
+  margin: 0;
+  font-size: 11px;
+  color: #8ea2bf;
+}
+
+.gigx-shell {
+  max-width: 1620px;
+  margin: 20px auto 32px;
+  padding: 22px 26px;
+  border-radius: 20px !important;
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.14),
+    0 28px 56px -16px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 100px -30px rgba(79, 70, 229, 0.2);
+}
+
+.gigx-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+.gigx-back {
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.65);
+  color: #e2e8f0;
+  min-height: 44px;
+  padding: 0 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.gigx-back:hover {
+  border-color: rgba(129, 140, 248, 0.45);
+  background: rgba(79, 70, 229, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.gigx-search-fake {
+  min-height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(12, 22, 40, 0.95), rgba(8, 15, 30, 0.9));
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  font-size: 14px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.gigx-search-live {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 6px 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(12, 22, 40, 0.95), rgba(8, 15, 30, 0.9));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.gigx-search-live-icon {
+  color: #818cf8;
+  flex-shrink: 0;
+}
+
+.gigx-search-live-input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: #e2e8f0;
+  font-size: 14px;
+  outline: none;
+}
+
+.gigx-search-live-input::placeholder {
+  color: #94a3b8;
+}
+
+.gigx-search-live-btn {
+  flex-shrink: 0;
+  min-height: 36px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(129, 140, 248, 0.45);
+  background: rgba(79, 70, 229, 0.22);
+  color: #e0e7ff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}

@@ -1,0 +1,104 @@
+/* Lead Hunter — discovery grid, actions, load highlight */
+
+.lh-action-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+@media (min-width: 640px) {
+  .lh-action-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.lh-input--pulse {
+  border-color: rgba(52, 211, 153, 0.75) !important;
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.2);
+  animation: lh-input-pulse 1.1s ease-in-out 2;
+}
+
+@keyframes lh-input-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(52, 211, 153, 0.34);
+  }
+}
+
+.lh-discovery {
+  margin-bottom: 16px;
+}
+
+.lh-discovery-scroll {
+  overflow-x: auto;
+}
+
+.lh-discovery-table {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.lh-discovery-table th,
+.lh-discovery-table td {
+  padding: 11px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.lh-discovery-table th {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.lh-discovery-table td {
+  color: #e2e8f0;
+}
+
+.lh-discovery-link {
+  color: #38bdf8;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.lh-discovery-link:hover {
+  text-decoration: underline;
+}
+
+.lh-load-btn {
+  white-space: nowrap;
+  font-size: 11px;
+  padding: 7px 10px;
+}
+
+.lh-discovery-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 88px;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  font-size: 12px;
+  text-align: center;
+}
+
+.lh-spin {
+  animation: lh-spin 0.9s linear infinite;
+}
+
+@keyframes lh-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

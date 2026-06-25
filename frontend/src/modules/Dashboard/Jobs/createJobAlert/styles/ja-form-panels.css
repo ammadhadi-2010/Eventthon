@@ -1,0 +1,136 @@
+/* Form panels */
+.ja-form-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: min(62vh, 640px);
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+}
+
+.ja-panel--preview {
+  padding: 16px;
+}
+
+.ja-panel--preview .jpw-shell {
+  margin-top: 4px;
+}
+
+.ja-form-scroll:has(.ja-panel--preview) {
+  max-height: none;
+}
+
+.ja-panel {
+  background: linear-gradient(165deg, rgba(22, 28, 45, 0.92), rgba(12, 15, 24, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 18px 18px 20px;
+}
+
+.ja-panel__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.ja-panel__sub {
+  margin: 6px 0 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #f8fafc;
+  line-height: 1.45;
+}
+
+.ja-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.ja-field:last-child {
+  margin-bottom: 0;
+}
+
+.ja-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  .ja-field-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ja-panel .jobs-category-picker {
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.45);
+  overflow: hidden;
+}
+
+.ja-panel .jobs-category-picker__list {
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.ja-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0;
+}
+
+.ja-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.ja-salary-val {
+  font-size: 12px;
+  font-weight: 800;
+  color: #a5b4fc;
+}
+
+.ja-input {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 42px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid #1e293b;
+  background: linear-gradient(165deg, rgba(17, 22, 34, 0.95), rgba(13, 19, 33, 0.98));
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ja-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2), 0 0 20px rgba(59, 130, 246, 0.12);
+}
+
+.ja-input::placeholder {
+  color: #64748b;
+}
+
+.ja-textarea {
+  min-height: 108px;
+  padding: 10px 12px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.ja-textarea::placeholder {
+  color: #64748b;
+  line-height: 1.45;
+}

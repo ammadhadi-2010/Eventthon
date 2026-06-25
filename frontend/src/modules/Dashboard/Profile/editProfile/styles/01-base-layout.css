@@ -1,0 +1,162 @@
+/* Scoped edit-profile wizard — dark glass + violet accent */
+
+.ep-page-header {
+  gap: 1rem;
+}
+
+.ep-root {
+  --ep-bg: #0b0e14;
+  --ep-panel: rgba(15, 23, 42, 0.72);
+  --ep-border: rgba(148, 163, 184, 0.14);
+  --ep-accent: #6366f1;
+  --ep-accent-soft: rgba(99, 102, 241, 0.22);
+  --ep-text: #f1f5f9;
+  --ep-muted: #94a3b8;
+}
+
+/* Centered shell + 3-column scaffold (left rail | stacked center | live preview) */
+.ep-flow-shell {
+  width: 100%;
+  max-width: 1320px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.25rem;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .ep-flow-shell {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ep-flow-shell {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* 3-col scaffold: column on small screens; row on lg. Stretch row items so side columns share the
+   same block height as the center — one scroll on <main> moves left | center | right together. */
+.ep-flow-grid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+@media (max-width: 1023px) {
+  .ep-flow-grid {
+    gap: 1.5rem;
+  }
+
+  .ep-flow-grid__cell {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ep-flow-grid {
+    flex-direction: row;
+    align-items: stretch;
+    align-content: stretch;
+    gap: 1.5rem;
+  }
+
+  .ep-flow-grid__cell--left {
+    flex: 0 0 clamp(220px, 24vw, 260px);
+    width: clamp(220px, 24vw, 260px);
+    max-width: 260px;
+  }
+
+  .ep-flow-grid__cell--center {
+    flex: 1 1 0%;
+    min-width: 0;
+    width: auto;
+  }
+
+  .ep-flow-grid__cell--right {
+    flex: 0 0 clamp(280px, 30vw, 360px);
+    width: clamp(280px, 30vw, 360px);
+    max-width: 360px;
+  }
+}
+
+.ep-flow-grid__cell {
+  min-width: 0;
+}
+
+.ep-center-column {
+  min-width: 0;
+}
+
+.ep-step-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.ep-step-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: 100%;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  background: rgba(15, 23, 42, 0.5);
+  padding: 0.4rem 0.75rem;
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.ep-step-pill__num {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.15rem;
+  font-size: 10px;
+  font-weight: 900;
+  color: #64748b;
+}
+
+.ep-step-pill__label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 11rem;
+}
+
+@media (max-width: 639px) {
+  .ep-step-pill__label {
+    max-width: 8rem;
+  }
+}
+
+.ep-step-pill:hover {
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Active pill / section accents are per-step in 22-step-accents.css */
+.ep-step-pill--active {
+  border-color: rgba(99, 102, 241, 0.55);
+  background: rgba(99, 102, 241, 0.2);
+  color: #e0e7ff;
+}
+
+.ep-step-pill--active .ep-step-pill__num {
+  color: #a5b4fc;
+}
+

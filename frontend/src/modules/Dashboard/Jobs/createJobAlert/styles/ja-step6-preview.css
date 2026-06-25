@@ -1,0 +1,140 @@
+/* Step 6 complete data preview — center panel only */
+
+.ja-step6-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ja-step6-preview__head {
+  margin-bottom: 4px;
+}
+
+.ja-step6-section {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #1e293b;
+  background: #0d1321;
+}
+
+.ja-step6-section__title {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #a5b4fc;
+}
+
+.ja-step6-section__body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ja-step6-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 12px;
+  margin: 0;
+  font-size: 13px;
+}
+
+.ja-step6-row__label {
+  font-weight: 600;
+  color: #cbd5e1;
+}
+
+.ja-step6-row__label--spaced {
+  margin-top: 8px;
+}
+
+.ja-step6-row__value {
+  font-weight: 600;
+  color: #fff;
+  text-align: right;
+}
+
+.ja-step6-desc {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+}
+
+.ja-step6-desc__text {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #fff;
+  white-space: pre-wrap;
+}
+
+.ja-step6-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ja-step6-tag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(129, 140, 248, 0.45);
+  background: rgba(99, 102, 241, 0.2);
+  color: #e0e7ff;
+}
+
+.ja-step6-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 6px;
+}
+
+.ja-step6-publish {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.ja-step6-publish:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ja-step6-draft {
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: #e2e8f0;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.ja-step6-draft:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.ja-select--vibrant {
+  background: #0d1321 !important;
+  color: #fff !important;
+  border: 1px solid #1e293b !important;
+  border-radius: 12px !important;
+  padding: 8px 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.ja-select--vibrant:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25) !important;
+  outline: none !important;
+}

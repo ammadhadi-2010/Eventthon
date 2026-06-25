@@ -1,0 +1,93 @@
+.ph-kpi-block {
+  display: block;
+}
+
+/* KPI — 5 tiles: Total, In Progress, Completed, On Hold, Total Budget */
+.ph-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.ph-kpi-card {
+  border-radius: 14px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(15, 23, 42, 0.65);
+}
+
+.ph-kpi-card--violet {
+  box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.15);
+}
+.ph-kpi-card--blue {
+  box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.15);
+}
+.ph-kpi-card--green {
+  box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.15);
+}
+.ph-kpi-card--red {
+  box-shadow: inset 0 0 0 1px rgba(239, 68, 68, 0.15);
+}
+.ph-kpi-card--amber {
+  box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.2);
+}
+
+.ph-kpi-label {
+  margin: 0;
+  font-size: 11px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.ph-kpi-value {
+  display: block;
+  margin-top: 4px;
+  font-size: 26px;
+  font-weight: 900;
+  color: #f8fafc;
+  line-height: 1;
+}
+
+.ph-kpi-delta {
+  font-size: 10px;
+  font-weight: 700;
+  color: #4ade80;
+}
+
+.ph-kpi-delta.is-down {
+  color: #f87171;
+}
+
+.ph-kpi-spark {
+  width: 100%;
+  height: 28px;
+  margin-top: 6px;
+}
+
+.ph-kpi-spark path {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.ph-kpi-spark--violet path {
+  stroke: #a78bfa;
+}
+.ph-kpi-spark--blue path {
+  stroke: #60a5fa;
+}
+.ph-kpi-spark--green path {
+  stroke: #4ade80;
+}
+.ph-kpi-spark--red path {
+  stroke: #f87171;
+}
+.ph-kpi-spark--amber path {
+  stroke: #fbbf24;
+}
+
+@media (max-width: 1200px) {
+  .ph-kpi-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

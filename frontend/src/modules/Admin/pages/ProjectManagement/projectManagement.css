@@ -1,0 +1,189 @@
+/* Project Management — layout helpers (grids use explicit Tailwind utilities) */
+.pm-page {
+  min-width: 0;
+  width: 100%;
+}
+
+.pm-header--desktop .pm-subtitle--compact {
+  display: none;
+}
+
+.pm-header-actions {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.pm-header-actions::-webkit-scrollbar {
+  display: none;
+}
+
+.pm-overview-chart {
+  width: 100%;
+  min-width: 0;
+  height: 280px;
+  min-height: 280px;
+}
+
+.pm-all-filters {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.pm-all-filters::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .pm-header .pm-subtitle--compact {
+    display: block;
+  }
+}
+
+/* Mobile: 2 cards visible + 3rd peeks | Desktop: 4 cards in one row */
+.pm-stats-track {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  padding: 0 4px;
+}
+
+.pm-stats-track::-webkit-scrollbar {
+  display: none;
+}
+
+.pm-stats-track__card {
+  width: calc(50% - 6px);
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .pm-stats-track {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    overflow: visible;
+    scroll-snap-type: none;
+    padding: 0;
+  }
+
+  .pm-stats-track__card {
+    width: auto;
+    flex-shrink: 1;
+  }
+}
+
+.pm-row--selected {
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.pm-modal-root {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.pm-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(2, 6, 23, 0.72);
+}
+
+.pm-modal {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #0f172a;
+  padding: 16px;
+}
+
+.pm-modal h3 {
+  margin: 0 0 8px;
+  color: #fff;
+  font-size: 16px;
+}
+
+.pm-modal-sub {
+  margin: 0 0 12px;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.pm-modal label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #94a3b8;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.pm-modal input,
+.pm-modal textarea,
+.pm-modal select {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.9);
+  color: #f8fafc;
+  padding: 8px 10px;
+  font: inherit;
+}
+
+.pm-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+@media (max-width: 767px) {
+  .pm-page .pm-header {
+    margin-bottom: 8px;
+  }
+
+  .pm-header-actions .pm-filter-btn {
+    display: none;
+  }
+
+  .pm-all-page {
+    padding: 0 2px;
+  }
+}
+
+@media (min-width: 768px) {
+  .pm-header .pm-subtitle--compact {
+    display: block;
+  }
+
+  .pm-header-actions .pm-filter-btn {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pm-page {
+    margin: -12px -20px;
+    padding: 8px 16px 20px;
+  }
+}

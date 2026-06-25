@@ -1,0 +1,182 @@
+/* Developer profile overview — tokens + header + rank card */
+
+.dpo-root {
+  --dpo-bg: #0b0e14;
+  --dpo-card: #121620;
+  --dpo-border: rgba(255, 255, 255, 0.08);
+  --dpo-accent: #6366f1;
+  --dpo-muted: #8b92a7;
+  min-height: 100%;
+  background: var(--dpo-bg);
+  color: #e8eaef;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+.dpo-shell {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 5rem;
+}
+
+.dpo-header {
+  display: grid;
+  grid-template-columns: 1fr minmax(260px, 320px);
+  gap: 1.5rem;
+  align-items: start;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 960px) {
+  .dpo-header {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dpo-header-main {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.dpo-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 3px solid rgba(99, 102, 241, 0.35);
+  flex-shrink: 0;
+}
+
+.dpo-name-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.dpo-name {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.dpo-badge {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.35rem 0.65rem;
+  border-radius: 8px;
+  background: rgba(99, 102, 241, 0.2);
+  color: #a5b4fc;
+  border: 1px solid rgba(99, 102, 241, 0.35);
+}
+
+.dpo-title {
+  margin: 0 0 0.65rem;
+  font-size: 0.95rem;
+  color: var(--dpo-muted);
+  max-width: 52ch;
+  line-height: 1.45;
+}
+
+.dpo-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1rem;
+  font-size: 12px;
+  color: var(--dpo-muted);
+  margin-bottom: 0.75rem;
+}
+
+.dpo-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.dpo-skill-pill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 0.28rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--dpo-border);
+  color: #c7cbe0;
+}
+
+.dpo-stats-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--dpo-border);
+}
+
+.dpo-stat {
+  min-width: 5rem;
+}
+.dpo-stat-val {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #fff;
+}
+.dpo-stat-lab {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--dpo-muted);
+}
+
+.dpo-rank-card {
+  background: var(--dpo-card);
+  border: 1px solid var(--dpo-border);
+  border-radius: 16px;
+  padding: 1rem 1.1rem;
+}
+
+.dpo-rank-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 800;
+  font-size: 0.9rem;
+  margin: 0 0 0.65rem;
+}
+
+.dpo-rank-bar {
+  height: 8px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  margin-bottom: 0.35rem;
+}
+.dpo-rank-bar > span {
+  display: block;
+  height: 100%;
+  width: 65%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+}
+
+.dpo-rank-meta {
+  font-size: 11px;
+  color: var(--dpo-muted);
+  margin: 0.5rem 0 0;
+}
+
+.dpo-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+  font-size: 11px;
+  color: var(--dpo-muted);
+}
+
+@import './devProfileOverview-panels.css';
+@import './devProfileOverview-blocks.css';

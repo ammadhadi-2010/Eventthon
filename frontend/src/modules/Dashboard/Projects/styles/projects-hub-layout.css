@@ -1,0 +1,66 @@
+/* Projects Hub layout */
+
+.ph-page {
+  width: 100%;
+  color: #e2e8f0;
+  box-sizing: border-box;
+}
+
+.ph-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 14px;
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.ph-layout--create {
+  max-width: 1560px;
+}
+
+.ph-layout__rail--left {
+  width: min(268px, 100%);
+  flex: 0 0 min(240px, 100%);
+}
+
+.ph-layout__rail--right {
+  width: min(300px, 100%);
+  flex: 0 0 min(260px, 100%);
+}
+
+.ph-layout__center {
+  flex: 1;
+  min-width: 0;
+}
+
+.ph-center-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 8px;
+}
+
+.ph-right-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ph-layout--create .ph-layout__rail--right,
+.ph-layout--no-right .ph-layout__rail--right {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .ph-layout {
+    flex-direction: column;
+  }
+
+  .ph-layout__rail {
+    width: 100%;
+    flex: 1 1 auto;
+  }
+}

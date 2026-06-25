@@ -1,0 +1,470 @@
+/* Detail body: main story + summary rail.
+ * Edit-profile right column is ~280–360px wide — old @media (min-width: 720px) used the VIEWPORT,
+ * so two columns were forced inside the card → overlap ("gudmud"). Use @container on .ep-live-preview__card
+ * so two columns only when the card itself is wide enough; otherwise stack (sidebar first = stats/links). */
+.ep-live-preview__detail-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  /* Story (main) first on narrow card; wide uses @container two-column below */
+  grid-template-areas: 'main' 'aside';
+  gap: 0.75rem;
+  align-items: stretch;
+  border-top: 1px solid rgba(148, 163, 184, 0.1);
+  padding-bottom: 0.35rem;
+}
+
+/* Experience / Projects / Skills: no sidebar — single column so main uses full card width */
+.ep-live-preview__detail-grid--main-only {
+  grid-template-areas: 'main';
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.ep-live-preview__main {
+  grid-area: main;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ep-live-preview__sidebar {
+  grid-area: aside;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+  background: rgba(2, 6, 23, 0.4);
+}
+
+@container ep-live-card (min-width: 34rem) {
+  .ep-live-preview__detail-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(12rem, 17.5rem);
+    grid-template-areas: 'main aside';
+    gap: 0;
+    align-items: start;
+  }
+
+  .ep-live-preview__detail-grid--main-only {
+    grid-template-areas: 'main';
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ep-live-preview__sidebar {
+    border-left: 1px solid rgba(148, 163, 184, 0.1);
+    border-top: none;
+  }
+}
+
+.ep-live-preview__main > .ep-live-preview__section:first-child {
+  border-top: none;
+}
+
+.ep-live-preview__stats--sidebar {
+  border-top: none;
+}
+
+.ep-live-preview__metrics--sidebar {
+  grid-template-columns: 1fr;
+  border-top: 1px solid rgba(148, 163, 184, 0.1);
+  background: rgba(2, 6, 23, 0.25);
+}
+
+/* Step-focused preview: visibility controlled in React (focusStepId). */
+
+.ep-live-preview__banner {
+  position: relative;
+  padding: 0 1rem 0;
+}
+
+.ep-live-preview__banner-bg {
+  height: 5.5rem;
+  border-radius: 0 0 12px 12px;
+  background: linear-gradient(110deg, #5b21b6 0%, #4c1d95 35%, #312e81 70%, #0f172a 100%);
+  background-repeat: no-repeat;
+  opacity: 0.95;
+}
+
+/* User-uploaded cover: taller strip so the image reads as a banner (not just avatar backdrop). */
+.ep-live-preview__banner-bg--cover {
+  height: 7.25rem;
+  min-height: 7.25rem;
+  background-color: #1e1b4b;
+}
+
+.ep-live-preview__hero-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: -2.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.ep-live-preview__banner--has-cover .ep-live-preview__hero-row {
+  margin-top: -3.65rem;
+}
+
+.ep-live-preview__avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.ep-live-preview__avatar {
+  width: 5.25rem;
+  height: 5.25rem;
+  border-radius: 999px;
+  border: 4px solid #0f172a;
+  object-fit: cover;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.ep-live-preview__online {
+  position: absolute;
+  bottom: 0.2rem;
+  right: 0.2rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 999px;
+  background: #22c55e;
+  border: 2px solid #0f172a;
+}
+
+.ep-live-preview__rank-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.5rem 0.2rem 0.25rem;
+  border-radius: 999px;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #ddd6fe;
+  background: rgba(99, 102, 241, 0.25);
+  border: 1px solid rgba(167, 139, 250, 0.35);
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+@media (min-width: 640px) {
+  .ep-live-preview__rank-badge {
+    font-size: 9px;
+    gap: 0.4rem;
+    padding: 0.25rem 0.6rem 0.25rem 0.3rem;
+  }
+}
+
+.ep-live-preview__rank-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+  color: #c4b5fd;
+}
+
+.ep-live-preview__rank-badge--verified {
+  color: #a7f3d0;
+  background: rgba(16, 185, 129, 0.22);
+  border-color: rgba(52, 211, 153, 0.45);
+  box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.12), 0 6px 20px rgba(5, 46, 22, 0.35);
+}
+
+.ep-live-preview__rank-badge--verified .ep-live-preview__rank-icon {
+  color: #6ee7b7;
+}
+
+.ep-live-preview__hero-rank-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+}
+
+.ep-live-preview__rank-verified-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6ee7b7;
+}
+
+.ep-live-preview__rank-verified-check {
+  width: 0.65rem;
+  height: 0.65rem;
+  flex-shrink: 0;
+}
+
+.ep-live-preview__rank-panel {
+  margin: 0 1rem 0.75rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid rgba(139, 92, 246, 0.28);
+  background: linear-gradient(145deg, rgba(76, 29, 149, 0.35), rgba(15, 23, 42, 0.92));
+}
+
+.ep-live-preview__rank-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 640px) {
+  .ep-live-preview__rank-panel-head {
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+  }
+}
+
+.ep-live-preview__rank-panel-shield {
+  width: 1.1rem;
+  height: 1.1rem;
+  color: #c4b5fd;
+  flex-shrink: 0;
+}
+
+.ep-live-preview__rank-panel-titles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.ep-live-preview__rank-panel-name {
+  font-size: 12px;
+  font-weight: 900;
+  color: #f8fafc;
+}
+
+.ep-live-preview__rank-panel-active {
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+  border: 1px solid rgba(52, 211, 153, 0.45);
+  background: rgba(16, 185, 129, 0.18);
+  color: #6ee7b7;
+}
+
+.ep-live-preview__rank-panel-xp-row {
+  margin-top: 0.55rem;
+}
+
+.ep-live-preview__rank-panel-xp-track {
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.85);
+  overflow: hidden;
+}
+
+.ep-live-preview__rank-panel-xp-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #7c3aed, #6366f1);
+}
+
+.ep-live-preview__rank-panel-xp-label {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 10px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.ep-live-preview__rank-panel-foot {
+  margin: 0.4rem 0 0;
+  font-size: 9px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.ep-live-preview__trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  margin: 0 1rem 0.75rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  background: rgba(6, 78, 59, 0.12);
+}
+
+.ep-live-preview__trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 9px;
+  font-weight: 700;
+  color: #86efac;
+  text-transform: capitalize;
+}
+
+.ep-live-preview__trust-check {
+  width: 0.65rem;
+  height: 0.65rem;
+  flex-shrink: 0;
+  color: #4ade80;
+}
+
+.ep-live-preview__identity {
+  padding: 0 1rem 1rem;
+}
+
+.ep-live-preview__name-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.ep-live-preview__name-with-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.ep-live-preview__name {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #f8fafc;
+  line-height: 1.2;
+}
+
+.ep-live-preview__verified {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 999px;
+  background: #3b82f6;
+  color: #fff;
+}
+
+.ep-live-preview__verified-check {
+  width: 0.65rem;
+  height: 0.65rem;
+}
+
+.ep-live-preview__verified--blue {
+  background: linear-gradient(145deg, #1d4ed8, #3b82f6);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.35), 0 4px 12px rgba(15, 23, 42, 0.5);
+}
+
+.ep-live-preview__headline-links {
+  margin-top: 0.35rem;
+}
+
+.ep-live-preview__headline {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #94a3b8;
+  line-height: 1.45;
+}
+
+.ep-live-preview__socials--under-headline {
+  margin-top: 0.35rem;
+}
+
+.ep-live-preview__social-chip--compact {
+  padding: 0.22rem 0.45rem;
+  font-size: 9px;
+  border-radius: 6px;
+}
+
+.ep-live-preview__social-chip--compact .ep-live-preview__social-icon {
+  width: 0.72rem;
+  height: 0.72rem;
+}
+
+.ep-live-preview__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.ep-live-preview__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.ep-live-preview__meta-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+}
+
+.ep-live-preview__meta-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  background: #475569;
+}
+
+.ep-live-preview__status-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+}
+
+.ep-live-preview__status-text {
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.ep-live-preview__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(148, 163, 184, 0.12);
+  border-top: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.ep-live-preview__stat-cell {
+  background: rgba(2, 6, 23, 0.55);
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+}
+
+.ep-live-preview__stat-label {
+  margin: 0;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.ep-live-preview__stat-value {
+  margin: 0.35rem 0 0;
+  font-size: 1rem;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  color: #f1f5f9;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+}
+
+.ep-live-preview__star {
+  width: 0.85rem;
+  height: 0.85rem;
+  color: #fbbf24;
+  display: inline;
+  vertical-align: middle;
+}

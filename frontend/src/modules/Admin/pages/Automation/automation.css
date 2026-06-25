@@ -1,0 +1,7 @@
+/* Automation styles — split under ./styles/ (250-line cap per file) */
+@import './styles/automation-layout.css';
+@import './styles/automation-create-form.css';
+@import './styles/automation-recent-posts.css';
+@import './styles/automation-assistant.css';
+@import './styles/automation-modals.css';
+@import './LeadHunter/lead-hunter.css';

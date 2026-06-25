@@ -1,0 +1,63 @@
+/* Shared rich text editor styles (from Gigs create flow) */
+
+.create-gig-toolbar {
+  min-height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px 8px 0 0;
+  border-bottom: 0;
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+}
+
+.create-gig-tool-btn {
+  min-width: 34px;
+  height: 28px;
+  border-radius: 7px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(255, 255, 255, 0.03);
+  color: #c7d6eb;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.create-gig-tool-btn.is-active {
+  border-color: rgba(139, 92, 246, 0.7);
+  background: rgba(76, 29, 149, 0.35);
+  color: #ede9fe;
+}
+
+.create-gig-editor {
+  min-height: 120px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0 0 8px 8px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #e2e8f0;
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 10px;
+  outline: none;
+  direction: ltr;
+  text-align: left;
+}
+
+.create-gig-editor:focus {
+  border-color: rgba(99, 102, 241, 0.55);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.16);
+}
+
+.create-gig-editor:empty::before {
+  content: attr(data-placeholder);
+  color: #7088a9;
+}
+
+.create-gig-counter {
+  margin-top: 5px;
+  text-align: right;
+  font-size: 10px;
+  color: #7088a9;
+}

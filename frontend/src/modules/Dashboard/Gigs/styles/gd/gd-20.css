@@ -1,0 +1,201 @@
+﻿
+.gigx-seller-row button:hover {
+  border-color: rgba(129, 140, 248, 0.45);
+  background: rgba(79, 70, 229, 0.15);
+}
+
+.gigx-tabs {
+  margin-top: 18px;
+  display: flex;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  flex-wrap: wrap;
+}
+
+.gigx-tabs button {
+  border: 0;
+  flex: 1 1 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 11px 16px;
+  border-bottom: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.gigx-tabs button:hover:not(.is-active) {
+  color: #dbeafe;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.gigx-tabs button.is-active {
+  color: #f8fafc;
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.5), rgba(14, 165, 233, 0.22));
+  box-shadow:
+    0 4px 16px rgba(79, 70, 229, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.gigx-hero-media {
+  margin-top: 18px;
+  border-radius: 16px;
+  overflow: hidden;
+  min-height: 340px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.gigx-hero-media img {
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  display: block;
+}
+
+.gigx-media-placeholder {
+  min-height: 340px;
+  display: grid;
+  place-items: center;
+  color: #f0f9ff;
+  font-size: clamp(36px, 5vw, 48px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.12), transparent 45%),
+    linear-gradient(145deg, #3730a3, #0369a1, #0891b2);
+}
+
+.gigx-media-strip {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.gigx-media-strip button {
+  width: 104px;
+  height: 68px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: #e2e8f0;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s ease;
+}
+
+.gigx-media-strip button:hover {
+  border-color: rgba(129, 140, 248, 0.35);
+  transform: translateY(-2px);
+}
+
+.gigx-media-strip button img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gigx-media-strip button.is-active {
+  border-color: rgba(129, 140, 248, 0.95);
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.4),
+    0 12px 24px rgba(79, 70, 229, 0.2);
+}
+
+.gigx-about-card {
+  margin-top: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  background:
+    radial-gradient(ellipse 60% 80% at 100% 0%, rgba(99, 102, 241, 0.08), transparent),
+    rgba(15, 23, 42, 0.55);
+  padding: 22px 24px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.gigx-about-card h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  color: #f8fafc;
+  letter-spacing: -0.02em;
+}
+
+.gigx-about-card p {
+  margin: 10px 0 0;
+  color: #cbd5e1;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.gigx-about-card ul {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gigx-about-card li {
+  color: #e2e8f0;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gigx-about-card li svg {
+  color: #4ade80;
+  flex-shrink: 0;
+}
+
+.gigx-tags {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.gigx-tags span {
+  border: 1px solid rgba(129, 140, 248, 0.25);
+  background: rgba(79, 70, 229, 0.12);
+  color: #c7d2fe;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.gigx-assets {
+  margin-top: 20px;
+}
+
+.gigx-assets h4 {
+  margin: 0;
+  color: #e0e7ff;
+  font-size: 15px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gigx-assets p {
+  margin: 10px 0 0;
+  color: #94a3b8;
+  font-size: 14px;
+}

@@ -1,0 +1,306 @@
+/* Profile overview — mobile shell (< 1024px), Gigs-style chrome */
+
+/* Desktop: mobile chrome must not appear */
+.dpo-mobile-topbar {
+  display: none !important;
+}
+
+@media (max-width: 1023px) {
+  .et-app-shell:has(.dpo-mobile-shell) .et-top-nav {
+    display: none !important;
+  }
+
+  .et-app-shell:has(.dpo-mobile-shell) .et-main-inner {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .et-app-shell:has(.dpo-mobile-shell) .et-footer {
+    display: none !important;
+  }
+
+  .dpo-mobile-shell {
+    --dpo-mobile-topbar-h: 3.5rem;
+    width: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
+  }
+
+  .dpo-mobile-shell .dpo-shell {
+    padding: calc(var(--dpo-mobile-topbar-h) + 0.5rem) 0.75rem 5.5rem;
+    max-width: none;
+    margin: 0;
+  }
+
+  .dpo-mobile-topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 55;
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    height: var(--dpo-mobile-topbar-h);
+    padding: 0 12px;
+    background: #090d16;
+    border-bottom: 1px solid #1e293b;
+    box-sizing: border-box;
+    transition: transform 0.3s ease;
+    transform: translateY(0);
+  }
+
+  .dpo-mobile-topbar--hidden {
+    transform: translateY(-100%);
+    pointer-events: none;
+  }
+
+  .dpo-mobile-topbar__avatar-btn {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .dpo-mobile-topbar__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    object-fit: cover;
+    border: 1px solid #334155;
+  }
+
+  .dpo-mobile-topbar__search {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: #111622;
+    border: 1px solid #1e293b;
+  }
+
+  .dpo-mobile-topbar__search-icon {
+    flex-shrink: 0;
+    color: #94a3b8;
+    font-size: 16px;
+  }
+
+  .dpo-mobile-topbar__search-input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    color: #f8fafc;
+    font-size: 13px;
+    outline: none;
+  }
+
+  .dpo-mobile-topbar__search-input::placeholder {
+    color: #94a3b8;
+  }
+
+  .dpo-mobile-topbar__msg-btn {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: #e2e8f0;
+    cursor: pointer;
+  }
+
+  /* Hero — edge-to-edge, tighter vertical rhythm */
+  .dpo-mobile-shell .dpo-hero-slot {
+    margin: 0 -0.75rem 0.75rem;
+    width: calc(100% + 1.5rem);
+  }
+
+  .dpo-mobile-shell .vfph-hero {
+    min-height: 280px;
+    padding: 0.65rem 0.85rem 0;
+    border-radius: 0;
+  }
+
+  .dpo-mobile-shell .vfph-hero__top {
+    margin-bottom: 0.75rem;
+    gap: 0.65rem;
+  }
+
+  .dpo-mobile-shell .vfph-hero__quote {
+    font-size: 12px;
+    max-width: 100%;
+  }
+
+  .dpo-mobile-shell .vfph-hero__body {
+    padding-bottom: 14px;
+    gap: 0.75rem;
+  }
+
+  .dpo-mobile-shell .vfph-avatar-img,
+  .dpo-mobile-shell .vfph-avatar-fallback {
+    width: 108px;
+    height: 108px;
+  }
+
+  .dpo-mobile-shell .vfph-name {
+    font-size: 1.45rem;
+  }
+
+  .dpo-mobile-shell .vfph-title {
+    font-size: 0.9rem;
+  }
+
+  .dpo-mobile-shell .vfph-meta-line {
+    justify-content: center;
+    font-size: 12px;
+    gap: 0.5rem 0.75rem;
+  }
+
+  .dpo-mobile-shell .vfph-rank-card {
+    max-width: none;
+    width: calc(100% - 0.5rem);
+    margin: 0.35rem auto 0;
+  }
+
+  .dpo-mobile-shell .vfph-rank-card__eyebrow {
+    color: #e2e8f0;
+    letter-spacing: 0.12em;
+  }
+
+  /* Actions + stat strip */
+  .dpo-mobile-shell .dpo-actions {
+    margin-bottom: 0.75rem;
+    gap: 0.4rem;
+  }
+
+  .dpo-mobile-shell .dpo-stat-strip {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 0.5rem;
+    margin-bottom: 0.85rem;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .dpo-mobile-shell .dpo-stat-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .dpo-mobile-shell .dpo-stat-card {
+    flex: 0 0 42%;
+    min-width: 132px;
+    scroll-snap-align: start;
+    padding: 0.85rem 0.9rem 0.95rem;
+  }
+
+  .dpo-mobile-shell .dpo-stat-card__label {
+    font-size: 9px;
+  }
+
+  /* Tabs — horizontal scroll */
+  .dpo-mobile-shell .dpo-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 0.35rem;
+    margin-bottom: 0.85rem;
+    padding: 0.35rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-snap-type: x proximity;
+  }
+
+  .dpo-mobile-shell .dpo-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .dpo-mobile-shell .dpo-tab {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    scroll-snap-align: start;
+    color: #cbd5e1;
+    font-size: 11px;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .dpo-mobile-shell .dpo-tab--active {
+    color: #eef2ff;
+  }
+
+  /* Main grid + panels */
+  .dpo-mobile-shell .dpo-grid {
+    gap: 0.75rem;
+  }
+
+  .dpo-mobile-shell .dpo-panel {
+    padding: 0.9rem 0.85rem;
+    margin-bottom: 0.75rem;
+    border-radius: 14px;
+  }
+
+  .dpo-mobile-shell .dpo-panel-title {
+    color: #cbd5e1;
+  }
+
+  .dpo-mobile-shell .dpo-placeholder,
+  .dpo-mobile-shell .dpo-muted-sm {
+    color: #b8c0d4;
+  }
+
+  .dpo-mobile-shell .dpo-about-lead {
+    color: #c4cad8;
+  }
+
+  .dpo-mobile-shell .dpo-footer-cta {
+    margin-top: 1.25rem;
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  /* Bottom nav — brighter + colorful labels on profile */
+  .et-app-shell:has(.dpo-mobile-shell) .dash-mobile-bottom-nav__item[data-nav='home'] {
+    color: #7dd3fc;
+  }
+
+  .et-app-shell:has(.dpo-mobile-shell) .dash-mobile-bottom-nav__item[data-nav='squads'] {
+    color: #c4b5fd;
+  }
+
+  .et-app-shell:has(.dpo-mobile-shell) .dash-mobile-bottom-nav__item[data-nav='projects'] {
+    color: #6ee7b7;
+  }
+
+  .et-app-shell:has(.dpo-mobile-shell) .dash-mobile-bottom-nav__item[data-nav='gigs'] {
+    color: #fbbf24;
+  }
+
+  .et-app-shell:has(.dpo-mobile-shell) .dash-mobile-bottom-nav__item[data-nav='jobs'] {
+    color: #f9a8d4;
+  }
+
+  .et-app-shell:has(.dpo-mobile-shell) .dash-mobile-bottom-nav__item[data-nav='alerts'] {
+    color: #fca5a5;
+  }
+
+  .et-app-shell:has(.dpo-mobile-shell) .dash-mobile-bottom-nav__item--active {
+    color: #38bdf8 !important;
+    text-shadow: 0 0 14px rgba(56, 189, 248, 0.45);
+  }
+}

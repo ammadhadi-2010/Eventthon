@@ -1,0 +1,201 @@
+﻿
+.create-gig-step {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 8px;
+  color: #9eb0c8;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.create-gig-step span {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.create-gig-step p {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.create-gig-step.is-active {
+  border-color: rgba(139, 92, 246, 0.5);
+  color: #ddd6fe;
+}
+
+.create-gig-step.is-active span {
+  background: #7c3aed;
+  color: #fff;
+}
+
+.create-gig-form-card,
+.create-gig-preview-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background:
+    radial-gradient(220px 120px at 80% 0%, rgba(91, 33, 182, 0.2), transparent 75%),
+    linear-gradient(180deg, rgba(7, 15, 31, 0.98), rgba(4, 10, 21, 0.98));
+  padding: 14px;
+  box-shadow: inset 0 0 0 1px rgba(99, 102, 241, 0.04);
+}
+
+.create-gig-form-card label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 10px 0 6px;
+  font-size: 12px;
+  color: #cdd9ee;
+  font-weight: 600;
+}
+
+.create-gig-field-sub {
+  margin: -2px 0 6px;
+  font-size: 11px;
+  color: #7f93b3;
+}
+
+.create-gig-form-card input,
+.create-gig-form-card select,
+.create-gig-form-card textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #e2e8f0;
+  font-size: 12px;
+  padding: 10px;
+  outline: none;
+  direction: ltr;
+  text-align: left;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.create-gig-form-card input:focus,
+.create-gig-form-card select:focus,
+.create-gig-form-card textarea:focus {
+  border-color: rgba(99, 102, 241, 0.55);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.16);
+}
+
+.create-gig-form-card select option {
+  color: #e2e8f0;
+  background: #0b1222;
+}
+
+.create-gig-form-card select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  color-scheme: dark;
+}
+
+.create-gig-select-wrap {
+  position: relative;
+}
+
+.create-gig-select-wrap::after {
+  content: '▾';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8ea2bf;
+  pointer-events: none;
+}
+
+.create-gig-form-card textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.create-gig-toolbar {
+  min-height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px 8px 0 0;
+  border-bottom: 0;
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+}
+
+.create-gig-tool-btn {
+  min-width: 34px;
+  height: 28px;
+  border-radius: 7px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(255, 255, 255, 0.03);
+  color: #c7d6eb;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.create-gig-tool-btn.is-active {
+  border-color: rgba(139, 92, 246, 0.7);
+  background: rgba(76, 29, 149, 0.35);
+  color: #ede9fe;
+}
+
+.create-gig-toolbar + textarea {
+  border-radius: 0 0 8px 8px;
+}
+
+.create-gig-editor {
+  min-height: 120px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0 0 8px 8px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #e2e8f0;
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 10px;
+  outline: none;
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+  writing-mode: horizontal-tb;
+}
+
+.create-gig-editor:focus {
+  border-color: rgba(99, 102, 241, 0.55);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.16);
+}
+
+.create-gig-editor:empty::before {
+  content: attr(data-placeholder);
+  color: #7088a9;
+}
+
+.create-gig-counter {
+  margin-top: 5px;
+  text-align: right;
+  font-size: 10px;
+  color: #7088a9;
+}
+
+.create-gig-upload-row {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+.create-gig-upload-list {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}

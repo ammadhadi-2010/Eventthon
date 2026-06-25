@@ -1,0 +1,80 @@
+@import "tailwindcss";
+@config "../tailwind.cli.config.js";
+@source "./**/*.{js,jsx,ts,tsx}";
+@source "./modules/Admin/**/*.{js,jsx,ts,tsx}";
+
+@layer components {
+  /* 1. Global Setup - Deep Depth */
+  body {
+    background-color: #020617 !important; /* Pure Deep Navy for Contrast */
+    @apply text-slate-200 antialiased min-h-screen selection:bg-blue-500/30;
+  }
+
+  /* 2. Master Glass Card - Optimized Contrast */
+  .et-profile-base-card {
+    /* Background ko thora solid kiya taake content saaf nazar aaye */
+    background: rgba(15, 23, 42, 0.6) !important; 
+    @apply rounded-[24px] overflow-hidden mb-[25px];
+    
+    /* Blur ko 55px se kam karke 25px kiya (Performance + Clarity) */
+    backdrop-filter: blur(25px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(25px) saturate(150%) !important;
+    
+    /* 3D Border Glow - Sirf top aur left pr glow */
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+    
+    /* Smooth Shadow - Gaming look se Professional look ki taraf */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+    position: relative;
+    z-index: 10;
+  }
+
+  /* 3. Hero & Avatar - Structured Layout */
+  .et-banner-container {
+    @apply h-[240px] relative bg-slate-900/50 overflow-hidden;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .et-banner-image {
+    @apply w-full h-full object-cover opacity-70 transition-opacity duration-700 hover:opacity-90;
+  }
+
+  .et-avatar-wrapper {
+    @apply absolute -bottom-[60px] left-[40px] w-[130px] h-[130px] rounded-full z-20;
+    background: #0f172a !important; /* Solid background for avatar focus */
+    border: 4px solid #020617 !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  }
+
+  /* 4. Connect Button - Elegant Luminous */
+  .et-btn-connect {
+    @apply flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-white transition-all duration-300;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    /* Neon glow ko subtle (halka) rakha */
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.4) !important;
+    @apply hover:shadow-blue-500/50 hover:-translate-y-0.5 active:scale-95;
+  }
+
+  /* 5. Bento Stat Block - Premium Feel */
+  .et-glass-bento {
+    background: rgba(30, 41, 59, 0.4) !important;
+    @apply p-6 rounded-[20px] text-center border border-white/5 transition-all duration-300;
+    backdrop-filter: blur(10px) !important;
+    
+    @apply hover:bg-slate-800/60 hover:border-blue-500/30 hover:shadow-xl hover:shadow-blue-900/10;
+  }
+}
+
+/* Scrollbar Hide but functional */
+.center-content-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* Tailwind v4 emits calc(infinity * 1px) for rounded-full — breaks CRA css-minimizer */
+@layer utilities {
+  .rounded-full {
+    border-radius: 9999px;
+  }
+}
+

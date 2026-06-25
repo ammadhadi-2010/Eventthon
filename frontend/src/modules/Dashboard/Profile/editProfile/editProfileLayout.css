@@ -1,0 +1,25 @@
+/* Edit profile wizard — styles split under ./styles/ (keep each file small). Import order matters. */
+@import './styles/01-base-layout.css';
+@import './styles/02-left-rail.css';
+@import './styles/03-live-preview-card.css';
+@import './styles/04-live-preview-main.css';
+@import './styles/05-live-preview-lists.css';
+@import './styles/06-live-preview-rest.css';
+@import './styles/21-live-preview-dynamic.css';
+@import './styles/23-live-preview-step-accents.css';
+@import './styles/07-basic-form-1.css';
+@import './styles/08-basic-form-2.css';
+@import './styles/09-form-shell-shared-inputs.css';
+@import './styles/10-banner-crop-modal.css';
+@import './styles/11-about-1.css';
+@import './styles/12-about-2.css';
+@import './styles/13-about-3.css';
+@import './styles/14-experience-1.css';
+@import './styles/15-experience-2.css';
+@import './styles/16-projects-1.css';
+@import './styles/17-projects-2.css';
+@import './styles/18-skills-1.css';
+@import './styles/19-skills-2.css';
+@import './styles/20-skills-3.css';
+@import './styles/22-step-accents.css';
+@import './styles/editProfile-mobile.css';

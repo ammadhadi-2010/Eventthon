@@ -1,0 +1,61 @@
+/* Squads — hover tooltips for mobile tab picker + desktop workspace tabs */
+
+.squad-hub__header-back {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .squad-hub__header-back {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 1px solid #334155;
+    border-radius: 999px;
+    background: transparent;
+    color: #e2e8f0;
+    cursor: pointer;
+  }
+
+  .squad-hub__header-back:active {
+    transform: scale(0.94);
+  }
+}
+
+.squad-hub__tab-picker-item {
+  position: relative;
+}
+
+.squad-hub__tab-tip {
+  position: absolute;
+  left: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.98);
+  border: 1px solid #334155;
+  color: #f8fafc;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 60;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+@media (hover: hover) {
+  .squad-hub__tab-picker-item:hover .squad-hub__tab-tip,
+  .squad-hub__tab-picker-item:focus-visible .squad-hub__tab-tip {
+    opacity: 1;
+  }
+}
+
+.squad-hub__tab-picker-item:focus-visible .squad-hub__tab-tip {
+  opacity: 1;
+}

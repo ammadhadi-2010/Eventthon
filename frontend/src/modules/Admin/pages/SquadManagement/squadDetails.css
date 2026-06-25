@@ -1,0 +1,49 @@
+.sd-breadcrumb { margin: 4px 0 0; display: inline-flex; align-items: center; gap: 6px; color: #64748b; font-size: 11px; }
+.sd-breadcrumb a { color: #94a3b8; text-decoration: none; }
+.sd-hero { margin-bottom: 12px; }
+.sd-hero__top { display: flex; gap: 12px; align-items: center; }
+.sd-hero__avatar { width: 54px; height: 54px; border-radius: 12px; border: 1px solid rgba(255,255,255,.1); background: #0f172a; }
+.sd-hero__meta h2 { margin: 0; font-size: 22px; font-weight: 900; color: #fff; }
+.sd-hero__meta p { margin: 2px 0 0; color: #64748b; font-size: 12px; }
+.sd-hero__chips { margin-top: 6px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.sd-muted { color: #64748b; font-size: 11px; }
+.sd-description { margin: 10px 0 0; color: #cbd5e1; line-height: 1.55; font-size: 13px; }
+.sd-kpis { margin-top: 12px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.sd-kpi { padding: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,.06); background: rgba(8,12,22,.65); text-align: center; }
+.sd-kpi strong { display: block; color: #fff; font-size: 18px; line-height: 1.2; }
+.sd-kpi span { color: #64748b; font-size: 11px; }
+.sd-grid { margin-top: 10px; display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; }
+.sd-panel { border: 1px solid rgba(255,255,255,.06); border-radius: 12px; background: rgba(8,12,22,.65); padding: 12px; }
+.sd-panel h3 { margin: 0; font-size: 13px; color: #fff; }
+.sd-panel h4 { margin: 10px 0 6px; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #94a3b8; }
+.sd-leader { margin-top: 8px; display: flex; align-items: center; gap: 8px; }
+.sd-leader p { margin: 0; color: #fff; font-size: 12px; font-weight: 700; }
+.sd-leader span { color: #64748b; font-size: 10px; }
+.sd-panel dl { margin: 10px 0 0; display: flex; flex-direction: column; gap: 6px; }
+.sd-item { display: flex; justify-content: space-between; gap: 8px; font-size: 11px; }
+.sd-item dt { color: #64748b; }
+.sd-item dd { margin: 0; color: #cbd5e1; }
+.sd-rules { margin: 0; padding-left: 18px; color: #cbd5e1; font-size: 12px; line-height: 1.5; }
+.sd-actions-wrap { position: relative; }
+.sd-actions-menu { position: absolute; right: 0; top: calc(100% + 6px); min-width: 150px; border: 1px solid rgba(255,255,255,.08); border-radius: 10px; background: #0f172a; box-shadow: 0 14px 34px rgba(0,0,0,.45); z-index: 20; padding: 4px; }
+.sd-actions-menu button { width: 100%; border: none; background: transparent; color: #e2e8f0; text-align: left; padding: 8px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; }
+.sd-actions-menu button:hover { background: rgba(99,102,241,.15); }
+.sd-modal-root { position: fixed; inset: 0; z-index: 120; background: rgba(2,6,23,.72); display: flex; align-items: center; justify-content: center; padding: 16px; }
+.sd-modal { width: 100%; max-width: 460px; border: 1px solid rgba(255,255,255,.1); border-radius: 14px; background: #0f172a; padding: 16px; }
+.sd-modal h3 { margin: 0 0 12px; font-size: 16px; color: #fff; }
+.sd-modal label { display: flex; flex-direction: column; gap: 6px; color: #94a3b8; font-size: 12px; margin-bottom: 10px; }
+.sd-modal input, .sd-modal textarea { border: 1px solid rgba(255,255,255,.1); border-radius: 8px; background: rgba(15,23,42,.9); color: #f8fafc; padding: 8px 10px; font: inherit; }
+.sd-modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px; }
+.sd-list { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+.sd-list__row { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 10px; border: 1px solid rgba(255,255,255,.06); border-radius: 12px; background: rgba(8,12,22,.65); padding: 10px 12px; }
+.sd-list__row span { color: #64748b; font-size: 11px; }
+.sd-list__title { margin: 0; color: #fff; font-size: 13px; font-weight: 700; }
+.sd-activity { margin: 10px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.sd-activity__item { border: 1px solid rgba(255,255,255,.06); border-radius: 12px; background: rgba(8,12,22,.65); padding: 10px 12px; }
+.sd-activity__item p { margin: 0; color: #cbd5e1; font-size: 12px; }
+.sd-activity__item span { display: inline-block; margin-top: 4px; color: #64748b; font-size: 11px; }
+@media (max-width: 960px) {
+  .sd-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sd-grid { grid-template-columns: 1fr; }
+  .sd-list__row { grid-template-columns: 1fr; gap: 8px; }
+}

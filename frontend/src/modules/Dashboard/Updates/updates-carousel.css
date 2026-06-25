@@ -1,0 +1,242 @@
+.upd-carousel {
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(10, 12, 16, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 14px 16px 12px;
+}
+
+.upd-carousel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.upd-carousel__title {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  color: #38bdf8;
+  text-transform: uppercase;
+}
+
+.upd-carousel__viewall {
+  color: #38bdf8;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.upd-carousel__body {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.upd-carousel__track {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  flex: 1;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.upd-carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+.upd-carousel__arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(15, 23, 42, 0.85);
+  color: #e2e8f0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.upd-carousel__hint {
+  margin: 10px 0 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.upd-card {
+  min-width: 190px;
+  max-width: 190px;
+  border-radius: 14px;
+  border: 1px solid;
+  background: rgba(15, 23, 42, 0.72);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.upd-card__head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.upd-card__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.upd-card__media {
+  min-height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upd-card__media-img {
+  width: 100%;
+  height: 96px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: rgba(2, 6, 23, 0.65);
+}
+
+.upd-card__media-fallback {
+  width: 100%;
+  height: 96px;
+  border-radius: 10px;
+  background: rgba(30, 41, 59, 0.8);
+  display: grid;
+  place-items: center;
+  color: #94a3b8;
+  font-weight: 800;
+}
+
+.upd-card__media-round {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(148, 163, 184, 0.25);
+}
+
+.upd-card__media-round--fallback {
+  display: grid;
+  place-items: center;
+  background: #1e293b;
+  color: #dbeafe;
+  font-weight: 800;
+}
+
+.upd-card__badge-wrap,
+.upd-card__job-wrap {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.upd-card__badge-wrap {
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.25), rgba(15, 23, 42, 0.2));
+  border: 2px solid rgba(245, 158, 11, 0.45);
+}
+
+.upd-card__badge-icon {
+  font-size: 38px;
+  color: #fbbf24;
+}
+
+.upd-card__job-wrap {
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.2), rgba(15, 23, 42, 0.15));
+  border: 2px solid rgba(239, 68, 68, 0.35);
+}
+
+.upd-card__job-icon {
+  font-size: 34px;
+  color: #60a5fa;
+}
+
+.upd-card__title {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.35;
+  color: #f8fafc;
+  font-weight: 700;
+}
+
+.upd-card__message {
+  margin: 0;
+  font-size: 11px;
+  color: #94a3b8;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.upd-card__time {
+  margin-top: auto;
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.upd-filters {
+  margin-top: 12px;
+  width: 100%;
+}
+
+.upd-filters__track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.upd-filters__pill {
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(15, 23, 42, 0.55);
+  color: #94a3b8;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.upd-filters__pill.is-active {
+  background: #f8fafc;
+  color: #0f172a;
+  border-color: #f8fafc;
+}
+
+.upd-filters__pill[data-filter='project'] { color: #34d399; }
+.upd-filters__pill[data-filter='gig'] { color: #c084fc; }
+.upd-filters__pill[data-filter='achievement'] { color: #fbbf24; }
+.upd-filters__pill[data-filter='squad'] { color: #60a5fa; }
+.upd-filters__pill[data-filter='job'] { color: #f87171; }
+.upd-filters__pill[data-filter='article'] { color: #f472b6; }
+
+.upd-filters__icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(15, 23, 42, 0.7);
+  color: #94a3b8;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}

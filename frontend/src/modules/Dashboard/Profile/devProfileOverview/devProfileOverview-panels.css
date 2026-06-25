@@ -1,0 +1,146 @@
+/* Tabs, main/side grid, panels, footer CTA */
+
+.dpo-hero-slot {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.dpo-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 1.25rem;
+  padding: 0.35rem;
+  background: var(--dpo-card);
+  border: 1px solid var(--dpo-border);
+  border-radius: 12px;
+}
+
+.dpo-tab {
+  padding: 0.45rem 0.85rem;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--dpo-muted);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.dpo-tab--active {
+  background: rgba(99, 102, 241, 0.25);
+  color: #e0e7ff;
+}
+
+.dpo-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .dpo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dpo-panel {
+  background: var(--dpo-card);
+  border: 1px solid var(--dpo-border);
+  border-radius: 16px;
+  padding: 1rem 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.dpo-panel-title {
+  margin: 0 0 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9ca3c9;
+}
+
+.dpo-placeholder {
+  font-size: 12px;
+  color: var(--dpo-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.dpo-cards-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+@media (max-width: 800px) {
+  .dpo-cards-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dpo-mini-card {
+  min-height: 120px;
+  border-radius: 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--dpo-muted);
+  text-align: center;
+  padding: 0.75rem;
+}
+
+.dpo-footer-cta {
+  margin-top: 2rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 14px;
+  background: linear-gradient(90deg, rgba(79, 70, 229, 0.35), rgba(99, 102, 241, 0.2));
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.dpo-footer-cta p {
+  margin: 0;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.dpo-btn-hire {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 10px;
+  border: none;
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+  background: var(--dpo-accent);
+  color: #fff;
+}
+
+.dpo-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.75rem;
+}
+
+.dpo-toolbar a {
+  font-size: 12px;
+  font-weight: 700;
+  color: #a5b4fc;
+  text-decoration: none;
+}
+
+.dpo-toolbar a:hover {
+  text-decoration: underline;
+}

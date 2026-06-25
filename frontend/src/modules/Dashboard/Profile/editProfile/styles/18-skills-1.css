@@ -1,0 +1,205 @@
+/* Skills & Niche (wizard) */
+.ep-sn-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .ep-sn-grid {
+    grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+    gap: 1.35rem 1.5rem;
+  }
+}
+
+.ep-sn-divider {
+  display: none;
+  width: 1px;
+  min-height: 12rem;
+  background: rgba(148, 163, 184, 0.12);
+}
+
+@media (min-width: 900px) {
+  .ep-sn-divider {
+    display: block;
+  }
+}
+
+/* KYC block below skills grid (edit profile wizard) */
+.ep-sn-verif-section {
+  margin-top: 0.35rem;
+  padding-top: 1.35rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.ep-sn-verif-inner {
+  margin-top: 0.85rem;
+}
+
+.ep-sn-verif-inner .max-w-2xl {
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Align IdentityVerify blues with skills/niche indigo accent */
+.ep-sn-verif-inner .text-blue-500 {
+  color: rgb(129 140 248) !important;
+}
+
+.ep-sn-verif-inner .text-blue-400 {
+  color: rgb(165 180 252) !important;
+}
+
+.ep-sn-verif-inner .border-blue-500,
+.ep-sn-verif-inner .border-blue-500\/20 {
+  border-color: rgba(129, 140, 248, 0.35) !important;
+}
+
+.ep-sn-verif-inner .bg-blue-500\/10 {
+  background-color: rgba(99, 102, 241, 0.12) !important;
+}
+
+.ep-sn-verif-inner .bg-blue-500\/5 {
+  background-color: rgba(99, 102, 241, 0.06) !important;
+}
+
+.ep-sn-verif-inner .bg-blue-600 {
+  background-color: rgb(99 102 241) !important;
+}
+
+.ep-sn-verif-inner .hover\:bg-blue-500:hover {
+  background-color: rgb(129 140 248) !important;
+}
+
+.ep-sn-verif-inner .shadow-blue-600\/20,
+.ep-sn-verif-inner .shadow-blue-600\/30 {
+  --tw-shadow-color: rgba(99, 102, 241, 0.25) !important;
+}
+
+.ep-sn-verif-inner .group:hover .group-hover\:text-blue-400 {
+  color: rgb(165 180 252) !important;
+}
+
+.ep-sn-verif-inner .hover\:border-blue-500\/50:hover {
+  border-color: rgba(129, 140, 248, 0.45) !important;
+}
+
+.ep-sn-col-head {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.ep-sn-col-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.ep-sn-col-title--solo {
+  margin-bottom: 0.85rem;
+}
+
+.ep-sn-info {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  cursor: help;
+}
+
+.ep-sn-skill-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.ep-sn-skill-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+}
+
+.ep-sn-skill-icon {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background: var(--icon-gradient, rgba(99, 102, 241, 0.14));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(241, 245, 249, 0.95);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 14px var(--icon-glow, transparent);
+}
+
+.ep-sn-skill-icon[data-icon-effect='skill'] {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 0 18px var(--icon-glow, transparent),
+    0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.ep-sn-skill-icon[data-icon-effect='sub'] {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.07),
+    0 0 10px var(--icon-glow, transparent);
+}
+
+.ep-sn-select-icon--sub {
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background: var(--icon-gradient, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 12px var(--icon-glow, transparent);
+  color: rgba(241, 245, 249, 0.95);
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ep-sn-select-icon--sub[data-icon-effect='sub'] {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 0 10px var(--icon-glow, transparent);
+}
+
+.ep-sn-sub-ico-mini {
+  flex-shrink: 0;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  background: var(--icon-gradient, rgba(51, 65, 85, 0.45));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 10px var(--icon-glow, transparent);
+  color: rgba(241, 245, 249, 0.92);
+}
+
+.ep-sn-sub-ico-mini[data-icon-effect='sub'] {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 0 8px var(--icon-glow, transparent);
+}
+
+.ep-sn-sub-ico-mini .ep-sn-dd-ico {
+  width: 0.85rem;
+  height: 0.85rem;
+}

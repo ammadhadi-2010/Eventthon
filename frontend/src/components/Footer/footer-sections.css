@@ -1,0 +1,211 @@
+/* Footer — stats, value cards, bottom bar */
+
+.et-footer__stats {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+  padding: 32px 0;
+  border-top: 1px solid rgba(30, 41, 59, 0.6);
+  border-bottom: 1px solid rgba(30, 41, 59, 0.6);
+}
+
+.et-footer__stat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.et-footer__stat-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(139, 92, 246, 0.12);
+  color: var(--et-footer-purple);
+  filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.35));
+}
+
+.et-footer__stat--blue .et-footer__stat-icon {
+  background: rgba(59, 130, 246, 0.12);
+  color: var(--et-footer-blue);
+  filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.35));
+}
+
+.et-footer__stat--pink .et-footer__stat-icon {
+  background: rgba(236, 72, 153, 0.12);
+  color: var(--et-footer-pink);
+  filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.35));
+}
+
+.et-footer__stat strong {
+  display: block;
+  font-size: 20px;
+  font-weight: 800;
+  color: #f8fafc;
+  line-height: 1.1;
+}
+
+.et-footer__stat span {
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.et-footer__values {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  padding: 32px 0;
+}
+
+.et-footer__value {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(30, 41, 59, 0.8);
+  background: #0d1321;
+}
+
+.et-footer__value-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: rgba(139, 92, 246, 0.12);
+  color: var(--et-footer-purple);
+}
+
+.et-footer__value--blue .et-footer__value-icon {
+  background: rgba(59, 130, 246, 0.12);
+  color: var(--et-footer-blue);
+}
+
+.et-footer__value--pink .et-footer__value-icon {
+  background: rgba(236, 72, 153, 0.12);
+  color: var(--et-footer-pink);
+}
+
+.et-footer__value strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+  color: #f1f5f9;
+  margin-bottom: 4px;
+}
+
+.et-footer__value p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #cbd5e1;
+}
+
+.et-footer__bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid #020617;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.et-footer__copy {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.et-footer__copy-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  flex-shrink: 0;
+}
+
+.et-footer__copy p {
+  margin: 0;
+  font-size: 12px;
+  color: #cbd5e1;
+  line-height: 1.45;
+}
+
+.et-footer__payments-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #22c55e;
+  margin-bottom: 8px;
+}
+
+.et-footer__payment-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.et-footer__payment-chip {
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--et-footer-border);
+  background: rgba(30, 41, 59, 0.65);
+  font-size: 10px;
+  font-weight: 700;
+  color: #cbd5e1;
+  letter-spacing: 0.02em;
+}
+
+.et-footer__theme {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #94a3b8;
+}
+
+.et-footer__theme-toggle {
+  position: relative;
+  width: 48px;
+  height: 26px;
+  border: 1px solid var(--et-footer-border);
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.9);
+  cursor: pointer;
+  padding: 0;
+}
+
+.et-footer__theme-toggle.is-dark {
+  background: linear-gradient(90deg, #4c1d95, #6d28d9);
+  border-color: rgba(139, 92, 246, 0.5);
+}
+
+.et-footer__theme-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #f8fafc;
+  transition: transform 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.et-footer__theme-toggle.is-dark .et-footer__theme-knob {
+  transform: translateX(22px);
+}
+
+.et-footer__theme-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #cbd5e1;
+  white-space: nowrap;
+}

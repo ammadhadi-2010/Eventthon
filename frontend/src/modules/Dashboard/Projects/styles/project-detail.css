@@ -1,0 +1,222 @@
+.ph-detail-page {
+  min-height: var(--et-hub-scroll-height, calc(100vh - 102px));
+  padding: 20px 24px 32px;
+  color: #f1f5f9;
+}
+
+.ph-detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 16px;
+  padding: 0;
+}
+
+.ph-detail-back:hover {
+  color: #e2e8f0;
+}
+
+.ph-detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 20px;
+  align-items: start;
+}
+
+.ph-detail-hero {
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  overflow: hidden;
+  background: rgba(11, 18, 34, 0.95);
+}
+
+.ph-detail-banner {
+  height: 200px;
+  background: linear-gradient(135deg, #4f46e5, #06b6d4);
+}
+
+.ph-detail-banner--ai {
+  background: linear-gradient(135deg, #4f46e5, #06b6d4);
+}
+.ph-detail-banner--seo {
+  background: linear-gradient(135deg, #059669, #0ea5e9);
+}
+.ph-detail-banner--mobile {
+  background: linear-gradient(135deg, #7c3aed, #ec4899);
+}
+.ph-detail-banner--wallet {
+  background: linear-gradient(135deg, #d97706, #6366f1);
+}
+.ph-detail-banner--web {
+  background: linear-gradient(135deg, #2563eb, #1e293b);
+}
+
+.ph-detail-body {
+  padding: 20px 22px 24px;
+}
+
+.ph-detail-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.ph-detail-badge {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(251, 191, 36, 0.15);
+  color: #fcd34d;
+}
+
+.ph-detail-title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.ph-detail-agency {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+.ph-detail-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.ph-detail-chip {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(71, 85, 105, 0.45);
+  color: #cbd5e1;
+}
+
+.ph-detail-tabs {
+  display: flex;
+  gap: 6px;
+  margin-top: 22px;
+  border-bottom: 1px solid rgba(71, 85, 105, 0.4);
+  padding-bottom: 0;
+}
+
+.ph-detail-tab {
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.ph-detail-tab.is-active {
+  color: #a5b4fc;
+  border-bottom-color: #6366f1;
+}
+
+.ph-detail-panel {
+  padding: 18px 0 8px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #cbd5e1;
+}
+
+.ph-detail-panel h3 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #94a3b8;
+}
+
+.ph-detail-list {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.ph-detail-sidebar {
+  position: sticky;
+  top: 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  background: rgba(11, 18, 34, 0.95);
+  padding: 18px;
+}
+
+.ph-detail-progress {
+  margin-bottom: 16px;
+}
+
+.ph-detail-progress-track {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.2);
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.ph-detail-progress-track span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #22d3ee);
+  border-radius: inherit;
+}
+
+.ph-detail-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ph-detail-actions button {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid rgba(71, 85, 105, 0.5);
+  background: rgba(30, 41, 59, 0.6);
+  color: #e2e8f0;
+}
+
+.ph-detail-actions button.is-primary {
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  border-color: transparent;
+  color: #fff;
+}
+
+.ph-detail-loading,
+.ph-detail-error {
+  padding: 48px 24px;
+  text-align: center;
+  color: #94a3b8;
+}
+
+@media (max-width: 960px) {
+  .ph-detail-grid {
+    grid-template-columns: 1fr;
+  }
+  .ph-detail-sidebar {
+    position: static;
+  }
+}

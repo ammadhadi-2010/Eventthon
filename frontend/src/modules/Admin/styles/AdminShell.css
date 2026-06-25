@@ -1,0 +1,139 @@
+.admin-dashboard {
+  min-height: 100vh;
+  background: #020617;
+  color: #fff;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.admin-dashboard__grid {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.admin-dashboard__grid--full-bleed {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.admin-main--full-bleed {
+  padding: 12px 16px 20px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.admin-dashboard--full-bleed .admin-chat {
+  grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+  min-height: calc(100vh - 100px);
+}
+
+.admin-dashboard--full-bleed .admin-alerts-shell {
+  width: 100%;
+}
+
+.admin-sidebar {
+  background: linear-gradient(180deg, #060d18 0%, #08111f 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 16px 12px;
+}
+
+.admin-main {
+  min-width: 0;
+  width: 100%;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  display: block;
+  padding: 20px 24px;
+  background:
+    radial-gradient(circle at top right, rgba(59, 130, 246, 0.08), transparent 25%),
+    linear-gradient(180deg, #050b16 0%, #020617 100%);
+}
+
+.admin-main--compact {
+  padding: 12px 20px 20px;
+}
+
+.admin-panel {
+  background: rgba(11, 18, 32, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.admin-chip {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+}
+
+.admin-muted {
+  color: #7c8aa5;
+}
+
+.admin-subtle {
+  color: #94a3b8;
+}
+
+.admin-accent {
+  color: #60a5fa;
+}
+
+.admin-action-btn {
+  transition: all 0.2s ease;
+}
+
+.admin-action-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(96, 165, 250, 0.22);
+}
+
+.admin-grid-2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1.95fr) minmax(280px, 0.72fr);
+  gap: 20px;
+}
+
+.admin-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table thead {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.admin-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.admin-scroll {
+  overflow: hidden;
+}
+
+@media (max-width: 1200px) {
+  .admin-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1023px) {
+  .admin-dashboard__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.admin-sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: rgba(2, 6, 23, 0.72);
+  cursor: pointer;
+}

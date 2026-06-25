@@ -1,0 +1,114 @@
+/* Create Project — list editors, review step */
+
+.cp-list-field {
+  margin-bottom: 14px;
+}
+
+.cp-list-field__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.cp-list-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 0;
+  background: rgba(99, 102, 241, 0.15);
+  color: #c4b5fd;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cp-list-field__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cp-list-field__items li {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cp-list-remove {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  background: rgba(248, 113, 113, 0.1);
+  color: #fca5a5;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.cp-budget-preview {
+  margin: -6px 0 12px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.cp-budget-preview strong {
+  color: #c4b5fd;
+}
+
+.cp-review-block {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cp-review-block__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.cp-review-block h4 {
+  margin: 0;
+  font-size: 13px;
+  color: #e2e8f0;
+}
+
+.cp-review-edit {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 0;
+  background: transparent;
+  color: #a78bfa;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cp-review-muted {
+  margin: 0 0 6px;
+  font-size: 12px;
+  color: #94a3b8;
+  line-height: 1.45;
+}
+
+.cp-review-tags {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.cp-review-block ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+  font-size: 12px;
+  color: #cbd5e1;
+}

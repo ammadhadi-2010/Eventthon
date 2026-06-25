@@ -1,0 +1,39 @@
+/* src/BackgroundCanvas.css */
+.et-mesh-bg {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: -10 !important;
+  /* Base color deep navy rakha hy taake depth banay */
+  background-color: #020617 !important;
+
+  background-image: 
+    /* Soft Blue Glow Top Left - Ab cyan ki bajaye subtle blue hy */
+    radial-gradient(circle at 10% 10%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
+    /* Dark Indigo Glow Top Right */
+    radial-gradient(circle at 90% 10%, rgba(79, 70, 229, 0.1) 0%, transparent 40%),
+    /* Main Ambient Glow Center */
+    radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 1) 0%, transparent 80%) !important;
+  
+  /* Blur ko thora kam kiya taake gradient natural lage */
+  filter: blur(40px) !important; 
+}
+
+.et-glow-spot {
+  position: fixed !important;
+  width: 800px !important;
+  height: 800px !important;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, transparent 70%) !important;
+  top: 0 !important;
+  left: 20% !important;
+  z-index: -9 !important;
+  pointer-events: none;
+  /* Floating animation ko mazeed slow aur smooth kiya hy */
+  animation: float 25s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(5%, 10%) scale(1.1); }
+  100% { transform: translate(-5%, 5%) scale(1); }
+}

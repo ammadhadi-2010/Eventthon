@@ -1,0 +1,8 @@
+/* User Management styles — split under ./styles/ (250-line cap per file) */
+@import './styles/um-layout.css';
+@import './styles/um-stats.css';
+@import './styles/um-toolbar.css';
+@import './styles/um-table.css';
+@import './styles/um-badges.css';
+@import './styles/um-pagination.css';
+@import './styles/um-modals.css';

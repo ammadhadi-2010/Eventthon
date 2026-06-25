@@ -1,0 +1,139 @@
+@keyframes dash-sync-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.dash-sync-spinner {
+  animation: dash-sync-spin 0.85s linear infinite;
+}
+
+.dash-sync-loader {
+  height: 100vh;
+  background: #020617;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dash-sync-loader p {
+  margin-top: 15px;
+  color: #3b82f6;
+  letter-spacing: 2px;
+  font-size: 10px;
+}
+
+.dash-sync-loader .dash-sync-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(59, 130, 246, 0.2);
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+}
+
+.dash-home-shell {
+  width: 100%;
+  min-height: 100%;
+  color: #fff;
+  box-sizing: border-box;
+}
+
+.dash-left-rail,
+.dash-right-rail,
+.dash-center-feed {
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.dash-left-rail-inner,
+.dash-right-rail-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+}
+
+.dash-center-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.dash-feed-hint {
+  color: #64748b;
+  text-align: center;
+  margin: 0;
+}
+
+.dash-left-rail-close {
+  display: none;
+  align-self: flex-end;
+  border: 0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  background: rgba(148, 163, 184, 0.14);
+  color: #e2e8f0;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dash-left-rail-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  background: rgba(2, 6, 23, 0.62);
+  backdrop-filter: blur(3px);
+}
+
+.dash-left-rail-backdrop--visible {
+  display: block;
+}
+
+@media (max-width: 1023px) {
+  .dash-left-rail-close {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dash-right-rail--desktop-only {
+    position: sticky;
+    top: 8px;
+    width: 100%;
+    min-width: 260px;
+    max-width: 320px;
+    overflow: visible;
+  }
+
+  .dash-left-rail-inner > *,
+  .dash-right-rail-inner > * {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.et-hub-pin-wrap .dash-main-grid {
+  width: 100%;
+  max-width: 100%;
+}
+
+.et-hub-pin-wrap .dash-main-grid > .dash-center-feed {
+  min-width: 0;
+}
+
+@media (max-width: 1100px) {
+  .et-hub-pin-wrap .dash-main-grid {
+    max-height: none;
+  }
+
+  .et-hub-pin-wrap .dash-main-grid > .dash-center-feed,
+  .et-hub-pin-wrap .dash-main-grid > .dash-left-rail,
+  .et-hub-pin-wrap .dash-main-grid > .dash-right-rail {
+    max-height: none;
+    overflow: visible;
+  }
+}

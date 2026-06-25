@@ -1,0 +1,78 @@
+.admin-notif-page {
+  width: 100%;
+  min-height: calc(100vh - 120px);
+  padding: 4px 8px 24px;
+}
+
+.admin-notif-page__head h1 {
+  margin: 0 0 4px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.admin-notif-page__head p {
+  margin: 0 0 16px;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.admin-notif-page__hint {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.admin-notif-page__list {
+  display: grid;
+  gap: 10px;
+  max-width: 900px;
+}
+
+.admin-notif-page__row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  width: 100%;
+  text-align: left;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(15, 23, 42, 0.7);
+  cursor: pointer;
+  color: inherit;
+}
+
+.admin-notif-page__row:hover {
+  border-color: rgba(99, 102, 241, 0.45);
+}
+
+.admin-notif-page__pill {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.admin-notif-page__pill--company {
+  background: rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+}
+
+.admin-notif-page__pill--user {
+  background: rgba(168, 85, 247, 0.2);
+  color: #d8b4fe;
+}
+
+.admin-notif-page__copy strong {
+  display: block;
+  color: #f8fafc;
+  font-size: 14px;
+}
+
+.admin-notif-page__copy p {
+  margin: 4px 0 0;
+  color: #94a3b8;
+  font-size: 12px;
+}

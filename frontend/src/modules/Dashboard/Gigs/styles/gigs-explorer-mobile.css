@@ -1,0 +1,276 @@
+/* Gig explorer browse — mobile (< 1024px). Desktop 3-column grid unchanged. */
+
+@media (max-width: 1023px) {
+  .gigx-shell {
+    padding: 12px !important;
+    overflow-x: hidden !important;
+  }
+
+  .gigx-head--desktop-search {
+    display: none !important;
+  }
+
+  .gigx-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    margin-top: 12px !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    position: relative !important;
+  }
+
+  /* Left list — fully hidden until drawer opens (no layout push) */
+  .gigx-grid > .gigx-left {
+    display: none !important;
+  }
+
+  .gigx-grid > .gigx-left.is-drawer-open {
+    display: block !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 100% !important;
+    width: 80vw !important;
+    max-width: 320px !important;
+    z-index: 50 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    border: 0 !important;
+    border-right: 1px solid #1e293b !important;
+    background: #020617 !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    transform: translateX(-105%) !important;
+    transition: transform 0.25s ease !important;
+    flex-shrink: 0 !important;
+    align-self: stretch !important;
+    min-height: 0 !important;
+    max-height: none !important;
+  }
+
+  .gigx-grid .gigx-left.is-drawer-open {
+    transform: translateX(0) !important;
+  }
+
+  .gigx-main-head {
+    position: relative !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .gigx-main-head__title-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+    width: 100% !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .gigx-main-head__title-row h2 {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    font-size: 1.35rem !important;
+    color: #fff !important;
+    font-weight: 800 !important;
+    line-height: 1.3 !important;
+  }
+
+  .gigx-mobile-drawer-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex-shrink: 0 !important;
+    margin-left: auto !important;
+    padding: 8px 12px !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+    background: #2563eb !important;
+    color: #fff !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    font-family: inherit !important;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;
+    transition: transform 0.15s ease, background 0.15s ease !important;
+  }
+
+  .gigx-mobile-drawer-btn:hover {
+    background: #1d4ed8 !important;
+  }
+
+  .gigx-mobile-drawer-btn:active {
+    transform: scale(0.95) !important;
+  }
+
+  .gigx-meta-bar {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
+  .gigx-meta-bar .gigx-status-pill,
+  .gigx-meta-bar .gigx-meta-chip {
+    flex-shrink: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .gigx-breadcrumbs {
+    flex-wrap: wrap !important;
+    row-gap: 4px !important;
+  }
+
+  .gigx-breadcrumbs__link {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 2px;
+  }
+
+  .gigx-tabs {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    gap: 8px !important;
+    width: 100% !important;
+    margin-top: 16px !important;
+    padding: 0 0 1px !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-bottom: 1px solid #1e293b !important;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .gigx-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gigx-tabs button {
+    flex: 0 0 auto !important;
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    border-radius: 0 !important;
+    border-bottom: 2px solid transparent !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    padding: 10px 16px !important;
+    color: #a1a1aa !important;
+  }
+
+  .gigx-tabs button.is-active {
+    color: #fff !important;
+    font-weight: 700 !important;
+    border-bottom-color: #2563eb !important;
+    background: rgba(37, 99, 235, 0.05) !important;
+    box-shadow: none !important;
+  }
+
+  .gigx-mobile-drawer-btn__icon {
+    width: 14px !important;
+    height: 14px !important;
+    color: #fff !important;
+    flex-shrink: 0 !important;
+  }
+
+  .gigx-drawer-backdrop {
+    display: block !important;
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 40 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: rgba(2, 6, 23, 0.72) !important;
+    cursor: pointer !important;
+  }
+
+  .gigx-left-head__row {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+  }
+
+  .gigx-left-drawer-close {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 32px !important;
+    height: 32px !important;
+    flex-shrink: 0 !important;
+    border-radius: 8px !important;
+    border: 1px solid #334155 !important;
+    background: rgba(15, 23, 42, 0.9) !important;
+    color: #fff !important;
+    font-size: 20px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    font-family: inherit !important;
+  }
+
+  .gigx-left-row {
+    grid-template-columns: 44px 1fr auto !important;
+  }
+
+  .gigx-left-thumb {
+    display: grid !important;
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  .gigx-main,
+  .gigx-right {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .gigx-right {
+    position: static !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gigx-head--desktop-search {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    margin-bottom: 0 !important;
+  }
+
+  .gigx-main-head {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  .gigx-main-head__title-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  .gigx-mobile-drawer-btn,
+  .gigx-drawer-backdrop,
+  .gigx-left-drawer-close {
+    display: none !important;
+  }
+
+  .gigx-left-head__row {
+    display: block !important;
+  }
+}

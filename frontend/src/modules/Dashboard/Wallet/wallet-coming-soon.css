@@ -1,0 +1,78 @@
+.wallet-coming-soon {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px 48px;
+  background: #080c14;
+  position: relative;
+}
+
+.wallet-coming-soon__card {
+  width: min(520px, 100%);
+  padding: 32px 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(8, 12, 20, 0.98));
+  text-align: center;
+  color: #e2e8f0;
+}
+
+.wallet-coming-soon__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: rgba(59, 130, 246, 0.14);
+  color: #60a5fa;
+  margin-bottom: 12px;
+}
+
+.wallet-coming-soon__badge {
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(251, 191, 36, 0.14);
+  color: #fbbf24;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.wallet-coming-soon__card h1 {
+  margin: 0 0 10px;
+  font-size: 28px;
+  color: #f8fafc;
+}
+
+.wallet-coming-soon__copy {
+  margin: 0 auto 20px;
+  max-width: 420px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #94a3b8;
+}
+
+.wallet-coming-soon__back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: rgba(59, 130, 246, 0.18);
+  color: #93c5fd;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.wallet-coming-soon__clock {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  color: #475569;
+}

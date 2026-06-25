@@ -1,0 +1,252 @@
+.vfps-dist-pct {
+  text-align: right;
+  font-weight: 700;
+  color: #c4c4dc;
+  font-variant-numeric: tabular-nums;
+}
+.vfps-review-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.vfps-review-item {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 0.85rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.vfps-review-item:first-child {
+  padding-top: 0.15rem;
+}
+.vfps-review-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.vfps-r-av {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7c3aed, #4c1d95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: #fff;
+  font-size: 15px;
+}
+.vfps-r-body {
+  min-width: 0;
+}
+.vfps-r-titleline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.55rem;
+  margin-bottom: 0.2rem;
+}
+.vfps-r-name {
+  font-weight: 800;
+  font-size: 14px;
+  color: #fff;
+}
+.vfps-r-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.18rem 0.5rem;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #e8e8f2;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.vfps-r-stars {
+  display: flex;
+  gap: 1px;
+  color: #facc15;
+  font-size: 12px;
+  margin: 0 0 0.45rem;
+}
+.vfps-r-text {
+  margin: 0 0 0.55rem;
+  font-size: 13px;
+  color: #f0f0f8;
+  line-height: 1.55;
+}
+.vfps-r-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 12px;
+}
+.vfps-r-project {
+  color: #9494b0;
+}
+.vfps-r-when {
+  flex-shrink: 0;
+  color: #8b8ba3;
+}
+.vfps-load {
+  width: 100%;
+  margin-top: 0.15rem;
+  padding: 0.95rem 1rem;
+  border-radius: 12px;
+  border: none;
+  background: #7c3aed;
+  color: #fff;
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(124, 58, 237, 0.35);
+}
+.vfps-load:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 6px 22px rgba(124, 58, 237, 0.42);
+}
+.vfps-right .vfps-card {
+  margin-bottom: 0;
+}
+.vfps-rank-badge-slot {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .vfps-rank-badge-slot {
+    margin: 0 0 0.5rem;
+  }
+}
+
+.vfps-rank-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(245, 158, 11, 0.35), rgba(109, 40, 217, 0.4));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  margin-bottom: 0.5rem;
+}
+.vfps-trust-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #86efac;
+  font-weight: 700;
+  font-size: 12px;
+}
+.vfps-trust-check::before {
+  content: '✓';
+  color: #22c55e;
+  font-weight: 900;
+}
+.vfps-rankbar {
+  height: 8px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  margin: 0.5rem 0;
+}
+.vfps-rankbar > div {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #6344e8, #a78bfa);
+}
+.vfps-trust-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 0;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.vfps-trust-row:last-child {
+  border-bottom: none;
+}
+.vfps-connect a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  font-size: 13px;
+  color: #c4b5fd;
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.vfps-connect a:last-child {
+  border-bottom: none;
+}
+.vfps-connect a:hover {
+  color: #fff;
+}
+.vfps-edu-title {
+  font-weight: 800;
+  color: #fff;
+  font-size: 0.9rem;
+  margin: 0 0 0.25rem;
+}
+.vfps-edu-sub {
+  margin: 0;
+  font-size: 12px;
+  color: #8b8ba3;
+  line-height: 1.45;
+}
+
+.vfps-skill-cloud--flush {
+  margin-bottom: 0.35rem;
+}
+
+.vfps-tag--sm {
+  padding: 0.18rem 0.5rem;
+  font-size: 11px;
+}
+
+/* Experience (center column) */
+.vfps-exp-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.vfps-exp-item {
+  margin: 0;
+  padding: 0;
+}
+.vfps-exp-row {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+}
+.vfps-exp-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.vfps-exp-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.vfps-exp-logo--ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  color: #c4b5fd;
+}
+.vfps-exp-body {
+  flex: 1;
+  min-width: 0;
+}

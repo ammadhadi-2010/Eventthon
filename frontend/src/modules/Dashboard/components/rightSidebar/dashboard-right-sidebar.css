@@ -1,0 +1,200 @@
+.dash-rs-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.dash-rs-card {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 22px;
+}
+
+.dash-rs-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.dash-rs-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dash-rs-title--with-icon span {
+  line-height: 1.2;
+}
+
+.dash-rs-title-ico {
+  color: #38bdf8;
+}
+
+.dash-rs-view-all {
+  font-size: 11px;
+  font-weight: 700;
+  color: #3b82f6;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.dash-rs-view-all:hover {
+  color: #7dd3fc;
+  text-decoration: underline;
+}
+
+.dash-rs-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  position: relative;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+  font-family: inherit;
+}
+
+.dash-rs-row:last-child {
+  margin-bottom: 0;
+}
+
+.dash-rs-row--click {
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 6px 4px;
+  margin-left: -4px;
+  margin-right: -4px;
+  transition: background 0.15s ease;
+}
+
+.dash-rs-row--click:hover,
+.dash-rs-row--click:focus-visible {
+  background: rgba(59, 130, 246, 0.08);
+  outline: none;
+}
+
+.dash-rs-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 14px;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.dash-rs-mid {
+  flex: 1;
+  min-width: 0;
+}
+
+.dash-rs-row-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #f8fafc;
+  line-height: 1.25;
+}
+
+.dash-rs-row-sub {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.dash-rs-row-meta {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 3px;
+}
+
+.dash-rs-action {
+  flex-shrink: 0;
+}
+
+.dash-rs-btn {
+  border: none;
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: background 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+
+.dash-rs-btn--join {
+  background: rgba(59, 130, 246, 0.12);
+  color: #3b82f6;
+}
+
+.dash-rs-btn--join.is-joined {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  cursor: default;
+}
+
+.dash-rs-btn--connect {
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  color: #eff6ff;
+}
+
+.dash-rs-btn--connect.is-pending {
+  background: rgba(148, 163, 184, 0.15);
+  color: #94a3b8;
+  cursor: default;
+}
+
+.dash-rs-btn--register {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.35);
+}
+
+.dash-rs-btn--register.is-registered {
+  background: rgba(34, 197, 94, 0.12);
+  color: #86efac;
+  cursor: default;
+}
+
+.dash-rs-dismiss {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.04);
+  color: #64748b;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.dash-rs-dismiss:hover {
+  background: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+}
+
+.dash-rs-empty {
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+}

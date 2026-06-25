@@ -1,0 +1,237 @@
+/* Founder's Story — public page (dark theme) */
+
+.fs-page {
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 12px 16px 40px;
+  color: #e2e8f0;
+  box-sizing: border-box;
+}
+
+.fs-hero {
+  text-align: center;
+  margin-bottom: 22px;
+  padding: 28px 18px 8px;
+}
+
+.fs-hero__eyebrow {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #a78bfa;
+}
+
+.fs-hero h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.35rem);
+  font-weight: 800;
+  color: #f8fafc;
+  letter-spacing: -0.02em;
+}
+
+.fs-hero__lead {
+  margin: 12px auto 0;
+  max-width: 560px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #94a3b8;
+}
+
+.fs-card {
+  background: rgba(15, 23, 42, 0.78);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 20px;
+  padding: 26px 24px;
+  box-shadow: 0 18px 48px -28px rgba(15, 23, 42, 0.9);
+}
+
+.fs-body__paragraph {
+  margin: 0 0 18px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #cbd5e1;
+}
+
+.fs-body__paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.fs-body__empty,
+.fs-status {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 15px;
+}
+
+.fs-status--error {
+  color: #fca5a5;
+}
+
+.fs-engage {
+  margin-top: 18px;
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 20px;
+  padding: 18px;
+}
+
+.fs-engage__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.fs-engage__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(30, 41, 59, 0.65);
+  color: #e2e8f0;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+
+.fs-engage__btn:hover:not(:disabled) {
+  border-color: rgba(167, 139, 250, 0.45);
+  background: rgba(99, 102, 241, 0.14);
+  transform: translateY(-1px);
+}
+
+.fs-engage__btn.is-liked {
+  border-color: rgba(244, 114, 182, 0.5);
+  background: rgba(244, 114, 182, 0.12);
+  color: #fda4af;
+}
+
+.fs-engage__btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fs-engage__btn strong {
+  min-width: 1.2em;
+  text-align: center;
+}
+
+.fs-engage__meta {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.fs-comment-form {
+  margin-top: 14px;
+}
+
+.fs-comment-form__name {
+  width: 100%;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(2, 6, 23, 0.55);
+  color: #f8fafc;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.fs-comment-form__row {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.fs-comment-form__input {
+  flex: 1;
+  resize: vertical;
+  min-height: 84px;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(2, 6, 23, 0.55);
+  color: #f8fafc;
+  padding: 12px 14px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.fs-comment-form__submit {
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.fs-comment-form__submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.fs-comment-list {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fs-comment-list__empty {
+  color: #64748b;
+  font-size: 14px;
+  padding: 8px 2px;
+}
+
+.fs-comment-card {
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  background: rgba(2, 6, 23, 0.45);
+  padding: 12px 14px;
+}
+
+.fs-comment-card__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.fs-comment-card__head strong {
+  color: #f1f5f9;
+  font-size: 14px;
+}
+
+.fs-comment-card__head time {
+  color: #64748b;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.fs-comment-card p {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 14px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}

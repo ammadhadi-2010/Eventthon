@@ -1,0 +1,30 @@
+/** Tailwind CLI config — not named tailwind.config.js so CRA does not inject the v4 PostCSS plugin. */
+module.exports = {
+  content: [
+    './src/**/*.{js,jsx,ts,tsx}',
+    './src/modules/Admin/**/*.{js,jsx,ts,tsx}',
+  ],
+  safelist: [
+    'grid-cols-4',
+    'lg:grid-cols-3',
+    'lg:grid-cols-4',
+    'lg:grid-cols-5',
+    'grid-cols-1',
+    'sm:grid-cols-2',
+    'lg:col-span-2',
+    'lg:col-span-1',
+    'min-w-0',
+    'min-w-[950px]',
+    'min-w-[1000px]',
+    'clear-both',
+    'scrollbar-thin',
+    'scrollbar-none',
+    'snap-x',
+    'snap-mandatory',
+    'snap-start',
+    'w-[calc(50%-12px)]',
+    'overflow-x-auto',
+    'hidden',
+    'touch-manipulation',
+  ],
+};

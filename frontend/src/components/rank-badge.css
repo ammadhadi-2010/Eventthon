@@ -1,0 +1,91 @@
+.et-rank-badge-img {
+  object-fit: contain;
+  display: block;
+  max-width: 100%;
+  flex-shrink: 0;
+}
+
+.et-rank-badge--sm {
+  width: 2.75rem;
+  height: 2.75rem;
+  min-width: 2.75rem;
+}
+
+.et-rank-badge--md {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.et-rank-badge--lg {
+  width: 4rem;
+  height: 4rem;
+}
+
+.et-rank-badge--profile {
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
+.et-rank-badge--hero {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.et-rank-badge--criteria {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.et-rank-badge--preview {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+@media (min-width: 640px) {
+  .et-rank-badge--md {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .et-rank-badge--lg {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .et-rank-badge--profile {
+    width: 5.25rem;
+    height: 5.25rem;
+  }
+
+  .et-rank-badge--hero {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .et-rank-badge--criteria {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .et-rank-badge--preview {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+@media (max-width: 399px) {
+  .et-rank-badge--hero {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .et-rank-badge--profile {
+    width: 3.75rem;
+    height: 3.75rem;
+  }
+
+  .et-rank-badge--criteria {
+    width: 3rem;
+    height: 3rem;
+  }
+}

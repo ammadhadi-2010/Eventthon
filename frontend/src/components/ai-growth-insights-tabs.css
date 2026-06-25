@@ -1,0 +1,43 @@
+.et-ai-hub-root--stack {
+  display: contents;
+}
+
+.et-ai-panel-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px 0;
+  border-bottom: 1px solid rgba(34, 211, 238, 0.12);
+}
+
+.et-ai-panel-tabs__btn {
+  flex: 1;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-bottom: 0;
+  border-radius: 12px 12px 0 0;
+  padding: 10px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #94a3b8;
+  cursor: pointer;
+  background: rgba(15, 23, 42, 0.55);
+  transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.et-ai-panel-tabs__btn:hover {
+  color: #e2e8f0;
+  border-color: rgba(34, 211, 238, 0.4);
+}
+
+.et-ai-panel-tabs__btn--active {
+  color: #ecfeff;
+  border-color: rgba(34, 211, 238, 0.55);
+  background: linear-gradient(180deg, rgba(8, 145, 178, 0.38), rgba(15, 23, 42, 0.88));
+  box-shadow: 0 -4px 18px rgba(34, 211, 238, 0.22);
+}
+
+@media (max-width: 480px) {
+  .et-ai-panel-tabs__btn {
+    font-size: 11px;
+    padding: 9px 6px;
+  }
+}

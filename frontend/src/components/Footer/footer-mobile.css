@@ -1,0 +1,112 @@
+/* Footer — mobile responsiveness (< 1024px / breakpoints per spec) */
+
+@media (max-width: 767px) {
+  .et-footer__inner {
+    padding: 32px 16px 24px;
+  }
+
+  .et-footer__links-grid {
+    padding: 32px 0;
+  }
+
+  .et-footer__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 32px 0;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    background: transparent;
+  }
+
+  .et-footer__values {
+    grid-template-columns: 1fr;
+    padding: 32px 0;
+    gap: 16px;
+  }
+
+  .et-footer__bottom {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    padding-top: 24px;
+    padding-bottom: 96px;
+  }
+
+  .et-footer__copy {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .et-footer__payments {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .et-footer__payment-row {
+    justify-content: center;
+  }
+
+  .et-footer__theme {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .et-footer__values {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .et-footer__stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .et-footer__values {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .et-footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding-bottom: 48px;
+  }
+}
+
+@media (min-width: 768px) {
+  .et-footer__stats {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .et-footer__stat {
+    flex: 1 1 auto;
+    min-width: 140px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .et-footer__values {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .et-footer__bottom {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 28px;
+  }
+}
+
+@media (max-width: 479px) {
+  .et-footer__stats {
+    grid-template-columns: 1fr;
+  }
+}

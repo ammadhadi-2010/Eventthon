@@ -1,0 +1,39 @@
+/* Create Project — layout shell */
+
+.cp-root {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 300px);
+  gap: 14px;
+  align-items: start;
+  width: 100%;
+}
+
+.cp-main {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.ph-layout--create .ph-layout__rail--right {
+  display: none;
+}
+
+.ph-layout--create {
+  grid-template-columns: minmax(240px, 268px) minmax(0, 1fr);
+}
+
+.ph-create-box.is-active {
+  border-color: rgba(129, 140, 248, 0.45);
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.25);
+}
+
+@media (max-width: 1100px) {
+  .cp-root {
+    grid-template-columns: 1fr;
+  }
+
+  .ph-layout--create {
+    grid-template-columns: 1fr;
+  }
+}

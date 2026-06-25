@@ -1,0 +1,203 @@
+﻿
+.orders-summary-grid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.orders-summary-card {
+  border-radius: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.orders-summary-card h4 {
+  margin: 8px 0 0;
+  font-size: 19px;
+  color: #f8fafc;
+}
+
+.orders-summary-card p {
+  margin: 3px 0 0;
+  font-size: 11px;
+  color: #9db1cc;
+}
+
+.orders-summary-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #dbeafe;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.orders-summary-card.blue { background: linear-gradient(180deg, rgba(37, 99, 235, 0.15), rgba(37, 99, 235, 0.04)); }
+.orders-summary-card.amber { background: linear-gradient(180deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.04)); }
+.orders-summary-card.green { background: linear-gradient(180deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.04)); }
+.orders-summary-card.violet { background: linear-gradient(180deg, rgba(139, 92, 246, 0.15), rgba(139, 92, 246, 0.04)); }
+
+.orders-tab {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: #9eb0c8;
+  border-radius: 8px;
+  height: 32px;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.orders-tab.is-active {
+  color: #7dd3fc;
+  border-color: rgba(56, 189, 248, 0.5);
+  background: rgba(14, 116, 144, 0.2);
+}
+
+.orders-table-wrap {
+  margin-top: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.orders-empty-panel {
+  margin: 0;
+  padding: 16px 12px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #e4e4e7;
+}
+
+.orders-table-head,
+.orders-table-row {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr 0.9fr 0.9fr 0.7fr 0.9fr;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 14px;
+}
+
+.orders-table-head {
+  background: rgba(255, 255, 255, 0.02);
+  color: #8ea2bf;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.orders-table-row {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  color: #dce8fc;
+  font-size: 13px;
+  transition: background 0.2s ease;
+}
+
+.orders-table-row:hover {
+  background: linear-gradient(90deg, rgba(30, 64, 175, 0.12), rgba(15, 23, 42, 0.12));
+}
+
+.orders-table-row.is-spotlight {
+  background: linear-gradient(90deg, rgba(34, 211, 238, 0.12), rgba(59, 130, 246, 0.08));
+  box-shadow: inset 0 0 0 1px rgba(34, 211, 238, 0.35);
+}
+
+.orders-id {
+  color: #dbeafe;
+  font-weight: 700;
+}
+
+.orders-status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.orders-status.pending {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.orders-status.progress {
+  background: rgba(34, 197, 94, 0.16);
+  color: #4ade80;
+  border-color: rgba(34, 197, 94, 0.35);
+}
+
+.orders-status.completed {
+  background: rgba(20, 184, 166, 0.16);
+  color: #2dd4bf;
+  border-color: rgba(20, 184, 166, 0.35);
+}
+
+.orders-status.cancelled {
+  background: rgba(244, 63, 94, 0.16);
+  color: #fb7185;
+  border-color: rgba(244, 63, 94, 0.35);
+}
+
+.create-gig-shell {
+  padding: 14px;
+  background:
+    radial-gradient(600px 220px at 45% 0%, rgba(56, 189, 248, 0.08), transparent 70%),
+    linear-gradient(180deg, rgba(6, 14, 30, 0.98), rgba(4, 10, 22, 0.98));
+}
+
+.create-gig-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 12px;
+}
+
+.create-gig-main,
+.create-gig-side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.create-gig-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.create-gig-back-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: transparent;
+  color: #cbd5e1;
+  cursor: pointer;
+}
+
+.create-gig-head h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #eff6ff;
+}
+
+.create-gig-head p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #8fa3be;
+}
+
+.create-gig-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}

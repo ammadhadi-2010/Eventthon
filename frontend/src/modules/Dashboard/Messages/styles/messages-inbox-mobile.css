@@ -1,0 +1,214 @@
+/* Messages Inbox — isolated mobile shell (desktop: MessagesInbox.layout.css only) */
+
+.msgx-desktop-only {
+  display: none;
+  width: 100%;
+}
+
+.msgx-mobile-only {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: #050811;
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  .msgx-desktop-only {
+    display: block;
+  }
+
+  .msgx-mobile-only {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  .et-app-shell:has(.msgx-mobile-screen) .et-top-nav {
+    display: none !important;
+  }
+
+  .et-app-shell:has(.msgx-mobile-screen) .et-main-inner {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .msgx-mobile-screen {
+    --msgx-mobile-chrome-h: 3.5rem;
+    min-height: calc(100dvh - 4rem);
+    padding-bottom: 5rem;
+    box-sizing: border-box;
+  }
+
+  .msgx-mobile-chrome {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: #090d16;
+    border-bottom: 1px solid #1e293b;
+    transition: transform 0.3s ease;
+    transform: translateY(0);
+  }
+
+  .msgx-mobile-chrome--hidden {
+    transform: translateY(-100%);
+    pointer-events: none;
+  }
+
+  .msgx-mobile-topbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 3.5rem;
+    padding: 0 12px;
+    box-sizing: border-box;
+  }
+
+  .msgx-mobile-topbar__avatar-btn {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    overflow: hidden;
+  }
+
+  .msgx-mobile-topbar__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    object-fit: cover;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    display: block;
+  }
+
+  .msgx-mobile-topbar__search {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    margin: 0 4px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: #111622;
+    border: 1px solid #1e293b;
+    box-sizing: border-box;
+  }
+
+  .msgx-mobile-topbar__search-icon {
+    flex-shrink: 0;
+    color: #94a3b8;
+    font-size: 14px;
+  }
+
+  .msgx-mobile-topbar__search-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    color: #e2e8f0;
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .msgx-mobile-topbar__search-input::placeholder {
+    color: #64748b;
+  }
+
+  .msgx-mobile-topbar__compose-btn {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: #cbd5e1;
+    cursor: pointer;
+  }
+
+  .msgx-mobile-list-shell {
+    padding-top: var(--msgx-mobile-chrome-h, 3.5rem);
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .msgx-mobile-list-shell .msgx-sidebar {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    min-height: calc(100dvh - var(--msgx-mobile-chrome-h, 3.5rem) - 4rem);
+    padding: 10px 12px;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .msgx-mobile-list-shell .msgx-list {
+    max-height: none;
+    flex: 1 1 auto;
+  }
+
+  .msgx-mobile-list-shell .msgx-sidebar-head h3 {
+    font-size: 1.25rem;
+  }
+
+  .msgx-mobile-chat-shell {
+    flex: 1 1 auto;
+    min-height: calc(100dvh - 4rem);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .msgx-mobile-chat-shell .msgx-chat {
+    flex: 1 1 auto;
+    border: 0;
+    border-radius: 0;
+    min-height: calc(100dvh - 4rem);
+    max-height: none;
+  }
+
+  .msgx-mobile-chat-shell .msgx-chat-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+    border: 1px solid rgba(71, 85, 105, 0.5);
+    border-radius: 8px;
+    background: rgba(15, 23, 42, 0.75);
+    color: #cbd5e1;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .msgx-mobile-chat-shell .msgx-chat-head-main {
+    flex-direction: row;
+    align-items: center;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .msgx-mobile-chat-shell .msgx-chat-head-main > div {
+    min-width: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .msgx-mobile-chrome,
+  .msgx-chat-back {
+    display: none !important;
+  }
+}

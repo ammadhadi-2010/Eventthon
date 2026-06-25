@@ -1,0 +1,118 @@
+.cp-messages-page__head {
+  margin-bottom: 12px;
+}
+
+.cp-messages-page__title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.cp-messages-page__title-copy {
+  min-width: 0;
+}
+
+.cp-messages-page__head h1 {
+  margin: 0 0 4px;
+  font-size: 20px;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.cp-messages-page__head p {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.cp-messages-page__channels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cp-messages-page__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: #cbd5e1;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cp-messages-page__tab--active {
+  border-color: rgba(59, 130, 246, 0.45);
+  background: rgba(59, 130, 246, 0.15);
+  color: #fff;
+}
+
+.cp-messages-page__count {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.cp-messages-page,
+.cp-notifications-page {
+  width: 100%;
+  min-height: calc(100vh - 88px);
+  display: flex;
+  flex-direction: column;
+}
+
+.cp-messages-page .msgx-page,
+.cp-messages-page .msgx-shell {
+  flex: 1;
+  min-height: 0;
+}
+
+.cp-messages-page .msgx-shell {
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+  padding: 8px 0 0;
+}
+
+.cp-messages-page .msgx-main-grid {
+  min-height: calc(100vh - 200px);
+}
+
+.cp-notifications-page__head {
+  margin-bottom: 12px;
+}
+
+.cp-notifications-page__title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.cp-notifications-page__title-copy {
+  min-width: 0;
+}
+
+.cp-notifications-page__head h1 {
+  margin: 0 0 4px;
+  font-size: 20px;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.cp-notifications-page__head p {
+  margin: 0;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.cp-notifications-page .alerts-page-shell {
+  min-height: calc(100vh - 88px);
+  width: 100%;
+  padding: 12px 14px 18px;
+  box-sizing: border-box;
+}

@@ -1,0 +1,31 @@
+.admin-alerts-shell.alerts-page-shell {
+  min-height: calc(100vh - 96px);
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 12px 14px 20px;
+  box-sizing: border-box;
+}
+
+.admin-alerts-shell .alert-nav-title::after {
+  content: ' — Control Center';
+  font-weight: 600;
+  color: #64748b;
+  font-size: 11px;
+}
+
+.admin-alerts-shell .alerts-avatar--bug {
+  background: rgba(127, 29, 29, 0.35);
+  border: 1px solid rgba(248, 113, 113, 0.45);
+  color: #fecaca;
+  font-size: 18px;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.25);
+}
+
+.admin-alerts-shell .alerts-list-item.tone-bug {
+  border-left: 3px solid rgba(239, 68, 68, 0.65);
+}
+
+.admin-alerts-shell .alerts-list-item.is-bug-report:hover {
+  background: rgba(127, 29, 29, 0.18);
+}

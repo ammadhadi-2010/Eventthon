@@ -1,0 +1,252 @@
+.msgx-details-side {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-left: 1px solid rgba(51, 65, 85, 0.45);
+}
+
+.msgx-details-side h4 {
+  margin: 0;
+  font-size: 22px;
+  color: #eef3ff;
+}
+
+.msgx-side-card {
+  border: 1px solid rgba(71, 85, 105, 0.45);
+  border-radius: 12px;
+  background: radial-gradient(circle at top left, rgba(30, 41, 59, 0.55), rgba(2, 6, 23, 0.7));
+  padding: 11px;
+}
+
+.msgx-side-card h6 {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: #f8fafc;
+}
+
+.msgx-side-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.msgx-side-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  border: 1px solid rgba(100, 116, 139, 0.7);
+  background: linear-gradient(135deg, #334155, #0f172a);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+}
+
+.msgx-side-name-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.msgx-side-name-row h5 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.msgx-side-name-row span {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.2);
+  color: #c7d2fe;
+  border: 1px solid rgba(129, 140, 248, 0.5);
+}
+
+.msgx-side-online {
+  margin: 5px 0 0;
+  color: #cbd5e1;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.msgx-side-online i {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #22c55e;
+  display: inline-block;
+}
+
+.msgx-side-kv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+}
+
+.msgx-side-kv small {
+  color: #94a3b8;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.msgx-side-kv strong {
+  color: #e2e8f0;
+  font-size: 12px;
+}
+
+.msgx-side-order-id {
+  margin: 0 0 4px;
+  color: #e2e8f0;
+  font-weight: 700;
+}
+
+.msgx-side-order-title {
+  margin: 0 0 4px;
+  color: #cbd5e1;
+  font-size: 12px;
+}
+
+.msgx-side-order-status {
+  margin: 0 0 8px;
+  color: #22c55e;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.msgx-side-link-btn {
+  border: 1px solid rgba(129, 140, 248, 0.8);
+  background: rgba(67, 56, 202, 0.28);
+  color: #e0e7ff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.msgx-side-files {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.msgx-side-file-row {
+  display: grid;
+  grid-template-columns: 38px 1fr 28px;
+  gap: 8px;
+  align-items: center;
+}
+
+.msgx-side-file-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid rgba(71, 85, 105, 0.7);
+  background: rgba(30, 41, 59, 0.85);
+  font-size: 10px;
+  color: #cbd5e1;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+}
+
+.msgx-side-file-meta p {
+  margin: 0;
+  color: #e2e8f0;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.msgx-side-file-meta small {
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+.msgx-side-file-row button {
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(71, 85, 105, 0.6);
+  background: rgba(15, 23, 42, 0.8);
+  color: #cbd5e1;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.msgx-side-view-all {
+  margin-top: 8px;
+  border: 0;
+  background: transparent;
+  color: #38bdf8;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.msgx-side-option {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #dbeafe;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.msgx-side-option.is-danger {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.msgx-side-switch-row {
+  margin: 6px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #dbeafe;
+  font-size: 12px;
+}
+
+.msgx-side-switch-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.msgx-side-switch {
+  width: 38px;
+  height: 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(71, 85, 105, 0.7);
+  background: rgba(15, 23, 42, 0.9);
+  position: relative;
+  cursor: pointer;
+  padding: 0;
+}
+
+.msgx-side-switch i {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  transition: transform 0.15s ease;
+}
+
+.msgx-side-switch.is-on {
+  background: rgba(99, 102, 241, 0.4);
+  border-color: rgba(129, 140, 248, 0.8);
+}
+
+.msgx-side-switch.is-on i {
+  transform: translateX(18px);
+}

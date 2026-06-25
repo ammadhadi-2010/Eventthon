@@ -1,0 +1,133 @@
+/* Explore / workspace squad dashboard — mobile & tablet (< 1024px) */
+
+@media (max-width: 1023px) {
+  .sq-ws-root,
+  .sq-public-showroom {
+    background: #050811;
+  }
+
+  .sq-public-page {
+    padding: 0.75rem 0.75rem 6rem;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  .sq-public-body {
+    padding: 0 12px 16px;
+    overflow-x: hidden;
+  }
+
+  .sq-ws-dashboard-layout {
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 12px;
+  }
+
+  .sq-ws-dashboard-main,
+  .sq-ws-dashboard-rail {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .sq-ws-stack {
+    gap: 16px;
+  }
+
+  /* Header — single column stack */
+  .sq-ws-header {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 14px 12px 10px;
+  }
+
+  .sq-ws-avatar-slot.sq-avatar--lg {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+  }
+
+  .sq-ws-title {
+    font-size: 1.15rem;
+    line-height: 1.25;
+  }
+
+  .sq-ws-desc {
+    max-width: none;
+    font-size: 0.8125rem;
+  }
+
+  .sq-ws-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .sq-ws-actions .sq-ws-btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .sq-ws-header-stats {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sq-ws-header-stats::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sq-ws-stat-pill {
+    flex: 0 0 auto;
+    min-width: 72px;
+  }
+
+  /* Triple feed row → single column */
+  .sq-ws-triple {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .sq-ws-features {
+    grid-template-columns: 1fr;
+  }
+
+  .sq-ws-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .sq-ws-mini-project__tasks {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .sq-ws-progress {
+    width: 100%;
+  }
+
+  .sq-ws-mini-project__pct {
+    text-align: left;
+  }
+
+  .sq-ws-pad {
+    padding: 16px;
+  }
+
+  .sq-ws-glass {
+    border-radius: 16px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .sq-ws-stats-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sq-ws-features {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

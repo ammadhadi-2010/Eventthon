@@ -1,0 +1,194 @@
+/* Company messages — mobile layout inside company portal shell */
+
+@media (max-width: 1023px) {
+  .cp-mobile-shell .cp-messages-page {
+    width: 100%;
+    max-width: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  .cp-mobile-shell .cp-messages-page__head {
+    margin: 0;
+    padding: 8px 12px 10px;
+    border-bottom: 1px solid rgba(30, 41, 59, 0.65);
+    background: rgba(9, 13, 22, 0.98);
+  }
+
+  .cp-mobile-shell .cp-messages-page__title-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .cp-mobile-shell .cp-messages-page__back {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    margin-top: 2px;
+    padding: 0;
+    border: 1px solid #334155;
+    border-radius: 999px;
+    background: #1e293b;
+    color: #e2e8f0;
+    cursor: pointer;
+  }
+
+  .cp-mobile-shell .cp-messages-page__back:active {
+    transform: scale(0.94);
+  }
+
+  .cp-mobile-shell .cp-messages-page__title-copy {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .cp-mobile-shell .cp-messages-page__head h1 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #f8fafc;
+  }
+
+  .cp-mobile-shell .cp-messages-page__head p {
+    margin: 4px 0 0;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #94a3b8;
+  }
+
+  .cp-mobile-shell .cp-messages-page__channels {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+    margin-top: 10px;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cp-mobile-shell .cp-messages-page__channels::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cp-mobile-shell .cp-messages-page__tab {
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 11px;
+    padding: 6px 11px;
+  }
+
+  .cp-messages-page .msgx-page {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+  }
+
+  .cp-messages-page .msgx-mobile-screen {
+    min-height: 0;
+    padding-bottom: 0;
+    background: transparent;
+  }
+
+  .cp-messages-page .msgx-mobile-chrome {
+    display: none !important;
+  }
+
+  .cp-messages-page .msgx-mobile-list-shell {
+    padding-top: 0 !important;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .cp-messages-page .msgx-mobile-list-shell .msgx-sidebar {
+    min-height: 0;
+    padding: 10px 12px 16px;
+    gap: 10px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .cp-messages-page .msgx-sidebar-head h3 {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .cp-messages-page .msgx-list {
+    max-height: none;
+    flex: 1 1 auto;
+    overflow: visible;
+  }
+
+  .cp-messages-page .msgx-filters {
+    flex-wrap: nowrap;
+    padding-bottom: 2px;
+  }
+
+  .cp-messages-page .msgx-filters button {
+    flex-shrink: 0;
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+
+  .cp-messages-page .msgx-item {
+    padding: 10px;
+    margin-bottom: 8px;
+  }
+
+  .cp-messages-page .msgx-item-top h4 {
+    font-size: 13px;
+  }
+
+  .cp-messages-page .msgx-item-sub {
+    font-size: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .cp-messages-page .msgx-item p {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    overflow: hidden;
+    line-height: 1.35;
+    font-size: 11px;
+  }
+
+  .cp-messages-page .msgx-item-meta {
+    flex-shrink: 0;
+  }
+
+  .cp-messages-page .msgx-time {
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  .cp-messages-page .msgx-mobile-chat-shell {
+    min-height: calc(100dvh - var(--cp-mobile-topbar-h, 3.5rem) - var(--cp-mobile-bottom-nav-h, 4rem) - 7rem);
+  }
+
+  .cp-messages-page .msgx-mobile-chat-shell .msgx-chat {
+    min-height: inherit;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cp-messages-page__back {
+    display: none;
+  }
+
+  .cp-messages-page__title-row {
+    display: block;
+  }
+}

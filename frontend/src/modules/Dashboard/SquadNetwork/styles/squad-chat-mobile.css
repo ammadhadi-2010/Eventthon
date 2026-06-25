@@ -1,0 +1,193 @@
+/* Squad chat stream — mobile only (< 1024px). Desktop unchanged. */
+
+@media (max-width: 1023px) {
+  .squad-hub {
+    --sq-chat-primary: #ffffff;
+    --sq-chat-secondary: #f1f5f9;
+    --sq-chat-meta: #d4d4d8;
+  }
+
+  .squad-hub__chat-pane {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* Compact message stream */
+  .squad-hub .squad-chat-messages {
+    padding: 12px !important;
+    gap: 10px !important;
+  }
+
+  .squad-hub .squad-msg-row {
+    margin-bottom: 0 !important;
+  }
+
+  .squad-hub .squad-msg-row.is-grouped {
+    margin-bottom: 0 !important;
+  }
+
+  .squad-hub .squad-msg__stack {
+    max-width: min(82%, 20rem) !important;
+    gap: 6px !important;
+  }
+
+  .squad-hub .squad-msg__bubble {
+    padding: 10px 30px 9px 12px !important;
+  }
+
+  .squad-hub .squad-msg-row.is-own .squad-msg__bubble {
+    padding: 10px 12px 9px 30px !important;
+  }
+
+  /* High-contrast message typography */
+  .squad-hub .squad-msg__bubble.is-other,
+  .squad-hub .squad-msg__bubble.is-own {
+    color: var(--sq-chat-secondary) !important;
+  }
+
+  .squad-hub .squad-msg__text,
+  .squad-hub .squad-msg__bubble p {
+    color: var(--sq-chat-primary) !important;
+    font-weight: 500;
+  }
+
+  .squad-hub .squad-msg__name {
+    color: var(--sq-chat-secondary) !important;
+    font-weight: 600;
+  }
+
+  .squad-hub .squad-msg__time {
+    color: var(--sq-chat-meta) !important;
+    font-weight: 500;
+  }
+
+  .squad-hub .squad-msg__edited {
+    opacity: 1 !important;
+    color: var(--sq-chat-meta) !important;
+  }
+
+  .squad-hub .squad-msg__file-title {
+    color: var(--sq-chat-primary) !important;
+    font-weight: 600;
+  }
+
+  .squad-hub .squad-msg__file-link {
+    color: var(--sq-chat-secondary) !important;
+    font-weight: 700;
+  }
+
+  .squad-hub .squad-msg__file-link:hover {
+    color: var(--sq-chat-primary) !important;
+  }
+
+  .squad-hub .squad-msg__reaction {
+    color: var(--sq-chat-secondary) !important;
+  }
+
+  /* Flexible attachment wrappers */
+  .squad-hub .squad-msg__media {
+    width: 100% !important;
+    max-width: 20rem !important;
+  }
+
+  .squad-hub .squad-msg__media img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  .squad-hub .squad-chat-day {
+    color: var(--sq-chat-secondary) !important;
+    margin: 10px 0 6px !important;
+  }
+
+  .squad-hub .squad-chat-empty,
+  .squad-hub .squad-chat-loading {
+    color: var(--sq-chat-secondary) !important;
+    padding: 24px 12px !important;
+    justify-content: center;
+  }
+
+  .squad-hub .squad-chat-empty strong {
+    color: var(--sq-chat-primary) !important;
+  }
+
+  .squad-hub .squad-chat-pinned {
+    margin: 8px 10px 0 !important;
+    padding: 10px 12px !important;
+  }
+
+  .squad-hub .squad-chat-pinned span {
+    color: var(--sq-chat-secondary) !important;
+  }
+
+  .squad-hub .squad-chat-notice {
+    color: #bfdbfe !important;
+    padding: 4px 12px 0 !important;
+  }
+
+  /* Composer — tighter vertical rhythm */
+  .squad-hub .squad-chat-composer {
+    padding: 10px 12px 12px !important;
+  }
+
+  .squad-hub .squad-chat-composer__row {
+    padding: 6px 6px 6px 12px !important;
+    gap: 8px !important;
+  }
+
+  .squad-hub .squad-chat-composer__input {
+    color: var(--sq-chat-primary) !important;
+    font-size: 14px !important;
+  }
+
+  .squad-hub .squad-chat-composer__input::placeholder {
+    color: var(--sq-chat-meta) !important;
+  }
+
+  .squad-hub .squad-chat-composer__tools {
+    color: var(--sq-chat-meta) !important;
+    gap: 10px !important;
+  }
+
+  .squad-hub .squad-chat-composer__tools button {
+    color: var(--sq-chat-secondary) !important;
+  }
+
+  .squad-hub .squad-chat-composer__edit-banner {
+    color: #bfdbfe !important;
+    margin-bottom: 6px !important;
+    padding: 6px 10px !important;
+  }
+
+  .squad-hub .squad-chat-composer__edit-banner button {
+    color: var(--sq-chat-secondary) !important;
+  }
+
+  /* Premium gradient send button */
+  .squad-hub .squad-chat-composer__send {
+    width: 38px !important;
+    height: 38px !important;
+    background: linear-gradient(to right, #2563eb, #4f46e5, #7c3aed) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35) !important;
+    transition: filter 0.2s ease, transform 0.15s ease !important;
+  }
+
+  .squad-hub .squad-chat-composer__send:hover:not(:disabled) {
+    filter: brightness(1.1);
+    transform: none;
+  }
+
+  .squad-hub .squad-chat-composer__send:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+
+  .squad-hub .squad-chat-composer__send:disabled {
+    filter: grayscale(0.3) brightness(0.7);
+    opacity: 1;
+  }
+}

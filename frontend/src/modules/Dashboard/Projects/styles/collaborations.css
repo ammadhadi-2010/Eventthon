@@ -1,0 +1,88 @@
+/* Collaborations view */
+
+.ph-collaborations .ph-hero-title {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.ph-collaborations .ph-hero-sub {
+  margin-top: 4px;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.ph-col-role {
+  color: #94a3b8 !important;
+  font-size: 11px !important;
+}
+
+.ph-col-owner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.ph-col-owner-av {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #475569, #334155);
+  font-size: 10px;
+  font-weight: 800;
+  color: #f1f5f9;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.ph-col-owner-av.is-you {
+  background: linear-gradient(135deg, #6366f1, #7c3aed);
+}
+
+.ph-col-owner-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.ph-col-activity {
+  font-size: 12px;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.ph-mp-progress-fill--blue {
+  background: linear-gradient(90deg, #3b82f6, #6366f1);
+}
+
+.ph-mp-progress-fill--purple {
+  background: linear-gradient(90deg, #7c3aed, #a855f7);
+}
+
+.ph-mp-progress-fill--green {
+  background: linear-gradient(90deg, #22c55e, #4ade80);
+}
+
+.ph-mp-progress-fill--red {
+  background: linear-gradient(90deg, #ef4444, #f87171);
+}
+
+.ph-mp-project-icon--web {
+  background: linear-gradient(135deg, #2563eb, #0ea5e9);
+}
+
+@media (max-width: 900px) {
+  .ph-col-table .ph-table th:nth-child(5),
+  .ph-col-table .ph-table td:nth-child(5) {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .ph-col-table .ph-table th:nth-child(3),
+  .ph-col-table .ph-table td:nth-child(3) {
+    display: none;
+  }
+}

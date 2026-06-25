@@ -1,0 +1,39 @@
+/* Company Management — add company form */
+
+.cm-add-form {
+  display: grid;
+  gap: 10px;
+}
+
+.cm-field {
+  display: grid;
+  gap: 5px;
+}
+
+.cm-field span {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.cm-input {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: #f8fafc;
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+.cm-add-btn {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.cm-form-error {
+  margin: 0;
+  font-size: 12px;
+  color: #fecaca;
+}

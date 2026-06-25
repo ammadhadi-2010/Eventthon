@@ -1,0 +1,6 @@
+/* Profile review styles — split under ./styles/ (250-line cap per file) */
+@import './styles/upr-shell.css';
+@import './styles/upr-dossier-profile.css';
+@import './styles/upr-dossier-details.css';
+@import './styles/upr-attachments.css';
+@import './styles/upr-actions.css';

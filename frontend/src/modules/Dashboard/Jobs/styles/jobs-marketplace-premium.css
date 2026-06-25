@@ -1,0 +1,65 @@
+/* Premium marketplace polish — quick filters + job row motion */
+
+.jobs-quick-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 4px;
+}
+
+.jobs-quick-filter {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(15, 23, 42, 0.72);
+  color: #94a3b8;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(12px);
+}
+
+.jobs-quick-filter:hover {
+  color: #e2e8f0;
+  border-color: rgba(167, 139, 250, 0.45);
+  transform: translateY(-1px);
+}
+
+.jobs-quick-filter.is-active {
+  color: #ede9fe;
+  border-color: rgba(167, 139, 250, 0.55);
+  background: rgba(124, 58, 237, 0.28);
+  box-shadow: 0 0 18px rgba(139, 92, 246, 0.2);
+}
+
+.gigs-job-row--premium {
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.gigs-job-row--premium:hover {
+  transform: translateY(-4px);
+  border-color: rgba(167, 139, 250, 0.42);
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.45), 0 0 24px rgba(139, 92, 246, 0.12);
+}
+
+.gigs-company-logo--image {
+  object-fit: cover;
+  display: block;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.jh-side-flow {
+  border: 1px solid rgba(139, 92, 246, 0.22);
+  box-shadow: 0 0 24px rgba(139, 92, 246, 0.1);
+}
+
+.jh-side-flow__meta {
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: #94a3b8;
+}

@@ -1,0 +1,107 @@
+/* Center form card */
+/* Step body lock (until Basic saved) */
+.ep-form-shell__body--contain {
+  position: relative;
+}
+
+.ep-section-locked-mask {
+  position: relative;
+  width: 100%;
+}
+
+.ep-section-locked-blur {
+  filter: blur(5px);
+  opacity: 0.42;
+  pointer-events: none;
+  user-select: none;
+  transition:
+    filter 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.ep-section-lock-overlay {
+  box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.12);
+}
+
+.ep-form-shell.ep-form-shell--locked .ep-form-shell__body {
+  min-height: 7.5rem;
+}
+
+.ep-form-shell {
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  background: rgba(15, 23, 42, 0.5);
+  box-shadow:
+    0 24px 48px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+}
+
+.ep-form-shell__body {
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.08);
+  background: rgba(2, 6, 23, 0.45);
+}
+
+.ep-root .ep-field-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-bottom: 0.35rem;
+}
+
+.ep-root .ep-input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid var(--ep-border);
+  background: rgba(2, 6, 23, 0.65);
+  color: var(--ep-text);
+  padding: 0.65rem 0.85rem;
+  font-size: 0.875rem;
+  outline: none;
+}
+
+.ep-root .ep-input:focus {
+  border-color: rgba(139, 92, 246, 0.55);
+  box-shadow: 0 0 0 3px var(--ep-accent-soft);
+}
+
+.ep-root .ep-input.ep-input--solid {
+  background: rgba(10, 12, 22, 0.92);
+  border-color: rgba(148, 163, 184, 0.14);
+  padding-top: 0.68rem;
+  padding-bottom: 0.68rem;
+}
+
+.ep-root .ep-input.ep-input--solid:focus {
+  border-color: rgba(139, 92, 246, 0.45);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18);
+}
+
+.ep-root .ep-select {
+  cursor: pointer;
+}
+
+.ep-root .ep-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--ep-accent-soft);
+  color: #ddd6fe;
+  border: 1px solid rgba(167, 139, 250, 0.35);
+}
+
+.ep-root .ep-skel-block {
+  border-radius: 0.75rem;
+  border: 1px dashed rgba(148, 163, 184, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+  min-height: 3rem;
+}
+

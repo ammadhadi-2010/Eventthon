@@ -1,0 +1,214 @@
+/* Create Gig wizard — mobile (< 1024px). Loaded after hub shell CSS for cascade priority. */
+
+@media (max-width: 1023px) {
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell {
+    padding: 12px !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-layout {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 14px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-main,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-side,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-form-card {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Steps progress strip — horizontal scroll track */
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-steps {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    gap: 12px !important;
+    padding-bottom: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    grid-template-columns: unset !important;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-steps::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-step {
+    display: flex !important;
+    flex-shrink: 0 !important;
+    min-width: 140px !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-step p {
+    font-size: 12px !important;
+    white-space: nowrap;
+  }
+
+  /* Headings — high contrast */
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-head h2,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-form-card label,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-pricing-card h3,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-preview-card h3,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-preview-card h4,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-publish-preview h4 {
+    color: #fff !important;
+    font-weight: 700 !important;
+  }
+
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-head p,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-field-sub,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-pricing-hint,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-checklist p,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-publish-grid span,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-preview-level,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-preview-service,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-preview-card p:not(.create-gig-preview-name),
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-preview-card li,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-counter,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-editor:empty::before {
+    color: #d4d4d8 !important;
+    font-weight: 500 !important;
+    font-size: 12px !important;
+  }
+
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-head {
+    align-items: center !important;
+    max-width: 100% !important;
+  }
+
+  /* Split rows — vertical stack */
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-grid-2 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    grid-template-columns: unset !important;
+  }
+
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-grid-2 > div {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-form-card input,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-form-card select,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-form-card textarea,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-select-wrap,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-editor,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-owner-btn,
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-pricing-feature {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-pricing-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Rich text toolbar — wrap on narrow viewports */
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-toolbar {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    padding: 8px !important;
+    background: rgba(15, 23, 42, 0.4) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-editor {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    word-break: break-word !important;
+  }
+
+  /* Upload actions */
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-upload-row {
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    gap: 8px !important;
+  }
+
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-upload-row .create-gig-btn {
+    width: 100% !important;
+  }
+
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-upload-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+    max-width: 100% !important;
+  }
+
+  /* Sticky bottom actions — 2-column grid */
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-actions {
+    position: sticky !important;
+    bottom: 0 !important;
+    z-index: 12 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    margin-top: 24px !important;
+    padding: 12px 0 4px !important;
+    background: linear-gradient(180deg, transparent, rgba(4, 10, 22, 0.92) 28%) !important;
+    justify-content: stretch !important;
+  }
+
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-actions .create-gig-btn {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 40px !important;
+  }
+
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-actions .create-gig-btn.danger {
+    grid-column: 1 / -1 !important;
+  }
+
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-side-actions {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: 100% !important;
+    grid-template-columns: unset !important;
+  }
+
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-side-actions .create-gig-btn {
+    width: 100% !important;
+  }
+
+  .gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell .create-gig-publish-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+  }
+}

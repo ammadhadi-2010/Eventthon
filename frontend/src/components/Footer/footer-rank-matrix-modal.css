@@ -1,0 +1,262 @@
+.et-rank-matrix-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(4, 8, 18, 0.78);
+  backdrop-filter: blur(6px);
+}
+
+.et-rank-matrix-modal {
+  width: min(960px, 100%);
+  max-height: min(88vh, 820px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  background: linear-gradient(180deg, #121826 0%, #0b101a 100%);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+
+.et-rank-matrix__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-shrink: 0;
+  padding: 22px 24px 12px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.et-rank-matrix__head-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.et-rank-matrix__eyebrow {
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #38bdf8;
+}
+
+.et-rank-matrix__head h2 {
+  margin: 0;
+  font-size: 22px;
+  color: #f8fafc;
+}
+
+.et-rank-matrix__intro {
+  margin: 8px 0 0;
+  max-width: 620px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #94a3b8;
+}
+
+.et-rank-matrix__close {
+  flex-shrink: 0;
+  border: 0;
+  background: rgba(148, 163, 184, 0.12);
+  color: #e2e8f0;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.et-rank-matrix__body {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.et-rank-matrix__table-wrap {
+  overflow: auto;
+  height: 100%;
+  padding: 0 16px 20px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.et-rank-matrix__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.et-rank-matrix__table th,
+.et-rank-matrix__table td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  vertical-align: top;
+}
+
+.et-rank-matrix__table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #101622;
+  color: #cbd5e1;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.et-rank-matrix__rank-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.et-rank-matrix__rank-cell strong {
+  display: block;
+  color: #f8fafc;
+}
+
+.et-rank-matrix__rank-cell span {
+  display: block;
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+.et-rank-matrix__benefits {
+  margin: 0;
+  color: #cbd5e1;
+  line-height: 1.45;
+}
+
+.et-rank-matrix__vanguard-tag {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(251, 191, 36, 0.14);
+  color: #fbbf24;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.et-rank-matrix__mobile {
+  display: none;
+}
+
+.et-rank-matrix__card {
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.et-rank-matrix__card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.et-rank-matrix__card-head strong {
+  display: block;
+  color: #f8fafc;
+  font-size: 14px;
+}
+
+.et-rank-matrix__card-head span {
+  display: block;
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+.et-rank-matrix__card-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 10px;
+}
+
+.et-rank-matrix__card-stats div {
+  padding: 8px;
+  border-radius: 10px;
+  background: rgba(2, 6, 23, 0.55);
+  text-align: center;
+}
+
+.et-rank-matrix__card-stats dt {
+  margin: 0 0 2px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+}
+
+.et-rank-matrix__card-stats dd {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+@media (max-width: 767px) {
+  .et-rank-matrix-backdrop {
+    align-items: flex-end;
+    justify-content: stretch;
+    padding: 0;
+  }
+
+  .et-rank-matrix-modal {
+    width: 100%;
+    max-height: min(92dvh, 100%);
+    border-radius: 20px 20px 0 0;
+    border-bottom: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .et-rank-matrix__head {
+    padding: 16px 16px 12px;
+    padding-top: calc(16px + env(safe-area-inset-top, 0px));
+  }
+
+  .et-rank-matrix__head h2 {
+    font-size: 18px;
+  }
+
+  .et-rank-matrix__intro {
+    font-size: 12px;
+  }
+
+  .et-rank-matrix__desktop {
+    display: none;
+  }
+
+  .et-rank-matrix__mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    height: 100%;
+    padding: 0 12px 16px;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .et-rank-matrix-backdrop {
+    padding: 12px;
+  }
+
+  .et-rank-matrix-modal {
+    max-height: 90vh;
+  }
+
+  .et-rank-matrix__table th:nth-child(4),
+  .et-rank-matrix__table td:nth-child(4) {
+    display: none;
+  }
+}

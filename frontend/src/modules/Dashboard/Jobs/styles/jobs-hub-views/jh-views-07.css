@@ -1,0 +1,107 @@
+﻿
+.jh-track-drawer__actions {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.jh-track-drawer__actions-label {
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+}
+
+.jh-track-drawer__action-btn {
+  width: 100%;
+  min-height: 34px;
+  margin-top: 0;
+}
+
+.jh-side-flow__meta {
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+@media (max-width: 900px) {
+  .jh-salary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .jh-interview-features {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .jh-companies-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .jh-interview-activity__row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .jh-assess-progress {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .jh-rec-row {
+    grid-template-columns: 44px 1fr;
+    grid-template-areas:
+      'logo main'
+      'salary salary'
+      'match match';
+  }
+
+  .jh-rec-row .gigs-company-logo {
+    grid-area: logo;
+  }
+
+  .jh-rec-row__main {
+    grid-area: main;
+  }
+
+  .jh-rec-row__salary {
+    grid-area: salary;
+  }
+
+  .jh-rec-row__match {
+    grid-area: match;
+    justify-self: start;
+  }
+
+  .jh-app-row {
+    grid-template-columns: 40px 1fr;
+    grid-template-areas:
+      'logo main'
+      'logo date'
+      'badge chevron';
+  }
+
+  .jh-app-row .gigs-company-logo {
+    grid-area: logo;
+  }
+
+  .jh-app-row__main {
+    grid-area: main;
+  }
+
+  .jh-app-row__date {
+    grid-area: date;
+    text-align: left;
+  }
+
+  .jh-app-row__badge {
+    grid-area: badge;
+    justify-self: start;
+  }
+
+  .jh-app-row__chevron {
+    grid-area: chevron;
+  }
+}

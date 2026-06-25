@@ -1,0 +1,8 @@
+/* Create Job Alert — styles split under ./styles/ (import order matters). */
+@import './styles/ja-base-layout.css';
+@import './styles/ja-form-panels.css';
+@import './styles/ja-form-controls.css';
+@import './styles/ja-footer.css';
+@import './styles/ja-preview-sidebar.css';
+@import './styles/ja-preview-cta.css';
+@import './styles/ja-alerts-hub.css';

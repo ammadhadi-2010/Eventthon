@@ -1,0 +1,143 @@
+/* User Detail — right column, admin actions */
+
+.ud-right {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ud-mini-preview {
+  overflow: hidden;
+}
+
+.ud-mini-banner {
+  height: 56px;
+  background: linear-gradient(110deg, #5b21b6 0%, #4c1d95 40%, #312e81 100%);
+}
+
+.ud-mini-body {
+  padding: 12px 14px 14px;
+}
+
+.ud-mini-name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 900;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ud-mini-verified {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #3b82f6;
+  color: #fff;
+  font-size: 9px;
+}
+
+.ud-mini-sub {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.ud-admin-card {
+  padding: 14px;
+}
+
+.ud-admin-hint {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  margin-bottom: 12px;
+}
+
+.ud-admin-hint-icon {
+  flex-shrink: 0;
+  color: #fbbf24;
+}
+
+.ud-admin-hint p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.45;
+  color: #fcd34d;
+}
+
+.ud-note-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.ud-note-input {
+  resize: vertical;
+  min-height: 72px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #0f141c;
+  color: #e5e7eb;
+  font-size: 13px;
+  outline: none;
+}
+
+.ud-note-input:focus {
+  border-color: rgba(99, 102, 241, 0.45);
+}
+
+.ud-admin-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.ud-admin-btn {
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: none;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: filter 0.15s, opacity 0.15s;
+}
+
+.ud-admin-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ud-admin-btn--approve {
+  background: linear-gradient(180deg, #059669, #047857);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35);
+}
+
+.ud-admin-btn--reject {
+  background: linear-gradient(180deg, #dc2626, #b91c1c);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3);
+}
+
+.ud-admin-btn--neutral {
+  background: rgba(255, 255, 255, 0.06);
+  color: #e5e7eb;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ud-admin-btn:hover:not(:disabled) {
+  filter: brightness(1.06);
+}

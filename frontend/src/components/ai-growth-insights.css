@@ -1,0 +1,225 @@
+.et-ai-insights-fab {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 1200;
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(135deg, #7c3aed 0%, #2563eb 55%, #06b6d4 100%);
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.35);
+  animation: et-ai-pulse 2.4s ease-in-out infinite;
+}
+
+.et-ai-insights-fab:hover {
+  transform: translateY(-2px);
+}
+
+@keyframes et-ai-pulse {
+  0%, 100% { box-shadow: 0 12px 30px rgba(37, 99, 235, 0.35); }
+  50% { box-shadow: 0 16px 38px rgba(124, 58, 237, 0.55); }
+}
+
+.et-ai-insights-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1300;
+  background: rgba(2, 6, 23, 0.62);
+  backdrop-filter: blur(4px);
+}
+
+.et-ai-insights-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1310;
+  width: min(420px, 100vw);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+  border-left: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: -20px 0 50px rgba(0, 0, 0, 0.35);
+}
+
+.et-ai-insights-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 22px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.et-ai-insights-header h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #f8fafc;
+}
+
+.et-ai-insights-close {
+  border: 0;
+  background: rgba(148, 163, 184, 0.12);
+  color: #e2e8f0;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.et-ai-insights-body {
+  flex: 1;
+  min-height: 0;
+  padding: 18px 22px 28px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.et-ai-insights-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 40px 10px;
+  color: #94a3b8;
+}
+
+.et-ai-insights-spinner {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 3px solid rgba(148, 163, 184, 0.25);
+  border-top-color: #60a5fa;
+  animation: et-ai-spin 0.9s linear infinite;
+}
+
+@keyframes et-ai-spin {
+  to { transform: rotate(360deg); }
+}
+
+.et-ai-insight-card {
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 14px;
+  padding: 14px;
+  background: rgba(15, 23, 42, 0.65);
+}
+
+.et-ai-insight-card--high {
+  border-color: rgba(248, 113, 113, 0.45);
+}
+
+.et-ai-insight-card--medium {
+  border-color: rgba(251, 191, 36, 0.4);
+}
+
+.et-ai-insight-card--low,
+.et-ai-insight-card--onboarding {
+  border-color: rgba(96, 165, 250, 0.35);
+}
+
+.et-ai-insight-meta {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.et-ai-insight-badge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 4px 8px;
+  border-radius: 999px;
+  color: #e2e8f0;
+  background: rgba(148, 163, 184, 0.16);
+}
+
+.et-ai-insight-title {
+  margin: 0 0 8px;
+  color: #f8fafc;
+  font-size: 15px;
+}
+
+.et-ai-insight-message {
+  margin: 0 0 12px;
+  color: #cbd5e1;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.et-ai-insight-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #93c5fd;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.et-ai-insight-action:hover {
+  color: #bfdbfe;
+}
+
+.et-ai-insights-onboarding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  padding: 36px 18px;
+  border: 1px solid rgba(96, 165, 250, 0.28);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.55), rgba(15, 23, 42, 0.75));
+}
+
+.et-ai-insights-onboarding--error {
+  border-color: rgba(248, 113, 113, 0.35);
+}
+
+.et-ai-insights-onboarding-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  background: rgba(59, 130, 246, 0.18);
+}
+
+.et-ai-insights-onboarding-title {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 17px;
+}
+
+.et-ai-insights-onboarding-copy {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 13px;
+  line-height: 1.6;
+  max-width: 320px;
+}
+
+.et-ai-insights-seed-btn {
+  margin-top: 6px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: rgba(30, 41, 59, 0.8);
+  color: #e2e8f0;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.et-ai-insights-seed-btn:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}

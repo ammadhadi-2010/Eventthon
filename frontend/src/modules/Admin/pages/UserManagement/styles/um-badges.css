@@ -1,0 +1,172 @@
+/* User Management — rank badges, status chips, presence dots */
+
+.um-role-pill {
+  display: inline-flex;
+  padding: 3px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  background: rgba(99, 102, 241, 0.12);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #c4b5fd;
+}
+
+.um-rank-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  max-width: 11rem;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.um-rank-hex {
+  flex-shrink: 0;
+}
+
+.um-rank--purple {
+  color: #ddd6fe;
+}
+
+.um-rank--purple .um-rank-hex {
+  color: #a78bfa;
+}
+
+.um-rank--amber {
+  color: #fdba74;
+}
+
+.um-rank--amber .um-rank-hex {
+  color: #fb923c;
+}
+
+.um-rank--blue {
+  color: #93c5fd;
+}
+
+.um-rank--blue .um-rank-hex {
+  color: #60a5fa;
+}
+
+.um-rank--slate {
+  color: #cbd5e1;
+}
+
+.um-rank--slate .um-rank-hex {
+  color: #94a3b8;
+}
+
+.um-rank--emerald { color: #6ee7b7; }
+.um-rank--cyan { color: #67e8f9; }
+.um-rank--silver { color: #e2e8f0; }
+.um-rank--gold { color: #fcd34d; }
+.um-rank--crimson { color: #fca5a5; }
+.um-rank--solar { color: #fde68a; }
+
+.ud-rank-badge__img,
+.um-rank-badge__img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.um-status-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.um-status--active {
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  background: rgba(16, 185, 129, 0.18);
+  color: #fff;
+}
+
+.um-status--pending {
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  background: rgba(245, 158, 11, 0.16);
+  color: #fff;
+}
+
+.um-status--suspended {
+  border: 1px solid rgba(239, 68, 68, 0.45);
+  background: rgba(239, 68, 68, 0.14);
+  color: #fff;
+}
+
+.um-status--unverified {
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(148, 163, 184, 0.12);
+  color: #f1f5f9;
+}
+
+.um-status--deleted {
+  border: 1px solid rgba(71, 85, 105, 0.5);
+  background: rgba(51, 65, 85, 0.35);
+  color: #e2e8f0;
+}
+
+.um-last-active {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.8);
+  white-space: nowrap;
+}
+
+.um-dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 999px;
+}
+
+.um-dot--online {
+  background: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.55);
+}
+
+.um-dot--away {
+  background: #f59e0b;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.45);
+}
+
+.um-dot--offline {
+  background: #64748b;
+}
+
+.um-row-menu {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.03);
+  color: #64748b;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.um-row-menu:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.07);
+  color: #e5e7eb;
+}
+
+.um-row-menu:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}

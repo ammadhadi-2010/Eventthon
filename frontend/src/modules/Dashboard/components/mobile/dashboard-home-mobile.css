@@ -1,0 +1,29 @@
+/* Home dashboard — Jobs-style mobile top bar + scroll-hide chrome (< 1024px) */
+
+@media (max-width: 1023px) {
+  .et-app-shell:has(.dash-home-mobile-shell) .et-top-nav {
+    display: none !important;
+  }
+
+  .et-app-shell:has(.dash-home-mobile-shell) .et-main-inner {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .dash-home-mobile-shell {
+    padding-top: var(--hub-mobile-topbar-h, 3.5rem);
+  }
+
+  .dash-home-mobile-drawer-layer {
+    top: var(--hub-mobile-topbar-h, 3.5rem) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dash-home-mobile-shell {
+    padding-top: 0 !important;
+  }
+}

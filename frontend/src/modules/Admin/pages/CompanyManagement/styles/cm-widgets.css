@@ -1,0 +1,93 @@
+/* Company Management — bottom widgets grid */
+
+.cm-bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.cm-bottom-grid--single {
+  grid-template-columns: 1fr;
+  max-width: 520px;
+}
+
+@media (max-width: 1100px) {
+  .cm-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cm-widget-card {
+  padding: 14px 16px;
+}
+
+.cm-widget-title {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.cm-widget-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.cm-widget-head .cm-widget-title {
+  margin: 0;
+}
+
+.cm-link-btn {
+  border: none;
+  background: transparent;
+  color: #93c5fd;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cm-widget-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.cm-widget-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cm-widget-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.cm-widget-copy {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.cm-widget-copy strong {
+  font-size: 13px;
+  color: #f1f5f9;
+}
+
+.cm-widget-copy span {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.cm-widget-empty {
+  font-size: 12px;
+  color: #64748b;
+}

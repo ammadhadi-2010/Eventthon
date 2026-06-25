@@ -1,0 +1,149 @@
+/* User Management — data table, cells, ranks, status */
+
+.um-table-wrap {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(8, 12, 22, 0.65);
+  overflow: hidden;
+}
+
+.um-table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.35);
+}
+
+.um-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.um-table thead {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.um-table thead th {
+  padding: 8px 10px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #e2e8f0;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.um-table tbody td {
+  padding: 7px 10px;
+  vertical-align: middle;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.um-table tbody tr:hover {
+  background: rgba(99, 102, 241, 0.04);
+}
+
+.um-th-actions,
+.um-table tbody td:last-child {
+  text-align: right;
+}
+
+.um-table-empty {
+  padding: 28px 12px !important;
+  text-align: center;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.um-user-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.um-user-cell--link {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+}
+
+.um-user-cell--link:hover .um-name {
+  color: #c4b5fd;
+}
+
+.um-avatar {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  object-fit: cover;
+  background: #1e293b;
+}
+
+.um-user-text {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.um-name {
+  font-weight: 700;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+
+.um-handle {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.78);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+
+.um-td-mono {
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  color: #e2e8f0;
+  opacity: 0.88;
+}
+
+.um-td-email {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.um-td-muted {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 11px;
+  white-space: nowrap;
+}

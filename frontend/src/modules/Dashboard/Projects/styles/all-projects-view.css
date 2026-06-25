@@ -1,0 +1,193 @@
+/* All Projects view — responsive grid + mobile shell */
+
+.ph-all-page {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  color: #e2e8f0;
+  box-sizing: border-box;
+}
+
+.ph-all-page__body {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ph-all-page__head {
+  margin-bottom: 8px;
+}
+
+.ph-all-page__title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.ph-all-page__back {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  margin-top: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #334155;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.9);
+  color: #f8fafc;
+  cursor: pointer;
+}
+
+.ph-all-page__title-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.ph-all-page__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.ph-all-page__sub {
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #94a3b8;
+  max-width: 42rem;
+}
+
+.ph-all-page__status,
+.ph-all-page__empty {
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.ph-all-page__banner {
+  margin: 8px 0 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  color: #fecaca;
+  background: rgba(127, 29, 29, 0.25);
+  border: 1px solid rgba(248, 113, 113, 0.25);
+}
+
+.ph-all-projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 16px;
+  width: 100%;
+}
+
+.ph-all-projects-grid .ph-pcard {
+  flex: none;
+  min-width: 0;
+  max-width: none;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 640px) {
+  .ph-all-projects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .ph-all-page {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 32px 32px 24px;
+  }
+
+  .ph-all-page__title {
+    font-size: 1.5rem;
+  }
+
+  .ph-all-projects-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .ph-all-projects-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1023px) {
+  .et-app-shell:has(.ph-all-page) .et-top-nav {
+    display: none !important;
+  }
+
+  .et-app-shell:has(.ph-all-page) .et-main-inner {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .ph-all-page.ph-mobile-shell {
+    background: #030712;
+    padding: 0;
+    margin: 0;
+    --ph-mobile-topbar-h: 3.5rem;
+  }
+
+  .ph-all-page .ph-all-page__body.ph-mobile-shell__body {
+    padding-top: calc(var(--ph-mobile-topbar-h) + 0.75rem);
+    padding-right: 16px;
+    padding-bottom: 5.5rem;
+    padding-left: 16px;
+  }
+
+  .ph-all-page .ph-all-projects-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    width: 100% !important;
+  }
+
+  .ph-all-page .ph-all-projects-grid .ph-pcard {
+    flex: none !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    width: 100% !important;
+    scroll-snap-align: unset !important;
+  }
+
+  .et-app-shell:has(.ph-all-page) .dash-mobile-bottom-nav__item[data-nav='home'] {
+    color: #7dd3fc;
+  }
+
+  .et-app-shell:has(.ph-all-page) .dash-mobile-bottom-nav__item[data-nav='squads'] {
+    color: #c4b5fd;
+  }
+
+  .et-app-shell:has(.ph-all-page) .dash-mobile-bottom-nav__item[data-nav='projects'] {
+    color: #6ee7b7;
+  }
+
+  .et-app-shell:has(.ph-all-page) .dash-mobile-bottom-nav__item[data-nav='gigs'] {
+    color: #fbbf24;
+  }
+
+  .et-app-shell:has(.ph-all-page) .dash-mobile-bottom-nav__item[data-nav='jobs'] {
+    color: #f9a8d4;
+  }
+
+  .et-app-shell:has(.ph-all-page) .dash-mobile-bottom-nav__item[data-nav='alerts'] {
+    color: #fca5a5;
+  }
+
+  .et-app-shell:has(.ph-all-page) .dash-mobile-bottom-nav__item--active {
+    color: #38bdf8 !important;
+    text-shadow: 0 0 14px rgba(56, 189, 248, 0.45);
+  }
+}

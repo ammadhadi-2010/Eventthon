@@ -1,0 +1,23 @@
+.biz-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  contain: layout style paint;
+  pointer-events: none;
+}
+
+.biz-icon--fallback {
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(59, 130, 246, 0.15));
+  border: 1px solid rgba(129, 140, 248, 0.35);
+}
+
+.biz-icon--fallback::after {
+  content: '';
+  width: 45%;
+  height: 45%;
+  border-radius: 999px;
+  background: rgba(165, 180, 252, 0.85);
+}

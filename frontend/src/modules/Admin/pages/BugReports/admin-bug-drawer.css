@@ -1,0 +1,128 @@
+.abr-drawer-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1400;
+  background: rgba(2, 6, 23, 0.72);
+  backdrop-filter: blur(6px);
+}
+
+.abr-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(460px, 100vw);
+  height: 100vh;
+  padding: 18px;
+  overflow: auto;
+  background: linear-gradient(165deg, rgba(15, 23, 42, 0.98), rgba(30, 27, 75, 0.94));
+  border-left: 1px solid rgba(167, 139, 250, 0.28);
+  box-shadow: -20px 0 50px rgba(0, 0, 0, 0.45);
+}
+
+.abr-drawer__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.abr-drawer__head p {
+  margin: 0;
+  color: #c4b5fd;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.abr-drawer__head h2 {
+  margin: 4px 0 0;
+  font-size: 18px;
+}
+
+.abr-drawer__head button {
+  border: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.14);
+  color: #e2e8f0;
+  cursor: pointer;
+}
+
+.abr-drawer__reporter {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.abr-drawer__reporter img {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.abr-drawer__reporter span {
+  display: block;
+  color: #94a3b8;
+  font-size: 12px;
+  word-break: break-all;
+}
+
+.abr-drawer__description {
+  margin: 0 0 12px;
+  line-height: 1.55;
+  color: #e2e8f0;
+}
+
+.abr-drawer__shot {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.abr-drawer__field {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.abr-drawer__field select,
+.abr-drawer__field textarea {
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(2, 6, 23, 0.65);
+  color: #f8fafc;
+  padding: 10px 12px;
+  font-family: inherit;
+}
+
+.abr-drawer__save,
+.abr-drawer__send {
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  padding: 11px 14px;
+  font-weight: 800;
+  color: #fff;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.abr-drawer__save {
+  background: linear-gradient(90deg, #16a34a, #22c55e);
+}
+
+.abr-drawer__send {
+  background: linear-gradient(90deg, #7c3aed, #a855f7);
+}
+
+.abr-drawer__save:disabled,
+.abr-drawer__send:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}

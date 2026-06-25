@@ -1,0 +1,30 @@
+/* Company hub — flatten desktop top spacing */
+
+@media (min-width: 1024px) {
+  .et-app-shell:has(.cp-shell:not(.cp-mobile-shell)) .et-main-inner {
+    padding-top: 4px;
+    padding-bottom: 12px;
+  }
+
+  .et-app-shell:has(.cp-shell:not(.cp-mobile-shell)) .et-hub-pin-wrap {
+    min-height: auto;
+  }
+
+  .cp-shell:not(.cp-mobile-shell) {
+    padding-top: 0;
+    padding-bottom: 12px;
+    min-height: 0;
+    gap: 12px;
+    align-items: start;
+  }
+
+  .cp-shell:not(.cp-mobile-shell) .cp-sidebar {
+    top: 0;
+  }
+
+  .cn-navbar {
+    min-height: var(--et-nav-height, 70px);
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}

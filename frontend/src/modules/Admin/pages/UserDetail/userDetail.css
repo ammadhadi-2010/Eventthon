@@ -1,0 +1,5 @@
+/* User Detail styles — split under ./styles/ (250-line cap per file) */
+@import './styles/ud-layout.css';
+@import './styles/ud-left-panel.css';
+@import './styles/ud-center-panel.css';
+@import './styles/ud-right-panel.css';

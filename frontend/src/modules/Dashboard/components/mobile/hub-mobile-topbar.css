@@ -1,0 +1,152 @@
+/* Shared mobile hub top bar — avatar + search + messages (< 1024px) */
+
+:root {
+  --hub-mobile-topbar-h: 3.5rem;
+}
+
+@media (max-width: 1023px) {
+  .hub-mobile-chrome {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 55;
+    background: #090d16;
+    border-bottom: 1px solid #1e293b;
+    transition: transform 0.3s ease;
+    transform: translateY(0);
+  }
+
+  .hub-mobile-chrome--hidden {
+    transform: translateY(-100%);
+    pointer-events: none;
+  }
+
+  .hub-mobile-topbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: var(--hub-mobile-topbar-h);
+    padding: 0 12px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .hub-mobile-topbar--fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 55;
+    background: #090d16;
+    border-bottom: 1px solid #1e293b;
+    transition: transform 0.3s ease;
+  }
+
+  .hub-mobile-topbar--fixed.hub-mobile-topbar--hidden {
+    transform: translateY(-100%);
+    pointer-events: none;
+  }
+
+  .hub-mobile-topbar__avatar-btn {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .hub-mobile-topbar__back-btn {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid #334155;
+    border-radius: 999px;
+    background: transparent;
+    color: #e2e8f0;
+    cursor: pointer;
+  }
+
+  .hub-mobile-topbar__back-btn:active {
+    transform: scale(0.94);
+  }
+
+  .hub-mobile-topbar__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    object-fit: cover;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    display: block;
+  }
+
+  .hub-mobile-topbar__search {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    margin: 0 4px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: #111622;
+    border: 1px solid #1e293b;
+    box-sizing: border-box;
+  }
+
+  .hub-mobile-topbar__search-icon {
+    flex-shrink: 0;
+    color: #94a3b8;
+    font-size: 14px;
+  }
+
+  .hub-mobile-topbar__search-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    color: #e2e8f0;
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .hub-mobile-topbar__search-input::placeholder {
+    color: #64748b;
+  }
+
+  .hub-mobile-topbar__msg-btn {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: #e2e8f0;
+    cursor: pointer;
+  }
+
+  .hub-mobile-topbar__msg-btn:active {
+    transform: scale(0.94);
+  }
+}
+
+@media (min-width: 1024px) {
+  .hub-mobile-chrome,
+  .hub-mobile-topbar--fixed {
+    display: none !important;
+  }
+}

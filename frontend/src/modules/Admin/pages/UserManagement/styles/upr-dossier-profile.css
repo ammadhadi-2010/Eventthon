@@ -1,0 +1,101 @@
+/* Profile review — dossier hero, links */
+
+.upr-dossier {
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.upr-dossier__hero {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.upr-dossier__avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  object-fit: cover;
+  border: 2px solid rgba(99, 102, 241, 0.45);
+  flex-shrink: 0;
+}
+
+.upr-dossier__name {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.upr-dossier__handle {
+  margin: 4px 0 4px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.upr-dossier__headline {
+  margin: 0 0 8px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #cbd5e1;
+}
+
+.upr-dossier__bio-text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #e2e8f0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.upr-dossier__bio-text--html {
+  overflow-x: auto;
+}
+
+.upr-dossier__skill-tag--muted {
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.upr-dossier__link-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.upr-dossier__link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #c7d2fe;
+  text-decoration: none;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(129, 140, 248, 0.25);
+}
+
+.upr-dossier__link:hover {
+  background: rgba(99, 102, 241, 0.18);
+  color: #e0e7ff;
+}
+
+.upr-dossier__link-url {
+  flex: 1 1 100%;
+  font-size: 10px;
+  font-weight: 500;
+  color: #64748b;
+  word-break: break-all;
+}

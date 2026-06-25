@@ -1,0 +1,299 @@
+/* Edit profile wizard — mobile shell (< 1024px), Gigs-style chrome */
+
+/* Desktop: mobile chrome must not appear */
+.ep-mobile-topbar {
+  display: none !important;
+}
+
+@media (max-width: 1023px) {
+  .et-app-shell:has(.ep-mobile-shell) .et-top-nav {
+    display: none !important;
+  }
+
+  .et-app-shell:has(.ep-mobile-shell) .et-main-inner {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .et-app-shell:has(.ep-mobile-shell) .et-footer {
+    display: none !important;
+  }
+
+  .ep-mobile-shell {
+    --ep-mobile-topbar-h: 3.5rem;
+    padding-top: 0 !important;
+    padding-bottom: 5.5rem !important;
+  }
+
+  .ep-mobile-shell .ep-flow-shell {
+    padding-top: calc(var(--ep-mobile-topbar-h) + 0.35rem);
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .ep-mobile-topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 55;
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    height: var(--ep-mobile-topbar-h);
+    padding: 0 10px 0 8px;
+    background: #090d16;
+    border-bottom: 1px solid #1e293b;
+    box-sizing: border-box;
+    transition: transform 0.3s ease;
+    transform: translateY(0);
+  }
+
+  .ep-mobile-topbar--hidden {
+    transform: translateY(-100%);
+    pointer-events: none;
+  }
+
+  .ep-mobile-topbar__avatar-btn {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .ep-mobile-topbar__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    object-fit: cover;
+    border: 1px solid #334155;
+    display: block;
+  }
+
+  .ep-mobile-topbar__search {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: #111622;
+    border: 1px solid #1e293b;
+  }
+
+  .ep-mobile-topbar__search-icon {
+    flex-shrink: 0;
+    color: #94a3b8;
+    font-size: 16px;
+  }
+
+  .ep-mobile-topbar__search-input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    color: #f8fafc;
+    font-size: 13px;
+    outline: none;
+  }
+
+  .ep-mobile-topbar__search-input::placeholder {
+    color: #94a3b8;
+  }
+
+  .ep-mobile-topbar__msg-btn {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: #e2e8f0;
+    cursor: pointer;
+  }
+
+  /* Page header — tighter on mobile */
+  .ep-mobile-shell .ep-page-header {
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.65rem;
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .ep-mobile-shell .ep-page-header h1 {
+    font-size: 1.35rem;
+  }
+
+  .ep-mobile-shell .ep-page-header p {
+    font-size: 12px;
+    color: #b8c0d4;
+    line-height: 1.45;
+  }
+
+  /* Step list before forms on mobile */
+  .ep-mobile-shell .ep-flow-grid__cell--left {
+    order: 1;
+  }
+
+  .ep-mobile-shell .ep-flow-grid__cell--center {
+    order: 2;
+  }
+
+  .ep-mobile-shell .ep-flow-grid__cell--right {
+    display: none;
+  }
+
+  .ep-mobile-shell .ep-flow-grid {
+    gap: 1rem;
+  }
+
+  .ep-mobile-shell .ep-left-rail {
+    padding: 1rem;
+    border-radius: 14px;
+  }
+
+  .ep-mobile-shell .ep-left-rail__brand-name {
+    color: #cbd5e1;
+  }
+
+  .ep-mobile-shell .ep-left-rail__subtitle {
+    color: #b8c0d4;
+  }
+
+  .ep-mobile-shell .ep-left-rail__step-label {
+    color: #e2e8f0;
+  }
+
+  .ep-mobile-shell .ep-left-rail__step-hint {
+    color: #94a3b8;
+  }
+
+  .ep-mobile-shell .ep-left-rail__completion-label {
+    color: #cbd5e1;
+  }
+
+  /* Colorful step numbers (inactive) */
+  .ep-mobile-shell .ep-left-rail__step[data-ep-step='basic'] .ep-left-rail__step-num {
+    background: rgba(14, 165, 233, 0.22);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.35);
+  }
+
+  .ep-mobile-shell .ep-left-rail__step[data-ep-step='about'] .ep-left-rail__step-num {
+    background: rgba(139, 92, 246, 0.22);
+    color: #c4b5fd;
+    border: 1px solid rgba(167, 139, 250, 0.35);
+  }
+
+  .ep-mobile-shell .ep-left-rail__step[data-ep-step='experience'] .ep-left-rail__step-num {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.35);
+  }
+
+  .ep-mobile-shell .ep-left-rail__step[data-ep-step='projects'] .ep-left-rail__step-num {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+    border: 1px solid rgba(52, 211, 153, 0.35);
+  }
+
+  .ep-mobile-shell .ep-left-rail__step[data-ep-step='skills'] .ep-left-rail__step-num {
+    background: rgba(217, 70, 239, 0.2);
+    color: #e879f9;
+    border: 1px solid rgba(232, 121, 249, 0.35);
+  }
+
+  .ep-mobile-shell .ep-left-rail__step[data-ep-step='identity'] .ep-left-rail__step-num {
+    background: rgba(45, 212, 191, 0.18);
+    color: #2dd4bf;
+    border: 1px solid rgba(45, 212, 191, 0.35);
+  }
+
+  .ep-mobile-shell .ep-left-rail__step[data-ep-step='preferences'] .ep-left-rail__step-num {
+    background: rgba(99, 102, 241, 0.22);
+    color: #a5b4fc;
+    border: 1px solid rgba(129, 140, 248, 0.35);
+  }
+
+  .ep-mobile-shell .ep-left-rail__step--done .ep-left-rail__step-num {
+    background: rgba(16, 185, 129, 0.28) !important;
+    color: #6ee7b7 !important;
+    border-color: rgba(52, 211, 153, 0.45) !important;
+  }
+
+  /* Center step pills — brighter inactive nums */
+  .ep-mobile-shell .ep-step-pill__num {
+    color: #cbd5e1;
+    font-weight: 900;
+  }
+
+  .ep-mobile-shell .ep-step-pill[data-ep-step='basic'] .ep-step-pill__num {
+    color: #38bdf8;
+  }
+
+  .ep-mobile-shell .ep-step-pill[data-ep-step='about'] .ep-step-pill__num {
+    color: #c4b5fd;
+  }
+
+  .ep-mobile-shell .ep-step-pill[data-ep-step='experience'] .ep-step-pill__num {
+    color: #fbbf24;
+  }
+
+  .ep-mobile-shell .ep-step-pill[data-ep-step='projects'] .ep-step-pill__num {
+    color: #34d399;
+  }
+
+  .ep-mobile-shell .ep-step-pill[data-ep-step='skills'] .ep-step-pill__num {
+    color: #e879f9;
+  }
+
+  .ep-mobile-shell .ep-step-pill[data-ep-step='identity'] .ep-step-pill__num {
+    color: #2dd4bf;
+  }
+
+  .ep-mobile-shell .ep-step-pill[data-ep-step='preferences'] .ep-step-pill__num {
+    color: #a5b4fc;
+  }
+
+  /* Colorful bottom nav on edit profile */
+  .et-app-shell:has(.ep-mobile-shell) .dash-mobile-bottom-nav__item[data-nav='home'] {
+    color: #7dd3fc;
+  }
+
+  .et-app-shell:has(.ep-mobile-shell) .dash-mobile-bottom-nav__item[data-nav='squads'] {
+    color: #c4b5fd;
+  }
+
+  .et-app-shell:has(.ep-mobile-shell) .dash-mobile-bottom-nav__item[data-nav='projects'] {
+    color: #6ee7b7;
+  }
+
+  .et-app-shell:has(.ep-mobile-shell) .dash-mobile-bottom-nav__item[data-nav='gigs'] {
+    color: #fbbf24;
+  }
+
+  .et-app-shell:has(.ep-mobile-shell) .dash-mobile-bottom-nav__item[data-nav='jobs'] {
+    color: #f9a8d4;
+  }
+
+  .et-app-shell:has(.ep-mobile-shell) .dash-mobile-bottom-nav__item[data-nav='alerts'] {
+    color: #fca5a5;
+  }
+
+  .et-app-shell:has(.ep-mobile-shell) .dash-mobile-bottom-nav__item--active {
+    color: #38bdf8 !important;
+    text-shadow: 0 0 14px rgba(56, 189, 248, 0.45);
+  }
+}

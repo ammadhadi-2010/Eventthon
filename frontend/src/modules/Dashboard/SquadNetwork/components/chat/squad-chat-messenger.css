@@ -1,0 +1,247 @@
+/* Squad chat — inbox msgx palette + 70% max bubble width */
+.squad-msg-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+}
+
+.squad-msg-row.is-own {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.squad-msg-row.is-other {
+  justify-content: flex-start;
+}
+
+.squad-msg-row.is-grouped {
+  margin-bottom: 2px;
+}
+
+.squad-msg__avatar-slot {
+  width: 28px;
+  flex-shrink: 0;
+  align-self: flex-end;
+}
+
+.squad-msg__avatar-spacer {
+  width: 28px;
+  flex-shrink: 0;
+}
+
+.squad-msg__avatar-img,
+.squad-msg__avatar-fallback {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.squad-msg__avatar-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #334155, #1e293b);
+  color: #e2e8f0;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.squad-msg__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  max-width: 70%;
+  width: fit-content;
+}
+
+.squad-msg-row.is-own .squad-msg__stack {
+  align-items: flex-end;
+}
+
+.squad-msg__name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #94a3b8;
+  padding: 0 4px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.squad-msg__bubble {
+  position: relative;
+  max-width: 100%;
+  width: fit-content;
+  min-width: 0;
+  padding: 8px 32px 7px 12px;
+  border-radius: 12px 12px 12px 4px;
+  font-size: 14px;
+  line-height: 1.45;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+}
+
+.squad-msg-row.is-own .squad-msg__bubble {
+  padding: 8px 12px 7px 32px;
+  border-radius: 12px 12px 4px 12px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.28);
+}
+
+.squad-msg__text,
+.squad-msg__bubble p {
+  margin: 0;
+  color: inherit;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.squad-msg__bubble.is-other {
+  background: #2b3038;
+  border: 1px solid rgba(55, 65, 81, 0.55);
+  color: #e8edf4;
+}
+
+.squad-msg__bubble.is-own {
+  background: #5a6b85;
+  border: 1px solid rgba(100, 116, 139, 0.45);
+  color: #f4f7fb;
+}
+
+.squad-msg__more {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.squad-msg-row.is-own .squad-msg__more {
+  right: auto;
+  left: 8px;
+}
+
+.squad-msg__bubble:hover .squad-msg__more,
+.squad-msg__media:hover .squad-msg__more--media {
+  opacity: 1;
+}
+
+.squad-msg__more--media {
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+}
+
+.squad-msg__edited {
+  display: block;
+  margin-top: 4px;
+  font-size: 10px;
+  opacity: 0.72;
+  font-style: italic;
+  color: rgba(226, 232, 240, 0.72);
+}
+
+.squad-msg__media {
+  position: relative;
+  max-width: min(240px, 100%);
+  width: fit-content;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(71, 85, 105, 0.55);
+  background: #2b3038;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+}
+
+.squad-msg-row.is-own .squad-msg__media {
+  border-color: rgba(100, 116, 139, 0.45);
+  background: #5a6b85;
+}
+
+.squad-msg__media img {
+  display: block;
+  width: auto;
+  max-width: 240px;
+  max-height: 200px;
+  height: auto;
+  object-fit: cover;
+}
+
+.squad-msg__time {
+  font-size: 11px;
+  color: #94a3b8;
+  padding: 0 4px;
+}
+
+.squad-msg__reactions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-width: 100%;
+}
+
+.squad-msg__reaction {
+  font-size: 12px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(71, 85, 105, 0.55);
+  border-radius: 999px;
+  padding: 2px 8px;
+  color: #e2e8f0;
+}
+
+.squad-msg__file-title {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: inherit;
+  word-break: break-word;
+}
+
+.squad-msg__file-link {
+  font-size: 12px;
+  font-weight: 700;
+  color: #cbd5e1;
+  text-decoration: none;
+}
+
+.squad-msg__bubble.is-own .squad-msg__file-link {
+  color: #e2e8f0;
+}
+
+@media (max-width: 640px) {
+  .squad-msg__stack {
+    max-width: 82%;
+  }
+}
+
+.squad-chat-day {
+  align-self: center;
+  margin: 16px 0 12px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(30, 41, 59, 0.65);
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  letter-spacing: 0.02em;
+}
+
+.squad-chat-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #64748b;
+  font-size: 14px;
+  padding: 40px;
+  text-align: center;
+}
+
+.squad-chat-empty strong { color: #94a3b8; font-size: 16px; }

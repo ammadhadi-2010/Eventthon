@@ -1,0 +1,202 @@
+﻿
+.jh-interview-activity ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.jh-interview-activity__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 120px;
+  align-items: center;
+  gap: 12px;
+}
+
+.jh-interview-activity__name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.jh-interview-activity__status {
+  font-size: 12px;
+  font-weight: 600;
+  color: #4ade80;
+}
+
+.jh-interview-activity__progress em {
+  display: block;
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-align: right;
+  margin-bottom: 4px;
+}
+
+.jh-interview-activity__bar {
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.jh-interview-activity__bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #6366f1, #22d3ee);
+}
+
+/* Salary Insights */
+.jh-salary-panel {
+  padding: 18px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.jh-salary-panel__header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.jh-salary-panel__header p {
+  margin: 6px 0 14px;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.jh-salary-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.jh-salary-tabs__item {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
+  color: #cbd5e1;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.jh-salary-tabs__item.is-active {
+  color: #c4b5fd;
+  border-color: rgba(124, 58, 237, 0.5);
+  background: rgba(76, 29, 149, 0.2);
+  box-shadow: inset 0 -2px 0 #7c3aed;
+}
+
+.jh-salary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.jh-salary-card {
+  padding: 16px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(19, 25, 38, 0.85);
+  min-height: 220px;
+}
+
+.jh-salary-card--full {
+  min-height: auto;
+}
+
+.jh-salary-card h3 {
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.jh-salary-card__value {
+  display: block;
+  font-size: 28px;
+  font-weight: 800;
+  color: #f8fafc;
+  letter-spacing: -0.02em;
+}
+
+.jh-salary-card__change {
+  display: block;
+  margin: 4px 0 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #4ade80;
+}
+
+.jh-salary-chart {
+  width: 100%;
+  height: 100px;
+  display: block;
+}
+
+.jh-salary-chart__line {
+  stroke: #8b5cf6;
+  stroke-width: 2.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.jh-salary-exp-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.jh-salary-exp-list li {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.jh-salary-exp-list__label {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.jh-salary-exp-list__track {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.jh-salary-exp-list__track span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #4f46e5, #7c3aed);
+}
+
+.jh-salary-exp-list strong {
+  font-size: 12px;
+  font-weight: 700;
+  color: #f1f5f9;
+  white-space: nowrap;
+}
+
+/* Browse filters & apply flow */
+.jh-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}

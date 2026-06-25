@@ -1,0 +1,97 @@
+.fs-admin {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 8px 12px 32px;
+  color: #e2e8f0;
+}
+
+.fs-admin__header {
+  margin-bottom: 18px;
+}
+
+.fs-admin__title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.fs-admin__title-row h1 {
+  margin: 0;
+  font-size: 1.35rem;
+  color: #f8fafc;
+}
+
+.fs-admin__title-row p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.fs-admin__meta {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.fs-admin__label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.fs-admin__editor {
+  width: 100%;
+  min-height: 360px;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(15, 23, 42, 0.85);
+  color: #f8fafc;
+  padding: 14px 16px;
+  font-size: 14px;
+  line-height: 1.65;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.fs-admin__actions {
+  margin-top: 14px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.fs-admin__save {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.fs-admin__save:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.fs-admin__status {
+  color: #94a3b8;
+}
+
+.fs-admin__error {
+  color: #fca5a5;
+  font-size: 13px;
+}
+
+.fs-admin__success {
+  color: #86efac;
+  font-size: 13px;
+}

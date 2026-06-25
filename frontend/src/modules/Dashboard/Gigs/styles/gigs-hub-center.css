@@ -1,0 +1,56 @@
+/* Center column elasticity for tab panels */
+
+.gigs-hub-center-panel {
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.gigs-hub-center-panel__inner {
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+.gigs-hub-center-panel__inner.gigs-hub-center-panel--tab > .gigs-main-stack,
+.gigs-hub-center-panel__inner.gigs-hub-center-panel--tab > .saved-gigs-card,
+.gigs-hub-center-panel__inner.gigs-hub-center-panel--tab .mygigs-card,
+.gigs-hub-center-panel__inner.gigs-hub-center-panel--tab .orders-card,
+.gigs-hub-center-panel__inner.gigs-hub-center-panel--tab .gigs-reviews-page,
+.gigs-hub-center-panel__inner.gigs-hub-center-panel--tab .proposals-shell,
+.gigs-hub-center-panel__inner.gigs-hub-center-panel--tab .create-gig-shell {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.gigs-hub-center-panel__inner.gigs-hub-center-panel--tab .saved-gigs-list,
+.gigs-hub-center-panel__inner.gigs-hub-center-panel--tab .mygigs-rows,
+.gigs-hub-center-panel__inner.gigs-hub-center-panel--tab .orders-table-wrap {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* Create Gig wizard: no global right rail — let form + built-in preview breathe */
+.gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard {
+  width: 100%;
+  max-width: 100%;
+}
+
+.gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-shell {
+  width: 100%;
+  max-width: none;
+  padding: 16px 18px;
+}
+
+.gigs-hub-center-panel__inner.gigs-hub-center-panel--create-wizard .create-gig-layout {
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 400px);
+  gap: 16px;
+}

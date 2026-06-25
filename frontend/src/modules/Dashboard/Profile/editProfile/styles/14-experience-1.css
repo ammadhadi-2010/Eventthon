@@ -1,0 +1,211 @@
+/* Experience (edit profile wizard) */
+.ep-exp-add-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 1rem;
+  border-radius: 0.65rem;
+  border: 1px solid rgba(167, 139, 250, 0.45);
+  background: transparent;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  color: #c4b5fd;
+  cursor: pointer;
+}
+
+.ep-exp-add-inline:hover {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.ep-exp-card {
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  background: rgba(2, 6, 23, 0.45);
+  padding: 1rem 1.1rem;
+}
+
+.ep-exp-card-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.ep-exp-logo {
+  flex-shrink: 0;
+  width: 3.35rem;
+  height: 3.35rem;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  background: rgba(99, 102, 241, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.05rem;
+  color: #c4b5fd;
+  overflow: hidden;
+}
+
+.ep-exp-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ep-exp-head-fields {
+  flex: 1 1 min(240px, 100%);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ep-exp-logo-url-label {
+  display: flex;
+  flex-direction: column;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-top: 0.2rem;
+}
+
+.ep-exp-card-controls {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.35rem;
+  margin-left: auto;
+}
+
+.ep-exp-menu-wrap {
+  position: relative;
+}
+
+.ep-exp-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  padding: 0;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(15, 23, 42, 0.5);
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.ep-exp-icon-btn:hover:not(:disabled) {
+  color: #e2e8f0;
+  border-color: rgba(167, 139, 250, 0.35);
+}
+
+.ep-exp-icon-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.ep-exp-menu-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 7.25rem;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.97);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.5);
+  z-index: 20;
+}
+
+.ep-exp-menu-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 0.85rem;
+  border: none;
+  background: transparent;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  cursor: pointer;
+}
+
+.ep-exp-menu-item--danger {
+  color: #fb7185;
+}
+
+.ep-exp-reorder {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ep-exp-meta-row {
+  margin-top: 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ep-exp-date-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.ep-exp-cal {
+  width: 0.95rem;
+  height: 0.95rem;
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.ep-exp-period-input {
+  flex: 1;
+  min-width: 8rem;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #cbd5e1;
+}
+
+.ep-exp-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.ep-exp-check input {
+  accent-color: #818cf8;
+}
+
+.ep-exp-duration-input {
+  max-width: 11rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  font-size: 0.74rem !important;
+}
+
+.ep-exp-desc-label {
+  margin-top: 1rem !important;
+}
+
+.ep-exp-textarea {
+  margin-top: 0.35rem;
+}
+

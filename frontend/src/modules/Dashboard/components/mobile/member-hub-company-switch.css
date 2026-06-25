@@ -1,0 +1,32 @@
+@media (max-width: 1023px) {
+  .et-hub-switch--compact {
+    flex-shrink: 0;
+    padding: 6px 9px;
+    font-size: 10px;
+    gap: 4px;
+  }
+
+  .hub-mobile-topbar .et-hub-switch--compact {
+    height: 32px;
+    align-self: center;
+  }
+
+  .ja-mobile-header .et-hub-switch {
+    flex-shrink: 0;
+    margin-left: auto;
+    max-width: 46vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .msgx-mobile-topbar .et-hub-switch--compact {
+    flex-shrink: 0;
+    height: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .member-hub-company-switch--mobile-only {
+    display: none !important;
+  }
+}

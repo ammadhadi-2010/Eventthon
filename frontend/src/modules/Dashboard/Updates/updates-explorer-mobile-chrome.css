@@ -1,0 +1,26 @@
+/* Updates explorer — Jobs-style mobile top bar + scroll-hide chrome (< 1024px) */
+
+@media (max-width: 1023px) {
+  .et-app-shell:has(.upd-explorer-mobile-shell) .et-top-nav {
+    display: none !important;
+  }
+
+  .et-app-shell:has(.upd-explorer-mobile-shell) .et-main-inner {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .upd-explorer-mobile-shell {
+    --dash-home-chrome-h: 3.5rem;
+    padding-top: var(--dash-home-chrome-h, 3.5rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .upd-explorer-mobile-shell {
+    padding-top: 0 !important;
+  }
+}

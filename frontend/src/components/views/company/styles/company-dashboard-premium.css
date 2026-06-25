@@ -1,0 +1,61 @@
+/* Company dashboard — skill capsules and neon progress bars */
+
+.cp-skills-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cp-skill-capsules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cp-skill-capsule {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  border: 1px solid transparent;
+  backdrop-filter: blur(8px);
+}
+
+.cp-skill-capsule--violet {
+  color: #ddd6fe;
+  background: rgba(124, 58, 237, 0.18);
+  border-color: rgba(167, 139, 250, 0.35);
+  box-shadow: 0 0 14px rgba(139, 92, 246, 0.2);
+}
+
+.cp-skill-capsule--cyan {
+  color: #bae6fd;
+  background: rgba(14, 165, 233, 0.16);
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.18);
+}
+
+.cp-skill-capsule--green {
+  color: #bbf7d0;
+  background: rgba(34, 197, 94, 0.14);
+  border-color: rgba(74, 222, 128, 0.32);
+  box-shadow: 0 0 14px rgba(34, 197, 94, 0.16);
+}
+
+.cp-skill-bar--violet span {
+  background: linear-gradient(90deg, #7c3aed, #a78bfa);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.45);
+}
+
+.cp-skill-bar--cyan span {
+  background: linear-gradient(90deg, #0284c7, #38bdf8);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+}
+
+.cp-skill-bar--green span {
+  background: linear-gradient(90deg, #16a34a, #4ade80);
+  box-shadow: 0 0 12px rgba(74, 222, 128, 0.38);
+}

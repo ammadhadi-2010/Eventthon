@@ -1,0 +1,260 @@
+/* User Detail — center column sections */
+
+.ud-center {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ud-center-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.ud-section {
+  padding: 14px 16px;
+}
+
+.ud-section--embedded {
+  padding: 16px;
+}
+
+.ud-section--embedded .upr-experience,
+.ud-section--embedded .upr-attachments {
+  margin: 0;
+}
+
+.ud-section-title {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.ud-bio {
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #cbd5e1;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.ud-bio--html {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.ud-bio--html p,
+.ud-bio--html h4 {
+  margin: 0 0 8px;
+  color: #e2e8f0;
+}
+
+.ud-bio--html h4 {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.ud-bio--html .ep-live-preview__section {
+  margin-bottom: 10px;
+}
+
+.ud-bio--html .ep-live-preview__about {
+  color: #cbd5e1;
+  line-height: 1.55;
+}
+
+.ud-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.ud-tag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.05);
+  color: #94a3b8;
+}
+
+.ud-tag--green {
+  background: rgba(16, 185, 129, 0.15);
+  color: #6ee7b7;
+}
+
+.ud-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ud-skill-pill {
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  background: rgba(99, 102, 241, 0.08);
+  color: #c4b5fd;
+}
+
+.ud-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (min-width: 900px) {
+  .ud-stat-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.ud-stat-cell {
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.ud-stat-label {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.ud-stat-value {
+  margin: 4px 0 0;
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.ud-muted {
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.ud-doc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ud-doc-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ud-doc-row:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.ud-doc-icon {
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.ud-doc-meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.ud-doc-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.ud-doc-badge {
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.ud-doc-badge--pending {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fcd34d;
+}
+
+.ud-doc-badge--ok {
+  background: rgba(16, 185, 129, 0.18);
+  color: #6ee7b7;
+}
+
+.ud-doc-view {
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.ud-doc-view:hover {
+  color: #a78bfa;
+}
+
+.ud-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ud-tl-item {
+  display: flex;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.ud-tl-dot {
+  width: 10px;
+  height: 10px;
+  margin-top: 4px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.ud-tl-dot--violet {
+  background: #8b5cf6;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+.ud-tl-dot--emerald {
+  background: #10b981;
+}
+
+.ud-tl-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #e5e7eb;
+}
+
+.ud-tl-time {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: #64748b;
+}

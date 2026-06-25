@@ -1,0 +1,332 @@
+/* Dashboard layout — pinned sidebars, center-only scroll */
+
+:root {
+  --et-nav-height: 70px;
+  --et-nav-offset: 70px;
+  --et-hub-viewport-pad: 32px;
+  --et-hub-scroll-height: calc(100vh - var(--et-nav-height) - var(--et-hub-viewport-pad));
+}
+
+.et-app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-height: 100vh;
+  width: 100%;
+  background-color: #0d0d0d;
+  position: relative;
+  overflow-x: clip;
+  overflow-y: hidden;
+}
+
+.et-top-nav {
+  flex-shrink: 0;
+  width: 100%;
+  z-index: 200;
+  position: sticky;
+  top: 0;
+  background: rgba(2, 6, 23, 0.96);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  will-change: transform;
+}
+
+.et-top-nav--scroll-hidden {
+  transform: translateY(-100%);
+  opacity: 0.98;
+  pointer-events: none;
+}
+
+/* Main: page scroll for footer; hub area pinned above */
+main.center-content-scroll.et-main-scroll {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+main.center-content-scroll::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.et-main-inner {
+  width: 100%;
+  max-width: 1560px;
+  margin: 0 auto;
+  padding: 12px clamp(12px, 2vw, 20px) 20px;
+  box-sizing: border-box;
+}
+
+.et-main-inner--admin {
+  max-width: 100%;
+  padding: 0;
+}
+
+/* Hub viewport: sidebars stay put, only center column scrolls */
+.et-hub-pin-wrap {
+  min-height: var(--et-hub-scroll-height);
+  display: flex;
+  flex-direction: column;
+}
+
+.et-hub-pin-wrap .ph-page,
+.et-hub-pin-wrap .jobs-page,
+.et-hub-pin-wrap .gigs-page {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.et-hub-pin-wrap .gigs-page {
+  overflow-x: auto;
+}
+
+.et-hub-pin-wrap .ph-layout,
+.et-hub-pin-wrap .jobs-layout,
+.et-hub-pin-wrap .gigs-layout.gigs-hub-layout,
+.et-hub-pin-wrap .fp-hub-row,
+.et-hub-pin-wrap .dash-main-grid,
+.et-hub-pin-wrap .squad-hub {
+  flex: 1;
+  min-height: 0;
+  max-height: var(--et-hub-scroll-height);
+  align-items: flex-start;
+}
+
+.et-hub-pin-wrap .squad-hub {
+  width: 100%;
+}
+
+.et-hub-pin-wrap .ph-layout {
+  display: flex;
+}
+
+.et-hub-pin-wrap .jobs-layout {
+  display: flex;
+}
+
+.et-hub-pin-wrap .dash-main-grid {
+  display: grid;
+}
+
+/* Sidebars: fixed in place (not in scroll container) */
+.et-hub-pin-wrap .ph-layout__rail,
+.et-hub-pin-wrap .jobs-layout__rail,
+.et-hub-pin-wrap .gigs-hub-layout__rail,
+.et-hub-pin-wrap .fp-layout__rail,
+.et-hub-pin-wrap .dash-main-grid > aside {
+  flex-shrink: 0;
+  align-self: flex-start;
+  position: relative;
+  top: auto;
+  max-height: var(--et-hub-scroll-height);
+  overflow-y: auto;
+  overflow-x: visible;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.et-hub-pin-wrap .ph-layout__rail::-webkit-scrollbar,
+.et-hub-pin-wrap .jobs-layout__rail::-webkit-scrollbar,
+.et-hub-pin-wrap .gigs-hub-layout__rail::-webkit-scrollbar,
+.et-hub-pin-wrap .fp-layout__rail::-webkit-scrollbar,
+.et-hub-pin-wrap .dash-main-grid > aside::-webkit-scrollbar {
+  display: none;
+}
+
+/* Center: independent scroll */
+.et-hub-pin-wrap .ph-layout__center,
+.et-hub-pin-wrap .jobs-layout__center,
+.et-hub-pin-wrap .gigs-hub-layout__center,
+.et-hub-pin-wrap .fp-layout__center,
+.et-hub-pin-wrap .dash-main-grid > main {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  max-height: var(--et-hub-scroll-height);
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.et-hub-pin-wrap .ph-layout__center::-webkit-scrollbar,
+.et-hub-pin-wrap .jobs-layout__center::-webkit-scrollbar,
+.et-hub-pin-wrap .gigs-hub-layout__center::-webkit-scrollbar,
+.et-hub-pin-wrap .fp-layout__center::-webkit-scrollbar,
+.et-hub-pin-wrap .dash-main-grid > main::-webkit-scrollbar {
+  display: none;
+}
+
+.et-hub-pin-wrap .alerts-page-shell {
+  display: grid;
+  max-height: var(--et-hub-scroll-height);
+  min-height: 0;
+}
+
+.et-hub-pin-wrap .alerts-main-content {
+  min-height: 0;
+  max-height: var(--et-hub-scroll-height);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.et-hub-pin-wrap .alert-left-nav,
+.et-hub-pin-wrap .alerts-right-sidebar {
+  max-height: var(--et-hub-scroll-height);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.et-hub-pin-wrap .ph-layout__rail > *,
+.et-hub-pin-wrap .jobs-layout__rail > *,
+.et-hub-pin-wrap .gigs-hub-layout__rail > *,
+.et-hub-pin-wrap .fp-layout__rail > *,
+.et-hub-pin-wrap .dash-main-grid > aside > * {
+  max-height: none;
+  overflow: visible;
+}
+
+/* Gigs hub: keep laptop 3-column grid (sidebar | center | rail) — no stack at 1100px */
+.et-hub-pin-wrap .gigs-layout.gigs-hub-layout {
+  display: grid !important;
+  flex-direction: row !important;
+}
+
+@media (max-width: 1100px) {
+  .et-hub-pin-wrap .ph-layout,
+  .et-hub-pin-wrap .fp-hub-row,
+  .et-hub-pin-wrap .dash-main-grid {
+    grid-template-columns: minmax(0, 1fr);
+    max-height: none;
+  }
+
+  .et-hub-pin-wrap .ph-layout__center,
+  .et-hub-pin-wrap .fp-layout__center,
+  .et-hub-pin-wrap .dash-main-grid > main {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .et-hub-pin-wrap .ph-layout__rail,
+  .et-hub-pin-wrap .fp-layout__rail,
+  .et-hub-pin-wrap .dash-main-grid > aside {
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+/* Jobs hub: keep 3-column pinned layout until mobile CSS (< 1024px) */
+@media (max-width: 1100px) and (min-width: 1024px) {
+  .et-hub-pin-wrap .jobs-layout {
+    display: flex !important;
+    flex-direction: row !important;
+    max-height: var(--et-hub-scroll-height) !important;
+  }
+
+  .et-hub-pin-wrap .jobs-layout__center {
+    max-height: var(--et-hub-scroll-height) !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+
+  .et-hub-pin-wrap .jobs-layout__rail {
+    max-height: var(--et-hub-scroll-height) !important;
+    overflow-y: auto !important;
+  }
+}
+
+/* Loader + guest popup */
+
+.loader-text-event {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 8px;
+  color: #fff;
+}
+
+.loader-bar-track {
+  width: 200px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 20px auto;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.loader-sub-event {
+  color: #94a3b8;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.et-guest-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.et-guest-popup {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 32px;
+  padding: 40px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.et-guest-popup h2 {
+  margin: 0 0 10px;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.et-guest-popup p {
+  color: #cbd5e1;
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 0 30px;
+}
+
+.et-guest-popup__icon {
+  font-size: 44px;
+  margin-bottom: 20px;
+}
+
+.et-guest-popup__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.et-guest-popup__primary {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #fff;
+  border: none;
+  padding: 16px;
+  border-radius: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.et-guest-popup__secondary {
+  background: transparent;
+  color: #64748b;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 14px;
+  border-radius: 16px;
+  cursor: pointer;
+}

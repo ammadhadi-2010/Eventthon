@@ -1,0 +1,205 @@
+﻿/* Gig & Job public showrooms — laptop 8/4 grid */
+.ps-mp-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+  min-width: 1000px;
+}
+
+.ps-mp-grid__main,
+.ps-mp-grid__aside {
+  min-width: 0;
+}
+
+.ps-mp-grid__aside {
+  position: sticky;
+  top: 1rem;
+}
+
+.ps-mp-card {
+  padding: 1.1rem 1.2rem;
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(30, 41, 59, 0.88), rgba(15, 23, 42, 0.72));
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+  margin-bottom: 1rem;
+}
+
+.ps-mp-card--glow {
+  border-color: rgba(139, 92, 246, 0.35);
+  box-shadow: 0 0 32px rgba(139, 92, 246, 0.12), 0 18px 48px rgba(0, 0, 0, 0.3);
+}
+
+.ps-mp-card--premium {
+  border-color: rgba(139, 92, 246, 0.28);
+  box-shadow: 0 0 28px rgba(139, 92, 246, 0.1), 0 18px 48px rgba(0, 0, 0, 0.28);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ps-mp-card h2,
+.ps-mp-card h3 {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #e2e8f0;
+}
+
+.ps-mp-grid--gig {
+  align-items: stretch;
+}
+
+.ps-mp-grid--gig .ps-mp-grid__main {
+  display: flex;
+  flex-direction: column;
+}
+
+.ps-mp-grid--gig .ps-mp-packages-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2.5rem;
+}
+
+.ps-mp-preview {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  min-height: 280px;
+  background: linear-gradient(160deg, #1e293b 0%, #0f172a 55%, #1e1b4b 100%);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+}
+
+.ps-mp-preview img {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  background: linear-gradient(160deg, #1e293b 0%, #0f172a 55%, #1e1b4b 100%);
+}
+
+.ps-mp-preview__mock {
+  min-height: 280px;
+  padding: 1rem;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(56, 189, 248, 0.06) 0,
+    rgba(56, 189, 248, 0.06) 1px,
+    transparent 1px,
+    transparent 28px
+  );
+}
+
+.ps-mp-preview__mock-bars {
+  display: flex;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.ps-mp-preview__mock-bars span {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(56, 189, 248, 0.45);
+}
+
+.ps-mp-preview__mock-bars span:nth-child(1) { width: 28%; }
+.ps-mp-preview__mock-bars span:nth-child(2) { width: 18%; opacity: 0.6; }
+.ps-mp-preview__mock-bars span:nth-child(3) { width: 22%; opacity: 0.4; }
+
+.ps-mp-preview__mock-chart {
+  height: 180px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(99, 102, 241, 0.15), transparent);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.ps-mp-live-btn {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #e0f2fe;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  backdrop-filter: blur(8px);
+}
+
+.ps-mp-seller {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  margin-bottom: 1rem;
+}
+
+.ps-mp-seller img,
+.ps-mp-seller__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #312e81;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #c4b5fd;
+}
+
+.ps-mp-seller__meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.ps-mp-seller__meta strong {
+  display: block;
+  font-size: 0.92rem;
+}
+
+.ps-mp-seller__meta p {
+  margin: 0.15rem 0 0;
+  font-size: 0.72rem;
+  color: #94a3b8;
+}
+
+.ps-mp-seller__stats {
+  display: flex;
+  gap: 0.65rem;
+  font-size: 0.72rem;
+  color: #7dd3fc;
+  font-weight: 700;
+}
+
+.ps-mp-packages {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  flex: 1;
+  align-items: stretch;
+}
+
+.ps-mp-package {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1rem;
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}

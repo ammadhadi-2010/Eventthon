@@ -1,0 +1,54 @@
+.feed-post-text {
+  position: relative;
+  margin: 0 0 0.75rem;
+}
+
+.feed-post-text__body {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.feed-post-text__body--clamp-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+}
+
+.feed-post-text__body--clamp-1 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  overflow: hidden;
+}
+
+.feed-post-text__toggle {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+.feed-post-text__toggle:hover {
+  color: #e2e8f0;
+  text-decoration: underline;
+}
+
+.feed-post-text__toggle--block {
+  display: inline-block;
+  margin-top: 0.2rem;
+}

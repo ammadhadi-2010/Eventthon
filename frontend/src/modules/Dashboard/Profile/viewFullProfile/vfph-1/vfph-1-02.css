@@ -1,0 +1,12 @@
+﻿.vfph-rank-chip {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  border: 1px solid rgba(167, 139, 250, 0.35);
+  background: rgba(109, 40, 217, 0.45);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e9d5ff;
+}

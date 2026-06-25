@@ -1,0 +1,131 @@
+/* Job Management — tabs, stats, company chrome */
+
+.jm-companies-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.jm-company-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.jm-website-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #93c5fd;
+  text-decoration: none;
+}
+
+.jm-website-link:hover {
+  color: #bfdbfe;
+  text-decoration: underline;
+}
+
+.jm-tabs-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: -4px 0 14px;
+  width: 100%;
+}
+
+.jm-page-tabs {
+  margin-bottom: 0;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.jm-app-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.jm-btn--sm {
+  min-height: 32px;
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+.jm-select--inline {
+  min-width: 118px;
+  min-height: 32px;
+}
+
+.um-avatar--text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(99, 102, 241, 0.25);
+  color: #e0e7ff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.jm-stats-grid {
+  margin-bottom: 14px;
+}
+
+.jm-stats-lock {
+  width: 100%;
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .jm-stats-lock.um-stats-track {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .jm-stats-lock .um-stat-card {
+    width: auto;
+    flex-shrink: 1;
+  }
+}
+
+.jm-row--selected {
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.jm-stat-foot {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.jm-error-banner {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.1);
+  color: #fecaca;
+}
+
+.jm-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.jm-widget-empty {
+  margin: 0;
+  font-size: 12px;
+  color: #94a3b8;
+}

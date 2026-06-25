@@ -1,0 +1,120 @@
+
+.ep-basic-link-icon {
+  width: 1.05rem;
+  height: 1.05rem;
+  color: #818cf8;
+  flex-shrink: 0;
+  opacity: 0.95;
+}
+
+.ep-basic-link-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #d1dae9;
+}
+
+.ep-basic-link-remove {
+  flex-shrink: 0;
+  width: 2.25rem;
+  border-radius: 0.65rem;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  color: #64748b;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.ep-basic-link-remove:hover {
+  color: #fb7185;
+  border-color: rgba(251, 113, 133, 0.35);
+  background: rgba(251, 113, 133, 0.08);
+}
+
+.ep-basic-add-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+  padding: 0.55rem 1rem;
+  border-radius: 0.65rem;
+  border: 1px solid rgba(125, 211, 252, 0.35);
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #7dd3fc;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.ep-basic-add-link:hover {
+  background: rgba(125, 211, 252, 0.08);
+  border-color: rgba(125, 211, 252, 0.55);
+  color: #bae6fd;
+}
+
+.ep-basic-add-link:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  border-color: rgba(148, 163, 184, 0.15);
+  color: #64748b;
+}
+
+.ep-basic-add-link:disabled:hover {
+  background: transparent;
+  border-color: rgba(148, 163, 184, 0.15);
+  color: #64748b;
+}
+
+.ep-basic-link-meta--fixed {
+  flex: 0 0 auto;
+  min-width: 8.75rem;
+  max-width: 13rem;
+}
+
+.ep-basic-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1.25rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.ep-btn-save-continue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.35rem;
+  border-radius: 0.65rem;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(135deg, #6d28d9 0%, #5b21b6 45%, #4c1d95 100%);
+  box-shadow:
+    0 4px 14px rgba(91, 33, 182, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
+}
+
+.ep-btn-save-continue:hover {
+  filter: brightness(1.06);
+  box-shadow:
+    0 6px 20px rgba(91, 33, 182, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.ep-btn-save-continue:active {
+  transform: translateY(1px);
+}

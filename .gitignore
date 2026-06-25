@@ -1,0 +1,3 @@
+node_modules/
+backend/.mongo-data/
+backend/static/uploads/

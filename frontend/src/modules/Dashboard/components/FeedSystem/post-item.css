@@ -1,0 +1,135 @@
+.feed-post-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 8px;
+  transition: 0.3s all;
+}
+
+.feed-post-header {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.feed-post-header__main {
+  flex: 1;
+  min-width: 0;
+}
+
+.feed-post-header__name-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.feed-post-header__name {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.feed-post-header__rank-badge {
+  width: 1.15rem;
+  height: 1.15rem;
+  min-width: 1.15rem;
+  object-fit: contain;
+  display: block;
+}
+
+.feed-post-header__meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.feed-post-header__title {
+  margin: 0;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.feed-post-rank-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(167, 139, 250, 0.28);
+  background: rgba(109, 40, 217, 0.14);
+  font-size: 10px;
+  font-weight: 700;
+  color: #ddd6fe;
+  letter-spacing: 0.02em;
+}
+
+.feed-post-header__time {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 4px 0 0;
+  font-size: 10px;
+  color: #64748b;
+}
+
+.feed-post-header__type {
+  font-size: 10px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: uppercase;
+  margin-left: 4px;
+}
+
+.feed-post-header__actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 10px;
+}
+
+.feed-post-header__follow {
+  border: 0;
+  background: none;
+  color: #60a5fa;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.feed-post-header__follow:hover {
+  color: #93c5fd;
+}
+
+.feed-post-header__dismiss {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: #64748b;
+}
+
+.feed-post-header__dismiss:hover {
+  color: #cbd5e1;
+}
+
+.feed-post-content {
+  margin-bottom: 8px;
+}

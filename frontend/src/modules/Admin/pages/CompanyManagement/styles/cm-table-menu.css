@@ -1,0 +1,136 @@
+/* Company Management — table, row menus */
+
+.cm-stats-grid {
+  margin-bottom: 14px;
+}
+
+.cm-header {
+  align-items: center;
+}
+
+.cm-header__cta {
+  align-self: center;
+}
+
+@media (max-width: 639px) {
+  .cm-header__cta {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.cm-main-card {
+  margin-bottom: 14px;
+}
+
+.cm-main-card .um-table tbody tr.cm-table-row {
+  vertical-align: middle;
+}
+
+.cm-main-card .um-table td.cm-table-cell {
+  padding: 12px 14px;
+  vertical-align: middle;
+  line-height: 1.35;
+}
+
+.cm-main-card .um-table th {
+  vertical-align: middle;
+}
+
+.cm-main-card .cm-user-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+}
+
+.cm-main-card .cm-table-cell--status {
+  white-space: nowrap;
+}
+
+.cm-main-card .cm-table-cell--actions {
+  width: 72px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.cm-row-menu-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 32px;
+}
+
+.cm-row-menu-wrap--open {
+  z-index: 2;
+}
+
+.cm-row-menu-list,
+.cm-row-menu-portal {
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #111827;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+}
+
+.cm-detail-logo {
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.cm-detail-about {
+  margin: 0 0 12px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.cm-detail-banner {
+  background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+}
+
+.ud-doc-sub {
+  display: block;
+  font-size: 10px;
+  color: #64748b;
+  margin-top: 2px;
+  word-break: break-all;
+}
+
+.ud-tag--violet {
+  background: rgba(139, 92, 246, 0.18);
+  color: #c4b5fd;
+  border: 1px solid rgba(139, 92, 246, 0.35);
+}
+
+.cm-row-menu-item--disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.cm-row-menu-item--disabled:hover {
+  background: transparent;
+  color: #e5e7eb;
+}
+
+.cm-widget-row {
+  align-items: center;
+  min-height: 44px;
+}
+
+.cm-widget-row .cm-row-menu-wrap {
+  flex-shrink: 0;
+}
+
+.cm-error-banner {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.1);
+  color: #fecaca;
+  font-size: 13px;
+}

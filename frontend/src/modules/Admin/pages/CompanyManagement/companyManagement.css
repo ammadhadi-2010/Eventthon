@@ -1,0 +1,6 @@
+/* Company Management styles — split under ./styles/ (250-line cap per file) */
+@import './styles/cm-table-menu.css';
+@import './styles/cm-toolbar-docs.css';
+@import './styles/cm-widgets.css';
+@import './styles/cm-forms.css';
+@import './styles/cm-mobile.css';

@@ -1,0 +1,152 @@
+/* Cover banner crop modal (react-easy-crop) */
+.ep-banner-crop-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(2, 6, 23, 0.82);
+  backdrop-filter: blur(10px);
+}
+
+.ep-banner-crop-modal {
+  width: min(100%, 560px);
+  max-height: min(92vh, 640px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  background: rgba(15, 23, 42, 0.97);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+.ep-banner-crop-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem 1rem 0.5rem 1.25rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.ep-banner-crop-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.ep-banner-crop-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
+}
+
+.ep-banner-crop-close:hover {
+  color: #f1f5f9;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ep-banner-crop-hint {
+  margin: 0;
+  padding: 0.65rem 1.25rem 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #94a3b8;
+}
+
+.ep-banner-crop-stage {
+  position: relative;
+  width: 100%;
+  height: min(42vw, 260px);
+  min-height: 200px;
+  margin-top: 0.75rem;
+  background: #020617;
+}
+
+@media (min-width: 640px) {
+  .ep-banner-crop-stage {
+    height: 280px;
+  }
+}
+
+.ep-banner-crop-zoom {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.25rem 0.25rem;
+}
+
+.ep-banner-crop-zoom-label {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
+}
+
+.ep-banner-crop-range {
+  flex: 1;
+  min-width: 0;
+  accent-color: #6366f1;
+}
+
+.ep-banner-crop-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.65rem;
+  padding: 1rem 1.25rem 1.15rem;
+  margin-top: auto;
+  border-top: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.ep-banner-crop-cancel {
+  padding: 0.55rem 1.1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: transparent;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.ep-banner-crop-cancel:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ep-banner-crop-cancel:disabled,
+.ep-banner-crop-apply:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.ep-banner-crop-apply {
+  padding: 0.55rem 1.25rem;
+  border-radius: 10px;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  box-shadow: 0 6px 18px rgba(79, 70, 229, 0.35);
+}
+
+.ep-banner-crop-apply:hover:not(:disabled) {
+  filter: brightness(1.05);
+}

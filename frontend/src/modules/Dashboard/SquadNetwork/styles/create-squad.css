@@ -1,0 +1,462 @@
+.squad-hub--creating {
+  grid-template-columns: minmax(260px, 300px) minmax(0, 1fr);
+}
+
+.squad-hub__create-wrap {
+  grid-column: 2 / -1;
+  min-height: 0;
+  height: 100%;
+  overflow: auto;
+  background: #0a0c12;
+  border-left: 1px solid rgba(148, 163, 184, 0.1);
+  scrollbar-width: none;
+}
+
+.squad-hub__create-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.cs-panel {
+  min-height: 100%;
+  padding: 1.25rem 1.5rem 1.5rem;
+  box-sizing: border-box;
+}
+
+.cs-panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.cs-panel__header-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.cs-panel__back {
+  display: none;
+}
+
+.cs-panel__header h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #f8fafc;
+}
+
+.cs-panel__header p {
+  margin: 0.35rem 0 0;
+  font-size: 0.82rem;
+  color: #94a3b8;
+}
+
+.cs-panel__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(15, 23, 42, 0.65);
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.cs-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.cs-section {
+  padding: 1rem 1.1rem;
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(30, 41, 59, 0.72), rgba(15, 23, 42, 0.55));
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+.cs-section:nth-child(4) {
+  grid-column: 1 / -1;
+}
+
+.cs-section__head {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.cs-section__num {
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #c4b5fd;
+  background: rgba(139, 92, 246, 0.18);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  flex-shrink: 0;
+}
+
+.cs-section__head h3 {
+  margin: 0;
+  font-size: 0.92rem;
+  color: #e2e8f0;
+}
+
+.cs-section__head p {
+  margin: 0.2rem 0 0;
+  font-size: 0.72rem;
+  color: #64748b;
+}
+
+.cs-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.85rem;
+}
+
+.cs-field span {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #cbd5e1;
+}
+
+.cs-field em {
+  color: #f87171;
+  font-style: normal;
+}
+
+.cs-field input,
+.cs-field select,
+.cs-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(15, 23, 42, 0.85);
+  color: #f1f5f9;
+  font: inherit;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.cs-field input:focus,
+.cs-field select:focus,
+.cs-field textarea:focus {
+  border-color: rgba(139, 92, 246, 0.55);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+
+.cs-field input.is-error,
+.cs-field select.is-error,
+.cs-field textarea.is-error {
+  border-color: rgba(248, 113, 113, 0.55);
+}
+
+.cs-field small {
+  font-size: 0.68rem;
+  color: #64748b;
+  text-align: right;
+}
+
+.cs-error {
+  margin: 0;
+  font-size: 0.68rem;
+  color: #fca5a5;
+}
+
+.cs-privacy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+}
+
+.cs-privacy-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  padding: 0.85rem;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.55);
+  color: #94a3b8;
+  cursor: pointer;
+  text-align: left;
+}
+
+.cs-privacy-card.is-active {
+  border-color: rgba(139, 92, 246, 0.55);
+  box-shadow: 0 0 24px rgba(139, 92, 246, 0.18);
+  color: #e2e8f0;
+}
+
+.cs-privacy-card strong {
+  font-size: 0.82rem;
+}
+
+.cs-privacy-card span {
+  font-size: 0.68rem;
+  line-height: 1.4;
+}
+
+.cs-privacy-card__check {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #7c3aed, #6366f1);
+  color: #fff;
+}
+
+.cs-privacy-card__seo {
+  font-size: 0.62rem;
+  font-style: normal;
+  color: #86efac;
+}
+
+.cs-upload {
+  width: 100%;
+  min-height: 140px;
+  margin-bottom: 0.85rem;
+  border-radius: 12px;
+  border: 1px dashed rgba(148, 163, 184, 0.35);
+  background: rgba(15, 23, 42, 0.45);
+  color: #94a3b8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.cs-upload strong {
+  color: #e2e8f0;
+  font-size: 0.78rem;
+}
+
+.cs-upload span {
+  font-size: 0.68rem;
+}
+
+.cs-upload__preview {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.cs-toggles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.cs-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+.cs-toggle-row__copy {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  color: #64748b;
+}
+
+.cs-toggle-row__copy strong {
+  display: block;
+  font-size: 0.75rem;
+  color: #e2e8f0;
+}
+
+.cs-toggle-row__copy span {
+  display: block;
+  font-size: 0.65rem;
+  line-height: 1.35;
+  margin-top: 0.1rem;
+}
+
+.cs-switch {
+  width: 42px;
+  height: 24px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(51, 65, 85, 0.9);
+  padding: 2px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.cs-switch span {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  transition: transform 0.15s;
+}
+
+.cs-switch.is-on {
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+}
+
+.cs-switch.is-on span {
+  transform: translateX(18px);
+  background: #fff;
+}
+
+.cs-search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(15, 23, 42, 0.85);
+  margin-bottom: 0.75rem;
+  color: #64748b;
+}
+
+.cs-search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #f1f5f9;
+  font: inherit;
+}
+
+.cs-invite-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 220px;
+  overflow: auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.cs-invite-row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background: rgba(15, 23, 42, 0.45);
+  cursor: pointer;
+}
+
+.cs-invite-row.is-selected {
+  border-color: rgba(99, 102, 241, 0.45);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.cs-invite-row img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.cs-invite-row strong {
+  display: block;
+  font-size: 0.75rem;
+  color: #e2e8f0;
+}
+
+.cs-invite-row span {
+  font-size: 0.65rem;
+  color: #64748b;
+}
+
+.cs-invite-row em {
+  margin-left: auto;
+  font-size: 0.62rem;
+  font-style: normal;
+  color: #94a3b8;
+}
+
+.cs-panel__status {
+  margin: 0.75rem 0 0;
+  font-size: 0.78rem;
+  color: #fca5a5;
+}
+
+.cs-panel__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.cs-panel__footer-actions {
+  display: flex;
+  gap: 0.65rem;
+}
+
+.cs-btn {
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.cs-btn--ghost {
+  background: transparent;
+  border-color: rgba(148, 163, 184, 0.2);
+  color: #94a3b8;
+}
+
+.cs-btn--outline {
+  background: transparent;
+  border-color: rgba(139, 92, 246, 0.45);
+  color: #c4b5fd;
+}
+
+.cs-btn--primary {
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  color: #fff;
+  box-shadow: 0 0 24px rgba(139, 92, 246, 0.25);
+}
+
+.cs-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1200px) {
+  .cs-panel__grid {
+    grid-template-columns: 1fr;
+  }
+}

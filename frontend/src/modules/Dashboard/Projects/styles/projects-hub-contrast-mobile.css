@@ -1,0 +1,67 @@
+/* Projects Hub — mobile contrast typography (< 1024px). Desktop unchanged. */
+
+@media (max-width: 1023px) {
+  .ph-page .ph-hero-sub,
+  .ph-page .ph-reports .ph-hero-sub,
+  .ph-page .ph-milestones .ph-hero-sub,
+  .ph-page .ph-funding .ph-hero-sub,
+  .ph-page .ph-explore .ph-hero-sub,
+  .ph-page .ph-saved .ph-hero-sub,
+  .ph-page .ph-my-projects .ph-hero-sub,
+  .ph-page .ph-collaborations .ph-hero-sub {
+    color: #e4e4e7 !important;
+  }
+
+  .ph-page .ph-kpi-label,
+  .ph-page .ph-kpi-delta:not(.is-down),
+  .ph-page .ph-rpt-summary-label,
+  .ph-page .ph-rpt-summary-delta:not(.ph-rpt-summary-delta--up):not(.ph-rpt-summary-delta--down),
+  .ph-page .ph-rpt-td-muted,
+  .ph-page .ph-rpt-donut-legend,
+  .ph-page .ph-rpt-bars__label,
+  .ph-page .ph-rpt-budget-month,
+  .ph-page .ph-rpt-budget-legend,
+  .ph-page .ph-rpt-placeholder p,
+  .ph-page .ph-mp-project small,
+  .ph-page .ph-col-role,
+  .ph-page .ph-col-activity,
+  .ph-page .ph-fund-muted,
+  .ph-page .ph-ms-project,
+  .ph-page .ph-ms-date,
+  .ph-page .ph-sv-date,
+  .ph-page .ph-sv-category,
+  .ph-page .ph-sort,
+  .ph-page .ph-sort span,
+  .ph-page .ph-exp-author,
+  .ph-page .ph-exp-stats,
+  .ph-page .ph-mp-team-more,
+  .ph-page .ph-mp-deadline,
+  .ph-page .ph-mp-budget,
+  .ph-page .cp-tpl-card__cat,
+  .ph-page .cp-tpl-card__uses {
+    color: #d4d4d8 !important;
+    font-weight: 500;
+  }
+
+  .ph-page .ph-rpt-tab:not(.is-active),
+  .ph-page .ph-mp-tab:not(.is-active),
+  .ph-page .ph-table-tab:not(.is-active) {
+    color: #d4d4d8 !important;
+  }
+
+  .ph-page .ph-rpt-axis-x,
+  .ph-page .ph-rpt-axis-y {
+    fill: #d4d4d8 !important;
+  }
+
+  .ph-page .ph-rpt-donut-legend strong,
+  .ph-page .ph-rpt-bars__val,
+  .ph-page .ph-rpt-util,
+  .ph-page .ph-rpt-summary-value,
+  .ph-page .ph-fund-kpi-value,
+  .ph-page .ph-kpi-value,
+  .ph-page .ph-mp-progress-pct,
+  .ph-page .ph-ms-progress-pct {
+    color: #fff !important;
+  }
+}

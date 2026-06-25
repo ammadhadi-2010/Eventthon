@@ -1,0 +1,206 @@
+﻿.gigs-recent-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.gigs-recent-logo.blue { background: linear-gradient(145deg, #2563eb, #06b6d4); }
+.gigs-recent-logo.slate { background: linear-gradient(145deg, #64748b, #334155); }
+.gigs-recent-logo.purple { background: linear-gradient(145deg, #8b5cf6, #3b82f6); }
+.gigs-recent-logo.pink { background: linear-gradient(145deg, #ec4899, #f97316); }
+.gigs-recent-logo.cyan { background: linear-gradient(145deg, #0891b2, #2563eb); }
+
+.gigs-recent-main h4 {
+  margin: 0;
+  font-size: 16px;
+  color: #eaf2ff;
+  line-height: 1.25;
+}
+
+.gigs-recent-seller {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #9fb0c8;
+}
+
+.gigs-recent-tags {
+  margin-top: 7px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.gigs-recent-tags span {
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(148, 163, 184, 0.08);
+  color: #c7d6eb;
+  border-radius: 999px;
+  padding: 3px 7px;
+  font-size: 11px;
+}
+
+.gigs-recent-side {
+  min-width: 104px;
+  text-align: left;
+}
+
+.gigs-recent-rating {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #fbbf24;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.gigs-recent-rating span {
+  color: #7f93b3;
+  font-weight: 600;
+}
+
+.gigs-recent-price {
+  margin: 6px 0 0;
+  color: #dbeafe;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.gigs-recent-price span {
+  color: #8ea2bf;
+  font-size: 11px;
+  font-weight: 500;
+  margin-right: 4px;
+}
+
+.gigs-recent-eta {
+  margin: 3px 0 0;
+  color: #8ea2bf;
+  font-size: 12px;
+}
+
+.gigs-recent-fav {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background: transparent;
+  color: #8ea2bf;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.gigs-recent-fav:hover {
+  border-color: rgba(236, 72, 153, 0.45);
+  color: #f472b6;
+}
+
+.gigs-recent-fav.is-active {
+  border-color: rgba(236, 72, 153, 0.55);
+  background: rgba(236, 72, 153, 0.16);
+  color: #f472b6;
+  box-shadow: 0 0 14px rgba(236, 72, 153, 0.24);
+}
+
+.gigs-recent-action {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.gigs-recent-action button {
+  min-width: 210px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  background: linear-gradient(180deg, rgba(14, 26, 48, 0.9), rgba(9, 18, 34, 0.9));
+  color: #dbeafe;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.gigs-explorer-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 10px;
+}
+
+.gigs-explorer-list {
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  background: rgba(8, 16, 30, 0.45);
+  overflow: hidden;
+}
+
+.gigs-explorer-row {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.gigs-explorer-row:first-child {
+  border-top: 0;
+}
+
+.gigs-explorer-row.is-active {
+  background: linear-gradient(90deg, rgba(30, 64, 175, 0.2), rgba(14, 165, 233, 0.08));
+}
+
+.gigs-explorer-main h4 {
+  margin: 0;
+  font-size: 13px;
+  color: #eaf2ff;
+}
+
+.gigs-explorer-main p {
+  margin: 3px 0 0;
+  font-size: 11px;
+  color: #8ea2bf;
+}
+
+.gigs-explorer-main small {
+  margin-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #fbbf24;
+  font-size: 11px;
+}
+
+.gigs-explorer-row strong {
+  color: #dbeafe;
+  font-size: 12px;
+}
+
+.gigs-explorer-detail {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(10, 20, 36, 0.94), rgba(7, 15, 29, 0.94));
+  padding: 12px;
+}
+
+.gigs-explorer-badge {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #e0f2fe;
+  background: rgba(14, 165, 233, 0.22);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+}

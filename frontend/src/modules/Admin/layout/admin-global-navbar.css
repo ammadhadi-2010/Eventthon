@@ -1,0 +1,4 @@
+/* Admin global navbar — split under ./styles/ (250-line cap per file) */
+@import './styles/agn-navbar-shell.css';
+@import './styles/agn-brand-search.css';
+@import './styles/agn-monitor-profile.css';

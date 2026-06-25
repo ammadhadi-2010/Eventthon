@@ -1,0 +1,217 @@
+
+.ep-sn-skill-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.ep-sn-skill-top {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.ep-sn-name-input {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.8125rem !important;
+  font-weight: 700 !important;
+}
+
+.ep-sn-pct {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #cbd5e1;
+  min-width: 2.25rem;
+  text-align: right;
+}
+
+.ep-sn-bar-wrap {
+  margin-top: 0.35rem;
+  height: 0.38rem;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.14);
+  overflow: hidden;
+}
+
+.ep-sn-bar-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.95), rgba(167, 139, 250, 0.85));
+  transition: width 0.15s ease;
+}
+
+.ep-sn-range {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  accent-color: #818cf8;
+  height: 1.25rem;
+  cursor: pointer;
+}
+
+.ep-sn-badge {
+  display: inline-block;
+  margin-top: 0.35rem;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #94a3b8;
+  background: rgba(30, 41, 59, 0.72);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.ep-sn-remove {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  padding: 0.35rem;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
+}
+
+.ep-sn-remove:hover {
+  color: #f1f5f9;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ep-sn-add-row {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
+.ep-sn-combo {
+  position: relative;
+  align-items: flex-start;
+}
+
+.ep-sn-combo-inner {
+  position: relative;
+  flex: 1 1 min(200px, 100%);
+  min-width: 0;
+}
+
+.ep-sn-skill-dd {
+  position: absolute;
+  z-index: 30;
+  left: 0;
+  right: 0;
+  top: calc(100% + 4px);
+  max-height: min(40vh, 14rem);
+  overflow-y: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.98);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.52);
+}
+
+.ep-sn-skill-dd-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.52rem 0.75rem;
+  border: none;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+  background: transparent;
+  color: #e2e8f0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.ep-sn-skill-dd-item:last-child {
+  border-bottom: none;
+}
+
+.ep-sn-skill-dd-item:hover {
+  background: rgba(99, 102, 241, 0.18);
+}
+
+.ep-sn-skill-dd-item--custom {
+  color: #c4b5fd;
+  font-weight: 700;
+}
+
+.ep-sn-skill-dd-ico {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--icon-gradient, rgba(99, 102, 241, 0.2));
+  box-shadow: 0 0 10px var(--icon-glow, transparent);
+  color: rgba(241, 245, 249, 0.92);
+}
+
+.ep-sn-add-input {
+  flex: 1 1 min(200px, 100%);
+  font-size: 0.8125rem !important;
+}
+
+.ep-sn-add-btn {
+  align-self: flex-start;
+  margin-top: 0.15rem;
+}
+
+.ep-sn-mt {
+  margin-top: 0.65rem !important;
+}
+
+.ep-sn-dropdown {
+  position: relative;
+}
+
+.ep-sn-dropdown--disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.ep-sn-select-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.62rem 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background: rgba(10, 12, 22, 0.92);
+  color: #f1f5f9;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.ep-sn-select-trigger:hover:not(:disabled) {
+  border-color: rgba(167, 139, 250, 0.35);
+}
+
+.ep-sn-select-trigger:disabled {
+  cursor: not-allowed;
+}
+
+.ep-sn-select-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  color: #818cf8;
+}
+
