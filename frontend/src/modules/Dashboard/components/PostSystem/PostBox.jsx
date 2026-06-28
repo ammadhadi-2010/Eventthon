@@ -9,11 +9,15 @@ import PostComposerAvatar from './PostComposerAvatar';
 import './post-box.css';
 import './post-box-mobile.css';
 
-const PostBox = ({ userData, onOpenModal }) => {
+const PostBox = ({ userData, onOpenModal, onRequireAuth }) => {
   const navigate = useNavigate();
 
   const handleArticleClick = (e) => {
     e.stopPropagation();
+    if (onRequireAuth) {
+      onRequireAuth();
+      return;
+    }
     navigate('/article/new');
   };
 

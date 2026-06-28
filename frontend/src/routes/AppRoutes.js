@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import API from '../api/axiosConfig';
+import { fetchProfileMe } from '../modules/Dashboard/Profile/services/profileService';
 import { hasStoredSession, persistUserSession, readStoredUserStub } from '../utils/storedUser';
 
 import AuthRoutes from '../modules/Auth/AuthRoutes';
@@ -45,19 +46,10 @@ const AppRoutes = () => {
     if (stub) setUserData((prev) => (prev?._fromStorage || !prev ? stub : prev));
 
     try {
-      const trimmedEmail = typeof userEmail === 'string' ? userEmail.trim() : '';
-      const trimmedMobile = typeof userMobile === 'string' ? userMobile.trim() : '';
-      const res = trimmedEmail
-        ? await API.get(`/get-user-by-email/${encodeURIComponent(trimmedEmail)}`, {
-            timeout: PROFILE_FETCH_MS,
-          })
-        : await API.get(`/get-user/${encodeURIComponent(trimmedMobile)}`, {
-            timeout: PROFILE_FETCH_MS,
-          });
-
-      if (res.data) {
-        persistUserSession(res.data);
-        setUserData(res.data);
+      const profile = await fetchProfileMe(userIdentifier);
+      if (profile) {
+        persistUserSession(profile);
+        setUserData(profile);
       }
     } catch (err) {
       const timedOut = err?.code === 'ECONNABORTED' || String(err?.message || '').includes('timeout');
@@ -176,9 +168,9 @@ const AppRoutes = () => {
                 element={
                   <Navigate
                     to={
-                      userData?.role === 'admin' || localStorage.getItem('userRole') === 'admin'
+                      hasStoredSession() && (userData?.role === 'admin' || localStorage.getItem('userRole') === 'admin')
                         ? '/admin-control'
-                        : userData?.role === 'employer' || localStorage.getItem('userRole') === 'employer'
+                        : hasStoredSession() && (userData?.role === 'employer' || localStorage.getItem('userRole') === 'employer')
                           ? '/company/dashboard'
                           : '/dashboard'
                     }
@@ -191,9 +183,9 @@ const AppRoutes = () => {
                 element={
                   <Navigate
                     to={
-                      userData?.role === 'admin' || localStorage.getItem('userRole') === 'admin'
+                      hasStoredSession() && (userData?.role === 'admin' || localStorage.getItem('userRole') === 'admin')
                         ? '/admin-control'
-                        : userData?.role === 'employer' || localStorage.getItem('userRole') === 'employer'
+                        : hasStoredSession() && (userData?.role === 'employer' || localStorage.getItem('userRole') === 'employer')
                           ? '/company/dashboard'
                           : '/dashboard'
                     }

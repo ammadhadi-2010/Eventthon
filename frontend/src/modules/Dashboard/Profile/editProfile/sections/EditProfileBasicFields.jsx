@@ -9,6 +9,7 @@ import {
 } from '../../../../../data/editProfileSocialLinksConfig';
 import { blobUrlToFile, updateProfileData, uploadUserImage } from '../../services/profileService';
 import { validateProfileImageFile } from '../../utils/profileMedia';
+import { persistUserSession } from '../../../../../utils/storedUser';
 import CoverBannerCropModal from './CoverBannerCropModal';
 import '../editProfileLayout.css';
 
@@ -136,11 +137,18 @@ const EditProfileBasicFields = ({
     try {
       if (draft.profileImageUrl?.startsWith('blob:')) {
         const file = await blobUrlToFile(draft.profileImageUrl, 'profile.jpg');
-        await uploadUserImage(file, 'profile', userIdentifier);
+        const uploaded = await uploadUserImage(file, 'profile', userIdentifier);
+        if (uploaded?.imageurl) {
+          persistUserSession({ imageurl: uploaded.imageurl, profile_image_url: uploaded.imageurl, avatar: uploaded.imageurl });
+        }
       }
       if (draft.coverImageUrl?.startsWith('blob:')) {
         const file = await blobUrlToFile(draft.coverImageUrl, 'banner.jpg');
-        await uploadUserImage(file, 'banner', userIdentifier);
+        const uploaded = await uploadUserImage(file, 'banner', userIdentifier);
+        if (uploaded?.url || uploaded?.imageurl) {
+          const bannerUrl = uploaded.url || uploaded.imageurl;
+          persistUserSession({ banner: bannerUrl });
+        }
       }
 
       const socialList = sanitizeSocialLinksForSave(draft.socialLinks);

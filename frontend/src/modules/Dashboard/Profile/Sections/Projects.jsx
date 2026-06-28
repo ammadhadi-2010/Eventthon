@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { FiLayers, FiPlus, FiCheck, FiX, FiTrash2, FiUploadCloud } from 'react-icons/fi';
+import { resolveMediaUrl } from '../../../../../components/shared/utils/resolveMediaUrl';
 import { updateProfileProjects, uploadProjectImage } from '../services/profileService';
 import { getProfileIdentifier } from '../utils/profileSession';
 import { validateProfileImageFile } from '../utils/profileMedia';
@@ -102,7 +103,7 @@ const Projects = ({ userData, onChange, isModalMode = false }) => {
             ) : (
               <>
                 <img 
-  src={newProject.image.startsWith('http') ? newProject.image : `http://localhost:8000${newProject.image}`} 
+  src={resolveMediaUrl(newProject.image)} 
   style={uploadPreview} 
   alt="Preview" 
 />
@@ -127,7 +128,7 @@ const Projects = ({ userData, onChange, isModalMode = false }) => {
           <div key={proj.id} style={projectCard} className="group">
             <div style={imageWrapper}>
               <img 
-  src={proj.image.startsWith('http') ? proj.image : `http://localhost:8000${proj.image}`} 
+  src={resolveMediaUrl(proj.image)} 
   alt={proj.title} 
   style={projectImg} 
   onError={(e) => { e.target.src = 'https://via.placeholder.com/150'; }} 

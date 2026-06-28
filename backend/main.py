@@ -87,10 +87,14 @@ SUB_FOLDERS = ["profiles", "banners", "identity", "posts", "projects"]
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 # --- 3. CORS SETTINGS ---
-origins = [
+_default_origins = [
     "http://localhost:3001",
     "http://localhost:3000",
+    "http://127.0.0.1:3001",
+    "http://127.0.0.1:3000",
 ]
+_env_origins = os.getenv("ALLOWED_ORIGINS", "").strip()
+origins = [o.strip() for o in _env_origins.split(",") if o.strip()] if _env_origins else _default_origins
 
 app.add_middleware(
     CORSMiddleware,
@@ -134,6 +138,7 @@ async def api_health():
 
 
 @app.get("/get-user-by-email/{email}", tags=["User Fetching"])
+@app.get("/api/users/by-email/{email}", tags=["User Fetching"])
 async def get_user_by_email(email: str):
     user = await _find_user_or_timeout(user_collection.find_one({"email": email.lower().strip()}))
     if user:
@@ -141,6 +146,7 @@ async def get_user_by_email(email: str):
     raise HTTPException(status_code=404, detail="User not found")
 
 @app.get("/get-user/{mobile}", tags=["User Fetching"])
+@app.get("/api/users/by-mobile/{mobile}", tags=["User Fetching"])
 async def get_user_by_mobile(mobile: str):
     user = await _find_user_or_timeout(user_collection.find_one({"mobile": mobile.strip()}))
     if user:

@@ -1,0 +1,48 @@
+# EventThon production Nginx example (Ubuntu VPS)
+# Copy to /etc/nginx/sites-available/eventthon and symlink sites-enabled.
+#
+# Replace:
+#   /var/www/eventthon/frontend/build  -> your CRA build output
+#   127.0.0.1:8000                     -> Uvicorn/Gunicorn bind address
+
+server {
+    listen 80;
+    server_name eventthone.com www.eventthone.com;
+
+    client_max_body_size 50M;
+
+    root /var/www/eventthon/frontend/build;
+    index index.html;
+
+    # Uploaded media — proxy to FastAPI (avoids /root permission issues with alias)
+    location /static/ {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # FastAPI JSON API
+    location /api/ {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Legacy / squad routes still used by the frontend
+    location ~ ^/(get-user|get-user-by-email|finance|squads|users)(/|$) {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # React SPA
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}

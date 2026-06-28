@@ -10,7 +10,6 @@ import { isCompanyWorkspacePath } from '../modules/Dashboard/Navbar/companyWorks
 import { readCompanyHubAccess } from '../modules/Dashboard/Navbar/useCompanyHubAccess';
 import { useLocation } from 'react-router-dom';
 import Footer from '../components/Footer';
-import { useNavigate } from 'react-router-dom';
 import { fetchAlertsBundle } from '../modules/Dashboard/Alerts/services/alertsApi';
 import { fetchEmployerAlertsBundle } from '../modules/Dashboard/Alerts/services/employerAlertsApi';
 import { hasStoredSession, readStoredUserStub } from '../utils/storedUser';
@@ -23,13 +22,11 @@ import '../BackgroundCanvas.css';
 import './dashboard-shell.css';
 
 const DashboardLayout = ({ children, userData, refreshData }) => {
-  const navigate = useNavigate();
   const location = useLocation();
   const adminHub = isAdminControlPath(location.pathname);
   const { hidden: navHidden } = useScrollHideNavbar(true);
   const companyHub = !adminHub && isCompanyWorkspacePath(location.pathname);
   const employerWorkspace = !adminHub && readCompanyHubAccess();
-  const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [notifCount, setNotifCount] = useState(0);
   const [mobileLeftDrawerOpen, setMobileLeftDrawerOpen] = useState(false);
   const [mobileUserMenuOpen, setMobileUserMenuOpen] = useState(false);
@@ -73,16 +70,6 @@ const DashboardLayout = ({ children, userData, refreshData }) => {
     setMobileUserMenuOpen(false);
   }, [location.pathname]);
 
-  useEffect(() => {
-    let timer;
-    if (!isAuthenticated && !showLoginPopup) {
-      timer = setTimeout(() => setShowLoginPopup(true), 180000);
-    }
-    return () => {
-      if (timer) clearTimeout(timer);
-    };
-  }, [isAuthenticated, showLoginPopup]);
-
   const shellContextValue = useMemo(
     () => ({
       mobileLeftDrawerOpen,
@@ -124,39 +111,6 @@ const DashboardLayout = ({ children, userData, refreshData }) => {
         user={effectiveUser}
         onClose={() => setMobileUserMenuOpen(false)}
       />
-
-      {showLoginPopup ? (
-        <div className="et-guest-popup-overlay" role="dialog" aria-modal="true">
-          <div className="et-guest-popup">
-            <div className="et-guest-popup__icon" aria-hidden>
-              ✨
-            </div>
-            <h2>Join the Elite Network</h2>
-            <p>
-              Enjoying the feed? Log in to start posting, build your squad, and unlock rewards.
-            </p>
-            <div className="et-guest-popup__actions">
-              <button
-                type="button"
-                className="et-guest-popup__primary hover-scale"
-                onClick={() => {
-                  setShowLoginPopup(false);
-                  navigate('/auth/login');
-                }}
-              >
-                Get Started
-              </button>
-              <button
-                type="button"
-                className="et-guest-popup__secondary"
-                onClick={() => setShowLoginPopup(false)}
-              >
-                Maybe Later
-              </button>
-            </div>
-          </div>
-        </div>
-      ) : null}
     </div>
     </DashboardShellContext.Provider>
   );

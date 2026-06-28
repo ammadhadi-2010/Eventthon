@@ -14,8 +14,11 @@ import useDashboardRightSidebar from './components/rightSidebar/useDashboardRigh
 import MobileFeedSuggestedSquadsCarousel from './components/mobile/MobileFeedSuggestedSquadsCarousel';
 import MobileFeedPeopleCarousel from './components/mobile/MobileFeedPeopleCarousel';
 import { fetchHomeTimelineFeed } from './components/FeedSystem/homeFeedQuery';
-import { readStoredUserStub } from '../../utils/storedUser';
+import { readStoredUserStub, hasStoredSession } from '../../utils/storedUser';
+import GuestLoginPromptModal from '../../components/GuestLoginPromptModal';
 import { useDashboardShell } from './context/dashboardShellContext';
+
+const GUEST_LOGIN_PROMPT_MS = 40000;
 
 const MainDashboard = ({ userData }) => {
   const { mobileLeftDrawerOpen, setMobileLeftDrawerOpen } = useDashboardShell();
@@ -24,6 +27,8 @@ const MainDashboard = ({ userData }) => {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [lastHomeScrollY, setLastHomeScrollY] = useState(0);
   const [homeSearchQuery, setHomeSearchQuery] = useState('');
+  const [guestPromptOpen, setGuestPromptOpen] = useState(false);
+  const isGuest = !hasStoredSession();
 
   const effectiveUser = useMemo(() => {
     const stub = readStoredUserStub();
@@ -32,11 +37,6 @@ const MainDashboard = ({ userData }) => {
   }, [userData]);
 
   const sidebar = useDashboardRightSidebar(effectiveUser);
-
-  const sessionKey = useMemo(
-    () => String(effectiveUser?.email || effectiveUser?.mobile || effectiveUser?._id || '').trim(),
-    [effectiveUser],
-  );
 
   const fetchAllPosts = useCallback(async () => {
     setFeedLoading(true);
@@ -52,10 +52,16 @@ const MainDashboard = ({ userData }) => {
   }, []);
 
   useEffect(() => {
-    if (!sessionKey) return undefined;
     fetchAllPosts();
-    return undefined;
-  }, [sessionKey, fetchAllPosts]);
+  }, [fetchAllPosts]);
+
+  useEffect(() => {
+    if (!isGuest) return undefined;
+    const interval = window.setInterval(() => {
+      setGuestPromptOpen(true);
+    }, GUEST_LOGIN_PROMPT_MS);
+    return () => window.clearInterval(interval);
+  }, [isGuest]);
 
   useEffect(() => {
     const mobile = window.matchMedia('(max-width: 1023px)');
@@ -93,17 +99,9 @@ const MainDashboard = ({ userData }) => {
     };
   }, [mobileLeftDrawerOpen]);
 
-  if (!effectiveUser) {
-    return (
-      <div className="dash-sync-loader">
-        <div className="dash-sync-spinner" aria-hidden />
-        <p>SYNCING WITH ATLAS...</p>
-      </div>
-    );
-  }
-
   const safePosts = Array.isArray(posts) ? posts : [];
   const closeLeftDrawer = () => setMobileLeftDrawerOpen(false);
+  const promptGuestLogin = useCallback(() => setGuestPromptOpen(true), []);
 
   const mobileWidgets = {
     suggestedSquads: (
@@ -124,6 +122,10 @@ const MainDashboard = ({ userData }) => {
 
   return (
     <div className="dash-home-shell dash-home-mobile-shell">
+      <GuestLoginPromptModal
+        open={isGuest && guestPromptOpen}
+        onKeepBrowsing={() => setGuestPromptOpen(false)}
+      />
       <HubMobileTopBar
         isVisible={isHeaderVisible}
         avatarAction="leftDrawer"
@@ -163,7 +165,12 @@ const MainDashboard = ({ userData }) => {
 
         <main className="dash-center-feed">
           <UpdatesCarousel />
-          <PostSystem userData={effectiveUser} onPostCreated={fetchAllPosts} aiHighlightComposerEnabled />
+          <PostSystem
+            userData={effectiveUser}
+            onPostCreated={fetchAllPosts}
+            aiHighlightComposerEnabled
+            onRequireAuth={isGuest ? promptGuestLogin : undefined}
+          />
           {feedLoading && safePosts.length === 0 ? <p className="dash-feed-hint">Updating Feed...</p> : null}
           <ActivityFeed
             userData={effectiveUser}

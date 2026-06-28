@@ -1,4 +1,4 @@
-import axios from 'axios';
+import API from '../../../../api/axiosConfig';
 import React, { useEffect, useRef, useState } from 'react';
 import { FiThumbsUp, FiMessageSquare, FiRepeat, FiSend } from 'react-icons/fi';
 import CommentModal from './CommentModal';
@@ -70,7 +70,7 @@ const PostActions = ({
     }
 
     try {
-      await axios.put(`http://localhost:8000/api/posts/like/${postId}`);
+      await API.put(`/api/posts/like/${postId}`);
     } catch (error) {
       console.error('Like update failed:', error);
       setLiked(isCurrentlyLiked);
@@ -92,7 +92,7 @@ const PostActions = ({
     }
 
     try {
-      const response = await axios.post(`http://localhost:8000/api/posts/${postId}/repost`, {
+      const response = await API.post(`/api/posts/${postId}/repost`, {
         user_id: String(userData?._id),
         caption,
       });
@@ -119,7 +119,7 @@ const PostActions = ({
 
   const loadSendTargets = async (queryText = '') => {
     try {
-      const response = await axios.get('http://localhost:8000/api/posts/send-targets', {
+      const response = await API.get('/api/posts/send-targets', {
         params: { query: queryText, limit: 80 },
       });
       if (response.data.status === 'success') setSendTargets(response.data.data || []);
@@ -142,7 +142,7 @@ const PostActions = ({
     }
 
     try {
-      const response = await axios.post(`http://localhost:8000/api/posts/${postId}/send`, {
+      const response = await API.post(`/api/posts/${postId}/send`, {
         sender_id: String(userData?._id),
         recipient_ids: selectedSendIds,
       });
