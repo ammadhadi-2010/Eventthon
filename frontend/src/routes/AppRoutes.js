@@ -8,6 +8,7 @@ import AuthRoutes from '../modules/Auth/AuthRoutes';
 import AdminRoutes from '../modules/Admin/AdminRoutes';
 import AdminPreviewRoutes from '../modules/Admin/preview/AdminPreviewRoutes';
 import DashboardRoutes from '../modules/Dashboard/DashboardRoutes';
+import MainDashboard from '../modules/Dashboard/MainDashboard';
 import ProfileRoutes from '../modules/Dashboard/Profile/ProfileRoutes';
 import SquadRoutes from '../modules/Dashboard/SquadNetwork/SquadRoutes';
 import WalletRoutes from '../modules/Dashboard/Wallet/WalletRoutes';
@@ -27,7 +28,7 @@ import ShowroomRoutes from '../modules/Public/ShowroomRoutes';
 import UpdatesRoutes from '../modules/Dashboard/Updates/UpdatesRoutes';
 
 function resolveHomePath(userData) {
-  if (!hasStoredSession()) return '/dashboard';
+  if (!hasStoredSession()) return '/';
   if (userData?.role === 'admin' || localStorage.getItem('userRole') === 'admin') {
     return '/admin-control';
   }
@@ -86,7 +87,15 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/public/*" element={<PublicRoutes />} />
       <Route path="/auth/*" element={<AuthRoutes />} />
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      {/* Public home: guests see MainDashboard + 40s login prompt — no redirect chain */}
+      <Route
+        path="/"
+        element={
+          <DashboardLayout userData={userData} refreshData={refreshProfile}>
+            <MainDashboard userData={userData} />
+          </DashboardLayout>
+        }
+      />
 
       <Route
         path="/*"
