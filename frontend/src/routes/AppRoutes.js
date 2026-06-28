@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import API from '../api/axiosConfig';
 import { fetchProfileMe } from '../modules/Dashboard/Profile/services/profileService';
-import { hasStoredSession, persistUserSession, readStoredUserStub } from '../utils/storedUser';
+import { hasStoredSession, persistUserSession, readStoredUserStub, clearStaleSession } from '../utils/storedUser';
 
 import AuthRoutes from '../modules/Auth/AuthRoutes';
 import AdminRoutes from '../modules/Admin/AdminRoutes';
@@ -27,7 +26,16 @@ import PublicRoutes from '../modules/Public/PublicRoutes';
 import ShowroomRoutes from '../modules/Public/ShowroomRoutes';
 import UpdatesRoutes from '../modules/Dashboard/Updates/UpdatesRoutes';
 
-const PROFILE_FETCH_MS = 15000;
+function resolveHomePath(userData) {
+  if (!hasStoredSession()) return '/dashboard';
+  if (userData?.role === 'admin' || localStorage.getItem('userRole') === 'admin') {
+    return '/admin-control';
+  }
+  if (userData?.role === 'employer' || localStorage.getItem('userRole') === 'employer') {
+    return '/company/dashboard';
+  }
+  return '/dashboard';
+}
 
 const AppRoutes = () => {
   const [userData, setUserData] = useState(() => readStoredUserStub());
@@ -54,11 +62,13 @@ const AppRoutes = () => {
     } catch (err) {
       const timedOut = err?.code === 'ECONNABORTED' || String(err?.message || '').includes('timeout');
       if (!timedOut) console.warn('Profile sync failed:', err?.message || err);
-      if (stub) setUserData((prev) => ({ ...stub, ...prev, _fromStorage: true }));
-      if (err.response?.status === 401) {
-        localStorage.clear();
-        window.location.href = '/auth/login';
+      const status = err?.response?.status;
+      if (status === 401 || status === 403) {
+        clearStaleSession();
+        setUserData(null);
+        return;
       }
+      if (stub) setUserData((prev) => ({ ...stub, ...prev, _fromStorage: true }));
     }
   }, [userEmail, userMobile, userIdentifier]);
 
@@ -76,6 +86,7 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/public/*" element={<PublicRoutes />} />
       <Route path="/auth/*" element={<AuthRoutes />} />
+      <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
       <Route
         path="/*"
@@ -164,34 +175,8 @@ const AppRoutes = () => {
               <Route path="resources/*" element={<ResourcesRoutes />} />
               <Route path="founders-story" element={<FoundersStoryPage userData={userData} />} />
               <Route
-                path="/"
-                element={
-                  <Navigate
-                    to={
-                      hasStoredSession() && (userData?.role === 'admin' || localStorage.getItem('userRole') === 'admin')
-                        ? '/admin-control'
-                        : hasStoredSession() && (userData?.role === 'employer' || localStorage.getItem('userRole') === 'employer')
-                          ? '/company/dashboard'
-                          : '/dashboard'
-                    }
-                    replace
-                  />
-                }
-              />
-              <Route
                 path="*"
-                element={
-                  <Navigate
-                    to={
-                      hasStoredSession() && (userData?.role === 'admin' || localStorage.getItem('userRole') === 'admin')
-                        ? '/admin-control'
-                        : hasStoredSession() && (userData?.role === 'employer' || localStorage.getItem('userRole') === 'employer')
-                          ? '/company/dashboard'
-                          : '/dashboard'
-                    }
-                    replace
-                  />
-                }
+                element={<Navigate to={resolveHomePath(userData)} replace />}
               />
             </Routes>
           </DashboardLayout>

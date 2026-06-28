@@ -50,3 +50,16 @@ export function hasStoredSession() {
       localStorage.getItem('user_id'),
   );
 }
+
+/** Drop invalid/stale login keys without kicking guests off public pages. */
+export function clearStaleSession() {
+  [
+    'userId',
+    'user_id',
+    'userEmail',
+    'userMobile',
+    'userName',
+    'userRole',
+    'userImageurl',
+  ].forEach((key) => localStorage.removeItem(key));
+}
