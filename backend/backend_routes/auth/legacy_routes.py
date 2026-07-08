@@ -52,16 +52,17 @@ def hash_password(password: str) -> str:
 
 def _send_otp_email_sync(to_email: str, otp_code: str) -> None:
     """Send OTP via Gmail SMTP using credentials from backend/.env."""
-    smtp_host = os.getenv("SMTP_HOST", "smtp.gmail.com").strip()
-    smtp_port = int(os.getenv("SMTP_PORT", "587"))
-    smtp_user = os.getenv("SMTP_USER", "").strip()
-    smtp_password = os.getenv("SMTP_PASSWORD", "").strip()
+    smtp_host = os.getenv("MAIL_SERVER", "smtp.gmail.com")
+    smtp_port = int(os.getenv("MAIL_PORT", "587"))
+    smtp_user = os.getenv("MAIL_USERNAME", "").strip()
+    smtp_password = os.getenv("MAIL_PASSWORD", "").strip()
+    mail_from = os.getenv("MAIL_FROM", smtp_user)
 
     if not smtp_user or not smtp_password:
         raise RuntimeError("Email service is not configured in server.")
 
     msg = MIMEMultipart()
-    msg["From"] = f"EventThon Network <{smtp_user}>"
+    msg["From"] = f"EventThon Network <{mail_from}>"
     msg["To"] = to_email
     msg["Subject"] = f"{otp_code} is your EventThon Password Reset Verification Code"
 
@@ -80,7 +81,7 @@ def _send_otp_email_sync(to_email: str, otp_code: str) -> None:
     try:
         server.starttls()
         server.login(smtp_user, smtp_password)
-        server.sendmail(smtp_user, to_email, msg.as_string())
+        server.sendmail(mail_from, to_email, msg.as_string())
     finally:
         server.quit()
 

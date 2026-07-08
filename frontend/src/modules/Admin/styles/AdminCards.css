@@ -1,6 +1,6 @@
 .admin-stats-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 12px;
   align-items: stretch;
 }
@@ -244,18 +244,20 @@
   border: 1px solid rgba(251, 191, 36, 0.28);
 }
 
-@media (max-width: 1280px) {
+@media (min-width: 768px) {
+  .admin-stats-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
   .admin-stats-grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 10px;
+    gap: 12px;
   }
 }
 
 @media (max-width: 1100px) {
-  .admin-stats-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .admin-command-grid--inline {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

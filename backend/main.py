@@ -27,6 +27,9 @@ import os
 import logging
 import asyncio
 
+from dotenv import load_dotenv
+load_dotenv()
+
 # Existing imports
 from backend_routes.auth import auth, google_auth
 from backend_routes.finance import wallet
