@@ -1,0 +1,144 @@
+/* Email Outreach — AI auto-responder dashboard */
+
+.eo-ai-responder {
+  display: grid;
+  gap: 14px;
+}
+
+.eo-ai-responder__head {
+  margin-bottom: 4px;
+}
+
+.eo-ai-responder__title-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: #c4b5fd;
+}
+
+.eo-ai-responder__title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.eo-ai-responder__sub {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #94a3b8;
+  max-width: 720px;
+}
+
+.eo-ai-responder__card {
+  padding: 18px;
+}
+
+.eo-ai-responder__toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.eo-ai-responder__toggle input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.eo-ai-responder__toggle-ui {
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: #334155;
+  border: 1px solid #475569;
+  position: relative;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.eo-ai-responder__toggle-ui::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  transition: transform 0.2s ease;
+}
+
+.eo-ai-responder__toggle input:checked + .eo-ai-responder__toggle-ui {
+  background: linear-gradient(135deg, #7c3aed, #6366f1);
+  border-color: rgba(167, 139, 250, 0.5);
+}
+
+.eo-ai-responder__toggle input:checked + .eo-ai-responder__toggle-ui::after {
+  transform: translateX(20px);
+}
+
+.eo-ai-responder__toggle strong {
+  display: block;
+  font-size: 14px;
+  color: #f8fafc;
+}
+
+.eo-ai-responder__toggle small {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.eo-ai-responder__textarea {
+  min-height: 220px;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.eo-ai-responder__actions {
+  margin-top: 14px;
+}
+
+.eo-ai-responder__status {
+  margin: 0;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.eo-ai-responder__status--error {
+  color: #fecdd3;
+}
+
+.eo-ai-responder__status--ok {
+  color: #bbf7d0;
+}
+
+.eo-reply-badge--ai {
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  color: #ddd6fe;
+  background: rgba(124, 58, 237, 0.18);
+  border: 1px solid rgba(167, 139, 250, 0.35);
+}
+
+.eo-reply-item__ai-body {
+  margin: 0;
+  padding: 0 12px 12px 52px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #ddd6fe;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 767px) {
+  .eo-reply-item__ai-body {
+    padding-left: 12px;
+  }
+}

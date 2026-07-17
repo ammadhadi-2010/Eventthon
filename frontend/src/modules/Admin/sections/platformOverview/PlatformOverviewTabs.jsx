@@ -3,7 +3,7 @@ import { PLATFORM_OVERVIEW_TABS } from '../../data/platformOverviewConfig';
 
 function PlatformOverviewTabs({ activeTab, onChange }) {
   return (
-    <div className="admin-mini-tabs flex flex-wrap items-center gap-2">
+    <div className="admin-mini-tabs flex w-full flex-row gap-2 overflow-x-auto whitespace-nowrap py-2 scrollbar-none lg:flex-wrap lg:overflow-visible lg:whitespace-normal">
       {PLATFORM_OVERVIEW_TABS.map((tab) => {
         const active = activeTab === tab.id;
         return (
@@ -11,7 +11,7 @@ function PlatformOverviewTabs({ activeTab, onChange }) {
             key={tab.id}
             type="button"
             onClick={() => onChange(tab.id)}
-            className={`rounded-xl px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] ${
+            className={`inline-block flex-shrink-0 rounded-xl px-4 py-2 text-xs font-black uppercase tracking-[0.12em] lg:px-3 lg:py-1.5 lg:text-[10px] lg:tracking-[0.16em] ${
               active ? 'text-white' : 'bg-white/[0.03] text-slate-500'
             }`}
             style={

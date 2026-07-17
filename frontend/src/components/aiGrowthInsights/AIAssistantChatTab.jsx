@@ -1,10 +1,11 @@
 import React from 'react';
+import AIAssistantMessageContent from './AIAssistantMessageContent';
 
 export default function AIAssistantChatTab({
   messages,
   draft,
   setDraft,
-  isTyping,
+  isLoading,
   scrollRef,
   quickChips,
   onSendPrompt,
@@ -24,7 +25,7 @@ export default function AIAssistantChatTab({
             type="button"
             className="et-ai-assistant__chip"
             onClick={() => onChipSelect(chip.id)}
-            disabled={isTyping}
+            disabled={isLoading}
           >
             {chip.label}
           </button>
@@ -35,14 +36,26 @@ export default function AIAssistantChatTab({
         {messages.map((message) => (
           <div
             key={message.id}
-            className={`et-ai-assistant__bubble et-ai-assistant__bubble--${message.role}`}
+            className={`et-ai-assistant__bubble et-ai-assistant__bubble--${message.role}${
+              message.isError ? ' et-ai-assistant__bubble--error' : ''
+            }`}
           >
             <span className="et-ai-assistant__bubble-label">
               {message.role === 'user' ? 'You' : 'AI Assistant'}
             </span>
-            <p>{message.text}{message.streaming ? <span className="et-ai-assistant__cursor">▍</span> : null}</p>
+            <AIAssistantMessageContent text={message.text} />
           </div>
         ))}
+
+        {isLoading ? (
+          <div className="et-ai-assistant__bubble et-ai-assistant__bubble--assistant et-ai-assistant__bubble--loading">
+            <span className="et-ai-assistant__bubble-label">AI Assistant</span>
+            <div className="et-ai-assistant__loading" role="status" aria-live="polite">
+              <span className="et-ai-assistant__spinner" aria-hidden="true" />
+              <span>Generating response...</span>
+            </div>
+          </div>
+        ) : null}
       </div>
 
       <form className="et-ai-assistant__composer" onSubmit={handleSubmit}>
@@ -51,10 +64,10 @@ export default function AIAssistantChatTab({
           value={draft}
           onChange={(event) => setDraft(event.target.value)}
           placeholder="Ask about squads, gigs, jobs, or wallet..."
-          disabled={isTyping}
+          disabled={isLoading}
           aria-label="AI assistant message input"
         />
-        <button type="submit" disabled={isTyping || !draft.trim()}>
+        <button type="submit" disabled={isLoading || !draft.trim()}>
           Send
         </button>
       </form>

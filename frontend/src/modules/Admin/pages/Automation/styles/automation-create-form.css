@@ -180,3 +180,18 @@
   left: auto;
   min-width: 160px;
 }
+
+.auto-publish-btn[disabled] {
+  opacity: 0.72;
+  cursor: not-allowed;
+}
+
+.auto-spin {
+  animation: auto-spin 0.8s linear infinite;
+}
+
+@keyframes auto-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

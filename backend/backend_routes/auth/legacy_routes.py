@@ -15,6 +15,7 @@ from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, EmailStr, Field, field_validator
 
 from database import user_collection
+from backend_routes.email_sender import sender_from_env, smtp_credentials
 
 router = APIRouter(tags=["Authentication Legacy"])
 
@@ -52,27 +53,26 @@ def hash_password(password: str) -> str:
 
 def _send_otp_email_sync(to_email: str, otp_code: str) -> None:
     """Send OTP via Gmail SMTP using credentials from backend/.env."""
-    smtp_host = os.getenv("MAIL_SERVER", "smtp.gmail.com")
-    smtp_port = int(os.getenv("MAIL_PORT", "587"))
-    smtp_user = os.getenv("MAIL_USERNAME", "").strip()
-    smtp_password = os.getenv("MAIL_PASSWORD", "").strip()
-    mail_from = os.getenv("MAIL_FROM", smtp_user)
+    smtp_host = os.getenv("SMTP_HOST") or os.getenv("MAIL_SERVER", "smtp.gmail.com")
+    smtp_port = int(os.getenv("SMTP_PORT") or os.getenv("MAIL_PORT", "587"))
+    smtp_user, smtp_password = smtp_credentials()
+    _, _, from_header = sender_from_env()
 
     if not smtp_user or not smtp_password:
         raise RuntimeError("Email service is not configured in server.")
 
     msg = MIMEMultipart()
-    msg["From"] = f"EventThon Network <{mail_from}>"
+    msg["From"] = from_header
     msg["To"] = to_email
     msg["Subject"] = f"{otp_code} is your EventThon Password Reset Verification Code"
 
     body = f"""
     <div style="font-family: Arial, sans-serif; max-width: 520px; margin: 0 auto;">
-      <h2 style="color: #0f172a;">EventThon Network — Password Reset</h2>
+      <h2 style="color: #0f172a;">EventThon — Password Reset</h2>
       <p>We received a request to reset your password. Use this verification code:</p>
       <p style="font-size: 32px; font-weight: 800; letter-spacing: 6px; color: #2563eb;">{otp_code}</p>
       <p style="color: #64748b;">This code expires in {OTP_TTL_MINUTES} minutes. If you did not request this, ignore this email.</p>
-      <p>— Team EventThon Network</p>
+      <p>— EventThon Support</p>
     </div>
     """
     msg.attach(MIMEText(body, "html"))
@@ -81,7 +81,7 @@ def _send_otp_email_sync(to_email: str, otp_code: str) -> None:
     try:
         server.starttls()
         server.login(smtp_user, smtp_password)
-        server.sendmail(mail_from, to_email, msg.as_string())
+        server.sendmail(smtp_user, to_email, msg.as_string())
     finally:
         server.quit()
 

@@ -7,16 +7,17 @@ import { useAdminSidebar } from './AdminSidebarContext';
 import '../styles/admin-preview.css';
 import AdminSidebar from './AdminSidebar';
 import '../styles/AdminShell.css';
+import '../styles/admin-mobile-sidebar.css';
 
 export default function AdminShellLayout() {
   const { pathname } = useLocation();
   const { open, close } = useAdminSidebar();
   const fullBleed = isAdminFullBleedPath(pathname);
   const previewMode = isAdminPreviewPath(pathname);
-  const hideSidebar = fullBleed || previewMode;
+  const hideSidebar = fullBleed;
 
   return (
-    <div className={`admin-dashboard${hideSidebar ? ' admin-dashboard--full-bleed' : ''}`}>
+    <div className={`admin-dashboard${hideSidebar ? ' admin-dashboard--full-bleed' : ''}${previewMode ? ' admin-dashboard--preview' : ''}`}>
       {!hideSidebar && open ? (
         <button
           type="button"

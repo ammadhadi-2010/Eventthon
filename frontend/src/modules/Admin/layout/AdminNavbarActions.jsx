@@ -15,9 +15,14 @@ export default function AdminNavbarActions({
   onNotif,
   showUtilities,
   hubSwitch,
+  mobileInline = false,
 }) {
   return (
-    <div className="agn-navbar__right" aria-label="Admin utilities" ref={menuRef}>
+    <div
+      className={`agn-navbar__right${mobileInline ? ' agn-navbar__right--mobile-inline flex items-center gap-2 flex-nowrap shrink-0' : ''}`}
+      aria-label="Admin utilities"
+      ref={menuRef}
+    >
       {hubSwitch}
       {showUtilities ? (
         <>

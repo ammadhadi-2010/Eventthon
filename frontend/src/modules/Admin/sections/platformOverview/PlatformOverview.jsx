@@ -8,8 +8,8 @@ function PlatformOverview({ viewMode }) {
   const { activeTab, onTabChange, tab, loading, error } = useOverviewTab(viewMode);
 
   return (
-    <div className="admin-card-dark admin-platform-overview p-5">
-      <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+    <div className="admin-card-dark admin-platform-overview p-4 lg:p-5">
+      <div className="mb-2 flex flex-wrap items-center justify-between gap-2 lg:mb-4 lg:gap-3">
         <div>
           <h3 className="text-lg font-black">Platform Overview</h3>
           <p className="text-sm text-slate-500">Live operational insight across the network.</p>
@@ -21,7 +21,7 @@ function PlatformOverview({ viewMode }) {
 
       <PlatformOverviewTabs activeTab={activeTab} onChange={onTabChange} />
       {error ? <p className="mt-3 text-sm text-rose-400">{error}</p> : null}
-      <div className="mt-4">
+      <div className="mt-2 lg:mt-4">
         <PlatformOverviewCharts tab={tab} loading={loading} />
         <PlatformOverviewTable tab={tab} loading={loading} />
       </div>

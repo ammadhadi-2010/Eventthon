@@ -6,8 +6,7 @@ import RecentPostsTable from './RecentPostsTable';
 import AutomationAssistant from './AutomationAssistant';
 import AutomationSettingsModal from './AutomationSettingsModal';
 import AutomationAllPostsView from './AutomationAllPostsView';
-import AutomationHubTabs from './AutomationHubTabs';
-import LeadHunter from './LeadHunter/LeadHunter';
+import AutomationPublishToast from './AutomationPublishToast';
 import { useAutomation } from './useAutomation';
 import '../UserManagement/userManagement.css';
 import './automation.css';
@@ -15,7 +14,6 @@ import './automation.css';
 export default function AutomationPage() {
   const hub = useAutomation();
   const [draftCaption, setDraftCaption] = useState('');
-  const [hubTab, setHubTab] = useState('posts');
 
   const handleGenerate = async (text) => {
     const caption = await hub.runGenerate(text);
@@ -80,12 +78,6 @@ export default function AutomationPage() {
 
       {hub.error ? <p className="auto-error">{hub.error}</p> : null}
 
-      <AutomationHubTabs active={hubTab} onChange={setHubTab} />
-
-      {hubTab === 'lead-hunter' ? (
-        <LeadHunter />
-      ) : (
-        <>
       <AutomationStats stats={hub.stats} />
 
       <div className="auto-main-grid">
@@ -107,8 +99,6 @@ export default function AutomationPage() {
       </div>
 
       <AutomationAssistant busy={hub.busy} onGenerate={handleGenerate} />
-        </>
-      )}
 
       <AutomationSettingsModal
         open={hub.settingsOpen}
@@ -116,6 +106,12 @@ export default function AutomationPage() {
         platforms={hub.platformSettings}
         onClose={() => hub.setSettingsOpen(false)}
         onSave={hub.saveSettings}
+      />
+
+      <AutomationPublishToast
+        open={hub.publishToast.open}
+        message={hub.publishToast.message}
+        onClose={() => hub.setPublishToast({ open: false, message: '' })}
       />
     </div>
   );

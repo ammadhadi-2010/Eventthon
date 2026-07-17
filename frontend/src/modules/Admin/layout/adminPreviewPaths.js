@@ -36,10 +36,35 @@ export function resolveMonitorTabPath(tab, pathname = '') {
   return tab.userPath;
 }
 
+const ADMIN_HUB_MANAGEMENT_PATHS = {
+  squads: '/admin-control/squads',
+  projects: '/admin-control/projects',
+  gigs: '/admin-control/gigs',
+  jobs: '/admin-control/jobs',
+};
+
+const ADMIN_HOME_PATHS = new Set([
+  '/admin-control',
+  '/admin-control/dashboard',
+  '/admin/dashboard',
+]);
+
+function isAdminHubManagementActive(section, pathname = '') {
+  if (section === 'home') {
+    return ADMIN_HOME_PATHS.has(pathname);
+  }
+  const base = ADMIN_HUB_MANAGEMENT_PATHS[section];
+  if (!base) return false;
+  return pathname === base || pathname.startsWith(`${base}/`);
+}
+
 export function isMonitorTabActive(tab, pathname = '') {
   const path = String(pathname || '');
   if (isAdminPreviewPath(path)) {
     return parseAdminPreviewSection(path) === tab.section;
+  }
+  if (isAdminContextPath(path)) {
+    return isAdminHubManagementActive(tab.section, path);
   }
   return path === tab.userPath || path.startsWith(`${tab.userPath}/`);
 }

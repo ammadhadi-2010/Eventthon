@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import DashboardNavSwitcher from '../modules/Dashboard/Navbar/DashboardNavSwitcher';
 import { CompanyWorkspaceProvider } from '../components/views/company/context/CompanyWorkspaceContext';
-import { isAdminControlPath } from '../modules/Admin/layout/adminWorkspacePaths';
+import { isAdminControlPath, isAdminFullBleedPath } from '../modules/Admin/layout/adminWorkspacePaths';
 import { isAdminPreviewPath } from '../modules/Admin/layout/adminPreviewPaths';
 import AdminMobileBottomNav from '../modules/Admin/layout/AdminMobileBottomNav';
 import { AdminSidebarProvider } from '../modules/Admin/layout/AdminSidebarContext';
@@ -20,6 +20,8 @@ import MobileUserMenuOverlay from '../modules/Dashboard/Navbar/MobileUserMenuOve
 import { DashboardShellContext } from '../modules/Dashboard/context/dashboardShellContext';
 import '../BackgroundCanvas.css';
 import './dashboard-shell.css';
+import '../modules/Dashboard/Navbar/unified-global-nav-hubs.css';
+import '../modules/Dashboard/Navbar/hub-inner-mobile-padding.css';
 
 const DashboardLayout = ({ children, userData, refreshData }) => {
   const location = useLocation();
@@ -83,7 +85,9 @@ const DashboardLayout = ({ children, userData, refreshData }) => {
   );
 
   const showMobileBottomNav = !adminHub && !companyHub;
-  const showAdminMobileBottomNav = adminHub && !isAdminPreviewPath(location.pathname);
+  const showAdminMobileBottomNav = adminHub && !isAdminFullBleedPath(location.pathname);
+  const adminPreview = adminHub && isAdminPreviewPath(location.pathname);
+  const hubMobilePad = showMobileBottomNav || showAdminMobileBottomNav;
 
   const shell = (
     <DashboardShellContext.Provider value={shellContextValue}>
@@ -96,7 +100,7 @@ const DashboardLayout = ({ children, userData, refreshData }) => {
       </header>
 
       <main className="center-content-scroll et-main-scroll">
-        <div className={`et-main-inner et-hub-pin-wrap${adminHub ? ' et-main-inner--admin' : ''}${showMobileBottomNav ? ' et-main-inner--mobile-nav-pad' : ''}${showAdminMobileBottomNav ? ' et-main-inner--admin-mobile-pad' : ''}`}>
+        <div className={`et-main-inner et-hub-pin-wrap${adminHub ? ' et-main-inner--admin' : ''}${adminPreview ? ' et-main-inner--admin-preview' : ''}${hubMobilePad ? ' et-main-inner--hub-mobile-pad' : ''}${showMobileBottomNav ? ' et-main-inner--mobile-nav-pad' : ''}${showAdminMobileBottomNav ? ' et-main-inner--admin-mobile-pad' : ''}`}>
           {children}
         </div>
         {adminHub ? null : <Footer />}
@@ -104,7 +108,7 @@ const DashboardLayout = ({ children, userData, refreshData }) => {
 
       <FloatingActionStack userData={effectiveUser} />
       {showMobileBottomNav ? <DashboardMobileBottomNav /> : null}
-      {showAdminMobileBottomNav ? <AdminMobileBottomNav hidden={navHidden} /> : null}
+      {showAdminMobileBottomNav ? <AdminMobileBottomNav /> : null}
 
       <MobileUserMenuOverlay
         open={mobileUserMenuOpen}

@@ -61,6 +61,27 @@ export async function generateAutomationCaption(payload) {
   return data?.caption || '';
 }
 
+export async function publishAutomationWebhook(payload) {
+  const { caption, platforms, imageUrl, file } = payload;
+  if (file) {
+    const formData = new FormData();
+    formData.append('caption', caption);
+    formData.append('platforms', JSON.stringify(platforms));
+    if (imageUrl) formData.append('image_url', imageUrl);
+    formData.append('file', file);
+    const { data } = await API.post('/api/automation/publish', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return data;
+  }
+  const { data } = await API.post('/api/automation/publish', {
+    caption,
+    platforms,
+    image_url: imageUrl || null,
+  });
+  return data;
+}
+
 export async function searchAutomationGoogleLeads(payload) {
   const { data } = await API.post('/api/admin/automation/google-search', payload);
   return data;

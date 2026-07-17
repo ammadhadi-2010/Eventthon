@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from typing import Any
 
 from database import lead_hunter_leads_collection
+from .email_outreach_helpers import lead_favicon_url
 
 
 async def save_verified_leads(
@@ -30,6 +31,7 @@ async def save_verified_leads(
             "contact_name": row.get("contact_name") or f"{row.get('company', 'Partner')} Team",
             "email": row["email"],
             "website": row.get("website") or source_url,
+            "imageurl": row.get("imageurl") or lead_favicon_url(row.get("website") or source_url),
             "category": category or row.get("category") or "General",
             "city": city,
             "country": country,

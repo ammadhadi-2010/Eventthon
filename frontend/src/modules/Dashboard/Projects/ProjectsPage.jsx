@@ -1,12 +1,15 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useScrollDirection } from '../../../hooks/useScrollDirection';
 import { useMobileHub } from '../../../hooks/useMobileHub';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import ProjectsLeftSidebar from './components/ProjectsLeftSidebar';
 import ProjectsRightSidebar from './components/ProjectsRightSidebar';
 import ProjectsCenterRouter from './components/ProjectsCenterRouter';
 import ProjectsHubMobileBack from './components/ProjectsHubMobileBack';
-import ProjectsHubMobileChrome, { getProjectsPageShellClasses } from './components/ProjectsHubMobileChrome';
+import {
+  getProjectsPageShellClasses,
+  ProjectsMobileDrawerBackdrop,
+  useProjectsMobileDrawer,
+} from './components/ProjectsHubMobileChrome';
 import { AnalyticsModal } from './components/ProjectsHubModals';
 import { ProjectsHubProvider } from './context/ProjectsHubContext';
 import useProjectsHubApi from './hooks/useProjectsHubApi';
@@ -26,10 +29,10 @@ import './styles/project-row-menu.css';
 export default function ProjectsPage({ defaultMenu, hideRightRail = false } = {}) {
   const navigate = useNavigate();
   const location = useLocation();
-  const scrollDirection = useScrollDirection();
   const isMobile = useMobileHub();
   const [createSearchQuery, setCreateSearchQuery] = useState('');
   const [collaboratorsSearchQuery, setCollaboratorsSearchQuery] = useState('');
+  const { open: leftDrawerOpen, close: closeLeftDrawer, runAndClose } = useProjectsMobileDrawer();
   const [searchParams] = useSearchParams();
   const squadId = searchParams.get('squad') || '';
   const squadProjectId = searchParams.get('squadProjectId') || '';
@@ -208,27 +211,15 @@ export default function ProjectsPage({ defaultMenu, hideRightRail = false } = {}
   return (
     <ProjectsHubProvider value={contextValue}>
       <div className={pageShellClass}>
-        <ProjectsHubMobileChrome
-          isOverview={isOverview}
-          isCreate={isCreate}
-          isMobile={isMobile}
-          isMobileTopCollab={isMobileTopCollab}
-          scrollDirection={scrollDirection}
-          hubSearchQuery={hub.searchQuery}
-          onHubSearchChange={hub.setSearchQuery}
-          createSearchQuery={createSearchQuery}
-          onCreateSearchChange={setCreateSearchQuery}
-          collaboratorsSearchQuery={collaboratorsSearchQuery}
-          onCollaboratorsSearchChange={setCollaboratorsSearchQuery}
-        />
         <ProjectsHubMobileBack visible={showMobileBack && !isMobileTopCollab} onBack={handleMobileBack} />
         {api.error ? <p className="ph-api-banner">{api.error}</p> : null}
-        <div className={layoutClass}>
-          <div className="ph-layout__rail ph-layout__rail--left">
+        <ProjectsMobileDrawerBackdrop open={leftDrawerOpen} onClose={closeLeftDrawer} />
+        <div className={`${layoutClass}${leftDrawerOpen ? ' ph-layout--left-open' : ''}`}>
+          <div className={`ph-layout__rail ph-layout__rail--left${leftDrawerOpen ? ' is-drawer-open' : ''}`}>
             <ProjectsLeftSidebar
               activeMenu={hub.activeMenu}
-              onMenuSelect={onMenuSelect}
-              onNewProject={onNewProject}
+              onMenuSelect={runAndClose(onMenuSelect)}
+              onNewProject={runAndClose(onNewProject)}
               menuCounts={api.menuCounts}
             />
           </div>

@@ -1,6 +1,5 @@
-import React from 'react';
-import HubMobileTopBar from '../../components/mobile/HubMobileTopBar';
-import { HUB_MOBILE_SEARCH } from '../../components/mobile/hubMobileSearchPresets';
+import React, { useCallback, useEffect, useState } from 'react';
+import { subscribeHubDrawerToggle } from '../../Navbar/hubDrawerBus';
 
 export function getProjectsPageShellClasses({ isCreate, isOverview, isMobile, isMobileTopCollab, hideRightRail }) {
   const layoutClass = [
@@ -15,9 +14,9 @@ export function getProjectsPageShellClasses({ isCreate, isOverview, isMobile, is
 
   const pageShellClass = [
     'ph-page',
-    isOverview || isMobileTopCollab ? 'ph-mobile-shell' : '',
+    isOverview || isMobileTopCollab ? 'ph-mobile-shell hub-inner-mobile-shell' : '',
     isMobileTopCollab ? 'ph-mobile-shell--subpage' : '',
-    isCreate && isMobile ? 'ph-mobile-shell ph-mobile-shell--create' : '',
+    isCreate && isMobile ? 'ph-mobile-shell ph-mobile-shell--create hub-inner-mobile-shell' : '',
   ]
     .filter(Boolean)
     .join(' ');
@@ -25,48 +24,29 @@ export function getProjectsPageShellClasses({ isCreate, isOverview, isMobile, is
   return { layoutClass, pageShellClass };
 }
 
-export default function ProjectsHubMobileChrome({
-  isOverview,
-  isCreate,
-  isMobile,
-  isMobileTopCollab,
-  scrollDirection,
-  hubSearchQuery,
-  onHubSearchChange,
-  createSearchQuery,
-  onCreateSearchChange,
-  collaboratorsSearchQuery,
-  onCollaboratorsSearchChange,
-}) {
+export function useProjectsMobileDrawer() {
+  const [open, setOpen] = useState(false);
+  useEffect(() => subscribeHubDrawerToggle('projects', () => setOpen(true)), []);
+  const close = useCallback(() => setOpen(false), []);
+  const runAndClose = useCallback((fn) => (...args) => {
+    fn(...args);
+    close();
+  }, [close]);
+  return { open, close, runAndClose };
+}
+
+export function ProjectsMobileDrawerBackdrop({ open, onClose }) {
+  if (!open) return null;
   return (
-    <>
-      {isOverview ? (
-        <HubMobileTopBar
-          scrollDirection={scrollDirection}
-          searchQuery={hubSearchQuery}
-          onSearchChange={onHubSearchChange}
-          searchMode="instant"
-          {...HUB_MOBILE_SEARCH.projects}
-        />
-      ) : null}
-      {isCreate && isMobile ? (
-        <HubMobileTopBar
-          scrollDirection={scrollDirection}
-          searchQuery={createSearchQuery}
-          onSearchChange={onCreateSearchChange}
-          searchMode="instant"
-          {...HUB_MOBILE_SEARCH.createProject}
-        />
-      ) : null}
-      {isMobileTopCollab ? (
-        <HubMobileTopBar
-          scrollDirection={scrollDirection}
-          searchQuery={collaboratorsSearchQuery}
-          onSearchChange={onCollaboratorsSearchChange}
-          searchMode="instant"
-          {...HUB_MOBILE_SEARCH.topCollaborators}
-        />
-      ) : null}
-    </>
+    <button
+      type="button"
+      className="ph-hub-drawer-backdrop is-visible"
+      aria-label="Close projects menu"
+      onClick={onClose}
+    />
   );
+}
+
+export default function ProjectsHubMobileChrome() {
+  return null;
 }

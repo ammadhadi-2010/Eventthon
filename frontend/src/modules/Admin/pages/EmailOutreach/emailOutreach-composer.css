@@ -1,0 +1,225 @@
+/* Email composer */
+
+.eo-composer {
+  border-radius: 18px;
+  border: 1px solid #1e294b;
+  background: #131b31;
+  padding: 16px;
+}
+
+.eo-composer__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.eo-composer__title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.eo-composer__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.eo-ai-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(167, 139, 250, 0.35);
+  background: rgba(139, 92, 246, 0.14);
+  color: #ddd6fe;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.eo-composer__fields {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.eo-field {
+  display: grid;
+  gap: 6px;
+}
+
+.eo-field__label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e2e8f0;
+}
+
+.eo-field__input {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 1px solid #1e294b;
+  background: #0a0f1d;
+  color: #f1f5f9;
+  font-size: 14px;
+}
+
+.eo-field__input::placeholder {
+  color: #cbd5e1;
+}
+
+.eo-field__inline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.eo-field__inline .eo-field__input {
+  flex: 1;
+}
+
+.eo-field__toggles {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.eo-text-link {
+  border: none;
+  background: transparent;
+  color: #60a5fa;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.eo-composer__editor {
+  border-radius: 14px;
+  border: 1px solid #1e294b;
+  background: #0a0f1d;
+  overflow: hidden;
+}
+
+.eo-composer-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.eo-tool-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #e2e8f0;
+  cursor: pointer;
+}
+
+.eo-tool-btn:hover {
+  color: #fff;
+  background: rgba(99, 102, 241, 0.12);
+  border-color: rgba(167, 139, 250, 0.25);
+}
+
+.eo-tool-select {
+  min-height: 30px;
+  padding: 0 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: #f1f5f9;
+  font-size: 12px;
+}
+
+.eo-tool-select--sm {
+  width: 52px;
+}
+
+.eo-tool-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0 2px;
+}
+
+.eo-editor-body {
+  min-height: 220px;
+  padding: 16px;
+  color: #f1f5f9;
+  font-size: 14px;
+  line-height: 1.65;
+  outline: none;
+}
+
+.eo-composer-quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.eo-quick-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid #1e294b;
+  background: rgba(255, 255, 255, 0.03);
+  color: #e2e8f0;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.eo-composer__footer {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.eo-btn--send {
+  min-height: 46px;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.eo-btn--schedule {
+  min-height: 46px;
+  justify-content: center;
+  font-size: 13px;
+}
+
+@media (min-width: 768px) {
+  .eo-composer__footer {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .eo-composer-toolbar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .eo-composer-toolbar::-webkit-scrollbar {
+    display: none;
+  }
+}

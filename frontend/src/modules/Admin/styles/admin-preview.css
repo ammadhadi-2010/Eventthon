@@ -33,3 +33,13 @@
 .agn-navbar__hub-switch {
   flex-shrink: 0;
 }
+
+@media (min-width: 1024px) {
+  .admin-dashboard--preview .admin-sidebar {
+    display: none !important;
+  }
+
+  .admin-dashboard--preview .admin-dashboard__grid {
+    display: block;
+  }
+}

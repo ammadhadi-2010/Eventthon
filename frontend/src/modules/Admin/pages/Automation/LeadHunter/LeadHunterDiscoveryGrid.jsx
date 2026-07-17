@@ -9,7 +9,7 @@ function LeadHunterDiscoveryGrid({ rows, busy, onLoad }) {
         <div>
           <h2 className="auto-card-title">Discovered Industry Leads</h2>
           <p className="lh-card-sub">
-            Filtered website targets from free web search and the EventThon company registry.
+            Localized businesses with verified website and email data after extract.
           </p>
         </div>
       </div>
@@ -23,7 +23,7 @@ function LeadHunterDiscoveryGrid({ rows, busy, onLoad }) {
 
       {!busy && !rows.length ? (
         <div className="lh-discovery-empty">
-          Run <strong>Search Google Leads</strong> to populate outreach-ready website links.
+          Run <strong>Search Google Leads</strong>, then <strong>Run Extract</strong> to verify emails.
         </div>
       ) : null}
 
@@ -32,19 +32,23 @@ function LeadHunterDiscoveryGrid({ rows, busy, onLoad }) {
           <table className="lh-discovery-table">
             <thead>
               <tr>
-                <th>Business Name</th>
+                <th>Company Name</th>
                 <th>Website URL</th>
+                <th>Verified Email</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
               {rows.map((row) => (
                 <tr key={row.id}>
-                  <td data-label="Business">{row.business_name}</td>
+                  <td data-label="Company">{row.business_name || row.company || '—'}</td>
                   <td data-label="Website">
                     <a href={row.website_url} target="_blank" rel="noreferrer" className="lh-discovery-link">
                       {row.website_url}
                     </a>
+                  </td>
+                  <td data-label="Email" className="lh-discovery-email">
+                    {row.email ? <span className="lh-email-pill">{row.email}</span> : <span className="lh-email-pending">Run Extract</span>}
                   </td>
                   <td data-label="Action">
                     <button type="button" className="um-btn um-btn--ghost lh-load-btn" onClick={() => onLoad(row)}>

@@ -1,0 +1,243 @@
+/* Campaign dashboard — overview */
+
+.eo-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.eo-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.eo-stat-card {
+  border-radius: 16px;
+  border: 1px solid #1e294b;
+  background: #131b31;
+  padding: 14px;
+}
+
+.eo-stat-card__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.eo-stat-card__label {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.eo-stat-card__value {
+  margin: 6px 0 0;
+  font-size: 22px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.eo-stat-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+}
+
+.eo-stat-card__trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 10px 0 0;
+  font-size: 11px;
+  font-weight: 700;
+  color: #34d399;
+}
+
+.eo-dashboard__split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.eo-dash-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.eo-dash-panel__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.eo-dash-panel__hint {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.eo-link-btn {
+  border: none;
+  background: transparent;
+  color: #93c5fd;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.eo-rate-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.eo-rate-pill {
+  border-radius: 14px;
+  border: 1px solid transparent;
+  padding: 12px;
+}
+
+.eo-rate-pill__label {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.eo-rate-pill__value {
+  margin: 6px 0 0;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.eo-rate-pill--blue {
+  color: #93c5fd;
+  background: rgba(59, 130, 246, 0.12);
+  border-color: rgba(96, 165, 250, 0.28);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.12);
+}
+
+.eo-rate-pill--violet {
+  color: #c4b5fd;
+  background: rgba(139, 92, 246, 0.12);
+  border-color: rgba(167, 139, 250, 0.28);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.12);
+}
+
+.eo-rate-pill--green {
+  color: #6ee7b7;
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(52, 211, 153, 0.28);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.12);
+}
+
+.eo-rate-pill--rose {
+  color: #fda4af;
+  background: rgba(244, 63, 94, 0.1);
+  border-color: rgba(251, 113, 133, 0.28);
+  box-shadow: 0 0 20px rgba(244, 63, 94, 0.1);
+}
+
+.eo-area-chart {
+  height: 140px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(10, 15, 29, 0.65);
+  overflow: hidden;
+}
+
+.eo-area-chart__svg {
+  width: 100%;
+  height: 100%;
+}
+
+.eo-campaign-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.eo-campaign-item {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.02);
+  padding: 12px;
+}
+
+.eo-campaign-item__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.eo-campaign-item__name {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.eo-campaign-item__meta {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.eo-campaign-item__pct {
+  font-size: 12px;
+  font-weight: 800;
+  color: #c4b5fd;
+}
+
+.eo-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.eo-progress__bar {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #7c3aed, #6366f1);
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.45);
+}
+
+@media (min-width: 768px) {
+  .eo-stats-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .eo-rate-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .eo-stats-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .eo-dashboard__split {
+    grid-template-columns: 1.4fr 1fr;
+  }
+}

@@ -1,0 +1,21 @@
+/* Admin dashboard panel — tight vertical rhythm between stats and overview */
+
+.admin-panel-overview-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-panel-overview-stack .admin-grid-2 {
+  margin-top: 12px;
+}
+
+@media (min-width: 768px) {
+  .admin-panel-overview-stack {
+    gap: 10px;
+  }
+
+  .admin-panel-overview-stack .admin-grid-2 {
+    margin-top: 16px;
+  }
+}

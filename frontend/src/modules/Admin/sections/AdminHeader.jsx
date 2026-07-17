@@ -15,7 +15,7 @@ export default function AdminHeader({ viewMode, setViewMode, health, healthLoadi
   const overall = health?.overall;
 
   return (
-    <div className="mb-5 flex flex-wrap items-center justify-between gap-4">
+    <div className="mb-2 flex flex-wrap items-center justify-between gap-3 lg:mb-4 lg:gap-4">
       <div>
         <h2 className="text-[28px] font-black tracking-tight text-white">Admin Dashboard</h2>
         <p className="mt-1 text-sm text-slate-400">

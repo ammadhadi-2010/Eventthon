@@ -72,3 +72,25 @@
 .auto-recent-card {
   min-width: 0;
 }
+
+@media (max-width: 1023px) {
+  .auto-page {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    overflow-x: hidden;
+  }
+
+  .auto-main-grid {
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .auto-page .um-header {
+    gap: 10px;
+  }
+
+  .auto-page .um-header-actions {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}

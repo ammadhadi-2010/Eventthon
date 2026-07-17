@@ -1,10 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useScrollDirection } from '../../../hooks/useScrollDirection';
 import ApplicationTrackingDrawer from './components/ApplicationTrackingDrawer';
 import JobsCenterRouter from './components/JobsCenterRouter';
 import JobsLeftSidebar from './components/JobsLeftSidebar';
-import HubMobileTopBar from '../components/mobile/HubMobileTopBar';
-import { HUB_MOBILE_SEARCH } from '../components/mobile/hubMobileSearchPresets';
+import { subscribeHubDrawerToggle } from '../Navbar/hubDrawerBus';
 import JobsRightSidebar from './components/JobsRightSidebar';
 import { useJobsHub } from './context/JobsHubContext';
 import { useJobsHubNavigation } from './hooks/useJobsHubNavigation';
@@ -17,7 +15,6 @@ import './styles/jobs-hub-views-mobile.css';
 import './styles/jobs-hub-mobile.css';
 
 function JobsPage({ defaultSection = 'browse' }) {
-  const scrollDirection = useScrollDirection();
   const { activeSection, setActiveSection } = useJobsHubNavigation(defaultSection);
   const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
   const {
@@ -56,20 +53,12 @@ function JobsPage({ defaultSection = 'browse' }) {
     [setSearchFilters],
   );
 
+  useEffect(() => subscribeHubDrawerToggle('jobs', openLeftDrawer), [openLeftDrawer]);
+
   const isBrowse = activeSection === 'browse';
 
   return (
-    <div className={`jobs-page jobs-mobile-shell${isBrowse ? '' : ' jobs-page--subview'}`}>
-      {isBrowse ? (
-        <HubMobileTopBar
-          scrollDirection={scrollDirection}
-          searchQuery={searchFilters.q || ''}
-          onSearchChange={handleJobsSearch}
-          onAvatarClick={openLeftDrawer}
-          avatarAriaLabel="Open jobs menu"
-          {...HUB_MOBILE_SEARCH.jobs}
-        />
-      ) : null}
+    <div className={`jobs-page jobs-mobile-shell hub-inner-mobile-shell${isBrowse ? '' : ' jobs-page--subview'}`}>
       {leftDrawerOpen ? (
         <button
           type="button"

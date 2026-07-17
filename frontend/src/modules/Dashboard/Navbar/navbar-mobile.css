@@ -63,6 +63,10 @@
     display: none !important;
   }
 
+  .dash-nav__desktop {
+    display: none !important;
+  }
+
   .dash-nav-mobile-only {
     display: block;
   }

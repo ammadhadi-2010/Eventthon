@@ -14,6 +14,7 @@ import {
   HardDrive,
   LayoutDashboard,
   LifeBuoy,
+  Mail,
   Receipt,
   Search,
   Send,
@@ -34,6 +35,7 @@ export const sidebarItems = [
   { id: 'projects', label: 'Project Management', icon: FolderOpen, to: '/admin-control/projects' },
   { id: 'jobs', label: 'Job Management', icon: ClipboardList, to: '/admin-control/jobs' },
   { id: 'automation', label: 'Automation', icon: Send, to: '/admin-control/automation' },
+  { id: 'email-outreach', label: 'Email Outreach', icon: Mail, to: '/admin-control/email-outreach' },
   {
     id: 'companies',
     label: 'Companies',

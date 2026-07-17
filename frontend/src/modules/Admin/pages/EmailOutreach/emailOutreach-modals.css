@@ -1,0 +1,206 @@
+/* Email Outreach — modals and action menus */
+
+.eo-modal,
+.eo-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.eo-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  background: rgba(2, 6, 23, 0.72);
+  cursor: pointer;
+}
+
+.eo-modal__card,
+.eo-menu__card {
+  position: relative;
+  z-index: 1;
+  width: min(520px, 100%);
+  border-radius: 18px;
+  border: 1px solid #1e294b;
+  background: #131b31;
+  padding: 18px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.eo-modal__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.eo-modal__lead-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.eo-modal__title {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.eo-detail-grid {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.eo-detail-grid dt {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.eo-detail-grid dd {
+  margin: 4px 0 0;
+  color: #e2e8f0;
+}
+
+.eo-modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.eo-menu__title {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.eo-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 40px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: #cbd5e1;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+}
+
+.eo-menu__item:hover {
+  background: rgba(99, 102, 241, 0.12);
+  color: #fff;
+}
+
+.eo-menu__item--danger {
+  color: #fda4af;
+}
+
+.eo-filters-banner--error {
+  border-color: rgba(244, 63, 94, 0.35);
+  background: rgba(244, 63, 94, 0.1);
+  color: #fecdd3;
+}
+
+.eo-icon-btn--mail {
+  color: #93c5fd;
+}
+
+.eo-ai-badge--btn {
+  border: none;
+  cursor: pointer;
+}
+
+.eo-ai-modal__card {
+  width: min(560px, 100%);
+}
+
+.eo-ai-modal__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.eo-ai-modal__title-wrap {
+  display: grid;
+  gap: 8px;
+}
+
+.eo-ai-modal__hint {
+  margin: 0 0 12px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #94a3b8;
+}
+
+.eo-ai-modal__textarea {
+  min-height: 120px;
+  padding: 12px;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.eo-create-template__card {
+  width: min(560px, 100%);
+}
+
+.eo-create-template__hint {
+  margin: -6px 0 14px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #94a3b8;
+}
+
+.eo-create-template__textarea {
+  min-height: 160px;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.eo-btn--purple {
+  background: linear-gradient(135deg, #7c3aed, #6366f1);
+  color: #fff;
+  border: 1px solid rgba(167, 139, 250, 0.45);
+  box-shadow: 0 10px 24px rgba(99, 102, 241, 0.28);
+}
+
+.eo-btn--purple:hover:not(:disabled) {
+  filter: brightness(1.06);
+}
+
+.eo-btn--purple:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+@media (max-width: 767px) {
+  .eo-modal__actions {
+    flex-direction: column;
+  }
+
+  .eo-modal__actions .eo-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .eo-ai-modal__card {
+    padding: 14px;
+  }
+}

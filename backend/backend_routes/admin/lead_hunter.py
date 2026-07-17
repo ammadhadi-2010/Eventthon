@@ -76,6 +76,25 @@ async def automation_send_pitch(body: SendPitchBody):
     email = str(body.email or "").strip()
     if "@" not in email:
         raise HTTPException(status_code=400, detail="Valid recipient email is required")
+    from .email_outreach_mail import send_outreach_email
+    from .email_outreach_helpers import format_last_contact
+
+    html = body.body if "<" in body.body else body.body.replace("\n", "<br />")
+    try:
+        await send_outreach_email(to_email=email, subject=body.subject.strip(), body_html=html)
+    except RuntimeError as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Failed to send email: {exc}") from exc
+
+    from datetime import datetime, timezone
+    from database import lead_hunter_leads_collection
+
+    now = datetime.now(timezone.utc)
+    await lead_hunter_leads_collection.update_one(
+        {"id": body.lead_id},
+        {"$set": {"status": "emailed", "last_contacted_at": now, "updated_at": now}},
+    )
     return {
         "status": "success",
         "sent": True,
@@ -84,5 +103,26 @@ async def automation_send_pitch(body: SendPitchBody):
         "from_name": EVENTTHON_FROM_NAME,
         "from_email": EVENTTHON_FROM_EMAIL,
         "reply_to": EVENTTHON_REPLY_TO,
-        "message": f"Pitch queued via {EVENTTHON_FROM_NAME} outreach to {email}",
+        "message": f"Pitch sent via {EVENTTHON_FROM_NAME} outreach to {email}",
+        "lastContact": format_last_contact(now),
     }
+
+
+@router.get("/email-outreach/lead-hunter/categories")
+async def outreach_lead_hunter_categories():
+    return await automation_lead_hunter_categories()
+
+
+@router.post("/email-outreach/lead-hunter/google-search")
+async def outreach_lead_hunter_google_search(body: GoogleSearchBody):
+    return await automation_google_lead_search(body)
+
+
+@router.post("/email-outreach/lead-hunter/extract")
+async def outreach_lead_hunter_extract(body: ExtractBody):
+    return await automation_extract_leads(body)
+
+
+@router.post("/email-outreach/lead-hunter/send-pitch")
+async def outreach_lead_hunter_send_pitch(body: SendPitchBody):
+    return await automation_send_pitch(body)

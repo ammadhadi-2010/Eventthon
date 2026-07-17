@@ -14,8 +14,7 @@
 }
 
 .agn-navbar__mobile-head {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  display: flex;
   align-items: center;
   gap: 6px;
   min-width: 0;
@@ -84,6 +83,11 @@
 .agn-navbar__mobile .agn-navbar__right {
   flex: 0 0 auto;
   gap: 4px;
+  min-width: 0;
+}
+
+.agn-navbar__mobile .agn-navbar__profile-name {
+  display: none;
 }
 
 .agn-navbar__mobile .agn-navbar__icon-btn {

@@ -8,6 +8,7 @@ import {
   generateAutomationCaption,
   patchAutomationPostStatus,
   publishAutomationPost,
+  publishAutomationWebhook,
   saveAutomationSettings,
 } from '../../../../services/adminAutomationService';
 import { AUTOMATION_PLATFORMS, buildAutomationStats } from './automationData';
@@ -26,6 +27,7 @@ export function useAutomation() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [viewAll, setViewAll] = useState(false);
   const [platformSettings, setPlatformSettings] = useState(DEFAULT_PLATFORMS);
+  const [publishToast, setPublishToast] = useState({ open: false, message: '' });
 
   const reload = useCallback(async (nextPage = page, limit = viewAll ? 50 : 6) => {
     setLoading(true);
@@ -64,6 +66,23 @@ export function useAutomation() {
     setBusy(true);
     setError('');
     try {
+      if (form.publishMode === 'now') {
+        const result = await publishAutomationWebhook({
+          caption: form.caption,
+          platforms: form.platforms,
+          imageUrl: form.imageurl || '',
+          file: form.file || null,
+        });
+        setPublishToast({
+          open: true,
+          message: result?.message || 'Your post was sent to Make.com for distribution.',
+        });
+        window.setTimeout(() => setPublishToast({ open: false, message: '' }), 5200);
+        await reload(1);
+        setPage(1);
+        return true;
+      }
+
       const fd = new FormData();
       fd.append('caption', form.caption);
       fd.append('post_type', form.postType);
@@ -77,7 +96,7 @@ export function useAutomation() {
       setPage(1);
       return true;
     } catch (err) {
-      setError(err?.response?.data?.detail || err?.message || 'Failed to create post');
+      setError(err?.response?.data?.detail || err?.message || 'Failed to publish post');
       return false;
     } finally {
       setBusy(false);
@@ -156,6 +175,8 @@ export function useAutomation() {
     setPage,
     setSettingsOpen,
     setViewAll,
+    publishToast,
+    setPublishToast,
     reload,
     submitPost,
     runGenerate,

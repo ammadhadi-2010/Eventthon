@@ -1,12 +1,26 @@
 import { useCallback, useRef, useState } from 'react';
 import { searchGoogleLeads } from './leadHunterApi';
 
+function mergeDiscoveryRows(existing, incoming) {
+  const map = new Map(existing.map((row) => [String(row.website_url || row.domain || row.id), row]));
+  incoming.forEach((row) => {
+    const key = String(row.website_url || row.domain || row.id);
+    map.set(key, { ...map.get(key), ...row });
+  });
+  return Array.from(map.values());
+}
+
 export default function useLeadHunterDiscovery(patchForm, setNotice, setError) {
   const [discoveredLinks, setDiscoveredLinks] = useState([]);
   const [searchBusy, setSearchBusy] = useState(false);
   const [websiteHighlight, setWebsiteHighlight] = useState(false);
   const websiteInputRef = useRef(null);
   const highlightTimerRef = useRef(null);
+
+  const upsertDiscoveredRows = useCallback((rows) => {
+    if (!Array.isArray(rows) || !rows.length) return;
+    setDiscoveredLinks((prev) => mergeDiscoveryRows(prev, rows));
+  }, []);
 
   const runGoogleSearch = useCallback(
     async (form) => {
@@ -20,7 +34,7 @@ export default function useLeadHunterDiscovery(patchForm, setNotice, setError) {
         });
         const rows = Array.isArray(res?.links) ? res.links : [];
         setDiscoveredLinks(rows);
-        setNotice(res?.message || `Found ${rows.length} industry lead link(s).`);
+        setNotice(res?.message || `Found ${rows.length} localized industry lead(s).`);
         return true;
       } catch (err) {
         setDiscoveredLinks([]);
@@ -34,11 +48,21 @@ export default function useLeadHunterDiscovery(patchForm, setNotice, setError) {
   );
 
   const loadIntoHunter = useCallback(
-    (row) => {
+    (row, onComposeLead) => {
       const url = String(row?.website_url || '').trim();
       if (!url) return;
       patchForm('websiteUrl', url);
-      setNotice(`Loaded ${row.business_name || 'target'} into Website Link — ready for Run Extract.`);
+      const label = row.business_name || row.company || 'target';
+      setNotice(`Loaded ${label} into Website Link — ready for Run Extract.`);
+
+      if (row.email && onComposeLead) {
+        onComposeLead({
+          id: row.id,
+          company: row.business_name || row.company || label,
+          email: row.email,
+          website: url,
+        });
+      }
 
       if (highlightTimerRef.current) clearTimeout(highlightTimerRef.current);
       setWebsiteHighlight(true);
@@ -58,5 +82,6 @@ export default function useLeadHunterDiscovery(patchForm, setNotice, setError) {
     websiteInputRef,
     runGoogleSearch,
     loadIntoHunter,
+    upsertDiscoveredRows,
   };
 }

@@ -25,7 +25,7 @@
   }
 
   .ph-page.ph-mobile-shell .ph-layout.ph-mobile-shell__body {
-    padding-top: calc(var(--ph-mobile-topbar-h) + 1.25rem) !important;
+    padding-top: 1rem !important;
     padding-right: 0 !important;
     padding-bottom: 0 !important;
     padding-left: 0 !important;
@@ -34,7 +34,7 @@
     margin: 0 !important;
   }
 
-  .ph-page { padding: 0 10px 12px; }
+  .ph-page { padding: 0 8px 12px; }
   .ph-page.ph-mobile-shell .ph-layout__center {
     padding-left: 0 !important;
     padding-right: 0 !important;
@@ -42,8 +42,8 @@
 
   .ph-mobile-shell .ph-center-stack {
     gap: 12px !important;
-    padding-left: 12px !important;
-    padding-right: 12px !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
     padding-bottom: 4px !important;
   }
 

@@ -33,25 +33,56 @@
 }
 
 .admin-sidebar {
-  width: 240px;
-  flex: 0 0 240px;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  flex: 0 0 260px;
+  width: 260px;
+  min-height: 100%;
   background: linear-gradient(180deg, #060d18 0%, #08111f 100%);
   border-right: 1px solid rgba(255, 255, 255, 0.05);
   padding: 16px 12px;
+  color: #fff;
+  visibility: visible;
+  opacity: 1;
+
+  /* Mobile drawer: hidden off-canvas unless opened (mobile nav dropdown stays separate). */
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 60;
+  max-width: 85vw;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-out;
 }
 
-/* Desktop override:
-   AdminSidebar component Tailwind classes use `fixed` + translateX for the mobile drawer.
-   On desktop we force it back to an always-visible left rail (without touching mobile breakpoints). */
+.admin-sidebar--drawer-open {
+  transform: translateX(0);
+}
+
+.admin-sidebar nav,
+.admin-sidebar .admin-action-btn,
+.admin-sidebar a,
+.admin-sidebar button {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Desktop: always show sidebar links beside main content. */
 @media (min-width: 1024px) {
   .admin-sidebar {
-    position: static !important;
-    transform: translateX(0) !important;
-    left: auto !important;
-    top: auto !important;
-    max-width: none !important;
-    width: 240px !important;
-    flex: 0 0 240px !important;
+    position: static;
+    inset: auto;
+    z-index: 20;
+    transform: translateX(0);
+    max-width: none;
+    width: 260px;
+    flex: 0 0 260px;
+    min-height: 100vh;
+  }
+
+  .admin-sidebar--drawer-open {
+    transform: translateX(0);
   }
 }
 

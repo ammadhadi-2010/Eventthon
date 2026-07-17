@@ -1,0 +1,79 @@
+/* Outreach manager — primary view tabs */
+
+.eo-manager-head {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.eo-view-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.eo-view-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.eo-view-tab {
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid #1e294b;
+  background: #131b31;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.eo-view-tab--active {
+  color: #fff;
+  border-color: rgba(139, 92, 246, 0.55);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.28), rgba(99, 102, 241, 0.18));
+  box-shadow: 0 0 24px rgba(99, 102, 241, 0.15);
+}
+
+.eo-title--section {
+  font-size: clamp(20px, 2.5vw, 26px);
+}
+
+.eo-leads-view {
+  min-width: 0;
+}
+
+.eo-btn--block {
+  width: 100%;
+  justify-content: center;
+}
+
+.eo-btn--sm {
+  min-height: 34px;
+  padding: 0 12px;
+  font-size: 11px;
+}
+
+.eo-mobile-card__actions--stack {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+
+@media (max-width: 767px) {
+  .eo-header__top {
+    flex-direction: column;
+  }
+
+  .eo-composer__head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

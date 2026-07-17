@@ -1,0 +1,26 @@
+/* Core hub pages — global top nav visible; unified mobile chrome spacing */
+
+@media (max-width: 1023px) {
+  .et-app-shell:has(.dash-home-mobile-shell) .et-top-nav,
+  .et-app-shell:has(.squad-hub-mobile-shell) .et-top-nav,
+  .et-app-shell:has(.gigs-page) .et-top-nav,
+  .et-app-shell:has(.jobs-page) .et-top-nav,
+  .et-app-shell:has(.ph-page.ph-mobile-shell) .et-top-nav,
+  .et-app-shell:has(.admin-preview-frame) .et-top-nav {
+    display: block !important;
+  }
+
+  .gigs-page .gigs-layout.gigs-mobile-shell__body,
+  .jobs-mobile-shell__body,
+  .ph-mobile-shell__body {
+    padding-top: 1rem !important;
+  }
+
+  .dash-home-mobile-drawer-layer {
+    top: var(--et-nav-height, 70px) !important;
+  }
+
+  .hub-mobile-chrome {
+    display: none !important;
+  }
+}

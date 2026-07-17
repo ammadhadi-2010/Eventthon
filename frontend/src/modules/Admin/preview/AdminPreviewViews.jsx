@@ -26,7 +26,7 @@ export default function AdminPreviewViews({ userData }) {
   }
 
   return (
-    <div className="admin-preview-frame" data-preview-section={key}>
+    <div className="admin-preview-frame hub-inner-mobile-shell" data-preview-section={key}>
       {key === 'home' ? <MainDashboard userData={userData} /> : null}
       {key === 'squads' ? <Squads userData={userData} /> : null}
       {key === 'projects' ? <ProjectsPage key="admin-preview-projects" /> : null}

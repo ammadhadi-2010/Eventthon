@@ -14,7 +14,7 @@
   }
 
   .dash-home-mobile-shell {
-    padding-top: var(--hub-mobile-topbar-h, 3.5rem);
+    padding-top: 1rem;
   }
 
   .dash-home-mobile-drawer-layer {

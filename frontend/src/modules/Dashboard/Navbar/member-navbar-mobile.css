@@ -1,0 +1,92 @@
+/* Unified member mobile navbar — matches admin hub header layout */
+
+@media (max-width: 1023px) {
+  .member-navbar__mobile {
+    width: 100%;
+    padding: 6px 8px;
+    box-sizing: border-box;
+  }
+
+  .member-navbar__mobile-head {
+    min-width: 0;
+  }
+
+  .member-navbar__logo-link {
+    display: inline-flex;
+    align-items: center;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .member-navbar__logo-img {
+    height: 1.55rem;
+    width: auto;
+  }
+
+  .member-navbar__search-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    color: #cbd5e1;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .member-navbar__search-panel {
+    position: relative;
+    margin-top: 8px;
+  }
+
+  .member-navbar__search-panel-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    pointer-events: none;
+  }
+
+  .member-navbar__search-panel input {
+    width: 100%;
+    padding: 10px 12px 10px 38px;
+    border-radius: 12px;
+    border: 1px solid rgba(168, 85, 247, 0.28);
+    background: rgba(15, 23, 42, 0.92);
+    color: #f8fafc;
+    font-size: 13px;
+    box-sizing: border-box;
+  }
+
+  .member-navbar__right--mobile-inline {
+    gap: 8px;
+  }
+
+  .member-navbar__icon-btn {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  .member-navbar__profile {
+    min-width: 0;
+    padding: 0;
+  }
+
+  .member-navbar__mobile-brand {
+    min-width: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .member-navbar__mobile {
+    display: none !important;
+  }
+}

@@ -32,3 +32,5 @@ export const ADMIN_COUNTRIES_ANALYTICS_PATH = '/admin-control/analytics/countrie
 export const ADMIN_COUNTRIES_ANALYTICS_ALIAS = '/admin/analytics/countries';
 export const ADMIN_PROFILE_PATH = '/admin-control/profile';
 export const ADMIN_PROFILE_ALIAS = '/admin/profile';
+export const ADMIN_EMAIL_OUTREACH_PATH = '/admin-control/email-outreach';
+export const ADMIN_EMAIL_OUTREACH_ALIAS = '/admin/email-outreach';

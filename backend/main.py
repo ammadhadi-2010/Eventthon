@@ -14,7 +14,13 @@ from backend_routes.admin.company_management import router as admin_company_mana
 from backend_routes.admin.squad_management import router as admin_squad_management_router
 from backend_routes.admin.project_management import router as admin_project_management_router
 from backend_routes.admin.automation_management import router as admin_automation_router
+from backend_routes.admin.automation_publish import router as automation_publish_router
 from backend_routes.admin.lead_hunter import router as admin_lead_hunter_router
+from backend_routes.admin.email_outreach import router as admin_email_outreach_router
+from backend_routes.admin.email_outreach_public import router as outreach_public_router
+from backend_routes.admin.email_outreach_schedule import ScheduleOutreachBody, create_scheduled_send
+from backend_routes.admin.email_outreach_send import SendOutreachBody, perform_outreach_send
+from backend_routes.admin.email_outreach_scheduler import start_outreach_scheduler, stop_outreach_scheduler
 from backend_routes.admin.admin_chat import router as admin_chat_router
 from backend_routes.admin.admin_notifications import router as admin_notifications_router
 from backend_routes.admin.system_health import router as admin_system_health_router
@@ -34,6 +40,7 @@ load_dotenv()
 from backend_routes.auth import auth, google_auth
 from backend_routes.finance import wallet
 from backend_routes.dashboard import dashboard_main, posts_handler, article_handler, post_ai_routes, posts_squad_routes, updates_routes
+from backend_routes.ai_assistant import router as ai_assistant_router
 from backend_routes.alerts import alerts
 from backend_routes.alerts.employer_alerts import router as employer_alerts_router
 from backend_routes.alerts.user_notifications import router as user_notifications_router
@@ -97,7 +104,12 @@ _default_origins = [
     "http://127.0.0.1:3000",
 ]
 _env_origins = os.getenv("ALLOWED_ORIGINS", "").strip()
-origins = [o.strip() for o in _env_origins.split(",") if o.strip()] if _env_origins else _default_origins
+origins = list(_default_origins)
+if _env_origins:
+    for origin in _env_origins.split(","):
+        clean = origin.strip()
+        if clean and clean not in origins:
+            origins.append(clean)
 
 app.add_middleware(
     CORSMiddleware,
@@ -173,7 +185,10 @@ app.include_router(admin_company_management_router, prefix="/api/admin")
 app.include_router(admin_squad_management_router, prefix="/api/admin")
 app.include_router(admin_project_management_router, prefix="/api/admin")
 app.include_router(admin_automation_router, prefix="/api/admin")
+app.include_router(automation_publish_router, prefix="/api/automation")
 app.include_router(admin_lead_hunter_router, prefix="/api/admin")
+app.include_router(admin_email_outreach_router, prefix="/api/admin")
+app.include_router(outreach_public_router, prefix="/api/outreach")
 app.include_router(admin_job_hub_lists_router, prefix="/api/admin")
 app.include_router(admin_job_management_router, prefix="/api/admin")
 app.include_router(admin_chat_router, prefix="/api/admin")
@@ -187,6 +202,7 @@ app.include_router(dashboard_main.router, prefix="/api/dashboard", tags=["Dashbo
 app.include_router(posts_handler.router, prefix="/api/posts", tags=["Posts"])
 app.include_router(posts_squad_routes.router, prefix="/api/posts", tags=["Posts"])
 app.include_router(post_ai_routes.router, prefix="/api/posts", tags=["Post AI"])
+app.include_router(ai_assistant_router, prefix="/api/ai-assistant", tags=["AI Assistant"])
 app.include_router(updates_routes.router, prefix="/api/updates", tags=["Dashboard Updates"])
 app.include_router(article_handler.router, prefix="/api/articles", tags=["Articles"])
 app.include_router(alerts.router, prefix="/api/alerts", tags=["Alerts"])
@@ -216,6 +232,22 @@ app.include_router(feedback_router, prefix="/api")
 app.include_router(admin_feedback_router, prefix="/api/admin")
 
 
+@app.post("/api/outreach/send", tags=["Outreach API"])
+async def outreach_send_direct(body: SendOutreachBody):
+    """Explicit send route — ensures localhost composer delivery works."""
+    return await perform_outreach_send(body)
+
+
+@app.get("/api/outreach/health", tags=["Outreach API"])
+async def outreach_health_direct():
+    return {"status": "ok", "service": "email-outreach"}
+
+
+@app.post("/api/outreach/schedule", tags=["Outreach API"])
+async def outreach_schedule_direct(body: ScheduleOutreachBody):
+    return await create_scheduled_send(body)
+
+
 @app.on_event("startup")
 async def bootstrap_public_showrooms():
     try:
@@ -233,6 +265,12 @@ async def bootstrap_public_showrooms():
         await ensure_feedback_indexes()
     except Exception as exc:
         logger.warning("Feedback index bootstrap skipped: %s", exc)
+    start_outreach_scheduler()
+
+
+@app.on_event("shutdown")
+async def shutdown_outreach_scheduler():
+    stop_outreach_scheduler()
 
 
 @app.get("/", tags=["Health Check"])

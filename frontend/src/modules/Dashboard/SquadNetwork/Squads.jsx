@@ -4,9 +4,7 @@ import SquadList from './components/SquadList';
 import SquadChat from './components/tabs/SquadChat/SquadChat';
 import SquadOverview from './components/SquadOverview';
 import CreateSquadPanel from './components/createSquad/CreateSquadPanel';
-import HubMobileTopBar from '../components/mobile/HubMobileTopBar';
-import { HUB_MOBILE_SEARCH } from '../components/mobile/hubMobileSearchPresets';
-import useSquadHubMobileScroll from './hooks/useSquadHubMobileScroll';
+import { subscribeHubDrawerToggle } from '../Navbar/hubDrawerBus';
 import './styles/squad-hub.css';
 import './styles/squad-hub-mobile.css';
 import './styles/squad-hub-mobile-chrome.css';
@@ -17,7 +15,6 @@ const LAST_SQUAD_KEY = 'et:lastSquadId';
 const Squads = ({ userData }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { isHeaderVisible } = useSquadHubMobileScroll();
   const [selectedSquad, setSelectedSquad] = useState(null);
   const [activeTab, setActiveTab] = useState('All Squads');
   const [centerTab, setCenterTab] = useState('Overview');
@@ -79,18 +76,14 @@ const Squads = ({ userData }) => {
     setMobileListOpen(false);
   }, []);
 
+  useEffect(() => subscribeHubDrawerToggle('squads', () => setMobileListOpen(true)), []);
+
   return (
     <div
-      className={`squad-hub squad-hub-mobile-shell${showCreatePanel ? ' squad-hub--creating' : ''}${
+      className={`squad-hub squad-hub-mobile-shell hub-inner-mobile-shell${showCreatePanel ? ' squad-hub--creating' : ''}${
         mobileListOpen ? ' squad-hub--list-open' : ''
       }`}
     >
-      <HubMobileTopBar
-        isHeaderVisible={isHeaderVisible}
-        searchQuery={squadSearchQuery}
-        onSearchQueryChange={setSquadSearchQuery}
-        {...HUB_MOBILE_SEARCH.squads}
-      />
       {mobileListOpen ? (
         <button
           type="button"

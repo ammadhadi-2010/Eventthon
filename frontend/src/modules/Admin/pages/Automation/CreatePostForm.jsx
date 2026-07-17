@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Calendar, ChevronDown, Send } from 'lucide-react';
+import { Calendar, ChevronDown, Loader2, Send } from 'lucide-react';
 import CreatePostUpload from './CreatePostUpload';
 import CreatePostPlatforms from './CreatePostPlatforms';
 
@@ -111,7 +111,8 @@ export default function CreatePostForm({ busy, connectedPlatforms, caption, onCa
           disabled={busy || !caption.trim()}
           onClick={() => submit(scheduledAt ? 'schedule' : 'now')}
         >
-          <Send size={14} /> Publish Now
+          {busy ? <Loader2 size={14} className="auto-spin" aria-hidden /> : <Send size={14} aria-hidden />}
+          {busy ? 'Publishing…' : 'Publish Now'}
         </button>
         <div className="auto-publish-menu-wrap" ref={menuRef}>
           <button

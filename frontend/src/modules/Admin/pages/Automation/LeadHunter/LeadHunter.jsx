@@ -33,8 +33,8 @@ function LeadHunterResults({ leads, selectedId, onSelect }) {
 
 const MemoResults = memo(LeadHunterResults);
 
-export default function LeadHunter() {
-  const hunter = useLeadHunter();
+export default function LeadHunter({ onLeadsUpdated, onComposeLead }) {
+  const hunter = useLeadHunter({ onLeadsUpdated, onComposeLead });
 
   return (
     <div className="lh-page">
@@ -73,7 +73,7 @@ export default function LeadHunter() {
       <LeadHunterDiscoveryGrid
         rows={hunter.discoveredLinks}
         busy={hunter.searchBusy}
-        onLoad={hunter.loadIntoHunter}
+        onLoad={(row) => hunter.loadIntoHunter(row, onComposeLead)}
       />
 
       <MemoResults leads={hunter.leads} selectedId={hunter.selectedId} onSelect={hunter.setSelectedId} />

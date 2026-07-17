@@ -8,7 +8,7 @@ export default function TopCountriesStrip({ items = [] }) {
   if (!items.length) return null;
 
   return (
-    <div className="admin-card-dark mt-5 p-4">
+    <div className="admin-card-dark mt-0 p-4">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
         <div>
           <h3 className="text-sm font-black text-white">Top Countries</h3>

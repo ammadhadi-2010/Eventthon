@@ -37,7 +37,7 @@ export default function AIGrowthInsightsPanelView({
             messages={assistant.messages}
             draft={assistant.draft}
             setDraft={assistant.setDraft}
-            isTyping={assistant.isTyping}
+            isLoading={assistant.isLoading}
             scrollRef={assistant.scrollRef}
             quickChips={assistant.quickChips}
             onSendPrompt={assistant.sendUserPrompt}

@@ -1,11 +1,6 @@
 import React from 'react';
-import useAdminHubAccess from './useAdminHubAccess';
-import SwitchToAdminButton from './SwitchToAdminButton';
+import HubUserAdminSwitch from './HubUserAdminSwitch';
 
-export default function AdminHubSwitch({ user }) {
-  const { showSwitchToAdmin } = useAdminHubAccess(user);
-
-  if (!showSwitchToAdmin) return null;
-
-  return <SwitchToAdminButton />;
+export default function AdminHubSwitch() {
+  return <HubUserAdminSwitch />;
 }

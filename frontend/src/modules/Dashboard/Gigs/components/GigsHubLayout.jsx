@@ -1,6 +1,5 @@
-import React from 'react';
-import HubMobileTopBar from '../../components/mobile/HubMobileTopBar';
-import { HUB_MOBILE_SEARCH } from '../../components/mobile/hubMobileSearchPresets';
+import React, { useEffect } from 'react';
+import { subscribeHubDrawerToggle } from '../../Navbar/hubDrawerBus';
 
 /** Gigs Hub shell: left 250px | center flex | optional right 320px. */
 export default function GigsHubLayout({
@@ -21,17 +20,10 @@ export default function GigsHubLayout({
     hideRightRail ? ' gigs-hub-center-panel--expanded' : ''
   }`;
 
+  useEffect(() => subscribeHubDrawerToggle('gigs', onOpenLeftDrawer), [onOpenLeftDrawer]);
+
   return (
-    <div className="gigs-page gigs-mobile-shell">
-      <HubMobileTopBar
-        scrollDirection={scrollDirection}
-        onAvatarClick={onOpenLeftDrawer}
-        avatarAriaLabel="Open gigs menu"
-        searchQuery={mobileSearch?.searchTerm}
-        onSearchChange={mobileSearch?.onSearchTermChange}
-        onSearch={mobileSearch?.onSearch}
-        {...HUB_MOBILE_SEARCH.gigs}
-      />
+    <div className="gigs-page gigs-mobile-shell hub-inner-mobile-shell">
       {leftDrawerOpen ? (
         <button
           type="button"

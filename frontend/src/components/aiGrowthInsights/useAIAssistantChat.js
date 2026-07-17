@@ -1,91 +1,85 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import {
-  ASSISTANT_QUICK_CHIPS,
-  ASSISTANT_WELCOME_MESSAGE,
-  resolveAssistantReply,
-  resolveChipReply,
-} from './aiAssistantKnowledge';
-import { startStreamReply, stopStreamReply } from './aiAssistantStreamReply';
+import { askAiAssistant } from './aiAssistantApi';
+import { ASSISTANT_QUICK_CHIPS, ASSISTANT_WELCOME_MESSAGE } from './aiAssistantKnowledge';
 
-function createMessage(role, text, streaming = false) {
+function createMessage(role, text, extra = {}) {
   return {
     id: `msg-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
     role,
     text,
-    streaming,
+    ...extra,
   };
 }
 
 export default function useAIAssistantChat(panelOpen) {
   const [messages, setMessages] = useState([]);
   const [draft, setDraft] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
-  const streamTimerRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef(null);
+  const requestIdRef = useRef(0);
 
   const scrollToBottom = useCallback(() => {
     const node = scrollRef.current;
     if (node) node.scrollTop = node.scrollHeight;
   }, []);
 
-  const streamAssistantReply = useCallback(
-    (fullText) => {
-      setIsTyping(true);
-      const assistantMessage = createMessage('assistant', '', true);
-      setMessages((prev) => [...prev, assistantMessage]);
-      stopStreamReply(streamTimerRef.current);
+  const requestAssistantReply = useCallback(
+    async (promptText) => {
+      const cleaned = String(promptText || '').trim();
+      if (!cleaned || isLoading) return;
 
-      streamTimerRef.current = startStreamReply({
-        fullText,
-        onTick: (nextText, streaming) => {
-          setMessages((prev) =>
-            prev.map((row) =>
-              row.id === assistantMessage.id ? { ...row, text: nextText, streaming } : row,
-            ),
-          );
-          scrollToBottom();
-        },
-        onComplete: () => {
-          streamTimerRef.current = null;
-          setIsTyping(false);
-        },
-      });
+      const requestId = requestIdRef.current + 1;
+      requestIdRef.current = requestId;
+
+      setMessages((prev) => [...prev, createMessage('user', cleaned)]);
+      setDraft('');
+      setIsLoading(true);
+      scrollToBottom();
+
+      try {
+        const answer = await askAiAssistant(cleaned);
+        if (requestIdRef.current !== requestId) return;
+        setMessages((prev) => [...prev, createMessage('assistant', answer)]);
+      } catch (error) {
+        if (requestIdRef.current !== requestId) return;
+        const detail = error?.response?.data?.detail || error?.message || 'AI request failed.';
+        setMessages((prev) => [
+          ...prev,
+          createMessage('assistant', `Sorry, I could not reach the AI service right now.\n\n${detail}`, {
+            isError: true,
+          }),
+        ]);
+      } finally {
+        if (requestIdRef.current === requestId) {
+          setIsLoading(false);
+        }
+      }
     },
-    [scrollToBottom],
+    [isLoading, scrollToBottom],
   );
 
   const sendUserPrompt = useCallback(
     (promptText) => {
-      const cleaned = String(promptText || '').trim();
-      if (!cleaned || isTyping) return;
-      console.log('AI Assistant prompt received:', cleaned);
-      setMessages((prev) => [...prev, createMessage('user', cleaned)]);
-      setDraft('');
-      scrollToBottom();
-      streamAssistantReply(resolveAssistantReply(cleaned));
+      requestAssistantReply(promptText);
     },
-    [isTyping, scrollToBottom, streamAssistantReply],
+    [requestAssistantReply],
   );
 
   const sendChipPrompt = useCallback(
     (chipId) => {
       const chip = ASSISTANT_QUICK_CHIPS.find((row) => row.id === chipId);
-      if (!chip || isTyping) return;
-      console.log('AI Assistant chip selected:', chip.label);
-      setMessages((prev) => [...prev, createMessage('user', chip.label)]);
-      scrollToBottom();
-      streamAssistantReply(resolveChipReply(chipId));
+      if (!chip || isLoading) return;
+      requestAssistantReply(chip.label);
     },
-    [isTyping, scrollToBottom, streamAssistantReply],
+    [isLoading, requestAssistantReply],
   );
 
   useEffect(() => {
     if (!panelOpen) {
+      requestIdRef.current += 1;
       setMessages([]);
       setDraft('');
-      setIsTyping(false);
-      stopStreamReply(streamTimerRef.current);
-      streamTimerRef.current = null;
+      setIsLoading(false);
       return;
     }
     setMessages((prev) => (prev.length ? prev : [createMessage('assistant', ASSISTANT_WELCOME_MESSAGE)]));
@@ -93,15 +87,13 @@ export default function useAIAssistantChat(panelOpen) {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, scrollToBottom]);
-
-  useEffect(() => () => stopStreamReply(streamTimerRef.current), []);
+  }, [messages, isLoading, scrollToBottom]);
 
   return {
     messages,
     draft,
     setDraft,
-    isTyping,
+    isLoading,
     scrollRef,
     sendUserPrompt,
     sendChipPrompt,

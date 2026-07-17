@@ -2,6 +2,7 @@ import React, { memo, useMemo } from 'react';
 import { ArrowUpRight, Briefcase, FolderKanban, TrendingUp, Users, Wallet } from 'lucide-react';
 import StatsGridSkeleton from '../components/skeleton/StatsGridSkeleton';
 import MiniTrendChart from './charts/MiniTrendChart';
+import '../styles/admin-stats-mobile.css';
 
 const DEFAULT_POINTS = [12, 16, 14, 20, 18, 22, 19];
 
@@ -73,9 +74,11 @@ function StatsGrid({ stats = [], TrendIcon, loading = false }) {
   }
 
   return (
-    <div className="admin-stats-grid">
+    <div className="admin-stats-grid admin-stats-grid--carousel">
       {stats.map((stat) => (
-        <MemoStatCard key={stat.label} stat={stat} Trend={Trend} />
+        <div key={stat.label} className="admin-stat-card-slot">
+          <MemoStatCard stat={stat} Trend={Trend} />
+        </div>
       ))}
     </div>
   );

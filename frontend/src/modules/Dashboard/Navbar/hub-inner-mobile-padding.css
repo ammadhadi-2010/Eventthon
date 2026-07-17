@@ -1,0 +1,109 @@
+/* Inner hub pages — mobile spacing, edge-to-edge layout, drawer rails */
+
+@media (max-width: 1023px) {
+  .et-app-shell:has(.hub-inner-mobile-shell) .et-top-nav {
+    display: block !important;
+  }
+
+  .et-app-shell:has(.hub-inner-mobile-shell) .et-main-inner {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .hub-inner-mobile-shell,
+  .admin-preview-frame.hub-inner-mobile-shell {
+    padding-top: 0 !important;
+    padding-bottom: 5rem !important;
+    min-height: auto !important;
+    box-sizing: border-box;
+  }
+
+  .ph-page.ph-mobile-shell .ph-layout.ph-mobile-shell__body,
+  .gigs-page .gigs-layout.gigs-mobile-shell__body,
+  .jobs-page .jobs-mobile-shell__body,
+  .squad-hub-mobile-shell.hub-inner-mobile-shell,
+  .dash-home-mobile-shell.hub-inner-mobile-shell {
+    padding-top: 1rem !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .ph-mobile-shell .ph-center-stack,
+  .gigs-page .gigs-hub-layout__center,
+  .jobs-page .jobs-layout__center,
+  .dash-home-mobile-shell .dash-main-grid {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  .et-main-inner--admin:not(.et-main-inner--admin-preview) {
+    padding-top: 0 !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  .et-main-inner--hub-mobile-pad {
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0));
+  }
+
+  .admin-main .um-page {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  .admin-panel-overview-stack {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .squad-hub-mobile-shell.hub-inner-mobile-shell {
+    padding-top: 1rem !important;
+  }
+
+  .ph-page.ph-mobile-shell .ph-layout__rail--left.is-drawer-open {
+    display: block !important;
+    position: fixed;
+    top: var(--et-nav-height, 70px);
+    left: 0;
+    height: calc(100dvh - var(--et-nav-height, 70px));
+    width: 80vw;
+    max-width: 320px;
+    z-index: 50;
+    margin: 0;
+    padding: 12px 8px 24px;
+    border-right: 1px solid #1e293b;
+    background: #020617;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65);
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  .ph-hub-drawer-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: rgba(2, 6, 23, 0.72);
+    cursor: pointer;
+  }
+
+  .ph-hub-drawer-backdrop.is-visible {
+    display: block !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hub-inner-mobile-shell,
+  .admin-preview-frame.hub-inner-mobile-shell {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    min-height: auto;
+  }
+
+  .ph-hub-drawer-backdrop {
+    display: none !important;
+  }
+}

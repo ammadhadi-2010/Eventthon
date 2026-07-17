@@ -4,8 +4,7 @@ import './components/mobile/dashboard-mobile-layout.css';
 import './components/mobile/dashboard-home-mobile.css';
 
 import HomeLeftSidebar from './components/HomeLeftSidebar';
-import HubMobileTopBar from './components/mobile/HubMobileTopBar';
-import { HUB_MOBILE_SEARCH } from './components/mobile/hubMobileSearchPresets';
+import { subscribeHubDrawerToggle } from './Navbar/hubDrawerBus';
 import UpdatesCarousel from './Updates/UpdatesCarousel';
 import PostSystem from './components/PostSystem/PostSystem';
 import ActivityFeed from './components/FeedSystem/ActivityFeed';
@@ -21,12 +20,9 @@ import { useDashboardShell } from './context/dashboardShellContext';
 const GUEST_LOGIN_PROMPT_MS = 40000;
 
 const MainDashboard = ({ userData }) => {
-  const { mobileLeftDrawerOpen, setMobileLeftDrawerOpen } = useDashboardShell();
+  const { mobileLeftDrawerOpen, setMobileLeftDrawerOpen, toggleMobileLeftDrawer } = useDashboardShell();
   const [posts, setPosts] = useState([]);
   const [feedLoading, setFeedLoading] = useState(true);
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
-  const [lastHomeScrollY, setLastHomeScrollY] = useState(0);
-  const [homeSearchQuery, setHomeSearchQuery] = useState('');
   const [guestPromptOpen, setGuestPromptOpen] = useState(false);
   const isGuest = !hasStoredSession();
 
@@ -63,26 +59,7 @@ const MainDashboard = ({ userData }) => {
     return () => window.clearInterval(interval);
   }, [isGuest]);
 
-  useEffect(() => {
-    const mobile = window.matchMedia('(max-width: 1023px)');
-    if (!mobile.matches) return undefined;
-
-    const scrollRoot = document.querySelector('main.et-main-scroll') || window;
-    const getScrollY = () => (scrollRoot === window ? window.scrollY : scrollRoot.scrollTop);
-
-    const handleHomeScroll = () => {
-      const currentScroll = getScrollY();
-      if (currentScroll > lastHomeScrollY && currentScroll > 50) {
-        setIsHeaderVisible(false);
-      } else {
-        setIsHeaderVisible(true);
-      }
-      setLastHomeScrollY(currentScroll);
-    };
-
-    scrollRoot.addEventListener('scroll', handleHomeScroll, { passive: true });
-    return () => scrollRoot.removeEventListener('scroll', handleHomeScroll);
-  }, [lastHomeScrollY]);
+  useEffect(() => subscribeHubDrawerToggle('home', () => toggleMobileLeftDrawer?.()), [toggleMobileLeftDrawer]);
 
   useEffect(() => {
     const closeOnDesktop = () => {
@@ -121,20 +98,11 @@ const MainDashboard = ({ userData }) => {
   };
 
   return (
-    <div className="dash-home-shell dash-home-mobile-shell">
+    <div className="dash-home-shell dash-home-mobile-shell hub-inner-mobile-shell">
       <GuestLoginPromptModal
         open={isGuest && guestPromptOpen}
         onKeepBrowsing={() => setGuestPromptOpen(false)}
       />
-      <HubMobileTopBar
-        isVisible={isHeaderVisible}
-        avatarAction="leftDrawer"
-        avatarAriaLabel="Open menu"
-        searchQuery={homeSearchQuery}
-        onSearchQueryChange={setHomeSearchQuery}
-        {...HUB_MOBILE_SEARCH.home}
-      />
-
       <div
         className={`dash-left-rail-backdrop${mobileLeftDrawerOpen ? ' dash-left-rail-backdrop--visible' : ''}`}
         onClick={closeLeftDrawer}

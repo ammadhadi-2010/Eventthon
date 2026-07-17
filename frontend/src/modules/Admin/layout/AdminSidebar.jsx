@@ -77,9 +77,8 @@ export default function AdminSidebar({ items, drawerOpen = false, onNavigate }) 
 
   return (
     <aside
-      className={`admin-sidebar fixed inset-y-0 left-0 z-[60] flex h-full w-64 max-w-[85vw] flex-col overflow-y-auto transition-transform duration-300 ease-out lg:static lg:z-auto lg:max-w-none lg:translate-x-0 ${
-        drawerOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-      }`}
+      className={`admin-sidebar${drawerOpen ? ' admin-sidebar--drawer-open' : ''}`}
+      aria-label="Admin navigation"
     >
       <div className="pt-2">
         <p className="px-3 pb-3 text-[9px] font-black uppercase tracking-[0.25em] text-slate-500">

@@ -1,0 +1,22 @@
+/* Admin mobile sidebar — overlay above top navbar */
+
+@media (max-width: 1023px) {
+  .et-app-shell:has(.admin-dashboard) .et-top-nav {
+    z-index: 40;
+  }
+
+  .admin-sidebar {
+    z-index: 250;
+    top: 0;
+    height: 100dvh;
+    max-height: 100dvh;
+  }
+
+  .admin-sidebar--drawer-open {
+    box-shadow: 12px 0 40px rgba(0, 0, 0, 0.45);
+  }
+
+  .admin-sidebar-backdrop {
+    z-index: 245;
+  }
+}

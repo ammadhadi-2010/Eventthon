@@ -14,6 +14,7 @@ import CompanyVerificationRequestsCard from './sections/CompanyVerificationReque
 import './styles/AdminShell.css';
 import './styles/AdminCards.css';
 import './styles/admin-skeleton.css';
+import './styles/admin-panel-spacing.css';
 import './pages/SystemHealth/systemHealth.css';
 
 const AdminPanel = () => {
@@ -36,7 +37,7 @@ const AdminPanel = () => {
   const { health, loading: healthLoading } = useSystemHealth();
 
   return (
-    <>
+    <div className="admin-panel-overview-stack">
       <AdminHeader
         viewMode={viewMode}
         setViewMode={setViewMode}
@@ -45,12 +46,9 @@ const AdminPanel = () => {
       />
       <StatsGrid stats={stats} TrendIcon={trendIcon} loading={statsLoading} />
       {!statsLoading ? <TopCountriesStrip items={topCountries} /> : null}
+      <PlatformOverview viewMode={viewMode} />
 
-      <div style={{ marginTop: '20px' }}>
-        <PlatformOverview viewMode={viewMode} />
-      </div>
-
-      <div className="admin-grid-2" style={{ marginTop: '20px' }}>
+      <div className="admin-grid-2">
         <div className="admin-stack">
           <ReviewQueue
             users={users}
@@ -90,7 +88,7 @@ const AdminPanel = () => {
           refetchUsers();
         }}
       />
-    </>
+    </div>
   );
 };
 

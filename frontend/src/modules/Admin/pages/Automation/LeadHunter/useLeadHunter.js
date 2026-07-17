@@ -5,7 +5,7 @@ import useLeadHunterDiscovery from './useLeadHunterDiscovery';
 
 const EMPTY_FORM = { countryCode: '', country: '', category: '', websiteUrl: '' };
 
-export default function useLeadHunter() {
+export default function useLeadHunter({ onLeadsUpdated, onComposeLead } = {}) {
   const [form, setForm] = useState(EMPTY_FORM);
   const [leads, setLeads] = useState([]);
   const [selectedId, setSelectedId] = useState('');
@@ -59,7 +59,11 @@ export default function useLeadHunter() {
       const rows = Array.isArray(res?.leads) ? res.leads : [];
       setLeads(rows);
       setSelectedId(rows[0]?.id || '');
+      if (Array.isArray(res?.discovery_rows) && res.discovery_rows.length) {
+        discovery.upsertDiscoveredRows(res.discovery_rows);
+      }
       setNotice(res?.message || 'Lead extract completed.');
+      onLeadsUpdated?.();
       return true;
     } catch (err) {
       setLeads([]);
@@ -68,7 +72,7 @@ export default function useLeadHunter() {
     } finally {
       setBusy(false);
     }
-  }, [form]);
+  }, [form, onLeadsUpdated, discovery]);
 
   const runSendPitch = useCallback(async () => {
     if (!selectedLead || !pitch) return false;
@@ -85,6 +89,7 @@ export default function useLeadHunter() {
         category: form.category || selectedLead.category,
       });
       setNotice(res?.message || 'Pitch sent via EventThon Network.');
+      onLeadsUpdated?.();
       return true;
     } catch (err) {
       setError(err?.response?.data?.detail || err?.message || 'Send pitch failed');
@@ -92,7 +97,7 @@ export default function useLeadHunter() {
     } finally {
       setBusy(false);
     }
-  }, [form, pitch, selectedLead]);
+  }, [form, pitch, selectedLead, onLeadsUpdated]);
 
   return {
     form,

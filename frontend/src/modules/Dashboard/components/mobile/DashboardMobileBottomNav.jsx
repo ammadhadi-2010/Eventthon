@@ -1,7 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FiBell, FiBriefcase, FiClipboard, FiHome, FiUsers } from 'react-icons/fi';
-import { useScrollDirection } from '../../../../hooks/useScrollDirection';
 import './dashboard-mobile-bottom-nav.css';
 
 const NAV_ITEMS = [
@@ -21,26 +20,9 @@ function isNavActive(pathname, path) {
 export default function DashboardMobileBottomNav() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const scrollDirection = useScrollDirection();
-  const isJobsHub = pathname.startsWith('/jobs');
-  const isGigsHub = pathname.startsWith('/gigs');
-  const isProjectsHub = pathname.startsWith('/projects');
-  const isAlertsHub = pathname.startsWith("/notifications");
-  const isMessagesHub = pathname.startsWith("/messages");
-  const isHomeHub = pathname === '/dashboard' || pathname === '/';
-  const isUpdatesHub = pathname.startsWith('/updates');
-  const isSquadsHub = pathname.startsWith('/squads');
-  const isViewAllHub = pathname.startsWith('/profile/connections');
-  const isProfileHub = pathname === '/profile' || pathname === '/profile/';
-  const isEditProfileHub = pathname === '/profile/edit' || pathname.startsWith('/profile/edit/');
-  const isViewFullProfileHub = pathname === '/profile/view' || pathname.startsWith('/profile/view/');
-  const hidden =
-    (isJobsHub || isGigsHub || isProjectsHub || isAlertsHub || isMessagesHub || isHomeHub || isUpdatesHub || isSquadsHub || isViewAllHub || isProfileHub || isEditProfileHub || isViewFullProfileHub) &&
-    scrollDirection === "down";
-
   return (
     <nav
-      className={`dash-mobile-bottom-nav${hidden ? ' dash-mobile-bottom-nav--hidden' : ''}`}
+      className="dash-mobile-bottom-nav"
       aria-label="Mobile dashboard navigation"
     >
       {NAV_ITEMS.map(({ key, label, path, Icon }) => {

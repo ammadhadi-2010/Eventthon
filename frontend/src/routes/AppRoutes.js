@@ -159,6 +159,7 @@ const AppRoutes = () => {
               <Route path="admin/transactions" element={<Navigate to="/admin-control/transactions" replace />} />
               <Route path="admin/activities" element={<Navigate to="/admin-control/activities" replace />} />
               <Route path="admin/analytics/countries" element={<Navigate to="/admin-control/analytics/countries" replace />} />
+              <Route path="admin/email-outreach" element={<Navigate to="/admin-control/email-outreach" replace />} />
               <Route
                 path="admin-control/*"
                 element={hasStoredSession() ? <AdminRoutes userData={userData} /> : <Navigate to="/auth/login" replace />}

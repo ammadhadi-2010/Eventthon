@@ -31,6 +31,7 @@ import AdminTransactionsPage from './pages/Transactions/AdminTransactionsPage';
 import AdminActivitiesPage from './pages/Activities/AdminActivitiesPage';
 import CountriesAnalyticsPage from './pages/Analytics/CountriesAnalyticsPage';
 import AdminPreviewViews from './preview/AdminPreviewViews';
+import EmailOutreachPage from './pages/EmailOutreach/EmailOutreachPage';
 
 const AdminRoutes = ({ userData }) => {
   const userRole = userData?.role || localStorage.getItem('userRole');
@@ -60,6 +61,7 @@ const AdminRoutes = ({ userData }) => {
           <Route path="projects" element={<ProjectManagementPage />} />
           <Route path="jobs" element={<JobManagementPage />} />
           <Route path="automation" element={<AutomationPage />} />
+          <Route path="email-outreach" element={<EmailOutreachPage />} />
           <Route path="companies" element={<CompanyManagementPage />} />
           <Route path="companies/add" element={<CompanyAddHubPage />} />
           <Route path="companies/verification" element={<CompanyVerificationPage />} />

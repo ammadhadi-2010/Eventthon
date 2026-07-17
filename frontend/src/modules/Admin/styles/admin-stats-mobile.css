@@ -1,0 +1,25 @@
+/* Admin dashboard stats — mobile horizontal carousel only */
+
+@media (max-width: 767px) {
+  .admin-stats-grid.admin-stats-grid--carousel {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding-bottom: 8px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .admin-stats-grid.admin-stats-grid--carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .admin-stat-card-slot {
+    flex: 0 0 45%;
+    width: 45%;
+    scroll-snap-align: center;
+    min-width: 0;
+  }
+}

@@ -1,0 +1,55 @@
+/* Email Outreach — pagination footer */
+
+.eo-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.eo-pagination__info {
+  margin: 0;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.eo-pagination__info strong {
+  color: #cbd5e1;
+}
+
+.eo-pagination__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.eo-page-nav,
+.eo-page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.eo-page-btn--active {
+  background: linear-gradient(135deg, #7c3aed, #6366f1);
+  border-color: rgba(167, 139, 250, 0.45);
+  color: #fff;
+}
+
+.eo-page-nav:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}

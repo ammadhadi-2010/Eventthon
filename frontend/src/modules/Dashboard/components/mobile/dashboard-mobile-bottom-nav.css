@@ -60,6 +60,6 @@
   }
 
   .et-main-inner--mobile-nav-pad {
-    padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0));
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0));
   }
 }
