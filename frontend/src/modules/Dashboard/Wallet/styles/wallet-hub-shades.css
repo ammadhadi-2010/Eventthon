@@ -1,0 +1,56 @@
+/* Wallet hub — 6 shining row shades */
+
+.wallet-tx-row--emerald,
+.wallet-side-row--emerald {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.18), rgba(12, 18, 36, 0.94));
+  border-color: rgba(74, 222, 128, 0.42);
+  box-shadow: 0 10px 32px rgba(34, 197, 94, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.wallet-tx-row--azure,
+.wallet-side-row--azure {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(12, 18, 36, 0.94));
+  border-color: rgba(96, 165, 250, 0.42);
+  box-shadow: 0 10px 32px rgba(59, 130, 246, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.wallet-tx-row--violet,
+.wallet-side-row--violet {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(12, 18, 36, 0.94));
+  border-color: rgba(167, 139, 250, 0.45);
+  box-shadow: 0 10px 32px rgba(139, 92, 246, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.wallet-tx-row--rose,
+.wallet-side-row--rose {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.18), rgba(12, 18, 36, 0.94));
+  border-color: rgba(251, 113, 133, 0.42);
+  box-shadow: 0 10px 32px rgba(244, 63, 94, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.wallet-tx-row--amber,
+.wallet-side-row--amber {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(12, 18, 36, 0.94));
+  border-color: rgba(251, 191, 36, 0.42);
+  box-shadow: 0 10px 32px rgba(245, 158, 11, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.wallet-tx-row--teal,
+.wallet-side-row--teal {
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.18), rgba(12, 18, 36, 0.94));
+  border-color: rgba(45, 212, 191, 0.42);
+  box-shadow: 0 10px 32px rgba(20, 184, 166, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.wallet-tx-row__icon--emerald,
+.wallet-side-row__icon--emerald { background: linear-gradient(145deg, #16a34a, #4ade80); color: #052e16; }
+.wallet-tx-row__icon--azure,
+.wallet-side-row__icon--azure { background: linear-gradient(145deg, #2563eb, #60a5fa); color: #eff6ff; }
+.wallet-tx-row__icon--violet,
+.wallet-side-row__icon--violet { background: linear-gradient(145deg, #7c3aed, #a78bfa); color: #f5f3ff; }
+.wallet-tx-row__icon--rose,
+.wallet-side-row__icon--rose { background: linear-gradient(145deg, #e11d48, #fb7185); color: #fff1f2; }
+.wallet-tx-row__icon--amber,
+.wallet-side-row__icon--amber { background: linear-gradient(145deg, #d97706, #fbbf24); color: #451a03; }
+.wallet-tx-row__icon--teal,
+.wallet-side-row__icon--teal { background: linear-gradient(145deg, #0d9488, #2dd4bf); color: #042f2e; }

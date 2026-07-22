@@ -50,10 +50,11 @@ export default function JobsBrowseJobBoard() {
           {listingsLoading ? (
             <p className="jobs-feed-end">Loading jobs…</p>
           ) : visible.length ? (
-            visible.map((job) => (
+            visible.map((job, index) => (
               <JobsBrowseJobCard
                 key={job.id}
                 job={job}
+                index={index}
                 saved={savedJobIds.has(job.id)}
                 isSelected={detailJob?.id === job.id}
                 onSelect={setDetailJob}

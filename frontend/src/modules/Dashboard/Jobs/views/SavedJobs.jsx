@@ -4,6 +4,7 @@ import JobBookmarkButton from '../components/JobBookmarkButton';
 import JobsHubHeader from '../components/JobsHubHeader';
 import JobsMobileSubViewShell from '../components/JobsMobileSubViewShell';
 import { useJobsHub } from '../context/JobsHubContext';
+import { getJobCardShade } from '../utils/jobCardShades';
 
 export default function SavedJobs() {
   const { savedJobs, loading, toggleSavedJob, savedJobIds } = useJobsHub();
@@ -21,9 +22,11 @@ export default function SavedJobs() {
             <p>Loading saved jobs…</p>
           </div>
         ) : savedJobs.length ? (
-          savedJobs.map((job) => (
-            <article key={job.saveId || job.id} className="gigs-job-row jh-saved-row jh-mobile-data-card">
-              <div className={`gigs-company-logo ${job.logoClass}`}>{job.logoText}</div>
+          savedJobs.map((job, index) => {
+            const shade = getJobCardShade(index);
+            return (
+            <article key={job.saveId || job.id} className={`gigs-job-row jh-saved-row jh-mobile-data-card jh-job-row jh-job-row--${shade}`}>
+              <div className={`gigs-company-logo jobs-job-logo jobs-job-logo--${shade}`}>{job.logoText}</div>
               <div className="gigs-job-main">
                 <h4>{job.role}</h4>
                 <p className="gigs-job-company">{job.company}</p>
@@ -50,7 +53,8 @@ export default function SavedJobs() {
                 />
               </div>
             </article>
-          ))
+            );
+          })
         ) : (
           <div className="gigs-card jh-empty-card">
             <p>No saved jobs yet. Bookmark roles from Browse Jobs to build your shortlist.</p>

@@ -671,16 +671,41 @@
     grid-template-columns: none !important;
   }
 
+  .gigs-featured-carousel {
+    overflow: hidden !important;
+  }
+
+  .gigs-featured-track {
+    display: flex !important;
+    gap: 12px !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    padding: 4px 2px 8px !important;
+    scrollbar-width: none !important;
+  }
+
+  .gigs-featured-track::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .gigs-featured-track .gigs-feature-card {
+    flex: 0 0 46% !important;
+    min-width: 46% !important;
+    max-width: 46% !important;
+    scroll-snap-align: start !important;
+  }
+
   .gigs-feature-card {
     position: relative !important;
-    padding: 8px !important;
+    padding: 12px !important;
+    border-radius: 16px !important;
     box-sizing: border-box !important;
   }
 
   .gigs-feature-thumb {
     width: 100% !important;
-    height: 96px !important;
-    border-radius: 8px !important;
+    height: 88px !important;
+    border-radius: 12px !important;
     object-fit: cover;
   }
 
@@ -733,23 +758,20 @@
     width: 100% !important;
     max-width: 100% !important;
     min-height: 0 !important;
-    padding: 10px 12px !important;
-    border: 1px solid #1e293b !important;
-    border-radius: 12px !important;
-    background: rgba(15, 23, 42, 0.4) !important;
+    padding: 12px 14px !important;
+    border-radius: 14px !important;
     position: relative !important;
     box-sizing: border-box !important;
   }
 
   .gigs-recent-m-avatar {
-    width: 28px !important;
-    height: 28px !important;
-    margin-bottom: 6px !important;
-    border-radius: 999px !important;
-    background: #1e293b !important;
+    width: 32px !important;
+    height: 32px !important;
+    margin-bottom: 8px !important;
+    border-radius: 10px !important;
     color: #fff !important;
     font-size: 11px !important;
-    font-weight: 700 !important;
+    font-weight: 800 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;

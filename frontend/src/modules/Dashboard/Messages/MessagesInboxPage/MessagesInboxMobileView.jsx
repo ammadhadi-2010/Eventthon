@@ -18,7 +18,6 @@ export default function MessagesInboxMobileView({
   selectedRow,
   refreshing,
   userId,
-  isNavVisible,
   setQuery,
   setActiveFilter,
   onSelectConversation,
@@ -43,7 +42,6 @@ export default function MessagesInboxMobileView({
         <>
           {!companyMode ? (
             <MessagesMobileChrome
-              isNavVisible={isNavVisible}
               query={query}
               onQueryChange={setQuery}
               onNewMessage={onNewMessage}

@@ -10,6 +10,7 @@ import { saveJobsBrowseFilters } from './utils/jobsBrowseSession';
 import './styles/JobsDashboard.css';
 import './styles/jobs-center-feed.css';
 import './styles/jobs-marketplace-premium.css';
+import './styles/jobs-hub-shades.css';
 import './styles/jobs-hub-views.css';
 import './styles/jobs-hub-views-mobile.css';
 import './styles/jobs-hub-mobile.css';

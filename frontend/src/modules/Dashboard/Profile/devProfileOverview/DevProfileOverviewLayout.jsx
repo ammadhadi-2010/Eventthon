@@ -1,4 +1,5 @@
 import React, { useMemo, useState, useCallback, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { buildDraft } from '../editProfile/EditProfileFlowPage';
 import { isVerificationApproved } from '../editProfile/verificationStatus';
 import { getRankMeta } from '../../../Admin/pages/UserManagement/userManagementData';
@@ -35,7 +36,9 @@ const TAB_LABELS = {
 };
 
 export default function DevProfileOverviewLayout({ userData, refreshData, searchQuery = '' }) {
-  const [activeTab, setActiveTab] = useState('overview');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialTab = String(searchParams.get('tab') || 'overview').trim().toLowerCase();
+  const [activeTab, setActiveTab] = useState(() => (TAB_IDS.includes(initialTab) ? initialTab : 'overview'));
   const { bundle, loading, error, refetch, identifier } = useProfileOverviewData(userData);
 
   const draft = useMemo(() => buildDraft(userData), [userData]);
@@ -62,6 +65,14 @@ export default function DevProfileOverviewLayout({ userData, refreshData, search
     if (match) setActiveTab(match);
   }, [searchQuery]);
 
+  const handleTabChange = useCallback((nextTab) => {
+    setActiveTab(nextTab);
+    const next = new URLSearchParams(searchParams);
+    if (nextTab === 'overview') next.delete('tab');
+    else next.set('tab', nextTab);
+    setSearchParams(next, { replace: true });
+  }, [searchParams, setSearchParams]);
+
   return (
     <div className="dpo-shell">
       {loading ? <p className="dpo-inline-status">Loading profile data…</p> : null}
@@ -87,7 +98,7 @@ export default function DevProfileOverviewLayout({ userData, refreshData, search
 
       <DevProfileOverviewStatStrip stats={bundle?.stats} />
 
-      <DevProfileOverviewTabs activeTab={activeTab} onChange={setActiveTab} tabIds={TAB_IDS} />
+      <DevProfileOverviewTabs activeTab={activeTab} onChange={handleTabChange} tabIds={TAB_IDS} />
 
       <div className="dpo-grid">
         <DevProfileOverviewMainColumn

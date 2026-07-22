@@ -1,0 +1,72 @@
+/* Projects hub — 6 shining row shades (table + mobile cards only) */
+
+/* Each project row = separate rounded card (not joined) */
+.ph-table-wrap .ph-table:has(tbody tr[class*='ph-table-row--']),
+.ph-mp-table-card .ph-table:has(tbody tr[class*='ph-mp-row--']) {
+  border-collapse: separate;
+  border-spacing: 0 14px;
+}
+
+.ph-table-wrap .ph-table-scroll,
+.ph-mp-table-card:has(.ph-table tbody tr[class*='ph-mp-row--']) .ph-table-scroll {
+  padding: 4px 6px 12px;
+}
+
+.ph-table-wrap .ph-table:has(tbody tr[class*='ph-table-row--']) thead th,
+.ph-mp-table-card .ph-table:has(tbody tr[class*='ph-mp-row--']) thead th {
+  border-bottom: none;
+  padding-bottom: 4px;
+}
+
+.ph-table-wrap .ph-table tbody tr[class*='ph-table-row--'],
+.ph-mp-table-card .ph-table tbody tr[class*='ph-mp-row--'] {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  transition: background 0.18s ease, box-shadow 0.22s ease, transform 0.16s ease, border-color 0.2s ease;
+}
+
+.ph-table-wrap .ph-table tbody tr[class*='ph-table-row--'] > td,
+.ph-mp-table-card .ph-table tbody tr[class*='ph-mp-row--'] > td {
+  border-bottom: none;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.ph-table-wrap .ph-table tbody tr[class*='ph-table-row--'] td:first-child,
+.ph-mp-table-card .ph-table tbody tr[class*='ph-mp-row--'] td:first-child {
+  border-radius: 16px 0 0 16px;
+  padding-left: 16px;
+}
+
+.ph-table-wrap .ph-table tbody tr[class*='ph-table-row--'] td:last-child,
+.ph-mp-table-card .ph-table tbody tr[class*='ph-mp-row--'] td:last-child {
+  border-radius: 0 16px 16px 0;
+  padding-right: 16px;
+}
+
+.ph-table tbody tr[class*='ph-table-row--'],
+.ph-table tbody tr[class*='ph-mp-row--'] {
+  transition: background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.ph-table tbody tr[class*='ph-table-row--']:hover,
+.ph-table tbody tr[class*='ph-mp-row--']:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.ph-table-mobile-card[class*='--'],
+.ph-mp-mobile-card[class*='--'] {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 14px;
+  transition: transform 0.16s ease, box-shadow 0.22s ease, border-color 0.2s ease;
+}
+
+.ph-table-mobile-card[class*='--']:hover,
+.ph-mp-mobile-card[class*='--']:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+

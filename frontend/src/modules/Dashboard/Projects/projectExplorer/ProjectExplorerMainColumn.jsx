@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import {
   FiCheck,
   FiChevronRight,
@@ -54,13 +55,19 @@ export default function ProjectExplorerMainColumn({ project, detailTab, setTab }
 
   return (
     <section className="gigx-main">
-      <div className="gigx-breadcrumbs">
-        <span>Projects</span>
+      <nav className="gigx-breadcrumbs" aria-label="Breadcrumb">
+        <Link to="/projects" className="gigx-breadcrumbs__link">
+          Projects
+        </Link>
         <FiChevronRight size={12} aria-hidden />
-        <span>Featured</span>
+        <Link to="/projects/all" className="gigx-breadcrumbs__link">
+          Featured
+        </Link>
         <FiChevronRight size={12} aria-hidden />
-        <span>{crumb}</span>
-      </div>
+        <span className="gigx-breadcrumbs__current" aria-current="page">
+          {crumb}
+        </span>
+      </nav>
 
       <h2>{title}</h2>
 

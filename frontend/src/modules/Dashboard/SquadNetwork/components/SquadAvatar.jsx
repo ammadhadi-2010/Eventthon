@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { getSquadImageUrl, getSquadInitials } from '../utils/squadAvatar';
 
 const SIZE_CLASS = {
@@ -8,14 +8,20 @@ const SIZE_CLASS = {
 };
 
 export default function SquadAvatar({ squad, size = 'md', className = '', showOnlineDot = false }) {
-  const src = getSquadImageUrl(squad);
+  const [imgBroken, setImgBroken] = useState(false);
+  const src = imgBroken ? '' : getSquadImageUrl(squad);
   const initials = getSquadInitials(squad);
   const sizeClass = SIZE_CLASS[size] || SIZE_CLASS.md;
 
   return (
     <div className={`sq-avatar ${sizeClass} ${className}`.trim()} aria-hidden={!squad}>
       {src ? (
-        <img src={src} alt="" className="sq-avatar__img" />
+        <img
+          src={src}
+          alt=""
+          className="sq-avatar__img"
+          onError={() => setImgBroken(true)}
+        />
       ) : (
         <span className="sq-avatar__fallback">{initials}</span>
       )}

@@ -27,6 +27,17 @@
   padding-top: 18px;
 }
 
+.hls-profile-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.hls-profile-card-link:hover .hls-username {
+  color: #bfdbfe;
+}
+
 .hls-avatar-wrap {
   position: relative;
   width: 92px;

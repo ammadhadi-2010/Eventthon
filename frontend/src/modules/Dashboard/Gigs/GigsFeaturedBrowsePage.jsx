@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { FiArrowLeft, FiStar } from 'react-icons/fi';
+import { FiArrowLeft } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import API from '../../../api/axiosConfig';
+import GigFeaturedCard from './components/GigFeaturedCard';
 import './styles/GigsDashboard.css';
 import { normalizeGig, unwrapGigArrays } from './gigExplorer/model';
 import { loadBrowseFilters } from './utils/gigsBrowseSession';
-
-const THUMB_ROTATE = ['seo', 'react', 'ai', 'content'];
 
 const badgeFor = (g) => {
   const rev = Number(g.reviews || 0);
@@ -87,35 +86,15 @@ const GigsFeaturedBrowsePage = () => {
         ) : null}
         <div className="gigs-featured-grid">
           {rows.map((gig, idx) => (
-            <article
+            <GigFeaturedCard
               key={gig.id}
-              className="gigs-feature-card"
-              role="button"
-              tabIndex={0}
-              onClick={() => openGig(gig)}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter' || event.key === ' ') openGig(gig);
+              index={idx}
+              gig={{
+                ...gig,
+                badge: badgeFor(gig),
               }}
-            >
-              <div className={`gigs-feature-thumb ${THUMB_ROTATE[idx % THUMB_ROTATE.length]}`}>
-                <span>{badgeFor(gig)}</span>
-              </div>
-              <div className="gigs-feature-seller">
-                <div className="gigs-feature-avatar">{gig.sellerAvatarInitial}</div>
-                <div>
-                  <p>{gig.sellerName}</p>
-                  <span>{gig.sellerLevel}</span>
-                </div>
-              </div>
-              <h4>{gig.title}</h4>
-              <p className="gigs-feature-rating">
-                <FiStar size={12} /> {gig.rating} ({gig.reviews})
-              </p>
-              <div className="gigs-feature-price">
-                <span>From</span>
-                <strong>${gig.price}</strong>
-              </div>
-            </article>
+              onOpen={openGig}
+            />
           ))}
         </div>
       </section>

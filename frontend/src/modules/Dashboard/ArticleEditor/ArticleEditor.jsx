@@ -23,6 +23,9 @@ import { ARTICLE_CATEGORIES } from './articleCategories';
 import { createEmptyArticleForm } from './articleEditorDefaults';
 import { buildLivePreviewArticle } from './buildLivePreviewArticle';
 import ArticleEditorMoreMenu from './ArticleEditorMoreMenu';
+import AttachRelatedContentModule from './relatedContent/AttachRelatedContentModule';
+import { normalizeRelatedContent } from './relatedContent/relatedContentConfig';
+import './article-editor-fields.css';
 import './article-editor-mobile.css';
 
 const scoreClamp = (value) => Math.max(0, Math.min(100, value));
@@ -81,7 +84,9 @@ const ArticleEditor = ({ userData }) => {
           category: article.category || 'SEO',
           content: article.content || '',
           coverImage: null,
+          coverImageUrl: article.imageurl || article.cover_image || '',
           coverPreview: resolveDashboardMediaUrl(article.imageurl || article.cover_image) || '',
+          relatedContent: normalizeRelatedContent(article.related_content),
         }));
       } catch (error) {
         console.error('Failed to load article for editing:', error);
@@ -175,12 +180,26 @@ const ArticleEditor = ({ userData }) => {
     });
   };
 
-  const handleCoverChange = (event) => {
+  const handleCoverChange = async (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
     const preview = URL.createObjectURL(file);
-    setForm((prev) => ({ ...prev, coverImage: file, coverPreview: preview }));
+    setForm((prev) => ({ ...prev, coverImage: file, coverPreview: preview, coverImageUrl: '' }));
     event.target.value = '';
+    try {
+      setStatusMessage('Uploading cover image...');
+      const imageurl = await uploadArticleMedia(file);
+      setForm((prev) => ({
+        ...prev,
+        coverImage: null,
+        coverImageUrl: imageurl,
+        coverPreview: resolveDashboardMediaUrl(imageurl) || preview,
+      }));
+      setStatusMessage('Cover image uploaded.');
+    } catch (error) {
+      console.error('Cover upload failed:', error);
+      setStatusMessage('Cover upload failed. Please try again.');
+    }
   };
 
   const handleInlineImageChange = async (event) => {
@@ -326,6 +345,8 @@ const ArticleEditor = ({ userData }) => {
     data.append('category', form.category);
     data.append('seo_score', String(seoInsights.score));
     if (form.coverImage) data.append('cover_image', form.coverImage);
+    else if (form.coverImageUrl) data.append('cover_image_url', form.coverImageUrl);
+    data.append('related_content', JSON.stringify(form.relatedContent || {}));
     return data;
   };
 
@@ -346,7 +367,7 @@ const ArticleEditor = ({ userData }) => {
           excerpt: stripHtml(form.content).slice(0, 220),
           seoScore: seoInsights.score,
           status: isPublish ? 'published' : 'draft',
-        });
+        }, userData);
         savedId = updated?._id || articleId;
       } else {
         const endpoint = isPublish ? '/api/articles/articles/publish' : '/api/articles/articles/save-draft';
@@ -538,7 +559,7 @@ const ArticleEditor = ({ userData }) => {
 
           <div className="article-editor__field-grid" style={fieldGrid}>
             <div style={fieldBlock}>
-              <label style={fieldLabel}>Primary Keyword</label>
+              <label className="article-editor__field-label" style={fieldLabel}>Primary Keyword</label>
               <input
                 className="article-editor__field-input"
                 style={glassInput}
@@ -548,7 +569,7 @@ const ArticleEditor = ({ userData }) => {
               />
             </div>
             <div style={fieldBlock}>
-              <label style={fieldLabel}>Category</label>
+              <label className="article-editor__field-label" style={fieldLabel}>Category</label>
               <div style={selectWrap}>
                 <button type="button" className="article-editor__field-input" style={selectButton} onClick={() => setCategoryOpen((prev) => !prev)}>
                   <span>{form.category}</span>
@@ -574,7 +595,7 @@ const ArticleEditor = ({ userData }) => {
               </div>
             </div>
             <div style={fieldBlock}>
-              <label style={fieldLabel}>Slug</label>
+              <label className="article-editor__field-label" style={fieldLabel}>Slug</label>
               <input
                 className="article-editor__field-input"
                 style={glassInput}
@@ -592,6 +613,7 @@ const ArticleEditor = ({ userData }) => {
               </span>
             ))}
             <input
+              className="article-editor__tag-input"
               style={tagInput}
               value={form.newTag}
               onChange={(e) => setForm((prev) => ({ ...prev, newTag: e.target.value }))}
@@ -602,7 +624,7 @@ const ArticleEditor = ({ userData }) => {
 
           <div className="article-editor__meta-grid" style={metaGrid}>
             <div style={fieldBlock}>
-              <label style={fieldLabel}>Meta Title</label>
+              <label className="article-editor__field-label" style={fieldLabel}>Meta Title</label>
               <input
                 className="article-editor__field-input"
                 style={glassInput}
@@ -612,7 +634,7 @@ const ArticleEditor = ({ userData }) => {
               />
             </div>
             <div style={fieldBlock}>
-              <label style={fieldLabel}>Meta Description</label>
+              <label className="article-editor__field-label" style={fieldLabel}>Meta Description</label>
               <textarea
                 className="article-editor__field-input"
                 style={metaTextArea}
@@ -635,9 +657,17 @@ const ArticleEditor = ({ userData }) => {
             {form.coverPreview ? (
               <img src={form.coverPreview} alt="Cover Preview" style={coverPreviewStyle} />
             ) : (
-              <div style={coverPlaceholder}>Upload a featured image to improve click-through and article trust.</div>
+              <div className="article-editor__cover-placeholder" style={coverPlaceholder}>
+                Upload a featured image to improve click-through and article trust.
+              </div>
             )}
           </div>
+
+          <AttachRelatedContentModule
+            value={form.relatedContent}
+            onChange={(relatedContent) => updateField('relatedContent', relatedContent)}
+            userData={userData}
+          />
 
           <div className="article-editor__editor-canvas" style={editorCanvas}>
             <div className="article-editor__toolbar" style={toolbarPlaceholder}>

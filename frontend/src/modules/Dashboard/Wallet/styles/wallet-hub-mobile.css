@@ -1,0 +1,110 @@
+/* Wallet Hub — responsive shell. Desktop (≥1024px base) unchanged. */
+
+.wallet-mobile-section-nav {
+  display: none;
+}
+
+/* Tablet / small desktop only — NOT phone */
+@media (min-width: 1024px) and (max-width: 1200px) {
+  .wallet-hub-layout {
+    grid-template-columns: 250px minmax(0, 1fr);
+  }
+
+  .wallet-hub-layout__rail--right {
+    display: none;
+  }
+
+  .wallet-balance-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .wallet-balance-chart {
+    grid-column: 1 / -1;
+  }
+
+  .wallet-quick-actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Phone */
+@media (max-width: 1023px) {
+  .wallet-page.wallet-mobile-shell {
+    width: 100%;
+    padding: 0 0 calc(5rem + env(safe-area-inset-bottom, 0));
+    box-sizing: border-box;
+  }
+
+  .wallet-hub-layout {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .wallet-hub-layout__center {
+    padding: 0 0.75rem;
+    min-width: 0;
+  }
+
+  .wallet-hub-layout__rail--right {
+    display: block !important;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    padding: 0 0.75rem 0.25rem;
+    box-sizing: border-box;
+  }
+
+  .wallet-center-stack,
+  .wallet-home-stack {
+    gap: 14px;
+  }
+
+  .wallet-balance-grid {
+    gap: 12px;
+  }
+
+  .wallet-hub-layout__rail--left {
+    position: fixed;
+    top: var(--et-nav-height, 70px);
+    left: 0;
+    bottom: 0;
+    z-index: 1200;
+    width: min(86vw, 300px);
+    max-width: 300px;
+    padding: 16px 12px 24px;
+    background: rgba(8, 12, 22, 0.98);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    transform: translateX(-105%);
+    transition: transform 0.24s ease;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  .wallet-hub-layout__rail--left.is-drawer-open {
+    transform: translateX(0);
+  }
+
+  .wallet-left-drawer-backdrop.is-visible {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1190;
+    border: none;
+    background: rgba(0, 0, 0, 0.55);
+    cursor: pointer;
+  }
+
+  .wallet-footer-banner {
+    grid-template-columns: 1fr;
+  }
+
+  .wallet-footer-features {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .wallet-footer-features {
+    grid-template-columns: 1fr;
+  }
+}

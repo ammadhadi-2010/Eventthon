@@ -12,8 +12,17 @@ function formatTime(value) {
 
 function Avatar({ name, image }) {
   const initial = (name || 'M').charAt(0).toUpperCase();
-  if (image) {
-    return <img src={image} alt="" className="squad-msg__avatar-img" />;
+  const [broken, setBroken] = React.useState(false);
+  const resolved = broken ? '' : squadsAbsoluteUrl(image);
+  if (resolved) {
+    return (
+      <img
+        src={resolved}
+        alt=""
+        className="squad-msg__avatar-img"
+        onError={() => setBroken(true)}
+      />
+    );
   }
   return <span className="squad-msg__avatar-fallback">{initial}</span>;
 }
@@ -54,6 +63,7 @@ function SquadChatMessage({
   );
 
   if (type === 'image' && src) {
+    const imageUrl = squadsAbsoluteUrl(src);
     return (
       <div className={`squad-msg-row ${isOwn ? 'is-own' : 'is-other'} ${isGroupedWithNext ? 'is-grouped' : ''}`}>
         {!isOwn && showAvatar ? (
@@ -72,7 +82,9 @@ function SquadChatMessage({
             >
               <FiMoreHorizontal size={13} />
             </button>
-            <img src={src} alt="Shared" />
+            <a href={imageUrl} target="_blank" rel="noreferrer" className="squad-msg__media-link">
+              <img src={imageUrl} alt={file_name || 'Shared image'} />
+            </a>
           </div>
           {time ? <span className="squad-msg__time">{time}</span> : null}
         </div>

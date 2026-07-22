@@ -1,0 +1,123 @@
+/* Wallet Hub — mobile component tweaks. Desktop (≥1024px) unchanged. */
+
+@media (max-width: 1023px) {
+  .wallet-balance-chart {
+    padding: 16px;
+  }
+
+  .wallet-donut-wrap {
+    grid-template-columns: 96px 1fr;
+    gap: 10px;
+  }
+
+  .wallet-donut {
+    width: 96px;
+    height: 96px;
+  }
+
+  .wallet-donut-center {
+    left: 48px;
+    top: 48px;
+  }
+
+  .wallet-transactions {
+    padding: 16px;
+  }
+
+  .wallet-transactions__head {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .wallet-tx-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+  }
+
+  .wallet-tx-tab {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .wallet-tx-row {
+    grid-template-columns: 40px minmax(0, 1fr);
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .wallet-tx-row__meta {
+    grid-column: 2;
+    text-align: left;
+    margin-top: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .wallet-footer-banner {
+    padding: 18px 16px;
+  }
+
+  .wallet-footer-banner__art {
+    display: none;
+  }
+
+  .wallet-subpage-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .wallet-sub-toolbar {
+    padding: 14px;
+  }
+
+  .wallet-sub-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .wallet-sub-panel {
+    padding: 16px;
+  }
+
+  .wallet-withdraw-balances,
+  .wallet-account-grid,
+  .wallet-rewards-grid,
+  .wallet-badges-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wallet-method-grid,
+  .wallet-receive-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .wallet-btn {
+    font-size: 0.84rem;
+  }
+
+  .wallet-left-card,
+  .wallet-side-panel,
+  .wallet-security-card {
+    padding: 14px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wallet-footer-features {
+    grid-template-columns: 1fr;
+  }
+
+  .wallet-redeem-item,
+  .wallet-upcoming-item {
+    flex-wrap: wrap;
+  }
+
+  .wallet-redeem-item .wallet-btn,
+  .wallet-pagination {
+    width: 100%;
+  }
+}

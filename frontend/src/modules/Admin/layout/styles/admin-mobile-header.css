@@ -4,8 +4,22 @@
   .agn-navbar__mobile-head {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     min-width: 0;
+  }
+
+  .et-app-shell:has(.hub-inner-mobile-shell) .agn-navbar__mobile {
+    padding: 6px 4px;
+  }
+
+  .agn-navbar__mobile-brand {
+    gap: 10px !important;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  .agn-navbar__hub-drawer-trigger {
+    margin-left: 2px;
   }
 
   .agn-navbar__mobile-toolbar {
@@ -115,6 +129,14 @@
   .agn-navbar__hub-drawer-trigger:active,
   .member-navbar__hub-drawer-trigger:active {
     transform: scale(0.94);
+  }
+}
+
+@media (min-width: 1024px) {
+  .hub-drawer-trigger,
+  .agn-navbar__hub-drawer-trigger,
+  .member-navbar__hub-drawer-trigger {
+    display: none !important;
   }
 }
 

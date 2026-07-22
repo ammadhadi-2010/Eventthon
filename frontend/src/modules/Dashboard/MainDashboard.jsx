@@ -13,18 +13,13 @@ import useDashboardRightSidebar from './components/rightSidebar/useDashboardRigh
 import MobileFeedSuggestedSquadsCarousel from './components/mobile/MobileFeedSuggestedSquadsCarousel';
 import MobileFeedPeopleCarousel from './components/mobile/MobileFeedPeopleCarousel';
 import { fetchHomeTimelineFeed } from './components/FeedSystem/homeFeedQuery';
-import { readStoredUserStub, hasStoredSession } from '../../utils/storedUser';
-import GuestLoginPromptModal from '../../components/GuestLoginPromptModal';
+import { readStoredUserStub } from '../../utils/storedUser';
 import { useDashboardShell } from './context/dashboardShellContext';
-
-const GUEST_LOGIN_PROMPT_MS = 40000;
 
 const MainDashboard = ({ userData }) => {
   const { mobileLeftDrawerOpen, setMobileLeftDrawerOpen, toggleMobileLeftDrawer } = useDashboardShell();
   const [posts, setPosts] = useState([]);
   const [feedLoading, setFeedLoading] = useState(true);
-  const [guestPromptOpen, setGuestPromptOpen] = useState(false);
-  const isGuest = !hasStoredSession();
 
   const effectiveUser = useMemo(() => {
     const stub = readStoredUserStub();
@@ -51,14 +46,6 @@ const MainDashboard = ({ userData }) => {
     fetchAllPosts();
   }, [fetchAllPosts]);
 
-  useEffect(() => {
-    if (!isGuest) return undefined;
-    const interval = window.setInterval(() => {
-      setGuestPromptOpen(true);
-    }, GUEST_LOGIN_PROMPT_MS);
-    return () => window.clearInterval(interval);
-  }, [isGuest]);
-
   useEffect(() => subscribeHubDrawerToggle('home', () => toggleMobileLeftDrawer?.()), [toggleMobileLeftDrawer]);
 
   useEffect(() => {
@@ -78,7 +65,6 @@ const MainDashboard = ({ userData }) => {
 
   const safePosts = Array.isArray(posts) ? posts : [];
   const closeLeftDrawer = () => setMobileLeftDrawerOpen(false);
-  const promptGuestLogin = useCallback(() => setGuestPromptOpen(true), []);
 
   const mobileWidgets = {
     suggestedSquads: (
@@ -99,10 +85,6 @@ const MainDashboard = ({ userData }) => {
 
   return (
     <div className="dash-home-shell dash-home-mobile-shell hub-inner-mobile-shell">
-      <GuestLoginPromptModal
-        open={isGuest && guestPromptOpen}
-        onKeepBrowsing={() => setGuestPromptOpen(false)}
-      />
       <div
         className={`dash-left-rail-backdrop${mobileLeftDrawerOpen ? ' dash-left-rail-backdrop--visible' : ''}`}
         onClick={closeLeftDrawer}
@@ -137,7 +119,6 @@ const MainDashboard = ({ userData }) => {
             userData={effectiveUser}
             onPostCreated={fetchAllPosts}
             aiHighlightComposerEnabled
-            onRequireAuth={isGuest ? promptGuestLogin : undefined}
           />
           {feedLoading && safePosts.length === 0 ? <p className="dash-feed-hint">Updating Feed...</p> : null}
           <ActivityFeed

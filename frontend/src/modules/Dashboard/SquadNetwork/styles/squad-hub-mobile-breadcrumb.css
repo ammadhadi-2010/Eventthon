@@ -1,0 +1,65 @@
+/* Squad hub — scrollable breadcrumb at top of page content (mobile only) */
+
+@media (max-width: 1023px) {
+  .sq-hub-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    padding: 8px 10px;
+    margin: 0;
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(15, 23, 42, 0.96);
+    flex-shrink: 0;
+  }
+
+  .sq-hub-breadcrumb::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sq-hub-breadcrumb__link {
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .sq-hub-breadcrumb__link:hover,
+  .sq-hub-breadcrumb__link:focus-visible {
+    color: #e2e8f0;
+  }
+
+  .sq-hub-breadcrumb__sep {
+    color: #475569;
+    flex-shrink: 0;
+  }
+
+  .sq-hub-breadcrumb__current,
+  .sq-hub-breadcrumb__tab {
+    color: #f1f5f9;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .sq-hub-breadcrumb__tab {
+    color: #cbd5e1;
+  }
+
+  .et-app-shell:has(.squad-hub-mobile-shell) .et-main-inner {
+    padding-top: 0 !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sq-hub-breadcrumb {
+    display: none !important;
+  }
+}

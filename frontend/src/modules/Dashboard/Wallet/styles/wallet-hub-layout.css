@@ -1,0 +1,15 @@
+/* Wallet hub layout overrides — pin full width inside dashboard shell */
+
+.wallet-page.hub-inner-mobile-shell {
+  padding: 0;
+}
+
+@media (min-width: 1024px) {
+  .wallet-page.hub-inner-mobile-shell {
+    padding: 12px 8px 20px;
+  }
+
+  .wallet-mobile-section-nav {
+    display: none !important;
+  }
+}

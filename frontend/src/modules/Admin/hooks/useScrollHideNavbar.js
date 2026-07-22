@@ -3,6 +3,12 @@ import { useEffect, useState } from 'react';
 const MOBILE_MQ = '(max-width: 1023px)';
 const THROTTLE_MS = 80;
 const DELTA = 10;
+const EXTRA_ROOT_SELECTORS = [
+  '.squad-hub-mobile-shell .squad-hub__content-scroll',
+  '.squad-hub-mobile-shell .squad-chat-messages',
+  '.msgx-mobile-screen .msgx-chat-thread',
+  '.msgx-mobile-screen .msgx-mobile-list-shell',
+];
 
 const subscribers = new Set();
 let sharedHidden = false;
@@ -11,7 +17,8 @@ let lastY = 0;
 let lastRun = 0;
 let rafId = 0;
 let retryRafId = 0;
-let rootEl = null;
+let rootEls = [];
+let activeScrollEl = null;
 let mq = null;
 let listening = false;
 
@@ -20,9 +27,21 @@ function notifyAll() {
   subscribers.forEach((fn) => fn(payload));
 }
 
+function collectScrollRoots() {
+  const roots = [];
+  const main = document.querySelector('main.et-main-scroll');
+  if (main) roots.push(main);
+  EXTRA_ROOT_SELECTORS.forEach((selector) => {
+    document.querySelectorAll(selector).forEach((el) => {
+      if (!roots.includes(el)) roots.push(el);
+    });
+  });
+  return roots;
+}
+
 function evaluateScroll() {
   rafId = 0;
-  if (!rootEl || !mq?.matches) {
+  if (!mq?.matches) {
     if (sharedHidden || sharedDirection !== 'up') {
       sharedHidden = false;
       sharedDirection = 'up';
@@ -31,7 +50,10 @@ function evaluateScroll() {
     return;
   }
 
-  const y = rootEl.scrollTop;
+  const target = activeScrollEl || rootEls[0];
+  if (!target) return;
+
+  const y = target.scrollTop;
   let nextHidden = sharedHidden;
   let nextDirection = sharedDirection;
 
@@ -54,7 +76,8 @@ function evaluateScroll() {
   }
 }
 
-function onScroll() {
+function onScroll(event) {
+  activeScrollEl = event.currentTarget;
   const now = Date.now();
   if (now - lastRun < THROTTLE_MS) {
     if (!rafId) rafId = window.requestAnimationFrame(evaluateScroll);
@@ -72,19 +95,25 @@ function onResize() {
   }
 }
 
+function bindScrollRoots() {
+  rootEls.forEach((el) => el.removeEventListener('scroll', onScroll));
+  rootEls = collectScrollRoots();
+  activeScrollEl = rootEls[0] || null;
+  lastY = activeScrollEl?.scrollTop ?? 0;
+  rootEls.forEach((el) => el.addEventListener('scroll', onScroll, { passive: true }));
+}
+
 function attachListener() {
-  if (listening || !rootEl) return;
+  if (listening) return;
   mq = window.matchMedia(MOBILE_MQ);
-  lastY = rootEl.scrollTop;
-  rootEl.addEventListener('scroll', onScroll, { passive: true });
+  bindScrollRoots();
   mq.addEventListener('change', onResize);
   listening = true;
 }
 
 function ensureListener() {
   if (listening) return;
-  if (!rootEl) rootEl = document.querySelector('main.et-main-scroll');
-  if (!rootEl) {
+  if (!collectScrollRoots().length) {
     if (!retryRafId) {
       retryRafId = window.requestAnimationFrame(() => {
         retryRafId = 0;
@@ -96,10 +125,19 @@ function ensureListener() {
   attachListener();
 }
 
+/** Re-bind inner hub scroll areas (e.g. squad chat) after route/tab mount. */
+export function refreshScrollHideRoots() {
+  if (!listening) {
+    ensureListener();
+    return;
+  }
+  bindScrollRoots();
+}
+
 /** Reset shared hide state (e.g. after route change). */
 export function resetScrollHideNavbar() {
-  if (!rootEl) rootEl = document.querySelector('main.et-main-scroll');
-  lastY = rootEl?.scrollTop ?? 0;
+  activeScrollEl = rootEls[0] || document.querySelector('main.et-main-scroll');
+  lastY = activeScrollEl?.scrollTop ?? 0;
   if (sharedHidden || sharedDirection !== 'up') {
     sharedHidden = false;
     sharedDirection = 'up';
@@ -109,7 +147,9 @@ export function resetScrollHideNavbar() {
 
 function teardownListener() {
   if (!listening || subscribers.size > 0) return;
-  rootEl?.removeEventListener('scroll', onScroll);
+  rootEls.forEach((el) => el.removeEventListener('scroll', onScroll));
+  rootEls = [];
+  activeScrollEl = null;
   mq?.removeEventListener('change', onResize);
   if (rafId) window.cancelAnimationFrame(rafId);
   if (retryRafId) window.cancelAnimationFrame(retryRafId);
@@ -131,6 +171,7 @@ export default function useScrollHideNavbar(enabled = true) {
     const onChange = (next) => setState(next);
     subscribers.add(onChange);
     ensureListener();
+    refreshScrollHideRoots();
     onChange({ hidden: sharedHidden, direction: sharedDirection });
 
     return () => {

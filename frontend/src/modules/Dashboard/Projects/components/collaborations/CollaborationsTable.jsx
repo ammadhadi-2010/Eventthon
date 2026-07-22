@@ -5,6 +5,7 @@ import AvatarStack from '../myProjects/AvatarStack';
 import MyProjectsProgress from '../myProjects/MyProjectsProgress';
 import OwnerCell from './OwnerCell';
 import { COLLABORATIONS_TABS } from './collaborationsTabs';
+import { getProjectCardShade } from '../../utils/projectCardShades';
 
 function ProjectRoleCell({ row }) {
   return (
@@ -20,9 +21,9 @@ function ProjectRoleCell({ row }) {
   );
 }
 
-function CollaborationMobileCard({ row, onOpenProject }) {
+function CollaborationMobileCard({ row, shade, onOpenProject }) {
   return (
-    <article className="ph-mp-mobile-card ph-col-mobile-card">
+    <article className={`ph-mp-mobile-card ph-mp-mobile-card--${shade} ph-col-mobile-card`}>
       <div className="ph-mp-mobile-top">
         <div className="ph-mp-mobile-title-wrap">
           <strong className="ph-mp-mobile-title">{row.name}</strong>
@@ -75,9 +76,12 @@ export default function CollaborationsTable({ rows, activeTab, onTabChange, onFi
         {rows.length === 0 ? (
           <p className="ph-table-empty">No collaborations match this filter.</p>
         ) : (
-          rows.map((row) => (
-            <CollaborationMobileCard key={row.id} row={row} onOpenProject={onOpenProject} />
-          ))
+          rows.map((row, index) => {
+            const shade = getProjectCardShade(index);
+            return (
+            <CollaborationMobileCard key={row.id} row={row} shade={shade} onOpenProject={onOpenProject} />
+            );
+          })
         )}
       </div>
       <div className="ph-table-scroll">
@@ -100,8 +104,10 @@ export default function CollaborationsTable({ rows, activeTab, onTabChange, onFi
                 </td>
               </tr>
             ) : (
-              rows.map((row) => (
-                <tr key={row.id} className="ph-mp-row">
+              rows.map((row, index) => {
+                const shade = getProjectCardShade(index);
+                return (
+                <tr key={row.id} className={`ph-mp-row ph-mp-row--${shade}`}>
                   <td>
                     <ProjectRoleCell row={row} />
                   </td>
@@ -129,7 +135,8 @@ export default function CollaborationsTable({ rows, activeTab, onTabChange, onFi
                     />
                   </td>
                 </tr>
-              ))
+                );
+              })
             )}
           </tbody>
         </table>

@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   FiGlobe, FiAward, FiUsers, FiPlusCircle, FiFileText,
 } from 'react-icons/fi';
 import EventThonBadge from '../../../../components/EventThonBadge';
 import { rankCodeToBadgeProps } from '../../../../components/badgeTierProps';
-import EventThonLogo from '../../../../components/brand/EventThonLogo';
 import PostActions from './PostActions';
 import PostAuthorAvatar from './PostAuthorAvatar';
 import PostMediaBlock from './PostMediaBlock';
 import PostExpandableText from './PostExpandableText';
 import PostArticleHeading from './PostArticleHeading';
 import PostHeaderControls from './PostHeaderControls';
-import PostAuthorRankBadge from './PostAuthorRankBadge';
 import { resolveAuthorRankMeta } from './postAuthorRank';
+import { profileSubjectFromPost, resolveUserProfilePath } from '../../Profile/utils/profileLinks';
 import {
   getPostMediaItems,
   normalizeFeedLabel,
@@ -21,13 +21,16 @@ import {
 import './post-item.css';
 
 const PostItem = ({ post, userData, onDeleted }) => {
+  const navigate = useNavigate();
   const [dismissed, setDismissed] = useState(false);
   const mediaItems = getPostMediaItems(post);
   const displayContent = sanitizeFeedPostText(post.content);
+  const articleFullContent = sanitizeFeedPostText(post.full_content || post.content);
   const isArticle = post.post_type === 'ARTICLE';
   const rankMeta = resolveAuthorRankMeta(post, userData);
   const badgeProps = rankCodeToBadgeProps(rankMeta.code, { label: rankMeta.label });
-  const authorName = post.author_name || 'EventThon Member';
+  const authorName = post.author_name || 'Member';
+  const authorProfilePath = resolveUserProfilePath(profileSubjectFromPost(post), userData);
 
   const getPostTypeDetails = (type) => {
     switch (type) {
@@ -61,18 +64,18 @@ const PostItem = ({ post, userData, onDeleted }) => {
         <PostAuthorAvatar post={post} userData={userData} borderColor={typeConfig.color} />
         <div className="feed-post-header__main">
           <h4 className="feed-post-header__name-row">
-            <span className="feed-post-header__name">{authorName}</span>
+            <Link to={authorProfilePath} className="feed-post-header__name feed-post-header__name-link">
+              {authorName}
+            </Link>
+          </h4>
+          <div className="feed-post-header__rank-row">
             <EventThonBadge
               tier={badgeProps.tier}
               label={badgeProps.label}
               variant="sm"
               imgClassName="et-rank-badge-img feed-post-header__rank-badge"
             />
-            <EventThonLogo variant="feed" />
-          </h4>
-          <div className="feed-post-header__meta-row">
-            <p className="feed-post-header__title">{post.author_title || 'Developer'}</p>
-            <PostAuthorRankBadge rankMeta={rankMeta} />
+            <span className="feed-post-header__rank-label">{rankMeta.label || badgeProps.label}</span>
           </div>
           <p className="feed-post-header__time">
             Just now • <FiGlobe size={10} />
@@ -95,7 +98,14 @@ const PostItem = ({ post, userData, onDeleted }) => {
         {isArticle ? (
           <>
             <PostArticleHeading title={post.article_title} />
-            <PostExpandableText text={displayContent} lineClamp={3} />
+            <PostExpandableText
+              text={articleFullContent}
+              fullText={articleFullContent}
+              maxChars={340}
+              expandOnce
+              seeMoreLabel="Read more"
+              onSeeMore={() => navigate(`/article/view/${post._id}`)}
+            />
           </>
         ) : (
           <PostExpandableText text={displayContent} lineClamp={3} />

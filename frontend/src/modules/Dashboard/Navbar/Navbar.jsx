@@ -75,7 +75,7 @@ const Navbar = ({ user, notifCount = 0 }) => {
     <nav style={navStyles.container} className="dash-nav">
       <MemberNavbarMobile user={user} notifCount={notifCount} actionProps={actionProps} />
 
-      <div className="dash-nav__desktop hidden lg:flex lg:w-full lg:items-center lg:justify-between">
+      <div className="dash-nav__desktop">
         <div style={navStyles.sectionLeft}>
           <div style={navStyles.logo} onClick={() => navigate(inAdminContext ? '/admin-control' : '/dashboard')}>
             <EventThonLogo variant="header" style={{ position: 'relative', zIndex: 1 }} />
@@ -117,7 +117,7 @@ const Navbar = ({ user, notifCount = 0 }) => {
             <FiBell size={18} />
             {notifCount > 0 ? <span style={navStyles.neonBadge}>{notifCount}</span> : null}
           </div>
-          <div className="dash-nav-desktop-only" style={navStyles.rightSideIcon} onClick={() => navigate('/wallet')} title="Wallet — Coming Soon">
+          <div className="dash-nav-desktop-only" style={navStyles.rightSideIcon} onClick={() => navigate('/wallet')} title="My Wallet">
             <FiCreditCard size={18} />
           </div>
           <div className="dash-nav-desktop-only dash-nav-hub-switches">

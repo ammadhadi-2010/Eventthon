@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { API_BASE_URL } from '../../../../../api/axiosConfig';
 import { navigateFromChatGigContext } from '../../../Gigs/utils/navigateGigSurfaces';
 import { buildThreadFromMessage } from '../../utils/messagesFormat';
+import { isMongoId } from '../../MessagesInboxPage/utils/inboxHelpers';
 
 const useChatWindowState = ({
   selectedMessage,
@@ -262,16 +263,21 @@ const useChatWindowState = ({
   };
 
   const toggleLike = (id) => {
+    let nextLiked = false;
     setThread((prev) => prev.map((msg) => {
       if (msg.id !== id) return msg;
-      const nextLiked = !msg.liked;
+      nextLiked = !msg.liked;
       return { ...msg, liked: nextLiked, likes: Math.max(0, (msg.likes || 0) + (nextLiked ? 1 : -1)) };
     }));
+    if (!isMongoId(id)) return;
+    Promise.resolve(onMessageAction?.(id, selectedMessage?.chat_type, 'like', String(nextLiked))).catch(() => {
+      showNotice('Like sync failed.');
+    });
   };
 
   const setReaction = (id, emoji) => {
     setThread((prev) => prev.map((msg) => (msg.id === id ? { ...msg, reaction: emoji || '' } : msg)));
-    if (String(id || '').startsWith('local-')) return;
+    if (!isMongoId(id)) return;
     Promise.resolve(onMessageAction?.(id, selectedMessage?.chat_type, 'react', emoji || '')).catch(() => {
       showNotice('Reaction save failed.');
     });
@@ -316,7 +322,7 @@ const useChatWindowState = ({
     setEmojiPickerFor('');
     if (replyTo?.id === id) setReplyTo(null);
     setThread((prev) => prev.filter((row) => row.id !== id));
-    if (id.startsWith('local-')) return;
+    if (!isMongoId(id)) return;
     const chatType = selectedMessage?.chat_type || 'gig';
     void Promise.resolve(onDeleteMessage?.(id, chatType)).catch((err) => {
       console.error('Chat message delete failed:', err);
@@ -333,11 +339,10 @@ const useChatWindowState = ({
     setMenuState((prev) => ({ ...prev, open: false }));
     setEmojiPickerFor('');
     showNotice('Message starred.');
-    if (!String(messageId || '').startsWith('local-')) {
-      Promise.resolve(onMessageAction?.(messageId, selectedMessage?.chat_type, 'star', String(nextStar))).catch(() => {
-        showNotice('Star sync failed.');
-      });
-    }
+    if (!isMongoId(messageId)) return;
+    Promise.resolve(onMessageAction?.(messageId, selectedMessage?.chat_type, 'star', String(nextStar))).catch(() => {
+      showNotice('Star sync failed.');
+    });
   };
 
   const handleReplyToMessage = (messageId) => {

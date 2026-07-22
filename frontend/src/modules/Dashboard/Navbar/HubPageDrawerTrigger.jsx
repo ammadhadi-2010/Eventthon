@@ -9,6 +9,7 @@ const HUB_LABELS = {
   projects: 'Open projects menu',
   gigs: 'Open gigs menu',
   jobs: 'Open jobs menu',
+  wallet: 'Open wallet menu',
 };
 
 export default function HubPageDrawerTrigger({ className = '' }) {
@@ -19,7 +20,7 @@ export default function HubPageDrawerTrigger({ className = '' }) {
   return (
     <button
       type="button"
-      className={`hub-drawer-trigger lg:hidden${className ? ` ${className}` : ''}`}
+      className={`hub-drawer-trigger${className ? ` ${className}` : ''}`}
       onClick={() => dispatchHubDrawerToggle(hub)}
       aria-label={HUB_LABELS[hub] || 'Open page menu'}
     >

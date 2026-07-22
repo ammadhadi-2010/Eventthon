@@ -6,10 +6,11 @@ import {
   REPORTS_FINANCIALS_MONTHLY,
   REPORTS_FINANCIALS_ROWS,
 } from '../../data/reportsTabData';
+import { getProjectCardShade } from '../../utils/projectCardShades';
 
-function FinancialMobileCard({ row }) {
+function FinancialMobileCard({ row, shade }) {
   return (
-    <article className="ph-rpt-mobile-card ph-rpt-fin-card">
+    <article className={`ph-mp-mobile-card ph-mp-mobile-card--${shade} ph-rpt-mobile-card ph-rpt-fin-card`}>
       <strong className="ph-rpt-td-strong">{row.project}</strong>
       <div className="ph-rpt-fin-metrics">
         <div className="ph-rpt-fin-row">
@@ -38,9 +39,10 @@ export default function ReportsFinancialsPanel() {
         <section className="ph-card ph-rpt-chart-card ph-rpt-table-card">
           <h3 className="ph-rpt-chart-title">Project Budgets</h3>
           <div className="ph-rpt-mobile-list" aria-label="Project budgets list">
-            {REPORTS_FINANCIALS_ROWS.map((row) => (
-              <FinancialMobileCard key={row.id} row={row} />
-            ))}
+            {REPORTS_FINANCIALS_ROWS.map((row, index) => {
+              const shade = getProjectCardShade(index);
+              return <FinancialMobileCard key={row.id} row={row} shade={shade} />;
+            })}
           </div>
           <div className="ph-table-scroll">
             <table className="ph-table ph-rpt-table">
@@ -53,14 +55,17 @@ export default function ReportsFinancialsPanel() {
                 </tr>
               </thead>
               <tbody>
-                {REPORTS_FINANCIALS_ROWS.map((row) => (
-                  <tr key={row.id}>
+                {REPORTS_FINANCIALS_ROWS.map((row, index) => {
+                  const shade = getProjectCardShade(index);
+                  return (
+                  <tr key={row.id} className={`ph-mp-row ph-mp-row--${shade}`}>
                     <td className="ph-rpt-td-strong">{row.project}</td>
                     <td>{row.budget}</td>
                     <td className="ph-rpt-td-spent">{row.spent}</td>
                     <td className="ph-rpt-td-muted">{row.remaining}</td>
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </div>

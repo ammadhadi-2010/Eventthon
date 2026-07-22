@@ -12,6 +12,21 @@ export const formatClock = (isoText) => {
   return dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 };
 
+const sameCalendarDay = (a, b) =>
+  a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+
+export const formatDaySeparator = (isoText) => {
+  if (!isoText) return '';
+  const dt = new Date(isoText);
+  if (Number.isNaN(dt.getTime())) return '';
+  const today = new Date();
+  const yesterday = new Date();
+  yesterday.setDate(today.getDate() - 1);
+  if (sameCalendarDay(dt, today)) return 'Today';
+  if (sameCalendarDay(dt, yesterday)) return 'Yesterday';
+  return dt.toLocaleDateString([], { weekday: 'long', month: 'short', day: 'numeric' });
+};
+
 export const filterMessages = (messages, activeFilter, query) => {
   const q = String(query || '').trim().toLowerCase();
   return messages.filter((row) => {

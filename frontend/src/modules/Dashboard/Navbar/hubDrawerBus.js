@@ -15,6 +15,7 @@ export function resolveHubFromPath(pathname = '') {
   if (path.startsWith('/projects')) return 'projects';
   if (path.startsWith('/gigs')) return 'gigs';
   if (path.startsWith('/jobs')) return 'jobs';
+  if (path.startsWith('/wallet')) return 'wallet';
   return '';
 }
 

@@ -5,7 +5,10 @@ import { isAdminControlPath, isAdminFullBleedPath } from '../modules/Admin/layou
 import { isAdminPreviewPath } from '../modules/Admin/layout/adminPreviewPaths';
 import AdminMobileBottomNav from '../modules/Admin/layout/AdminMobileBottomNav';
 import { AdminSidebarProvider } from '../modules/Admin/layout/AdminSidebarContext';
-import useScrollHideNavbar from '../modules/Admin/hooks/useScrollHideNavbar';
+import useScrollHideNavbar, {
+  resetScrollHideNavbar,
+  refreshScrollHideRoots,
+} from '../modules/Admin/hooks/useScrollHideNavbar';
 import { isCompanyWorkspacePath } from '../modules/Dashboard/Navbar/companyWorkspacePaths';
 import { readCompanyHubAccess } from '../modules/Dashboard/Navbar/useCompanyHubAccess';
 import { useLocation } from 'react-router-dom';
@@ -70,6 +73,10 @@ const DashboardLayout = ({ children, userData, refreshData }) => {
   useEffect(() => {
     setMobileLeftDrawerOpen(false);
     setMobileUserMenuOpen(false);
+    resetScrollHideNavbar();
+    refreshScrollHideRoots();
+    const timer = window.setTimeout(refreshScrollHideRoots, 350);
+    return () => window.clearTimeout(timer);
   }, [location.pathname]);
 
   const shellContextValue = useMemo(
@@ -91,7 +98,7 @@ const DashboardLayout = ({ children, userData, refreshData }) => {
 
   const shell = (
     <DashboardShellContext.Provider value={shellContextValue}>
-    <div className="et-app-shell">
+    <div className={`et-app-shell${navHidden ? ' et-app-shell--nav-hidden' : ''}`}>
       <div className="et-mesh-bg" aria-hidden />
       <div className="et-glow-spot" aria-hidden />
 

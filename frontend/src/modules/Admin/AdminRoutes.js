@@ -32,6 +32,7 @@ import AdminActivitiesPage from './pages/Activities/AdminActivitiesPage';
 import CountriesAnalyticsPage from './pages/Analytics/CountriesAnalyticsPage';
 import AdminPreviewViews from './preview/AdminPreviewViews';
 import EmailOutreachPage from './pages/EmailOutreach/EmailOutreachPage';
+import AdminWalletPage from './pages/WalletManagement/AdminWalletPage';
 
 const AdminRoutes = ({ userData }) => {
   const userRole = userData?.role || localStorage.getItem('userRole');
@@ -49,6 +50,7 @@ const AdminRoutes = ({ userData }) => {
           <Route index element={<AdminPanel />} />
           <Route path="dashboard" element={<AdminPanel />} />
           <Route path="system-health" element={<SystemHealthPage />} />
+          <Route path="wallet" element={<AdminWalletPage />} />
           <Route path="transactions" element={<AdminTransactionsPage />} />
           <Route path="activities" element={<AdminActivitiesPage />} />
           <Route path="analytics/countries" element={<CountriesAnalyticsPage />} />

@@ -9,10 +9,6 @@ import ViewFullProfilePage from './viewFullProfile/ViewFullProfilePage';
 import IdentityVerify from './Sections/IdentityVerify';
 
 const ProfileRoutes = ({ userData, refreshData }) => {
-  if (!hasStoredSession()) {
-    return <Navigate to="/auth/login" replace />;
-  }
-
   return (
     <div className="w-full min-w-0" style={{ fontFamily: 'Sans-Serif' }}>
       <Routes>
@@ -23,7 +19,13 @@ const ProfileRoutes = ({ userData, refreshData }) => {
 
         <Route
           path="edit"
-          element={<EditProfileFlowPage userData={userData} refreshData={refreshData} />}
+          element={
+            hasStoredSession() ? (
+              <EditProfileFlowPage userData={userData} refreshData={refreshData} />
+            ) : (
+              <Navigate to="/auth/login" replace />
+            )
+          }
         />
 
         <Route
@@ -31,13 +33,28 @@ const ProfileRoutes = ({ userData, refreshData }) => {
           element={<ViewFullProfilePage userData={userData} refreshData={refreshData} />}
         />
 
-        <Route path="connections/:listKey" element={<ConnectionsPage userData={userData} />} />
+        <Route
+          path="connections/:listKey"
+          element={
+            hasStoredSession() ? (
+              <ConnectionsPage userData={userData} />
+            ) : (
+              <Navigate to="/auth/login" replace />
+            )
+          }
+        />
 
         <Route path="niche" element={<Navigate to="/profile/edit" replace />} />
 
         <Route
           path="verify"
-          element={<IdentityVerify userData={userData} refreshData={refreshData} />}
+          element={
+            hasStoredSession() ? (
+              <IdentityVerify userData={userData} refreshData={refreshData} />
+            ) : (
+              <Navigate to="/auth/login" replace />
+            )
+          }
         />
 
         <Route path="*" element={<Navigate to="/profile" replace />} />

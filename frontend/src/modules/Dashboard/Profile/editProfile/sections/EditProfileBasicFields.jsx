@@ -167,6 +167,7 @@ const EditProfileBasicFields = ({
       if (typeof refreshData === 'function') {
         await refreshData();
       }
+      window.dispatchEvent(new CustomEvent('et:profile-updated'));
       if (typeof onBasicSaveComplete === 'function') {
         onBasicSaveComplete();
       }

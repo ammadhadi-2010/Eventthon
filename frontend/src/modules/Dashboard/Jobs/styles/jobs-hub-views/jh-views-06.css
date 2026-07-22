@@ -1,4 +1,4 @@
-﻿
+
 .jh-filter-select {
   min-height: 34px;
   padding: 0 10px;
@@ -20,15 +20,67 @@
 }
 
 .jh-apply-btn {
-  min-height: 32px;
-  padding: 0 12px;
-  border-radius: 8px;
-  border: none;
-  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(56, 189, 248, 0.55);
+  background: linear-gradient(135deg, #22d3ee 0%, #0ea5e9 35%, #2563eb 100%);
   color: #fff;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
   cursor: pointer;
+  white-space: nowrap;
+  box-shadow:
+    0 0 22px rgba(14, 165, 233, 0.5),
+    0 4px 16px rgba(37, 99, 235, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  transition: transform 0.16s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.jh-apply-btn__text {
+  background: linear-gradient(180deg, #ffffff 0%, #ecfeff 38%, #7dd3fc 72%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 8px rgba(224, 242, 254, 0.95)) drop-shadow(0 1px 0 rgba(255, 255, 255, 0.85));
+}
+
+.jh-apply-btn:hover .jh-apply-btn__text {
+  background: linear-gradient(180deg, #ffffff 0%, #f0fdff 30%, #bae6fd 65%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 12px rgba(186, 230, 253, 1)) drop-shadow(0 0 20px rgba(34, 211, 238, 0.65));
+}
+
+.jh-apply-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  box-shadow:
+    0 0 30px rgba(56, 189, 248, 0.62),
+    0 6px 22px rgba(37, 99, 235, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.jh-apply-btn:active {
+  transform: translateY(0);
+  filter: brightness(0.98);
+}
+
+.jh-apply-btn:focus-visible {
+  outline: 2px solid rgba(56, 189, 248, 0.75);
+  outline-offset: 2px;
+}
+
+.jh-apply-btn:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+  transform: none;
+  filter: none;
 }
 
 .jh-apply-overlay {

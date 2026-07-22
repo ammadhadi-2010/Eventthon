@@ -76,7 +76,6 @@ export default function ProjectDetailPage({ userData }) {
             listSearchDraft={browse.listSearchDraft}
             setListSearchDraft={browse.setListSearchDraft}
             runExplorerSearch={browse.runExplorerSearch}
-            onNavigateBack={() => navigate('/projects')}
           />
           <div className="gigx-grid">
             <ProjectExplorerLeftList
@@ -102,7 +101,6 @@ export default function ProjectDetailPage({ userData }) {
           listSearchDraft={browse.listSearchDraft}
           setListSearchDraft={browse.setListSearchDraft}
           runExplorerSearch={browse.runExplorerSearch}
-          onNavigateBack={() => navigate('/projects')}
         />
         <div className="gigx-grid">
           <ProjectExplorerLeftList

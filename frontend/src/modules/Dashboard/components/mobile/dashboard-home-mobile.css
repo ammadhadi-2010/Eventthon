@@ -1,10 +1,6 @@
 /* Home dashboard — Jobs-style mobile top bar + scroll-hide chrome (< 1024px) */
 
 @media (max-width: 1023px) {
-  .et-app-shell:has(.dash-home-mobile-shell) .et-top-nav {
-    display: none !important;
-  }
-
   .et-app-shell:has(.dash-home-mobile-shell) .et-main-inner {
     max-width: none !important;
     width: 100% !important;

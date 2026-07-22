@@ -46,9 +46,16 @@ def user_session_ids(user: dict) -> set[str]:
 
 
 async def assert_actor_id(actor_id: str, user: dict) -> None:
+    aid = actor_id.strip()
+    if not aid:
+        return
     allowed = user_session_ids(user)
-    if actor_id.strip() not in allowed:
-        raise HTTPException(status_code=403, detail="Action not allowed for this session")
+    if aid in allowed:
+        return
+    session_uid = str(user.get("_id") or user.get("user_id") or "").strip()
+    if session_uid and aid == session_uid:
+        return
+    raise HTTPException(status_code=403, detail="Action not allowed for this session")
 
 
 async def assert_squad_leader(squad: dict, actor_id: str, user: dict) -> None:

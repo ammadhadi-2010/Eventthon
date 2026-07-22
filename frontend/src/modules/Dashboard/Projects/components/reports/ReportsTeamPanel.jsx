@@ -2,10 +2,11 @@ import React from 'react';
 import ReportsKpiRow from './ReportsKpiRow';
 import ReportsSimpleLineChart from './ReportsSimpleLineChart';
 import { REPORTS_TEAM_KPIS, REPORTS_TEAM_LOAD, REPORTS_TEAM_ROWS } from '../../data/reportsTabData';
+import { getProjectCardShade } from '../../utils/projectCardShades';
 
-function TeamMobileCard({ row }) {
+function TeamMobileCard({ row, shade }) {
   return (
-    <article className="ph-rpt-mobile-card ph-rpt-team-card">
+    <article className={`ph-mp-mobile-card ph-mp-mobile-card--${shade} ph-rpt-mobile-card ph-rpt-team-card`}>
       <div className="ph-rpt-mobile-top">
         <div className="ph-rpt-member">
           <span className="ph-rpt-member-av">{row.initials}</span>
@@ -32,9 +33,10 @@ export default function ReportsTeamPanel() {
         <section className="ph-card ph-rpt-chart-card ph-rpt-table-card">
           <h3 className="ph-rpt-chart-title">Team Workload</h3>
           <div className="ph-rpt-mobile-list" aria-label="Team members list">
-            {REPORTS_TEAM_ROWS.map((row) => (
-              <TeamMobileCard key={row.id} row={row} />
-            ))}
+            {REPORTS_TEAM_ROWS.map((row, index) => {
+              const shade = getProjectCardShade(index);
+              return <TeamMobileCard key={row.id} row={row} shade={shade} />;
+            })}
           </div>
           <div className="ph-table-scroll">
             <table className="ph-table ph-rpt-table">
@@ -47,8 +49,10 @@ export default function ReportsTeamPanel() {
                 </tr>
               </thead>
               <tbody>
-                {REPORTS_TEAM_ROWS.map((row) => (
-                  <tr key={row.id}>
+                {REPORTS_TEAM_ROWS.map((row, index) => {
+                  const shade = getProjectCardShade(index);
+                  return (
+                  <tr key={row.id} className={`ph-mp-row ph-mp-row--${shade}`}>
                     <td>
                       <div className="ph-rpt-member">
                         <span className="ph-rpt-member-av">{row.initials}</span>
@@ -66,7 +70,8 @@ export default function ReportsTeamPanel() {
                     </td>
                     <td>{row.tasks}</td>
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </div>

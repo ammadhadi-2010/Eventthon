@@ -1,0 +1,84 @@
+﻿/* Left sidebar menu shades */
+.ph-left-link--aurora {
+  background: linear-gradient(135deg, rgba(45, 212, 191, 0.14), rgba(139, 92, 246, 0.08), rgba(12, 18, 36, 0.88));
+  border-color: rgba(94, 234, 212, 0.32);
+  box-shadow: 0 4px 16px rgba(45, 212, 191, 0.1);
+}
+.ph-left-link--cobalt {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.16), rgba(29, 78, 216, 0.08), rgba(12, 18, 36, 0.88));
+  border-color: rgba(96, 165, 250, 0.34);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.12);
+}
+.ph-left-link--coral {
+  background: linear-gradient(135deg, rgba(251, 113, 133, 0.14), rgba(249, 115, 22, 0.08), rgba(12, 18, 36, 0.88));
+  border-color: rgba(253, 164, 175, 0.32);
+  box-shadow: 0 4px 16px rgba(251, 113, 133, 0.1);
+}
+.ph-left-link--mint {
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.14), rgba(16, 185, 129, 0.08), rgba(12, 18, 36, 0.88));
+  border-color: rgba(110, 231, 183, 0.32);
+  box-shadow: 0 4px 16px rgba(52, 211, 153, 0.1);
+}
+.ph-left-link--plasma {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.16), rgba(236, 72, 153, 0.08), rgba(12, 18, 36, 0.88));
+  border-color: rgba(192, 132, 252, 0.34);
+  box-shadow: 0 4px 16px rgba(168, 85, 247, 0.12);
+}
+.ph-left-link--solar {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.14), rgba(245, 158, 11, 0.08), rgba(12, 18, 36, 0.88));
+  border-color: rgba(253, 224, 71, 0.34);
+  box-shadow: 0 4px 16px rgba(251, 191, 36, 0.1);
+}
+
+.ph-left-link--aurora.is-active { border-color: rgba(94, 234, 212, 0.62); box-shadow: 0 6px 20px rgba(45, 212, 191, 0.2); color: #99f6e4; }
+.ph-left-link--cobalt.is-active { border-color: rgba(96, 165, 250, 0.65); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.22); color: #93c5fd; }
+.ph-left-link--coral.is-active { border-color: rgba(253, 164, 175, 0.62); box-shadow: 0 6px 20px rgba(251, 113, 133, 0.2); color: #fda4af; }
+.ph-left-link--mint.is-active { border-color: rgba(110, 231, 183, 0.62); box-shadow: 0 6px 20px rgba(52, 211, 153, 0.2); color: #6ee7b7; }
+.ph-left-link--plasma.is-active { border-color: rgba(192, 132, 252, 0.65); box-shadow: 0 6px 20px rgba(168, 85, 247, 0.22); color: #d8b4fe; }
+.ph-left-link--solar.is-active { border-color: rgba(253, 224, 71, 0.65); box-shadow: 0 6px 20px rgba(251, 191, 36, 0.2); color: #fde047; }
+
+.ph-left-link--aurora .ph-left-count { color: #5eead4; }
+.ph-left-link--cobalt .ph-left-count { color: #60a5fa; }
+.ph-left-link--coral .ph-left-count { color: #fb7185; }
+.ph-left-link--mint .ph-left-count { color: #34d399; }
+.ph-left-link--plasma .ph-left-count { color: #c084fc; }
+.ph-left-link--solar .ph-left-count { color: #fbbf24; }
+
+.ph-overview-menu-item[class*='ph-overview-menu-item--'] {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  margin-bottom: 6px;
+  transition: transform 0.16s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.ph-overview-menu-item--aurora {
+  background: linear-gradient(135deg, rgba(45, 212, 191, 0.14), rgba(12, 18, 36, 0.88));
+  border-color: rgba(94, 234, 212, 0.28);
+}
+.ph-overview-menu-item--cobalt {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.16), rgba(12, 18, 36, 0.88));
+  border-color: rgba(96, 165, 250, 0.3);
+}
+.ph-overview-menu-item--coral {
+  background: linear-gradient(135deg, rgba(251, 113, 133, 0.14), rgba(12, 18, 36, 0.88));
+  border-color: rgba(253, 164, 175, 0.28);
+}
+.ph-overview-menu-item--mint {
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.14), rgba(12, 18, 36, 0.88));
+  border-color: rgba(110, 231, 183, 0.28);
+}
+.ph-overview-menu-item--plasma {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.16), rgba(12, 18, 36, 0.88));
+  border-color: rgba(192, 132, 252, 0.3);
+}
+.ph-overview-menu-item--solar {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.14), rgba(12, 18, 36, 0.88));
+  border-color: rgba(253, 224, 71, 0.3);
+}
+
+.ph-overview-menu-item--aurora.is-active { border-color: rgba(94, 234, 212, 0.55); color: #99f6e4; }
+.ph-overview-menu-item--cobalt.is-active { border-color: rgba(96, 165, 250, 0.58); color: #93c5fd; }
+.ph-overview-menu-item--coral.is-active { border-color: rgba(253, 164, 175, 0.55); color: #fda4af; }
+.ph-overview-menu-item--mint.is-active { border-color: rgba(110, 231, 183, 0.55); color: #6ee7b7; }
+.ph-overview-menu-item--plasma.is-active { border-color: rgba(192, 132, 252, 0.58); color: #d8b4fe; }
+.ph-overview-menu-item--solar.is-active { border-color: rgba(253, 224, 71, 0.58); color: #fde047; }

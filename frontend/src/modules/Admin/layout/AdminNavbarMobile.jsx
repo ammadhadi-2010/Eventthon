@@ -8,7 +8,7 @@ export default function AdminNavbarMobile({ brandSlot, hubDrawerTrigger, actionP
   const toggleSearch = () => setIsSearchOpen((open) => !open);
 
   return (
-    <div className="agn-navbar__mobile lg:hidden">
+    <div className="agn-navbar__mobile">
       <div className="agn-navbar__mobile-head flex min-w-0 items-center gap-2">
         <div className="agn-navbar__mobile-brand flex shrink-0 items-center gap-1.5">
           {brandSlot}

@@ -13,7 +13,8 @@ export default function OutreachAiResponder() {
           <div>
             <h2 className="eo-ai-responder__title">AI Auto-Responder</h2>
             <p className="eo-ai-responder__sub">
-              Local Ollama replies automatically when new inbox messages arrive at eventthon@gmail.com.
+              Local Ollama replies to real human inbox messages at eventthon@gmail.com.
+              Automated senders (Facebook Groups, noreply, notifications) are ignored automatically.
             </p>
           </div>
         </div>
@@ -45,7 +46,7 @@ export default function OutreachAiResponder() {
             rows={10}
             value={ai.systemPrompt}
             onChange={(e) => ai.setSystemPrompt(e.target.value)}
-            placeholder="You are the EventThon AI Agent..."
+            placeholder="You are the official AI assistant for EventThon Network. Focus only on EventThon services..."
             disabled={ai.loading || ai.saving}
           />
         </label>

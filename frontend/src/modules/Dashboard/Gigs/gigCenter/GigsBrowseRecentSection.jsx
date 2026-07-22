@@ -1,12 +1,14 @@
 import React from 'react';
-import { FiChevronDown, FiStar, FiHeart } from 'react-icons/fi';
+import { FiChevronDown } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
+import GigRecentCard from '../components/GigRecentCard';
+import GigsRecentMobileCard from '../components/GigsRecentMobileCard';
 import { recentGigs } from '../data/gigsData';
 import useSavedGigs from '../hooks/useSavedGigs';
 import { loadBrowseFilters, saveBrowseFilters } from '../utils/gigsBrowseSession';
 
 /** Recent Gigs list — explorer + save wiring isolated here. */
-const GigsBrowseRecentSection = () => {
+export default function GigsBrowseRecentSection() {
   const navigate = useNavigate();
   const { savedRows, savedGigIdsLegacy, toggleSaved } = useSavedGigs();
 
@@ -29,61 +31,50 @@ const GigsBrowseRecentSection = () => {
     });
   };
 
+  const saveGig = async (gig) => {
+    try {
+      await toggleSaved({
+        gig_ref_id: `recent-${gig.id}`,
+        title: gig.title,
+        seller_name: gig.seller,
+        price_label: `${gig.price}`,
+        location_label: 'Remote',
+        posted_label: 'Saved now',
+        tags: gig.tags || [],
+      });
+    } catch {
+      /* ignore */
+    }
+  };
+
   return (
     <div className="gigs-card gigs-jobs-board">
       <div className="gigs-section-head">
         <h3>Recent Gigs</h3>
         <button type="button" onClick={() => navigate('/gigs/explorer', { state: marketState() })}>View All</button>
       </div>
-      <div className="gigs-recent-list">
-        {recentGigs.map((gig) => (
-          <article
+      <div className="gigs-recent-list gigs-recent-list--desktop">
+        {recentGigs.map((gig, index) => (
+          <GigRecentCard
             key={gig.id}
-            className="gigs-recent-row"
-            role="button"
-            tabIndex={0}
-            onClick={() => openRow(gig)}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter' || event.key === ' ') openRow(gig);
-            }}
-          >
-            <div className={`gigs-recent-logo ${gig.logoClass}`}>{gig.logoText}</div>
-            <div className="gigs-recent-main">
-              <h4>{gig.title}</h4>
-              <p className="gigs-recent-seller">{gig.seller} • {gig.sellerLevel}</p>
-              <div className="gigs-recent-tags">
-                {gig.tags.map((tag) => (
-                  <span key={tag}>{tag}</span>
-                ))}
-              </div>
-            </div>
-            <div className="gigs-recent-side">
-              <p className="gigs-recent-rating"><FiStar size={12} /> {gig.rating} <span>({gig.reviews})</span></p>
-              <p className="gigs-recent-price"><span>From</span> {gig.price}</p>
-              <p className="gigs-recent-eta">{gig.eta}</p>
-            </div>
-            <button
-              type="button"
-              className={`gigs-recent-fav${isSaved(gig.id) ? ' is-active' : ''}`}
-              aria-label={`${isSaved(gig.id) ? 'Unsave' : 'Save'} ${gig.title}`}
-              onClick={async (event) => {
-                event.stopPropagation();
-                try {
-                  await toggleSaved({
-                    gig_ref_id: `recent-${gig.id}`,
-                    title: gig.title,
-                    seller_name: gig.seller,
-                    price_label: `${gig.price}`,
-                    location_label: 'Remote',
-                    posted_label: 'Saved now',
-                    tags: gig.tags || [],
-                  });
-                } catch {}
-              }}
-            >
-              <FiHeart size={15} />
-            </button>
-          </article>
+            gig={gig}
+            index={index}
+            saved={isSaved(gig.id)}
+            onOpen={openRow}
+            onToggleSave={saveGig}
+          />
+        ))}
+      </div>
+      <div className="gigs-recent-mobile-list gigs-recent-mobile-stack" aria-label="Recent gigs">
+        {recentGigs.map((gig, index) => (
+          <GigsRecentMobileCard
+            key={`m-${gig.id}`}
+            gig={gig}
+            index={index}
+            saved={isSaved(gig.id)}
+            onOpen={() => openRow(gig)}
+            onToggleSave={() => saveGig(gig)}
+          />
         ))}
       </div>
       <div className="gigs-recent-action">
@@ -93,6 +84,4 @@ const GigsBrowseRecentSection = () => {
       </div>
     </div>
   );
-};
-
-export default GigsBrowseRecentSection;
+}

@@ -1,0 +1,153 @@
+/* Jobs hub — 6 shining card shades (desktop list + sub-views) */
+
+.jobs-job-card--crimson,
+.jh-job-row--crimson {
+  background: linear-gradient(135deg, rgba(255, 51, 102, 0.2), rgba(12, 18, 36, 0.94));
+  border-color: rgba(255, 107, 157, 0.48);
+  box-shadow: 0 10px 32px rgba(255, 51, 102, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+.jobs-job-card--electric,
+.jh-job-row--electric {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.18), rgba(12, 18, 36, 0.94));
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 10px 32px rgba(0, 153, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+.jobs-job-card--lime,
+.jh-job-row--lime {
+  background: linear-gradient(135deg, rgba(132, 204, 22, 0.18), rgba(12, 18, 36, 0.94));
+  border-color: rgba(163, 230, 53, 0.48);
+  box-shadow: 0 10px 32px rgba(132, 204, 22, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+.jobs-job-card--sunset,
+.jh-job-row--sunset {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(12, 18, 36, 0.94));
+  border-color: rgba(251, 146, 60, 0.5);
+  box-shadow: 0 10px 32px rgba(255, 107, 53, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+.jobs-job-card--fuchsia,
+.jh-job-row--fuchsia {
+  background: linear-gradient(135deg, rgba(217, 70, 239, 0.2), rgba(12, 18, 36, 0.94));
+  border-color: rgba(232, 121, 249, 0.5);
+  box-shadow: 0 10px 32px rgba(217, 70, 239, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+.jobs-job-card--gold,
+.jh-job-row--gold {
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.2), rgba(12, 18, 36, 0.94));
+  border-color: rgba(250, 204, 21, 0.52);
+  box-shadow: 0 10px 32px rgba(234, 179, 8, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.jobs-job-logo--crimson { background: linear-gradient(145deg, #ff3366, #ff6b9d); box-shadow: 0 0 18px rgba(255, 51, 102, 0.45); }
+.jobs-job-logo--electric { background: linear-gradient(145deg, #0099ff, #00d4ff); box-shadow: 0 0 18px rgba(0, 212, 255, 0.45); }
+.jobs-job-logo--lime { background: linear-gradient(145deg, #65a30d, #a3e635); box-shadow: 0 0 18px rgba(163, 230, 53, 0.4); }
+.jobs-job-logo--sunset { background: linear-gradient(145deg, #ea580c, #fb923c); box-shadow: 0 0 18px rgba(251, 146, 60, 0.45); }
+.jobs-job-logo--fuchsia { background: linear-gradient(145deg, #c026d3, #e879f9); box-shadow: 0 0 18px rgba(217, 70, 239, 0.45); }
+.jobs-job-logo--gold { background: linear-gradient(145deg, #ca8a04, #fde047); box-shadow: 0 0 18px rgba(250, 204, 21, 0.4); color: #1e293b; }
+
+.jobs-job-card--crimson .gigs-job-tags span,
+.jh-job-row--crimson .gigs-job-tags span,
+.jh-job-row--crimson .jh-rec-row__tags span {
+  background: rgba(255, 51, 102, 0.22);
+  border-color: rgba(255, 107, 157, 0.4);
+  color: #ffe4ec;
+}
+.jobs-job-card--electric .gigs-job-tags span,
+.jh-job-row--electric .gigs-job-tags span,
+.jh-job-row--electric .jh-rec-row__tags span {
+  background: rgba(0, 212, 255, 0.18);
+  border-color: rgba(56, 189, 248, 0.42);
+  color: #e0f7ff;
+}
+.jobs-job-card--lime .gigs-job-tags span,
+.jh-job-row--lime .gigs-job-tags span,
+.jh-job-row--lime .jh-rec-row__tags span {
+  background: rgba(132, 204, 22, 0.2);
+  border-color: rgba(163, 230, 53, 0.42);
+  color: #ecfccb;
+}
+.jobs-job-card--sunset .gigs-job-tags span,
+.jh-job-row--sunset .gigs-job-tags span,
+.jh-job-row--sunset .jh-rec-row__tags span {
+  background: rgba(255, 107, 53, 0.2);
+  border-color: rgba(251, 146, 60, 0.42);
+  color: #ffedd5;
+}
+.jobs-job-card--fuchsia .gigs-job-tags span,
+.jh-job-row--fuchsia .gigs-job-tags span,
+.jh-job-row--fuchsia .jh-rec-row__tags span {
+  background: rgba(217, 70, 239, 0.2);
+  border-color: rgba(232, 121, 249, 0.42);
+  color: #fae8ff;
+}
+.jobs-job-card--gold .gigs-job-tags span,
+.jh-job-row--gold .gigs-job-tags span,
+.jh-job-row--gold .jh-rec-row__tags span {
+  background: rgba(234, 179, 8, 0.2);
+  border-color: rgba(250, 204, 21, 0.42);
+  color: #fef9c3;
+}
+
+.jobs-job-card--crimson .gigs-job-salary,
+.jh-job-row--crimson .gigs-job-salary,
+.jh-job-row--crimson .jh-rec-row__salary { color: #fda4af; }
+.jobs-job-card--electric .gigs-job-salary,
+.jh-job-row--electric .gigs-job-salary,
+.jh-job-row--electric .jh-rec-row__salary { color: #7dd3fc; }
+.jobs-job-card--lime .gigs-job-salary,
+.jh-job-row--lime .gigs-job-salary,
+.jh-job-row--lime .jh-rec-row__salary { color: #bef264; }
+.jobs-job-card--sunset .gigs-job-salary,
+.jh-job-row--sunset .gigs-job-salary,
+.jh-job-row--sunset .jh-rec-row__salary { color: #fdba74; }
+.jobs-job-card--fuchsia .gigs-job-salary,
+.jh-job-row--fuchsia .gigs-job-salary,
+.jh-job-row--fuchsia .jh-rec-row__salary { color: #f0abfc; }
+.jobs-job-card--gold .gigs-job-salary,
+.jh-job-row--gold .gigs-job-salary,
+.jh-job-row--gold .jh-rec-row__salary { color: #fde047; }
+
+.jobs-job-card[class*='--'],
+.jh-job-row[class*='--'] {
+  transition: transform 0.18s ease, border-color 0.2s ease, box-shadow 0.22s ease;
+}
+
+.jobs-job-card[class*='--']:hover,
+.jh-job-row[class*='--']:hover {
+  transform: translateY(-2px);
+}
+
+.jobs-job-card--crimson:hover { box-shadow: 0 14px 36px rgba(255, 51, 102, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.08); }
+.jobs-job-card--electric:hover { box-shadow: 0 14px 36px rgba(0, 212, 255, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.08); }
+.jobs-job-card--lime:hover { box-shadow: 0 14px 36px rgba(163, 230, 53, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.08); }
+.jobs-job-card--sunset:hover { box-shadow: 0 14px 36px rgba(255, 107, 53, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.08); }
+.jobs-job-card--fuchsia:hover { box-shadow: 0 14px 36px rgba(217, 70, 239, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.08); }
+.jobs-job-card--gold:hover { box-shadow: 0 14px 36px rgba(234, 179, 8, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.08); }
+
+.jobs-job-card.is-detail-open.jobs-job-card--crimson { border-color: rgba(255, 107, 157, 0.75); }
+.jobs-job-card.is-detail-open.jobs-job-card--electric { border-color: rgba(56, 189, 248, 0.75); }
+.jobs-job-card.is-detail-open.jobs-job-card--lime { border-color: rgba(163, 230, 53, 0.75); }
+.jobs-job-card.is-detail-open.jobs-job-card--sunset { border-color: rgba(251, 146, 60, 0.75); }
+.jobs-job-card.is-detail-open.jobs-job-card--fuchsia { border-color: rgba(232, 121, 249, 0.75); }
+.jobs-job-card.is-detail-open.jobs-job-card--gold { border-color: rgba(250, 204, 21, 0.75); }
+
+.jh-saved-list,
+.jh-rec-panel__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.jh-job-row[class*='--'] {
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.jh-rec-row.jh-job-row[class*='--'] {
+  border-radius: 14px;
+}
+
+.jobs-job-board .gigs-company-logo.jobs-job-logo,
+.jh-job-row .gigs-company-logo.jobs-job-logo {
+  border-radius: 12px;
+  font-weight: 800;
+}

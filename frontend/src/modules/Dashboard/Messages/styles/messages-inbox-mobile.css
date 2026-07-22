@@ -24,10 +24,6 @@
 }
 
 @media (max-width: 1023px) {
-  .et-app-shell:has(.msgx-mobile-screen) .et-top-nav {
-    display: none !important;
-  }
-
   .et-app-shell:has(.msgx-mobile-screen) .et-main-inner {
     max-width: none !important;
     width: 100% !important;
@@ -44,18 +40,18 @@
 
   .msgx-mobile-chrome {
     position: fixed;
-    top: 0;
+    top: var(--et-nav-height, 70px);
     left: 0;
     right: 0;
     z-index: 50;
     background: #090d16;
     border-bottom: 1px solid #1e293b;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease-in-out;
     transform: translateY(0);
   }
 
-  .msgx-mobile-chrome--hidden {
-    transform: translateY(-100%);
+  .et-app-shell--nav-hidden .msgx-mobile-chrome {
+    transform: translateY(calc(-100% - var(--et-nav-height, 70px)));
     pointer-events: none;
   }
 
@@ -139,9 +135,14 @@
   }
 
   .msgx-mobile-list-shell {
-    padding-top: var(--msgx-mobile-chrome-h, 3.5rem);
+    padding-top: calc(var(--et-nav-height, 70px) + var(--msgx-mobile-chrome-h, 3.5rem));
     flex: 1 1 auto;
     min-height: 0;
+    transition: padding-top 0.3s ease-in-out;
+  }
+
+  .et-app-shell--nav-hidden .msgx-mobile-list-shell {
+    padding-top: 0;
   }
 
   .msgx-mobile-list-shell .msgx-sidebar {
@@ -166,17 +167,32 @@
 
   .msgx-mobile-chat-shell {
     flex: 1 1 auto;
-    min-height: calc(100dvh - 4rem);
+    min-height: calc(100dvh - var(--et-nav-height, 70px) - 4rem);
     display: flex;
     flex-direction: column;
+  }
+
+  .et-app-shell--nav-hidden .msgx-mobile-chat-shell {
+    min-height: calc(100dvh - 4rem);
   }
 
   .msgx-mobile-chat-shell .msgx-chat {
     flex: 1 1 auto;
     border: 0;
     border-radius: 0;
-    min-height: calc(100dvh - 4rem);
+    min-height: calc(100dvh - var(--et-nav-height, 70px) - 4rem);
     max-height: none;
+  }
+
+  .et-app-shell--nav-hidden .msgx-mobile-chat-shell .msgx-chat {
+    min-height: calc(100dvh - 4rem);
+  }
+
+  .msgx-mobile-chat-shell .msgx-chat-head {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    flex-shrink: 0;
   }
 
   .msgx-mobile-chat-shell .msgx-chat-back {

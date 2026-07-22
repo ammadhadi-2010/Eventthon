@@ -133,8 +133,8 @@ export default function JobDetailsDrawer({
           <button type="button" className="ja-footer-cancel" onClick={() => onApplyWithResume?.(detail)}>
             Upload resume
           </button>
-          <button type="button" className="jobs-alert-btn" onClick={handleApply} disabled={busy}>
-            {busy ? 'Applying…' : 'Apply Now'}
+          <button type="button" className="jh-apply-btn" onClick={handleApply} disabled={busy}>
+            <span className="jh-apply-btn__text">{busy ? 'Applying…' : 'Apply Now'}</span>
           </button>
         </footer>
       </aside>

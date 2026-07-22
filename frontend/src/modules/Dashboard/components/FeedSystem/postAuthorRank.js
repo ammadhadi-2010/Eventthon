@@ -1,11 +1,18 @@
 import { getRankMeta } from '../../../Admin/pages/UserManagement/userManagementData';
+import { getUserDisplayName } from '../../utils/dashboardMedia';
 
 function isSameAuthor(post, currentUser) {
   if (!post || !currentUser) return false;
-  if (String(post.user_id || '') === String(currentUser._id || '')) return true;
+  const postAuthorId = String(post.author_id || post.user_id || '').trim();
+  const currentId = String(currentUser._id || currentUser.id || '').trim();
+  if (postAuthorId && currentId && postAuthorId === currentId) return true;
+
   const author = String(post.author_name || '').trim().toLowerCase();
-  const self = `${currentUser.first_name || ''} ${currentUser.last_name || ''}`.trim().toLowerCase();
-  return Boolean(author && self && author === self);
+  const selfName = getUserDisplayName(currentUser).trim().toLowerCase();
+  if (author && selfName && author === selfName) return true;
+
+  const emailPrefix = String(currentUser.email || '').split('@')[0].toLowerCase();
+  return Boolean(emailPrefix && author && author === emailPrefix);
 }
 
 function normalizeRankKey(value) {

@@ -1,6 +1,7 @@
 import React from 'react';
 import JobsMobileSubViewShell from '../components/JobsMobileSubViewShell';
 import { useJobsHub } from '../context/JobsHubContext';
+import { getJobCardShade } from '../utils/jobCardShades';
 
 export default function RecommendedJobs() {
   const { recommendedJobs, loading } = useJobsHub();
@@ -17,9 +18,11 @@ export default function RecommendedJobs() {
           {loading ? (
             <p className="jh-rec-empty">Loading recommendations…</p>
           ) : recommendedJobs.length ? (
-            recommendedJobs.map((job) => (
-              <article key={job.id} className="jh-rec-row jh-mobile-data-card">
-                <div className={`gigs-company-logo ${job.logoClass}`}>{job.logoText}</div>
+            recommendedJobs.map((job, index) => {
+              const shade = getJobCardShade(index);
+              return (
+              <article key={job.id} className={`jh-rec-row jh-mobile-data-card jh-job-row jh-job-row--${shade}`}>
+                <div className={`gigs-company-logo jobs-job-logo jobs-job-logo--${shade}`}>{job.logoText}</div>
                 <div className="jh-rec-row__main">
                   <h3>{job.role}</h3>
                   <p>{job.company}</p>
@@ -39,7 +42,8 @@ export default function RecommendedJobs() {
                 <strong className="jh-rec-row__salary">{job.salary}</strong>
                 <span className="jh-rec-row__match">{job.matchLabel}</span>
               </article>
-            ))
+              );
+            })
           ) : (
             <p className="jh-rec-empty">Add skills to your profile to unlock personalized recommendations.</p>
           )}

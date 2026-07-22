@@ -24,6 +24,7 @@ from backend_routes.admin.email_outreach_scheduler import start_outreach_schedul
 from backend_routes.admin.admin_chat import router as admin_chat_router
 from backend_routes.admin.admin_notifications import router as admin_notifications_router
 from backend_routes.admin.system_health import router as admin_system_health_router
+from backend_routes.admin.wallet_management import router as admin_wallet_router
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -36,9 +37,17 @@ import asyncio
 from dotenv import load_dotenv
 load_dotenv()
 
-# Existing imports
+from backend_routes.security.rate_limit import RateLimitMiddleware
+from backend_routes.security.security_headers import SecurityHeadersMiddleware
+from backend_routes.security.secrets_guard import redact_secrets, safe_json_error
 from backend_routes.auth import auth, google_auth
 from backend_routes.finance import wallet
+from backend_routes.finance.payment_checkout_routes import router as payment_checkout_router
+from backend_routes.finance.payment_webhook_routes import router as payment_webhook_router
+from backend_routes.finance.payment_scheduler import (
+    start_payment_settlement_scheduler,
+    stop_payment_settlement_scheduler,
+)
 from backend_routes.dashboard import dashboard_main, posts_handler, article_handler, post_ai_routes, posts_squad_routes, updates_routes
 from backend_routes.ai_assistant import router as ai_assistant_router
 from backend_routes.alerts import alerts
@@ -88,7 +97,25 @@ STATIC_DIR = os.path.join(BASE_DIR, "static")
 UPLOAD_DIR = os.path.join(STATIC_DIR, "uploads")
 
 # ❌ Pehle ye list define karein (Jo missing thi):
-SUB_FOLDERS = ["profiles", "banners", "identity", "posts", "projects"]
+SUB_FOLDERS = [
+    "profiles",
+    "banners",
+    "identity",
+    "posts",
+    "projects",
+    "squads",
+    "articles",
+    "admin-profiles",
+    "messages",
+    "comments",
+    "gigs",
+]
+
+
+def ensure_upload_directories() -> None:
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
+    for folder in SUB_FOLDERS:
+        os.makedirs(os.path.join(UPLOAD_DIR, folder), exist_ok=True)
 
 
 
@@ -111,22 +138,38 @@ if _env_origins:
         if clean and clean not in origins:
             origins.append(clean)
 
+app.add_middleware(SecurityHeadersMiddleware)
+app.add_middleware(RateLimitMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=[
+        "Authorization",
+        "Accept",
+        "Content-Type",
+        "X-User-Id",
+        "X-User-Email",
+        "X-User-Mobile",
+        "Stripe-Signature",
+        "X-Signature",
+        "X-Mock-Webhook-Secret",
+    ],
+    expose_headers=["Retry-After"],
+    max_age=600,
 )
 
 # --- 4. GLOBAL ERROR HANDLER ---
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
-    logger.error(f"Global Error: {str(exc)}")
-    return JSONResponse(
-        status_code=500,
-        content={"status": "error", "message": "Internal Server Error"},
-    )
+    if isinstance(exc, HTTPException):
+        return JSONResponse(
+            status_code=exc.status_code,
+            content={"status": "error", "message": redact_secrets(str(exc.detail))},
+        )
+    logger.error("Global Error on %s: %s", request.url.path, redact_secrets(str(exc)))
+    return JSONResponse(status_code=500, content=safe_json_error())
 
 # --- 5. ENHANCED USER FETCHING (Sync with Global Schema) ---
 
@@ -148,7 +191,7 @@ async def api_health():
     except Exception as exc:
         return JSONResponse(
             status_code=503,
-            content={"status": "degraded", "mongo": False, "detail": str(exc)},
+            content={"status": "degraded", "mongo": False, "detail": "Database unavailable"},
         )
 
 
@@ -194,7 +237,10 @@ app.include_router(admin_job_management_router, prefix="/api/admin")
 app.include_router(admin_chat_router, prefix="/api/admin")
 app.include_router(admin_notifications_router, prefix="/api/admin")
 app.include_router(admin_system_health_router, prefix="/api/admin")
+app.include_router(admin_wallet_router, prefix="/api/admin")
 app.include_router(wallet.router, prefix="/finance", tags=["Finance"])
+app.include_router(payment_checkout_router, prefix="/finance", tags=["Payments"])
+app.include_router(payment_webhook_router, prefix="/finance", tags=["Payment Webhooks"])
 app.include_router(squads_router, prefix="/squads")
 app.include_router(squads_api_router, prefix="/api")
 app.include_router(squad_users_router, prefix="/users", tags=["Squad Users"])
@@ -250,6 +296,7 @@ async def outreach_schedule_direct(body: ScheduleOutreachBody):
 
 @app.on_event("startup")
 async def bootstrap_public_showrooms():
+    ensure_upload_directories()
     try:
         await ensure_all_public_seeds(force=True)
         logger.info("Public showroom seed data synced.")
@@ -265,12 +312,20 @@ async def bootstrap_public_showrooms():
         await ensure_feedback_indexes()
     except Exception as exc:
         logger.warning("Feedback index bootstrap skipped: %s", exc)
+    try:
+        from backend_routes.finance.payment_indexes import ensure_payment_indexes
+
+        await ensure_payment_indexes()
+    except Exception as exc:
+        logger.warning("Payment index bootstrap skipped: %s", exc)
     start_outreach_scheduler()
+    start_payment_settlement_scheduler()
 
 
 @app.on_event("shutdown")
 async def shutdown_outreach_scheduler():
     stop_outreach_scheduler()
+    stop_payment_settlement_scheduler()
 
 
 @app.get("/", tags=["Health Check"])

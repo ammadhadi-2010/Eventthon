@@ -1,0 +1,26 @@
+@media (min-width: 1024px) {
+  .ph-hero-actions-bar, .ph-table-mobile-list, .ph-kpi-mobile, .ph-mobile-back,
+  .ph-mobile-topbar { display: none !important; }
+  .ph-page.ph-mobile-shell .ph-layout.ph-mobile-shell__body {
+    padding-top: 0 !important;
+  }
+  .projects-mobile-swipe-lane {
+    display: grid !important;
+    flex-direction: unset !important;
+    flex-wrap: unset !important;
+    overflow: visible !important;
+    scroll-snap-type: none !important;
+  }
+  .projects-mobile-swipe-lane__item {
+    min-width: 0 !important;
+    max-width: none !important;
+    width: 100% !important;
+    flex: unset !important;
+  }
+  .ph-hero-actions { display: contents; }
+  .ph-btn--desktop-only {
+    display: inline-flex !important; visibility: visible !important;
+    width: auto !important; height: auto !important; overflow: visible !important;
+    position: static !important; margin: 0 !important; padding: 8px 14px !important;
+  }
+}

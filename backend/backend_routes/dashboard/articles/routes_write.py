@@ -28,6 +28,7 @@ async def publish_article(
     content: str = Form(...),
     identifier: str = Form(...),
     cover_image: Optional[UploadFile] = File(None),
+    cover_image_url: Optional[str] = Form(None),
     slug: Optional[str] = Form(None),
     excerpt: Optional[str] = Form(None),
     tags: Optional[str] = Form(None),
@@ -36,6 +37,7 @@ async def publish_article(
     meta_description: Optional[str] = Form(None),
     category: Optional[str] = Form(None),
     seo_score: Optional[int] = Form(None),
+    related_content: Optional[str] = Form(None),
 ):
     try:
         article = await save_article_document(
@@ -43,6 +45,7 @@ async def publish_article(
             content=content,
             identifier=identifier,
             cover_image=cover_image,
+            cover_image_url=cover_image_url,
             status_value="published",
             slug=slug,
             excerpt=excerpt,
@@ -52,6 +55,7 @@ async def publish_article(
             meta_description=meta_description,
             category=category,
             seo_score=seo_score,
+            related_content=related_content,
         )
         return {"status": "success", "message": "Article published successfully", "data": article}
     except HTTPException:
@@ -67,6 +71,7 @@ async def save_draft(
     content: str = Form(...),
     identifier: str = Form(...),
     cover_image: Optional[UploadFile] = File(None),
+    cover_image_url: Optional[str] = Form(None),
     slug: Optional[str] = Form(None),
     excerpt: Optional[str] = Form(None),
     tags: Optional[str] = Form(None),
@@ -75,6 +80,7 @@ async def save_draft(
     meta_description: Optional[str] = Form(None),
     category: Optional[str] = Form(None),
     seo_score: Optional[int] = Form(None),
+    related_content: Optional[str] = Form(None),
 ):
     try:
         article = await save_article_document(
@@ -82,6 +88,7 @@ async def save_draft(
             content=content,
             identifier=identifier,
             cover_image=cover_image,
+            cover_image_url=cover_image_url,
             status_value="draft",
             slug=slug,
             excerpt=excerpt,
@@ -91,6 +98,7 @@ async def save_draft(
             meta_description=meta_description,
             category=category,
             seo_score=seo_score,
+            related_content=related_content,
         )
         return {"status": "success", "message": "Draft saved successfully", "data": article}
     except HTTPException:

@@ -1,0 +1,110 @@
+
+.ph-table-row--aurora .ph-table-icon,
+.ph-mp-row--aurora .ph-mp-project-icon { background: linear-gradient(145deg, #2dd4bf, #8b5cf6); box-shadow: 0 0 14px rgba(45, 212, 191, 0.45); }
+.ph-table-row--cobalt .ph-table-icon,
+.ph-mp-row--cobalt .ph-mp-project-icon { background: linear-gradient(145deg, #3b82f6, #1d4ed8); box-shadow: 0 0 14px rgba(59, 130, 246, 0.45); }
+.ph-table-row--coral .ph-table-icon,
+.ph-mp-row--coral .ph-mp-project-icon { background: linear-gradient(145deg, #fb7185, #f97316); box-shadow: 0 0 14px rgba(251, 113, 133, 0.42); }
+.ph-table-row--mint .ph-table-icon,
+.ph-mp-row--mint .ph-mp-project-icon { background: linear-gradient(145deg, #34d399, #059669); box-shadow: 0 0 14px rgba(52, 211, 153, 0.42); }
+.ph-table-row--plasma .ph-table-icon,
+.ph-mp-row--plasma .ph-mp-project-icon { background: linear-gradient(145deg, #a855f7, #ec4899); box-shadow: 0 0 14px rgba(168, 85, 247, 0.45); }
+.ph-table-row--solar .ph-table-icon,
+.ph-mp-row--solar .ph-mp-project-icon { background: linear-gradient(145deg, #fbbf24, #f59e0b); box-shadow: 0 0 14px rgba(251, 191, 36, 0.42); color: #1e293b; }
+
+.ph-table-row--aurora .ph-pcard-progress-track span,
+.ph-mp-row--aurora .ph-mp-progress-fill,
+.ph-table-mobile-card--aurora .ph-pcard-progress-track span { background: linear-gradient(90deg, #2dd4bf, #8b5cf6); box-shadow: 0 0 8px rgba(45, 212, 191, 0.5); }
+.ph-table-row--cobalt .ph-pcard-progress-track span,
+.ph-mp-row--cobalt .ph-mp-progress-fill,
+.ph-table-mobile-card--cobalt .ph-pcard-progress-track span { background: linear-gradient(90deg, #60a5fa, #2563eb); box-shadow: 0 0 8px rgba(59, 130, 246, 0.5); }
+.ph-table-row--coral .ph-pcard-progress-track span,
+.ph-mp-row--coral .ph-mp-progress-fill,
+.ph-table-mobile-card--coral .ph-pcard-progress-track span { background: linear-gradient(90deg, #fb7185, #f97316); box-shadow: 0 0 8px rgba(251, 113, 133, 0.45); }
+.ph-table-row--mint .ph-pcard-progress-track span,
+.ph-mp-row--mint .ph-mp-progress-fill,
+.ph-table-mobile-card--mint .ph-pcard-progress-track span { background: linear-gradient(90deg, #34d399, #10b981); box-shadow: 0 0 8px rgba(52, 211, 153, 0.45); }
+.ph-table-row--plasma .ph-pcard-progress-track span,
+.ph-mp-row--plasma .ph-mp-progress-fill,
+.ph-table-mobile-card--plasma .ph-pcard-progress-track span { background: linear-gradient(90deg, #c084fc, #ec4899); box-shadow: 0 0 8px rgba(168, 85, 247, 0.5); }
+.ph-table-row--solar .ph-pcard-progress-track span,
+.ph-mp-row--solar .ph-mp-progress-fill,
+.ph-table-mobile-card--solar .ph-pcard-progress-track span { background: linear-gradient(90deg, #fde047, #f59e0b); box-shadow: 0 0 8px rgba(251, 191, 36, 0.45); }
+
+.ph-table-row--aurora td:nth-child(4),
+.ph-mp-row--aurora .ph-mp-budget { color: #99f6e4; font-weight: 700; }
+.ph-table-row--cobalt td:nth-child(4),
+.ph-mp-row--cobalt .ph-mp-budget { color: #93c5fd; font-weight: 700; }
+.ph-table-row--coral td:nth-child(4),
+.ph-mp-row--coral .ph-mp-budget { color: #fda4af; font-weight: 700; }
+.ph-table-row--mint td:nth-child(4),
+.ph-mp-row--mint .ph-mp-budget { color: #6ee7b7; font-weight: 700; }
+.ph-table-row--plasma td:nth-child(4),
+.ph-mp-row--plasma .ph-mp-budget { color: #d8b4fe; font-weight: 700; }
+.ph-table-row--solar td:nth-child(4),
+.ph-mp-row--solar .ph-mp-budget { color: #fde047; font-weight: 700; }
+
+.ph-mp-table tbody tr[class*='ph-mp-row--'] .ph-mp-budget {
+  font-weight: 700;
+}
+
+.ph-table-row--aurora .ph-table-project small,
+.ph-mp-row--aurora .ph-mp-project small { color: #99f6e4; }
+.ph-table-row--cobalt .ph-table-project small,
+.ph-mp-row--cobalt .ph-mp-project small { color: #93c5fd; }
+.ph-table-row--coral .ph-table-project small,
+.ph-mp-row--coral .ph-mp-project small { color: #fda4af; }
+.ph-table-row--mint .ph-table-project small,
+.ph-mp-row--mint .ph-mp-project small { color: #6ee7b7; }
+.ph-table-row--plasma .ph-table-project small,
+.ph-mp-row--plasma .ph-mp-project small { color: #d8b4fe; }
+.ph-table-row--solar .ph-table-project small,
+.ph-mp-row--solar .ph-mp-project small { color: #fde047; }
+
+.ph-table-row--aurora .ph-table-progress small,
+.ph-mp-row--aurora .ph-mp-progress-pct { color: #99f6e4; }
+.ph-table-row--cobalt .ph-table-progress small,
+.ph-mp-row--cobalt .ph-mp-progress-pct { color: #93c5fd; }
+.ph-table-row--coral .ph-table-progress small,
+.ph-mp-row--coral .ph-mp-progress-pct { color: #fda4af; }
+.ph-table-row--mint .ph-table-progress small,
+.ph-mp-row--mint .ph-mp-progress-pct { color: #6ee7b7; }
+.ph-table-row--plasma .ph-table-progress small,
+.ph-mp-row--plasma .ph-mp-progress-pct { color: #d8b4fe; }
+.ph-table-row--solar .ph-table-progress small,
+.ph-mp-row--solar .ph-mp-progress-pct { color: #fde047; }
+
+.ph-status {
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);
+}
+
+.ph-status--in-progress {
+  background: rgba(59, 130, 246, 0.28);
+  color: #bfdbfe;
+  box-shadow: 0 0 14px rgba(59, 130, 246, 0.25);
+}
+.ph-status--in-review {
+  background: rgba(245, 158, 11, 0.28);
+  color: #fde68a;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.22);
+}
+.ph-status--on-hold {
+  background: rgba(239, 68, 68, 0.26);
+  color: #fecaca;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.2);
+}
+.ph-status--completed {
+  background: rgba(34, 197, 94, 0.28);
+  color: #bbf7d0;
+  box-shadow: 0 0 14px rgba(34, 197, 94, 0.22);
+}
+
+.ph-table-mobile-list,
+.ph-mp-mobile-list,
+.ph-rpt-mobile-list,
+.ph-col-mobile-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 4px 6px 12px;
+}

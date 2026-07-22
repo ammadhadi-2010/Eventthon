@@ -24,6 +24,7 @@ import './styles/projects-hub-insights-mobile.css';
 import './styles/projects-hub-contrast-mobile.css';
 import './styles/projects-subpages-mobile.css';
 import './styles/projects-reports-mobile.css';
+import './styles/projects-hub-mobile-tabs.css';
 import './styles/project-row-menu.css';
 
 export default function ProjectsPage({ defaultMenu, hideRightRail = false } = {}) {

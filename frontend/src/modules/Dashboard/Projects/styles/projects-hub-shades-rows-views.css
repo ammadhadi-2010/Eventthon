@@ -1,0 +1,155 @@
+/* Row shades — Collaborations, Saved, Funding, Milestones, Reports, Activity, Top Collaborators */
+
+.ph-fund-table-card .ph-table:has(tbody tr[class*='ph-mp-row--']),
+.ph-ms-table-card .ph-table:has(tbody tr[class*='ph-mp-row--']),
+.ph-rpt-table-card .ph-table:has(tbody tr[class*='ph-mp-row--']),
+.ph-col-table-wrap .ph-col-table:has(tbody tr[class*='ph-mp-row--']) {
+  border-collapse: separate;
+  border-spacing: 0 14px;
+}
+
+.ph-fund-table-card:has(.ph-table tbody tr[class*='ph-mp-row--']) .ph-table-scroll,
+.ph-ms-table-card:has(.ph-table tbody tr[class*='ph-mp-row--']) .ph-table-scroll,
+.ph-rpt-table-card:has(.ph-table tbody tr[class*='ph-mp-row--']) .ph-table-scroll,
+.ph-col-table-wrap:has(.ph-col-table tbody tr[class*='ph-mp-row--']) {
+  padding: 4px 6px 12px;
+}
+
+.ph-fund-table-card .ph-table:has(tbody tr[class*='ph-mp-row--']) thead th,
+.ph-ms-table-card .ph-table:has(tbody tr[class*='ph-mp-row--']) thead th,
+.ph-rpt-table-card .ph-table:has(tbody tr[class*='ph-mp-row--']) thead th,
+.ph-col-table-wrap .ph-col-table:has(tbody tr[class*='ph-mp-row--']) thead th {
+  border-bottom: none;
+  padding-bottom: 4px;
+}
+
+.ph-fund-table-card .ph-table tbody tr[class*='ph-mp-row--'],
+.ph-ms-table-card .ph-table tbody tr[class*='ph-mp-row--'],
+.ph-rpt-table-card .ph-table tbody tr[class*='ph-mp-row--'],
+.ph-col-table-wrap .ph-col-table tbody tr[class*='ph-mp-row--'] {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  transition: background 0.18s ease, box-shadow 0.22s ease, transform 0.16s ease, border-color 0.2s ease;
+}
+
+.ph-fund-table-card .ph-table tbody tr[class*='ph-mp-row--'] > td,
+.ph-ms-table-card .ph-table tbody tr[class*='ph-mp-row--'] > td,
+.ph-rpt-table-card .ph-table tbody tr[class*='ph-mp-row--'] > td,
+.ph-col-table-wrap .ph-col-table tbody tr[class*='ph-mp-row--'] > td {
+  border-bottom: none;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.ph-fund-table-card .ph-table tbody tr[class*='ph-mp-row--'] td:first-child,
+.ph-ms-table-card .ph-table tbody tr[class*='ph-mp-row--'] td:first-child,
+.ph-rpt-table-card .ph-table tbody tr[class*='ph-mp-row--'] td:first-child,
+.ph-col-table-wrap .ph-col-table tbody tr[class*='ph-mp-row--'] td:first-child {
+  border-radius: 16px 0 0 16px;
+  padding-left: 16px;
+}
+
+.ph-fund-table-card .ph-table tbody tr[class*='ph-mp-row--'] td:last-child,
+.ph-ms-table-card .ph-table tbody tr[class*='ph-mp-row--'] td:last-child,
+.ph-rpt-table-card .ph-table tbody tr[class*='ph-mp-row--'] td:last-child,
+.ph-col-table-wrap .ph-col-table tbody tr[class*='ph-mp-row--'] td:last-child {
+  border-radius: 0 16px 16px 0;
+  padding-right: 16px;
+}
+
+.ph-col-table-wrap .ph-col-table tbody tr[class*='ph-mp-row--']:hover td {
+  background: transparent;
+}
+
+.ph-act-list:has(.ph-act-row[class*='ph-act-row--']) {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+}
+
+.ph-act-list .ph-act-row[class*='ph-act-row--'] {
+  border-bottom: none;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.16s ease, box-shadow 0.22s ease, border-color 0.2s ease, filter 0.18s ease;
+}
+
+.ph-act-list .ph-act-row[class*='ph-act-row--']:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.ph-rpt-mobile-card[class*='ph-mp-mobile-card--'],
+.ph-col-mobile-card[class*='ph-mp-mobile-card--'] {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 14px;
+  transition: transform 0.16s ease, box-shadow 0.22s ease, border-color 0.2s ease;
+}
+
+.ph-rpt-mobile-card[class*='ph-mp-mobile-card--']:hover,
+.ph-col-mobile-card[class*='ph-mp-mobile-card--']:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.ph-act-row--aurora,
+.ph-rpt-mobile-card.ph-mp-mobile-card--aurora,
+.ph-col-mobile-card.ph-mp-mobile-card--aurora {
+  background: linear-gradient(135deg, rgba(45, 212, 191, 0.28), rgba(139, 92, 246, 0.16), rgba(12, 18, 36, 0.88));
+  border-color: rgba(94, 234, 212, 0.55);
+  box-shadow: 0 10px 32px rgba(45, 212, 191, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.ph-act-row--cobalt,
+.ph-rpt-mobile-card.ph-mp-mobile-card--cobalt,
+.ph-col-mobile-card.ph-mp-mobile-card--cobalt {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(29, 78, 216, 0.16), rgba(12, 18, 36, 0.88));
+  border-color: rgba(96, 165, 250, 0.58);
+  box-shadow: 0 10px 32px rgba(59, 130, 246, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.ph-act-row--coral,
+.ph-rpt-mobile-card.ph-mp-mobile-card--coral,
+.ph-col-mobile-card.ph-mp-mobile-card--coral {
+  background: linear-gradient(135deg, rgba(251, 113, 133, 0.28), rgba(249, 115, 22, 0.16), rgba(12, 18, 36, 0.88));
+  border-color: rgba(253, 164, 175, 0.55);
+  box-shadow: 0 10px 32px rgba(251, 113, 133, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.ph-act-row--mint,
+.ph-rpt-mobile-card.ph-mp-mobile-card--mint,
+.ph-col-mobile-card.ph-mp-mobile-card--mint {
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.28), rgba(16, 185, 129, 0.16), rgba(12, 18, 36, 0.88));
+  border-color: rgba(110, 231, 183, 0.55);
+  box-shadow: 0 10px 32px rgba(52, 211, 153, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.ph-act-row--plasma,
+.ph-rpt-mobile-card.ph-mp-mobile-card--plasma,
+.ph-col-mobile-card.ph-mp-mobile-card--plasma {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.16), rgba(12, 18, 36, 0.88));
+  border-color: rgba(192, 132, 252, 0.58);
+  box-shadow: 0 10px 32px rgba(168, 85, 247, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.ph-act-row--solar,
+.ph-rpt-mobile-card.ph-mp-mobile-card--solar,
+.ph-col-mobile-card.ph-mp-mobile-card--solar {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.28), rgba(245, 158, 11, 0.16), rgba(12, 18, 36, 0.88));
+  border-color: rgba(253, 224, 71, 0.58);
+  box-shadow: 0 10px 32px rgba(251, 191, 36, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.ph-mp-row--aurora .ph-col-impact-fill,
+.ph-mp-row--cobalt .ph-col-impact-fill,
+.ph-mp-row--coral .ph-col-impact-fill,
+.ph-mp-row--mint .ph-col-impact-fill,
+.ph-mp-row--plasma .ph-col-impact-fill,
+.ph-mp-row--solar .ph-col-impact-fill {
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.12);
+}
+
+.ph-mp-row--aurora .ph-rpt-util-track span { background: linear-gradient(90deg, #2dd4bf, #8b5cf6); }
+.ph-mp-row--cobalt .ph-rpt-util-track span { background: linear-gradient(90deg, #60a5fa, #2563eb); }
+.ph-mp-row--coral .ph-rpt-util-track span { background: linear-gradient(90deg, #fb7185, #f97316); }
+.ph-mp-row--mint .ph-rpt-util-track span { background: linear-gradient(90deg, #34d399, #10b981); }
+.ph-mp-row--plasma .ph-rpt-util-track span { background: linear-gradient(90deg, #c084fc, #ec4899); }
+.ph-mp-row--solar .ph-rpt-util-track span { background: linear-gradient(90deg, #fde047, #f59e0b); }

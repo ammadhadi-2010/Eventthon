@@ -6,6 +6,7 @@ import { myGigStats, myGigTabs } from '../data/gigsData';
 import { getGigsActorId, getGigsSessionHeaders } from '../utils/gigsSession';
 import { GigsHubSectionHeader } from './GigsHubBackButton';
 import { isMongoObjectId } from '../utils/navigateGigSurfaces';
+import { getRecentGigShade } from '../utils/recentGigShades';
 
 const MyGigsContent = ({ onOpenCreateGig = () => {}, onBack }) => {
   const navigate = useNavigate();
@@ -47,7 +48,6 @@ const MyGigsContent = ({ onOpenCreateGig = () => {}, onBack }) => {
           orders: String(gig.orders ?? 0),
           rating: gig.rating ? Number(gig.rating).toFixed(1) : '-',
           thumbText: (gig.title || 'G').trim().charAt(0).toUpperCase() || 'G',
-          thumbClass: ['blue', 'purple', 'pink', 'slate'][index % 4],
         };
       });
       setRowsSource(mapped);
@@ -219,9 +219,11 @@ const MyGigsContent = ({ onOpenCreateGig = () => {}, onBack }) => {
         </div>
 
         <div className="mygigs-rows">
-          {rows.map((row) => (
-            <div key={row.id} className="mygigs-row">
-              <div className={`mygigs-thumb ${row.thumbClass}`}>{row.thumbText}</div>
+          {rows.map((row, index) => {
+            const shade = getRecentGigShade(index);
+            return (
+            <div key={row.id} className={`mygigs-row mygigs-row--${shade}`}>
+              <div className={`mygigs-thumb gigs-recent-logo gigs-recent-logo--${shade}`}>{row.thumbText}</div>
               <div>
                 <p className="mygigs-title">{row.title}</p>
                 {row.ownerType === 'squad' ? <p className="mygigs-owner-pill">Squad Gig</p> : null}
@@ -271,7 +273,8 @@ const MyGigsContent = ({ onOpenCreateGig = () => {}, onBack }) => {
                 </div>
               ) : null}
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

@@ -21,7 +21,8 @@ export default function useMessagesInboxActions(state) {
   const sendHandlers = useMessagesInboxSend(state);
 
   const handleUpdateDeliveryStatus = useCallback(async (messageId, chatType, deliveryStatus) => {
-    if (!messageId) return;
+    const id = String(messageId || '').trim();
+    if (!isMongoId(id)) return;
     await API.post(
       '/api/messages/unified-delivery',
       {
@@ -71,14 +72,15 @@ export default function useMessagesInboxActions(state) {
 
   const handleDeleteMessage = useCallback((messageId, chatType) => {
     const id = String(messageId || '').trim();
-    if (!id || id.startsWith('local-')) return;
+    if (!isMongoId(id)) return;
     setRemovedMessageIds((prev) => (prev.includes(id) ? prev : [...prev, id]));
     setThreadOutbox((prev) => prev.filter((row) => row._id !== id));
     void deleteChatMessage(id, chatType).catch((err) => console.error('Chat message delete failed:', err));
   }, [setRemovedMessageIds, setThreadOutbox]);
 
   const handleMessageAction = useCallback(async (messageId, chatType, action, value = '') => {
-    if (!messageId) return;
+    const id = String(messageId || '').trim();
+    if (!isMongoId(id)) return;
     await API.post(
       '/api/messages/unified-action',
       {

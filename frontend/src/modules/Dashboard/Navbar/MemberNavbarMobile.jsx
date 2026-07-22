@@ -14,7 +14,7 @@ export default function MemberNavbarMobile({ user, notifCount, actionProps }) {
   };
 
   return (
-    <div className="member-navbar__mobile lg:hidden">
+    <div className="member-navbar__mobile">
       <div className="member-navbar__mobile-head flex min-w-0 items-center gap-2">
         <div className="member-navbar__mobile-brand flex shrink-0 items-center gap-1.5">
           <button type="button" className="member-navbar__logo-link" onClick={handleLogoClick} aria-label="Go to home dashboard">

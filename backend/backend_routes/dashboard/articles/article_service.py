@@ -9,11 +9,18 @@ from .article_helpers import (
     build_slug,
     estimate_reading_time,
     resolve_author,
+    resolve_existing_media_path,
     save_uploaded_image,
     serialize_article,
     unlink_static_file,
 )
 from database import comment_collection
+from backend_routes.dashboard.post_feed_enrich import (
+    author_display_name_from_user,
+    author_imageurl_from_user,
+    author_rank_from_user,
+)
+from .related_content_helpers import normalize_related_content
 from backend_routes.dashboard.carousel_intel_pipeline import apply_carousel_intel
 
 
@@ -23,6 +30,7 @@ async def save_article_document(
     content: str,
     identifier: str,
     cover_image: Optional[UploadFile],
+    cover_image_url: Optional[str] = None,
     status_value: str,
     slug: Optional[str],
     excerpt: Optional[str],
@@ -32,12 +40,19 @@ async def save_article_document(
     meta_description: Optional[str],
     category: Optional[str],
     seo_score: Optional[int],
+    related_content: Optional[str] = None,
 ):
     author = await resolve_author(identifier)
     if not author:
         raise HTTPException(status_code=404, detail="Author not found")
 
-    cover_url = await save_uploaded_image(cover_image) if cover_image else ""
+    cover_url = ""
+    if cover_image and cover_image.filename:
+        cover_url = await save_uploaded_image(cover_image)
+    elif cover_image_url:
+        cover_url = resolve_existing_media_path(cover_image_url)
+        if not cover_url:
+            raise HTTPException(status_code=400, detail="Cover image not found on server. Upload again.")
     tag_list = [tag.strip() for tag in (tags or "").split(",") if tag.strip()]
     clean_title = title.strip()
     clean_content = content.strip()
@@ -47,8 +62,10 @@ async def save_article_document(
         "author_id": str(author["_id"]),
         "author_mobile": author.get("mobile", ""),
         "author_email": author.get("email", ""),
-        "author_name": f"{author.get('first_name', 'User')} {author.get('last_name', '')}".strip(),
-        "author_title": author.get("designation", "EventThon Member"),
+        "author_name": author_display_name_from_user(author),
+        "author_title": author.get("designation", ""),
+        "author_imageurl": author_imageurl_from_user(author),
+        "author_rank": author_rank_from_user(author),
         "title": clean_title,
         "slug": article_slug,
         "content": clean_content,
@@ -67,6 +84,7 @@ async def save_article_document(
         "metadata": {"views": 0, "likes": 0, "shares": 0, "sends": 0, "comments": 0},
         "comments_count": 0,
         "send_count": 0,
+        "related_content": normalize_related_content(related_content),
         "created_at": datetime.utcnow(),
         "updated_at": datetime.utcnow(),
     }
@@ -86,6 +104,7 @@ async def update_article_document(
     content: str,
     identifier: str,
     cover_image: Optional[UploadFile],
+    cover_image_url: Optional[str] = None,
     slug: Optional[str],
     excerpt: Optional[str],
     tags: Optional[str],
@@ -95,6 +114,7 @@ async def update_article_document(
     category: Optional[str],
     seo_score: Optional[int],
     status_value: Optional[str],
+    related_content: Optional[str] = None,
 ):
     if not ObjectId.is_valid(article_id):
         raise HTTPException(status_code=400, detail="Invalid article id")
@@ -106,9 +126,14 @@ async def update_article_document(
     from .article_helpers import require_article_author
     await require_article_author(article, identifier)
 
-    cover_url = article.get("cover_image", "")
+    cover_url = resolve_existing_media_path(article.get("cover_image") or article.get("imageurl") or "")
     if cover_image and cover_image.filename:
         cover_url = await save_uploaded_image(cover_image)
+    elif cover_image_url:
+        resolved = resolve_existing_media_path(cover_image_url)
+        if not resolved:
+            raise HTTPException(status_code=400, detail="Cover image not found on server. Upload again.")
+        cover_url = resolved
 
     clean_title = title.strip()
     clean_content = content.strip()
@@ -134,6 +159,7 @@ async def update_article_document(
         "seo_score": seo_score or 0,
         "reading_time": estimate_reading_time(clean_content),
         "word_count": len(clean_content.split()),
+        "related_content": normalize_related_content(related_content),
         "updated_at": datetime.utcnow(),
     }
     if next_status == "published":

@@ -6,8 +6,7 @@ import GigsCategoryProvidersCenter from './GigsCategoryProvidersCenter';
 import GigsCategoryProvidersRightRail from './GigsCategoryProvidersRightRail';
 import { GIGS_CATBP_SORT_OPTIONS, useGigsCategoryProviders } from './hooks/useGigsCategoryProviders';
 import { gigsCategoryIcons, GigsCategoryIconFallback } from './utils/gigsBrowseCategoryIcons';
-
-const THUMB_FALLBACK_ROTATE = ['seo', 'react', 'ai', 'content'];
+import { getRecentGigShade } from './utils/recentGigShades';
 
 const GigsCategoryProvidersPage = () => {
   const hub = useGigsCategoryProviders();
@@ -103,13 +102,13 @@ const GigsCategoryProvidersPage = () => {
               <ul className="gigs-catbp-gig-list">
                 {hub.gigSource.map((gig, idx) => {
                   const thumbUrl = gig.images?.[0] || '';
-                  const fb = THUMB_FALLBACK_ROTATE[idx % THUMB_FALLBACK_ROTATE.length];
+                  const shade = getRecentGigShade(idx);
                   const ratingLabel = gig.rating;
                   const numericRev = gig.reviews;
                   return (
                     <li key={gig.id}>
                       <article
-                        className="gigs-catbp-gig-card"
+                        className={`gigs-catbp-gig-card gigs-catbp-gig-card--${shade}`}
                         role="button"
                         tabIndex={0}
                         onClick={() => hub.openGigDetail(gig.id)}
@@ -130,13 +129,13 @@ const GigsCategoryProvidersPage = () => {
                           {thumbUrl ? (
                             <img src={thumbUrl} alt="" className="gigs-catbp-gig-thumb-img" />
                           ) : (
-                            <div className={`gigs-feature-thumb ${fb}`} aria-hidden />
+                            <div className={`gigs-feature-thumb gigs-feature-thumb--${shade}`} aria-hidden />
                           )}
                         </div>
                         <div className="gigs-catbp-gig-body">
                           <h3 className="gigs-catbp-gig-title">{gig.title}</h3>
                           <div className="gigs-catbp-gig-seller">
-                            <span className="gigs-catbp-gig-avatar">{gig.sellerAvatarInitial}</span>
+                            <span className={`gigs-catbp-gig-avatar gigs-recent-logo gigs-recent-logo--${shade}`}>{gig.sellerAvatarInitial}</span>
                             <span>{gig.sellerName}</span>
                             <span className="gigs-catbp-gig-badge">{gig.sellerLevel}</span>
                           </div>

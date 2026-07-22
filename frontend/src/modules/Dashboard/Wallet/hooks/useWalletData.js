@@ -7,6 +7,7 @@ import {
   getWalletSummary,
   getWalletTransactions,
   requestWithdraw,
+  resolveUserId,
   transferAssets,
   updateWalletPreferences,
   updateWalletSecurity,
@@ -21,7 +22,7 @@ export default function useWalletData(userData) {
   const [loading, setLoading] = useState(false);
 
   const refresh = useCallback(async () => {
-    if (!userData?._id && !userData?.id && !userData?.user_id) return;
+    if (!resolveUserId(userData)) return;
     setLoading(true);
     try {
       const [walletData, txRows, bankRows, securityData, preferenceData] = await Promise.all([
@@ -60,7 +61,7 @@ export default function useWalletData(userData) {
 
   const transfer = useCallback(
     async ({ toUserId, amount, currency = 'THON', note = '' }) => {
-      const fromUserId = userData?._id || userData?.id || userData?.user_id;
+      const fromUserId = resolveUserId(userData);
       if (!fromUserId || !toUserId) return { status: 'error', message: 'Invalid users' };
       try {
         const result = await transferAssets({

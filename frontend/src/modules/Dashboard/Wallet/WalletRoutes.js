@@ -1,10 +1,10 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import WalletComingSoon from './WalletComingSoon';
+import WalletPage from './WalletPage';
 
-const WalletRoutes = () => (
+const WalletRoutes = ({ userData }) => (
   <Routes>
-    <Route path="*" element={<WalletComingSoon />} />
+    <Route path="*" element={<WalletPage userData={userData} />} />
   </Routes>
 );
 

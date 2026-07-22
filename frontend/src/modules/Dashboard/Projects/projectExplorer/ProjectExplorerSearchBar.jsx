@@ -1,17 +1,13 @@
 import React from 'react';
-import { FiArrowLeft, FiSearch } from 'react-icons/fi';
+import { FiSearch } from 'react-icons/fi';
 
 export default function ProjectExplorerSearchBar({
   listSearchDraft,
   setListSearchDraft,
   runExplorerSearch,
-  onNavigateBack,
 }) {
   return (
-    <div className="gigx-head">
-      <button type="button" className="gigx-back" onClick={onNavigateBack}>
-        <FiArrowLeft size={14} /> Back to Projects
-      </button>
+    <div className="gigx-head gigx-head--search-only">
       <div className="gigx-search-live">
         <FiSearch size={18} className="gigx-search-live-icon" aria-hidden />
         <input

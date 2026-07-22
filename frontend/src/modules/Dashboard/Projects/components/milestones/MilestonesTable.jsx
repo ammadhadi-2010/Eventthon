@@ -2,6 +2,7 @@ import React from 'react';
 import MilestoneStatusBadge from './MilestoneStatusBadge';
 import MilestoneProgressCell from './MilestoneProgressCell';
 import { resolveMilestoneLabel, resolveProjectLabel } from './milestoneRowMap';
+import { getProjectCardShade } from '../../utils/projectCardShades';
 
 function MilestoneCell({ row }) {
   const milestoneLabel = resolveMilestoneLabel(row);
@@ -12,9 +13,9 @@ function MilestoneCell({ row }) {
     </div>
   );
 }
-function MilestoneMobileCard({ row }) {
+function MilestoneMobileCard({ row, shade }) {
   return (
-    <article className="ph-mp-mobile-card ph-ms-mobile-card">
+    <article className={`ph-mp-mobile-card ph-mp-mobile-card--${shade} ph-ms-mobile-card`}>
       <div className="ph-mp-mobile-top">
         <MilestoneCell row={row} />
         <MilestoneStatusBadge status={row.status} />
@@ -34,7 +35,10 @@ export default function MilestonesTable({ rows }) {
         {rows.length === 0 ? (
           <p className="ph-table-empty">No milestones for this project.</p>
         ) : (
-          rows.map((row) => <MilestoneMobileCard key={row.id} row={row} />)
+          rows.map((row, index) => {
+            const shade = getProjectCardShade(index);
+            return <MilestoneMobileCard key={row.id} row={row} shade={shade} />;
+          })
         )}
       </div>
       <div className="ph-table-scroll">
@@ -56,8 +60,10 @@ export default function MilestonesTable({ rows }) {
                 </td>
               </tr>
             ) : (
-              rows.map((row) => (
-                <tr key={row.id} className="ph-mp-row">
+              rows.map((row, index) => {
+                const shade = getProjectCardShade(index);
+                return (
+                <tr key={row.id} className={`ph-mp-row ph-mp-row--${shade}`}>
                   <td>
                     <MilestoneCell row={row} />
                   </td>
@@ -69,7 +75,8 @@ export default function MilestonesTable({ rows }) {
                     <MilestoneProgressCell progress={row.progress} status={row.status} />
                   </td>
                 </tr>
-              ))
+                );
+              })
             )}
           </tbody>
         </table>

@@ -4,7 +4,7 @@ import { readStoredUserStub } from "../../../../utils/storedUser";
 import { getAvatarUrl } from "../../Navbar/userMenuUtils";
 import MemberHubCompanySwitch from "../../components/mobile/MemberHubCompanySwitch";
 
-const MessagesMobileChrome = ({ isNavVisible = true, query = "", onQueryChange, onNewMessage }) => {
+const MessagesMobileChrome = ({ query = "", onQueryChange, onNewMessage }) => {
   const user = readStoredUserStub();
   const [avatarSrc, setAvatarSrc] = useState(() => getAvatarUrl(user));
   const [draft, setDraft] = useState(query);
@@ -22,10 +22,7 @@ const MessagesMobileChrome = ({ isNavVisible = true, query = "", onQueryChange, 
   };
 
   return (
-    <div
-      className={`msgx-mobile-chrome${isNavVisible ? "" : " msgx-mobile-chrome--hidden"}`}
-      aria-hidden={!isNavVisible}
-    >
+    <div className="msgx-mobile-chrome">
       <header className="msgx-mobile-topbar" aria-label="Messages mobile header">
         <button type="button" className="msgx-mobile-topbar__avatar-btn" aria-label="Your profile">
           <img

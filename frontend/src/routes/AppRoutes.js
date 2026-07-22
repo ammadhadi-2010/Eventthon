@@ -38,6 +38,10 @@ function resolveHomePath(userData) {
   return '/dashboard';
 }
 
+function RequireAuth({ children }) {
+  return hasStoredSession() ? children : <Navigate to="/auth/login" replace />;
+}
+
 const AppRoutes = () => {
   const [userData, setUserData] = useState(() => readStoredUserStub());
 
@@ -59,6 +63,7 @@ const AppRoutes = () => {
       if (profile) {
         persistUserSession(profile);
         setUserData(profile);
+        window.dispatchEvent(new CustomEvent('et:profile-updated', { detail: profile }));
       }
     } catch (err) {
       const timedOut = err?.code === 'ECONNABORTED' || String(err?.message || '').includes('timeout');
@@ -81,13 +86,15 @@ const AppRoutes = () => {
       return undefined;
     }
     fetchGlobalProfile();
+    const onFocus = () => fetchGlobalProfile();
+    window.addEventListener('focus', onFocus);
+    return () => window.removeEventListener('focus', onFocus);
   }, [fetchGlobalProfile, userIdentifier]);
 
   return (
     <Routes>
       <Route path="/public/*" element={<PublicRoutes />} />
       <Route path="/auth/*" element={<AuthRoutes />} />
-      {/* Public home: guests see MainDashboard + 40s login prompt — no redirect chain */}
       <Route
         path="/"
         element={
@@ -106,82 +113,53 @@ const AppRoutes = () => {
                 path="dashboard/*"
                 element={<DashboardRoutes userData={userData} refreshData={refreshProfile} />}
               />
-              <Route
-                path="showrooms/*"
-                element={hasStoredSession() ? <ShowroomRoutes /> : <Navigate to="/auth/login" replace />}
-              />
+              <Route path="showrooms/*" element={<ShowroomRoutes />} />
               <Route
                 path="profile/*"
-                element={
-                  hasStoredSession() ? (
-                    <ProfileRoutes userData={userData} refreshData={refreshProfile} />
-                  ) : (
-                    <Navigate to="/auth/login" replace />
-                  )
-                }
+                element={<ProfileRoutes userData={userData} refreshData={refreshProfile} />}
               />
-              <Route
-                path="squads/*"
-                element={hasStoredSession() ? <SquadRoutes userData={userData} /> : <Navigate to="/auth/login" replace />}
-              />
+              <Route path="squads/*" element={<SquadRoutes userData={userData} />} />
               <Route path="networks" element={<Navigate to="/profile/connections/connections" replace />} />
               <Route path="events" element={<Navigate to="/notifications" replace />} />
-              <Route
-                path="projects/*"
-                element={hasStoredSession() ? <ProjectsRoutes userData={userData} /> : <Navigate to="/auth/login" replace />}
-              />
-              <Route path="gigs/*" element={hasStoredSession() ? <GigsRoutes /> : <Navigate to="/auth/login" replace />} />
-              <Route path="jobs/*" element={hasStoredSession() ? <JobsRoutes /> : <Navigate to="/auth/login" replace />} />
-              <Route
-                path="company/*"
-                element={hasStoredSession() ? <CompanyPathGate /> : <Navigate to="/auth/login" replace />}
-              />
+              <Route path="projects/*" element={<ProjectsRoutes userData={userData} />} />
+              <Route path="gigs/*" element={<GigsRoutes />} />
+              <Route path="jobs/*" element={<JobsRoutes />} />
+              <Route path="company/*" element={<CompanyPathGate />} />
               <Route
                 path="company-hub/*"
-                element={hasStoredSession() ? <CompanyHubRoutes /> : <Navigate to="/auth/login" replace />}
+                element={<RequireAuth><CompanyHubRoutes /></RequireAuth>}
               />
               <Route path="company-panel/*" element={<Navigate to="/company/dashboard" replace />} />
               <Route
                 path="messages/*"
-                element={hasStoredSession() ? <MessagesRoutes /> : <Navigate to="/auth/login" replace />}
+                element={<RequireAuth><MessagesRoutes /></RequireAuth>}
               />
               <Route
                 path="wallet/*"
-                element={hasStoredSession() ? <WalletRoutes userData={userData} /> : <Navigate to="/auth/login" replace />}
+                element={<RequireAuth><WalletRoutes userData={userData} /></RequireAuth>}
               />
               <Route
                 path="notifications/*"
-                element={hasStoredSession() ? <NavbarRoutes userData={userData} /> : <Navigate to="/auth/login" replace />}
+                element={<RequireAuth><NavbarRoutes userData={userData} /></RequireAuth>}
               />
               <Route path="admin/dashboard" element={<Navigate to="/admin-control" replace />} />
               <Route path="admin/profile" element={<Navigate to="/admin-control/profile" replace />} />
               <Route path="admin/system-health" element={<Navigate to="/admin-control/system-health" replace />} />
+              <Route path="admin/wallet" element={<Navigate to="/admin-control/wallet" replace />} />
               <Route path="admin/transactions" element={<Navigate to="/admin-control/transactions" replace />} />
               <Route path="admin/activities" element={<Navigate to="/admin-control/activities" replace />} />
               <Route path="admin/analytics/countries" element={<Navigate to="/admin-control/analytics/countries" replace />} />
               <Route path="admin/email-outreach" element={<Navigate to="/admin-control/email-outreach" replace />} />
               <Route
                 path="admin-control/*"
-                element={hasStoredSession() ? <AdminRoutes userData={userData} /> : <Navigate to="/auth/login" replace />}
+                element={<RequireAuth><AdminRoutes userData={userData} /></RequireAuth>}
               />
               <Route
                 path="admin/preview/*"
-                element={
-                  hasStoredSession() ? (
-                    <AdminPreviewRoutes userData={userData} />
-                  ) : (
-                    <Navigate to="/auth/login" replace />
-                  )
-                }
+                element={<RequireAuth><AdminPreviewRoutes userData={userData} /></RequireAuth>}
               />
-              <Route
-                path="article/*"
-                element={hasStoredSession() ? <ArticleRoutes userData={userData} /> : <Navigate to="/auth/login" replace />}
-              />
-              <Route
-                path="updates/*"
-                element={hasStoredSession() ? <UpdatesRoutes userData={userData} /> : <Navigate to="/auth/login" replace />}
-              />
+              <Route path="article/*" element={<ArticleRoutes userData={userData} />} />
+              <Route path="updates/*" element={<UpdatesRoutes userData={userData} />} />
               <Route path="resources/*" element={<ResourcesRoutes />} />
               <Route path="founders-story" element={<FoundersStoryPage userData={userData} />} />
               <Route

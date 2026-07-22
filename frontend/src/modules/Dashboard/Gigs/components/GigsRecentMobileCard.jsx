@@ -1,10 +1,13 @@
 import React from 'react';
 import { FiHeart, FiStar } from 'react-icons/fi';
+import { getRecentGigShade } from '../utils/recentGigShades';
 
-export default function GigsRecentMobileCard({ gig, saved, onOpen, onToggleSave }) {
+export default function GigsRecentMobileCard({ gig, index = 0, shade, saved, onOpen, onToggleSave }) {
+  const shadeKey = shade || getRecentGigShade(index);
+
   return (
     <article
-      className="gigs-recent-m-card"
+      className={`gigs-recent-m-card gigs-recent-m-card--${shadeKey}`}
       role="button"
       tabIndex={0}
       onClick={onOpen}
@@ -12,7 +15,7 @@ export default function GigsRecentMobileCard({ gig, saved, onOpen, onToggleSave 
         if (e.key === 'Enter' || e.key === ' ') onOpen();
       }}
     >
-      <div className="gigs-recent-m-avatar" aria-hidden="true">
+      <div className={`gigs-recent-m-avatar gigs-recent-m-avatar--${shadeKey}`} aria-hidden="true">
         {gig.logoText}
       </div>
       <h4 className="gigs-recent-m-title">{gig.title}</h4>

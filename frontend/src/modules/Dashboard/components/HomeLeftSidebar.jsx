@@ -70,6 +70,7 @@ export default function HomeLeftSidebar({ userData, drawerMode = false }) {
     <div className="hls-stack">
       {drawerMode ? null : (
       <section className="hls-card hls-profile-card">
+        <Link to="/profile" className="hls-profile-card-link" aria-label="Open your profile">
         <div className="hls-avatar-wrap">
           <div className="hls-avatar-ring">
             {showAvatar ? (
@@ -85,6 +86,7 @@ export default function HomeLeftSidebar({ userData, drawerMode = false }) {
           <h3 className="hls-username">{displayName}</h3>
           {verified ? <FiCheckCircle className="hls-verified-icon" aria-label="Verified member" /> : null}
         </div>
+        </Link>
         <p className="hls-role">{userData?.headline || userData?.designation || 'Full Stack Developer'}</p>
 
         <div className="hls-rank-pill">
@@ -115,18 +117,17 @@ export default function HomeLeftSidebar({ userData, drawerMode = false }) {
       </section>
       )}
 
-      <section className="hls-card hls-wallet-card hls-wallet-card--soon">
-        <div className="hls-wallet-soon-badge">Coming Soon</div>
+      <section className="hls-card hls-wallet-card">
         <h4 className="hls-section-title">EARNING WALLET</h4>
         <p className="hls-wallet-balance">
           Total Balance: <strong>{balance.toLocaleString()} ET Coins</strong>
         </p>
         <p className="hls-wallet-usd">≈ ${usdValue} USD</p>
         <WalletSparkline />
-        <p className="hls-wallet-growth">Wallet features launching soon</p>
+        <p className="hls-wallet-growth">+18.6% this month</p>
         <div className="hls-wallet-actions">
-          <button type="button" className="hls-btn hls-btn-outline" disabled>Deposit</button>
-          <button type="button" className="hls-btn hls-btn-primary" disabled>Withdraw</button>
+          <Link to="/wallet" className="hls-btn hls-btn-outline">Deposit</Link>
+          <Link to="/wallet" className="hls-btn hls-btn-primary">Withdraw</Link>
         </div>
       </section>
 

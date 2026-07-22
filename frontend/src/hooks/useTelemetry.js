@@ -40,7 +40,6 @@ export function buildTelemetryAuthHeaders(userData) {
 export function postTelemetryLog(payload, userData) {
   const headers = buildTelemetryAuthHeaders(userData);
   const url = `${API_BASE_URL}/api/telemetry/log-activity`;
-  console.log('Telemetry Payload Sent:', payload);
   return fetch(url, {
     method: 'POST',
     headers,
@@ -49,13 +48,14 @@ export function postTelemetryLog(payload, userData) {
   })
     .then((response) => {
       if (!response.ok) {
-        console.error('Telemetry Logging Failed:', response.status, response.statusText);
+        console.warn('Telemetry logging failed:', response.status, response.statusText);
       }
       return response;
     })
     .catch((err) => {
-      console.error('Telemetry Logging Failed:', err);
-      throw err;
+      // Fire-and-forget: backend reload / offline must not break the app UI.
+      console.warn('Telemetry logging skipped:', err?.message || err);
+      return null;
     });
 }
 
@@ -91,7 +91,7 @@ function buildBaselinePayload(userId, sessionId, endpoint, maxScroll) {
 
 function dispatchPayload(payload, userData) {
   if (!payload) return;
-  postTelemetryLog(payload, userData);
+  void postTelemetryLog(payload, userData);
 }
 
 export default function useTelemetry(userData, enabled = true) {

@@ -20,7 +20,10 @@ const ChatHeader = ({
       ) : null}
       <div>
         <h3>{selectedMessage.from_user_name || selectedMessage.from_user_id || 'Seller'}</h3>
-        <small>Top Rated Seller • Online</small>
+        <small>
+          {selectedMessage.chat_tag || 'Conversation'}
+          {selectedMessage.status === 'new' ? ' • Unread' : ''}
+        </small>
       </div>
     </div>
     <div className="msgx-chat-head-actions">

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import useMessagesInboxState from './hooks/useMessagesInboxState';
 import useMessagesInboxActions from './hooks/useMessagesInboxActions';
 import useMarketplaceChatIntents from './hooks/useMarketplaceChatIntents';
 import MessagesInboxView from './MessagesInboxView';
 import { isMongoId } from './utils/inboxHelpers';
+import { refreshScrollHideRoots } from '../../../Admin/hooks/useScrollHideNavbar';
 import '../styles/MessagesInbox.layout.css';
 import '../styles/MessagesInbox.sidebar.css';
 import '../styles/MessagesInbox.chat.css';
@@ -13,31 +14,14 @@ import '../styles/messages-inbox-mobile.css';
 const MessagesInboxPage = ({ companyMode = false, companyInbox = null }) => {
   const state = useMessagesInboxState({ companyMode, companyInbox });
   const actions = useMessagesInboxActions(state);
-  const [isNavVisible, setIsNavVisible] = useState(true);
-  const [prevScrollY, setPrevScrollY] = useState(0);
 
   useMarketplaceChatIntents(actions.createDraftFromSource);
 
   useEffect(() => {
-    const mobile = window.matchMedia('(max-width: 1023px)');
-    if (!mobile.matches) return undefined;
-
-    const scrollRoot = document.querySelector('main.et-main-scroll') || window;
-    const getScrollY = () => (scrollRoot === window ? window.scrollY : scrollRoot.scrollTop);
-
-    const handleChatScroll = () => {
-      const currentScroll = getScrollY();
-      if (currentScroll > prevScrollY && currentScroll > 40) {
-        setIsNavVisible(false);
-      } else {
-        setIsNavVisible(true);
-      }
-      setPrevScrollY(currentScroll);
-    };
-
-    scrollRoot.addEventListener('scroll', handleChatScroll, { passive: true });
-    return () => scrollRoot.removeEventListener('scroll', handleChatScroll);
-  }, [prevScrollY]);
+    refreshScrollHideRoots();
+    const timer = window.setTimeout(refreshScrollHideRoots, 350);
+    return () => window.clearTimeout(timer);
+  }, [state.selectedId]);
 
   useEffect(() => {
     const row = state.selectedRow;
@@ -71,7 +55,6 @@ const MessagesInboxPage = ({ companyMode = false, companyInbox = null }) => {
       sending={state.sending}
       userId={state.userId}
       inboxSearchInputRef={state.inboxSearchInputRef}
-      isNavVisible={isNavVisible}
       setQuery={state.setQuery}
       setActiveFilter={state.setActiveFilter}
       onSelectConversation={handleSelectConversation}

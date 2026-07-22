@@ -2,7 +2,7 @@
 
 @media (max-width: 1023px) {
   .et-app-shell:has(.squad-hub-mobile-shell) .et-top-nav {
-    display: none !important;
+    display: block !important;
   }
 
   .et-app-shell:has(.squad-hub-mobile-shell) .et-main-inner {
@@ -14,8 +14,8 @@
   }
 
   .squad-hub.squad-hub-mobile-shell {
-    --sq-mobile-chrome-h: var(--hub-mobile-topbar-h, 3.5rem);
-    padding-top: 1rem !important;
+    --sq-mobile-chrome-h: var(--et-nav-height, 70px);
+    padding-top: 0 !important;
     height: auto !important;
     max-height: none !important;
     min-height: 100dvh;

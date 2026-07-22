@@ -1,10 +1,11 @@
 import React from 'react';
-import { FiExternalLink, FiHeart, FiStar } from 'react-icons/fi';
+import { FiExternalLink } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
+import GigRecentCard from './GigRecentCard';
+import GigsRecentMobileCard from './GigsRecentMobileCard';
 import { recentGigs } from '../data/gigsData';
 import useSavedGigs from '../hooks/useSavedGigs';
 import { loadBrowseFilters, saveBrowseFilters } from '../utils/gigsBrowseSession';
-import GigsRecentMobileCard from './GigsRecentMobileCard';
 
 const GigsBrowseHubResultsSection = ({
   hasSearched,
@@ -73,58 +74,24 @@ const GigsBrowseHubResultsSection = ({
       ) : null}
 
       <div className="gigs-recent-list gigs-recent-list--desktop">
-        {displayRows.map((gig) => (
-          <article
+        {displayRows.map((gig, index) => (
+          <GigRecentCard
             key={`${hasSearched ? 's' : 'r'}-${gig.id}`}
-            className="gigs-recent-row"
-            role="button"
-            tabIndex={0}
-            onClick={() => openRow(gig)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') openRow(gig);
-            }}
-          >
-            <div className={`gigs-recent-logo ${gig.logoClass}`}>{gig.logoText}</div>
-            <div className="gigs-recent-main">
-              <h4>{gig.title}</h4>
-              <p className="gigs-recent-seller">
-                {gig.seller} • {gig.sellerLevel}
-              </p>
-              <div className="gigs-recent-tags">
-                {(gig.tags || []).map((tag) => (
-                  <span key={tag}>{tag}</span>
-                ))}
-              </div>
-            </div>
-            <div className="gigs-recent-side">
-              <p className="gigs-recent-rating">
-                <FiStar size={12} /> {gig.rating} <span>({gig.reviews})</span>
-              </p>
-              <p className="gigs-recent-price">
-                <span>From</span> {gig.price}
-              </p>
-              <p className="gigs-recent-eta">{gig.eta}</p>
-            </div>
-            <button
-              type="button"
-              className={`gigs-recent-fav${isSaved(gig.id) ? ' is-active' : ''}`}
-              aria-label="Toggle save"
-              onClick={async (event) => {
-                event.stopPropagation();
-                await saveGig(gig);
-              }}
-            >
-              <FiHeart size={15} />
-            </button>
-          </article>
+            gig={gig}
+            index={index}
+            saved={isSaved(gig.id)}
+            onOpen={openRow}
+            onToggleSave={saveGig}
+          />
         ))}
       </div>
 
       <div className="gigs-recent-mobile-list gigs-recent-mobile-stack" aria-label="Gig listings">
-        {displayRows.map((gig) => (
+        {displayRows.map((gig, index) => (
           <GigsRecentMobileCard
             key={`m-${hasSearched ? 's' : 'r'}-${gig.id}`}
             gig={gig}
+            index={index}
             saved={isSaved(gig.id)}
             onOpen={() => openRow(gig)}
             onToggleSave={() => saveGig(gig)}

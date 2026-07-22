@@ -1,5 +1,6 @@
 import React from 'react';
 import FundingRaisedCell from './FundingRaisedCell';
+import { getProjectCardShade } from '../../utils/projectCardShades';
 
 function CampaignCell({ row }) {
   return (
@@ -12,9 +13,9 @@ function CampaignCell({ row }) {
   );
 }
 
-function FundingMobileCard({ row }) {
+function FundingMobileCard({ row, shade }) {
   return (
-    <article className="ph-mp-mobile-card ph-fund-mobile-card">
+    <article className={`ph-mp-mobile-card ph-mp-mobile-card--${shade} ph-fund-mobile-card`}>
       <div className="ph-mp-mobile-top">
         <CampaignCell row={row} />
         <span className="ph-fund-status">{row.status}</span>
@@ -34,9 +35,10 @@ export default function FundingCampaignsTable({ rows }) {
     <section className="ph-card ph-fund-table-card">
       <h2 className="ph-fund-section-title">Funding Campaigns</h2>
       <div className="ph-mp-mobile-list" aria-label="Funding campaigns list">
-        {rows.map((row) => (
-          <FundingMobileCard key={row.id} row={row} />
-        ))}
+        {rows.map((row, index) => {
+          const shade = getProjectCardShade(index);
+          return <FundingMobileCard key={row.id} row={row} shade={shade} />;
+        })}
       </div>
       <div className="ph-table-scroll">
         <table className="ph-table ph-fund-table">
@@ -51,8 +53,10 @@ export default function FundingCampaignsTable({ rows }) {
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => (
-              <tr key={row.id} className="ph-mp-row">
+            {rows.map((row, index) => {
+              const shade = getProjectCardShade(index);
+              return (
+              <tr key={row.id} className={`ph-mp-row ph-mp-row--${shade}`}>
                 <td>
                   <CampaignCell row={row} />
                 </td>
@@ -66,7 +70,8 @@ export default function FundingCampaignsTable({ rows }) {
                 </td>
                 <td className="ph-fund-muted">{row.endsIn}</td>
               </tr>
-            ))}
+              );
+            })}
           </tbody>
         </table>
       </div>

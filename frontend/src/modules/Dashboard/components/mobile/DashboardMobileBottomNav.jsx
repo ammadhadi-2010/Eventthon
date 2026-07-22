@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FiBell, FiBriefcase, FiClipboard, FiHome, FiUsers } from 'react-icons/fi';
+import useScrollHideNavbar from '../../../Admin/hooks/useScrollHideNavbar';
 import './dashboard-mobile-bottom-nav.css';
 
 const NAV_ITEMS = [
@@ -20,9 +21,10 @@ function isNavActive(pathname, path) {
 export default function DashboardMobileBottomNav() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { hidden: navHidden } = useScrollHideNavbar(true);
   return (
     <nav
-      className="dash-mobile-bottom-nav"
+      className={`dash-mobile-bottom-nav${navHidden ? ' dash-mobile-bottom-nav--hidden' : ''}`}
       aria-label="Mobile dashboard navigation"
     >
       {NAV_ITEMS.map(({ key, label, path, Icon }) => {

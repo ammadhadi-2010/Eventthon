@@ -38,12 +38,48 @@
   color: inherit;
 }
 
+.feed-post-header__name-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.feed-post-header__name-link:hover {
+  color: #bfdbfe;
+}
+
+.feed-post-avatar-link {
+  display: inline-flex;
+  flex-shrink: 0;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 10px;
+}
+
+.feed-post-avatar-link:hover {
+  filter: brightness(1.08);
+}
+
 .feed-post-header__rank-badge {
   width: 1.15rem;
   height: 1.15rem;
   min-width: 1.15rem;
   object-fit: contain;
   display: block;
+}
+
+.feed-post-header__rank-row {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 3px;
+}
+
+.feed-post-header__rank-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ddd6fe;
+  letter-spacing: 0.02em;
 }
 
 .feed-post-header__meta-row {

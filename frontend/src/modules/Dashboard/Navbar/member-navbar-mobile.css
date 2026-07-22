@@ -3,12 +3,29 @@
 @media (max-width: 1023px) {
   .member-navbar__mobile {
     width: 100%;
-    padding: 6px 8px;
+    padding: 6px 4px;
     box-sizing: border-box;
+  }
+
+  .et-app-shell:has(.hub-inner-mobile-shell) .dash-nav {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
   }
 
   .member-navbar__mobile-head {
     min-width: 0;
+    gap: 6px;
+  }
+
+  .member-navbar__mobile-brand {
+    min-width: 0;
+    gap: 10px !important;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  .member-navbar__hub-drawer-trigger {
+    margin-left: 2px;
   }
 
   .member-navbar__logo-link {

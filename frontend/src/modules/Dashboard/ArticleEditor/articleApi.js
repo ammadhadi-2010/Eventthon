@@ -18,16 +18,25 @@ export const fetchArticles = async () => {
   return Array.isArray(res.data) ? res.data : res.data?.data || [];
 };
 
+export const fetchMyArticles = async (userData) => {
+  const identifier = getIdentifier(userData);
+  if (!identifier) return [];
+  const res = await axios.get(`${API_BASE_URL}/api/articles/articles/mine`, {
+    params: { identifier },
+  });
+  return Array.isArray(res.data) ? res.data : res.data?.data || [];
+};
+
 export const fetchArticleById = async (articleId) => {
   const res = await axios.get(`${API_BASE_URL}/api/articles/articles/${encodeURIComponent(articleId)}`);
   return res?.data?.data || null;
 };
 
-export const updateArticleById = async (articleId, payload) => {
+export const updateArticleById = async (articleId, payload, userData) => {
   const data = new FormData();
   data.append('title', payload.title || '');
   data.append('content', payload.content || '');
-  data.append('identifier', getIdentifier());
+  data.append('identifier', getIdentifier(userData));
   data.append('slug', payload.slug || '');
   data.append('excerpt', payload.excerpt || '');
   data.append('tags', Array.isArray(payload.tags) ? payload.tags.join(',') : '');
@@ -38,6 +47,10 @@ export const updateArticleById = async (articleId, payload) => {
   data.append('seo_score', String(payload.seoScore || 0));
   data.append('status_value', payload.status || 'draft');
   if (payload.coverImage) data.append('cover_image', payload.coverImage);
+  else if (payload.coverImageUrl) data.append('cover_image_url', payload.coverImageUrl);
+  if (payload.relatedContent) {
+    data.append('related_content', JSON.stringify(payload.relatedContent));
+  }
 
   const res = await axios.put(`${API_BASE_URL}/api/articles/articles/${encodeURIComponent(articleId)}`, data, {
     headers: { 'Content-Type': 'multipart/form-data' },

@@ -4,24 +4,9 @@
   display: none;
 }
 
-@media (max-width: 1023px) {
+@media (min-width: 1024px) {
   .squad-hub__header-back {
-    flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    padding: 0;
-    border: 1px solid #334155;
-    border-radius: 999px;
-    background: transparent;
-    color: #e2e8f0;
-    cursor: pointer;
-  }
-
-  .squad-hub__header-back:active {
-    transform: scale(0.94);
+    display: none;
   }
 }
 

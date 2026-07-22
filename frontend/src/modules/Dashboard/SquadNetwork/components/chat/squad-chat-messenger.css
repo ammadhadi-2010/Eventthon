@@ -166,10 +166,15 @@
 .squad-msg__media img {
   display: block;
   width: auto;
-  max-width: 240px;
-  max-height: 200px;
+  max-width: min(280px, 100%);
+  max-height: 240px;
   height: auto;
-  object-fit: cover;
+  object-fit: contain;
+}
+
+.squad-msg__media-link {
+  display: block;
+  line-height: 0;
 }
 
 .squad-msg__time {

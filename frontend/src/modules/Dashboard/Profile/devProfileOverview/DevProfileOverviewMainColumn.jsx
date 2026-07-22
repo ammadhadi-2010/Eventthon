@@ -1,5 +1,6 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import ProfilePostsSection from '../../accountHub/profilePosts/ProfilePostsSection';
 import DevProfileOverviewActivityFeed from './DevProfileOverviewActivityFeed';
 import { Code2, Clock, HeartHandshake, ThumbsUp } from 'lucide-react';
 import { ReviewCard, toReviewCardProps } from '../../../../components/reviews';
@@ -72,51 +73,15 @@ function featuredThumbTone(p) {
   return FEATURED_CARD_PRESETS[id]?.thumbTone || 'generic';
 }
 
-function ActivityList({ items }) {
-  if (!items?.length) {
-    return <p className="dpo-placeholder">No activity yet. Posts you create appear here.</p>;
-  }
-  return (
-    <ul className="dpo-activity-list">
-      {items.map((a) => (
-        <li key={a.id} className="dpo-activity-item">
-          <span className="dpo-activity-type">{a.type}</span>
-          <p className="dpo-activity-text">{a.text}</p>
-          <time className="dpo-activity-time">{a.created_at}</time>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 export default function DevProfileOverviewMainColumn({ activeTab, userData, draft, bundle, refreshData }) {
   void refreshData;
-  const [actFilter, setActFilter] = useState('all');
   const aboutText = bioPlain(draft?.bio) || DEFAULT_ABOUT;
   const featured = useMemo(() => buildFeaturedProjects(draft?.projects || []), [draft?.projects]);
 
   if (activeTab === 'activity') {
-    const raw = bundle?.activity || [];
-    const filtered =
-      actFilter === 'all' ? raw : raw.filter((x) => String(x.type || '').toLowerCase() === actFilter);
     return (
-      <main>
-        <section className="dpo-panel">
-          <h2 className="dpo-panel-title">Activity</h2>
-          <div className="dpo-chip-row">
-            {['all', 'post', 'project'].map((c) => (
-              <button
-                key={c}
-                type="button"
-                className={`dpo-chip${actFilter === c ? ' dpo-chip--on' : ''}`}
-                onClick={() => setActFilter(c)}
-              >
-                {c === 'all' ? 'All' : c}
-              </button>
-            ))}
-          </div>
-          <ActivityList items={filtered} />
-        </section>
+      <main className="dpo-main dpo-main--activity">
+        <ProfilePostsSection userData={userData} variant="profile" />
       </main>
     );
   }

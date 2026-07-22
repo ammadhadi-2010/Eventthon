@@ -39,7 +39,9 @@ export default function useSquadChatData({ squadId, userData, projectsRefreshTok
   const messagesRef = useRef(chatMessages);
   messagesRef.current = chatMessages;
 
-  const userId = userData?._id || userData?.id;
+  const userId = String(
+    userData?._id || userData?.id || localStorage.getItem('userId') || localStorage.getItem('user_id') || '',
+  ).trim();
 
   const showNotice = useCallback((text) => {
     setChatNotice(text);

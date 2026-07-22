@@ -1,27 +1,67 @@
-/* Table */
-.ph-table-tabs {
+/* Table tabs — match Jobs hub feed tabs */
+.ph-table-tabs,
+.ph-mp-tabs,
+.ph-col-tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 12px;
+  align-items: flex-end;
+  gap: 0 28px;
+  margin: 0 -4px 12px;
+  padding: 10px 12px 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.45) 0%, rgba(15, 23, 42, 0.2) 100%);
+  border-radius: 12px 12px 0 0;
 }
 
-.ph-table-tab {
-  border: 1px solid rgba(148, 163, 184, 0.22);
-  border-radius: 8px;
-  padding: 6px 10px;
-  font-size: 11px;
-  font-weight: 700;
+.ph-table-tab,
+.ph-mp-tab,
+.ph-col-tab {
+  position: relative;
+  border: 0;
+  background: transparent;
   color: #94a3b8;
-  background: rgba(15, 23, 42, 0.5);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  padding: 0 0 12px;
+  margin: 0 0 -1px;
   cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  transition: color 0.15s ease, border-color 0.15s ease;
   font-family: inherit;
 }
 
-.ph-table-tab.is-active {
-  color: #dbeafe;
-  border-color: rgba(59, 130, 246, 0.55);
-  background: rgba(37, 99, 235, 0.2);
+.ph-table-tab:hover,
+.ph-mp-tab:hover,
+.ph-col-tab:hover {
+  color: #cbd5e1;
+}
+
+.ph-table-tab.is-active,
+.ph-mp-tab.is-active,
+.ph-col-tab.is-active {
+  color: #f8fafc;
+  border-bottom-color: #3b82f6;
+  font-weight: 600;
+}
+
+.ph-table-tab:focus-visible,
+.ph-mp-tab:focus-visible,
+.ph-col-tab:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.55);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.ph-table-wrap .ph-section-head {
+  margin-bottom: 0;
+  padding-bottom: 8px;
+}
+
+.ph-table-wrap .ph-table-tabs {
+  margin-top: 0;
 }
 
 .ph-table-scroll {

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiGrid, FiPlus } from 'react-icons/fi';
 import { PROJECT_CATEGORIES, PROJECTS_MENU } from '../data/projectsHubData';
+import { getProjectCardShade } from '../utils/projectCardShades';
 import ShowroomPanelsNavItem from '../../../Public/components/ShowroomPanelsNavItem';
 
 const COUNT_KEYS = {
@@ -20,13 +21,14 @@ export default function ProjectsLeftSidebar({ activeMenu, onMenuSelect, onNewPro
         <h2>Projects Menu</h2>
       </div>
       <nav className="ph-left-nav">
-        {PROJECTS_MENU.map((item) => {
+        {PROJECTS_MENU.map((item, index) => {
           const liveCount = COUNT_KEYS[item.id] ? menuCounts[COUNT_KEYS[item.id]] : item.count;
+          const shade = getProjectCardShade(index);
           return (
             <button
               key={item.id}
               type="button"
-              className={`ph-left-link${activeMenu === item.id ? ' is-active' : ''}`}
+              className={`ph-left-link ph-left-link--${shade}${activeMenu === item.id ? ' is-active' : ''}`}
               onClick={() => onMenuSelect(item.id)}
             >
               <span>{item.label}</span>

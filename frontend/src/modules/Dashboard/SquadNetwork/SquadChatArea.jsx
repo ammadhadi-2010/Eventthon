@@ -1,9 +1,18 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import SquadChatMessage, { formatTime } from './components/chat/SquadChatMessage';
 
+function isImageAttachment(fileName, url) {
+  const hint = String(fileName || url || '').toLowerCase();
+  return /\.(png|jpe?g|gif|webp|svg|bmp)$/i.test(hint);
+}
+
 function normalizeMessage(msg, currentUserId, currentUserName) {
   const senderId = msg.sender_id || msg.user_id;
   const name = msg.sender_name || msg.sender || 'Member';
+  const fileName = msg.file_name || '';
+  const downloadUrl = msg.download_url || '';
+  const imageAttachment = msg.type === 'file' && isImageAttachment(fileName, downloadUrl);
+  const mediaSrc = msg.image_url || msg.src || (imageAttachment ? downloadUrl : '');
   return {
     id: msg.id || msg._id || `${name}-${msg.created_at || msg.time}`,
     text: msg.text || msg.message || '',
@@ -15,11 +24,11 @@ function normalizeMessage(msg, currentUserId, currentUserName) {
         (currentUserId && senderId && String(senderId) === String(currentUserId)) ||
         (currentUserName && name.trim() === currentUserName.trim()),
     ),
-    type: msg.type || 'text',
+    type: imageAttachment || (msg.type === 'image' && mediaSrc) ? 'image' : (msg.type || 'text'),
     reactions: msg.reactions,
-    file_name: msg.file_name,
-    download_url: msg.download_url,
-    src: msg.image_url || msg.src,
+    file_name: fileName,
+    download_url: downloadUrl,
+    src: mediaSrc,
     edited: Boolean(msg.edited),
   };
 }

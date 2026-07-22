@@ -6,6 +6,7 @@ import StatusBadge from './StatusBadge';
 import AvatarStack from './AvatarStack';
 import MyProjectsProgress from './MyProjectsProgress';
 import { MY_PROJECTS_TABS } from './myProjectsTabs';
+import { getProjectCardShade } from '../../utils/projectCardShades';
 
 function ProjectCell({ row }) {
   return (
@@ -21,9 +22,9 @@ function ProjectCell({ row }) {
   );
 }
 
-function MyProjectMobileCard({ row, onOpenProject, onProjectAction }) {
+function MyProjectMobileCard({ row, shade, onOpenProject, onProjectAction }) {
   return (
-    <article className="ph-mp-mobile-card">
+    <article className={`ph-mp-mobile-card ph-mp-mobile-card--${shade}`}>
       <div className="ph-mp-mobile-top">
         <div className="ph-mp-mobile-title-wrap">
           <strong className="ph-mp-mobile-title">{row.name}</strong>
@@ -89,14 +90,18 @@ export default function MyProjectsTable({
         {rows.length === 0 ? (
           <p className="ph-table-empty">No projects match this filter.</p>
         ) : (
-          rows.map((row) => (
+          rows.map((row, index) => {
+            const shade = getProjectCardShade(index);
+            return (
             <MyProjectMobileCard
               key={row.id}
               row={row}
+              shade={shade}
               onOpenProject={onOpenProject}
               onProjectAction={onProjectAction}
             />
-          ))
+            );
+          })
         )}
       </div>
       <div className="ph-table-scroll">
@@ -120,8 +125,10 @@ export default function MyProjectsTable({
                 </td>
               </tr>
             ) : (
-              rows.map((row) => (
-                <tr key={row.id} className="ph-mp-row">
+              rows.map((row, index) => {
+                const shade = getProjectCardShade(index);
+                return (
+                <tr key={row.id} className={`ph-mp-row ph-mp-row--${shade}`}>
                   <td>
                     <ProjectCell row={row} />
                   </td>
@@ -147,7 +154,8 @@ export default function MyProjectsTable({
                     />
                   </td>
                 </tr>
-              ))
+                );
+              })
             )}
           </tbody>
         </table>

@@ -25,6 +25,9 @@ module.exports = {
     'w-[calc(50%-12px)]',
     'overflow-x-auto',
     'hidden',
+    'lg:flex',
+    'lg:grid',
+    'lg:hidden',
     'touch-manipulation',
   ],
 };

@@ -8,6 +8,7 @@ import {
   REPORTS_PROJECTS_KPIS,
   REPORTS_PROJECTS_ROWS,
 } from '../../data/reportsTabData';
+import { getProjectCardShade } from '../../utils/projectCardShades';
 
 export default function ReportsProjectsPanel() {
   return (
@@ -28,8 +29,10 @@ export default function ReportsProjectsPanel() {
                 </tr>
               </thead>
               <tbody>
-                {REPORTS_PROJECTS_ROWS.map((row) => (
-                  <tr key={row.id}>
+                {REPORTS_PROJECTS_ROWS.map((row, index) => {
+                  const shade = getProjectCardShade(index);
+                  return (
+                  <tr key={row.id} className={`ph-mp-row ph-mp-row--${shade}`}>
                     <td className="ph-rpt-td-strong">{row.name}</td>
                     <td>{row.lead}</td>
                     <td className="ph-rpt-td-muted">{row.category}</td>
@@ -40,7 +43,8 @@ export default function ReportsProjectsPanel() {
                       <MyProjectsProgress value={row.progress} status={row.status} />
                     </td>
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </div>

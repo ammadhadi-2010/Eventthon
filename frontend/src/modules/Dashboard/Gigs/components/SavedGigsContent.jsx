@@ -5,6 +5,7 @@ import { recentGigs } from '../data/gigsData';
 import useSavedGigs from '../hooks/useSavedGigs';
 import { GigsHubSectionHeader } from './GigsHubBackButton';
 import { isMongoObjectId } from '../utils/navigateGigSurfaces';
+import { getRecentGigShade } from '../utils/recentGigShades';
 
 const SavedGigsContent = ({ onBack }) => {
   const navigate = useNavigate();
@@ -67,9 +68,11 @@ const SavedGigsContent = ({ onBack }) => {
         </div>
       ) : (
         <div className="saved-gigs-list">
-          {mergedRows.map((gig, idx) => (
-            <article key={gig._id || gig.gig_ref_id || idx} className="saved-gigs-row">
-              <div className={`saved-gigs-logo ${idx % 2 ? 'purple' : 'blue'}`}>{String(gig.seller_name || 'S').charAt(0)}</div>
+          {mergedRows.map((gig, idx) => {
+            const shade = getRecentGigShade(idx);
+            return (
+            <article key={gig._id || gig.gig_ref_id || idx} className={`saved-gigs-row saved-gigs-row--${shade}`}>
+              <div className={`saved-gigs-logo gigs-recent-logo gigs-recent-logo--${shade}`}>{String(gig.seller_name || 'S').charAt(0)}</div>
               <div>
                 <h4>{gig.title}</h4>
                 <p className="saved-gigs-seller">{gig.seller_name || 'Seller'}</p>
@@ -101,7 +104,8 @@ const SavedGigsContent = ({ onBack }) => {
                 </button>
               </div>
             </article>
-          ))}
+            );
+          })}
         </div>
       )}
     </section>

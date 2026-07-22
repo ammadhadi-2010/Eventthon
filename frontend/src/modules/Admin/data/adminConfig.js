@@ -36,6 +36,8 @@ export const sidebarItems = [
   { id: 'jobs', label: 'Job Management', icon: ClipboardList, to: '/admin-control/jobs' },
   { id: 'automation', label: 'Automation', icon: Send, to: '/admin-control/automation' },
   { id: 'email-outreach', label: 'Email Outreach', icon: Mail, to: '/admin-control/email-outreach' },
+  { id: 'wallet', label: 'Wallet & Finance', icon: Wallet, to: '/admin-control/wallet' },
+  { id: 'transactions', label: 'Transactions', icon: Receipt, to: '/admin-control/transactions' },
   {
     id: 'companies',
     label: 'Companies',
@@ -96,10 +98,10 @@ export const commandCenterCards = [
   },
   {
     label: 'Wallet & Finance',
-    desc: 'Track ET coin and payout flow',
+    desc: 'Thon balances, settlements, and payouts',
     color: 'from-emerald-500/20 to-emerald-600/5',
     icon: Wallet,
-    to: '/admin-control/transactions',
+    to: '/admin-control/wallet',
   },
   {
     label: 'Reports',
@@ -120,9 +122,9 @@ export const topbarIcons = {
 /** Legacy full list for dashboards that still reference finance / coin tabs (optional). */
 export const sidebarItemsExtended = [
   ...sidebarItems,
-  { id: 'finance', label: 'Finance & Wallet', icon: Wallet, to: null },
-  { id: 'coin', label: 'ET Coin Management', icon: Coins, to: null },
-  { id: 'transactions', label: 'Transactions', icon: Receipt, to: null },
+  { id: 'finance', label: 'Finance & Wallet', icon: Wallet, to: '/admin-control/wallet' },
+  { id: 'coin', label: 'Thon Management', icon: Coins, to: '/admin-control/wallet' },
+  { id: 'transactions', label: 'Transactions', icon: Receipt, to: '/admin-control/transactions' },
   { id: 'support', label: 'Support & Tickets', icon: LifeBuoy, to: null },
   { id: 'reports', label: 'Reports & Analytics', icon: BarChart3, to: null },
   { id: 'jobs', label: 'Job Management', icon: ClipboardList, to: null },

@@ -1,5 +1,6 @@
 import React from 'react';
 import { FiStar } from 'react-icons/fi';
+import { getRecentGigShade } from '../utils/recentGigShades';
 
 const GigExplorerLeftList = ({ rows, selectedGig, selectGigRow, drawerOpen = false, onCloseDrawer }) => (
   <aside className={`gigx-left${drawerOpen ? ' is-drawer-open' : ''}`}>
@@ -19,29 +20,34 @@ const GigExplorerLeftList = ({ rows, selectedGig, selectGigRow, drawerOpen = fal
         No published gigs matched. Adjust your search or open Browse Gigs without filters.
       </p>
     ) : (
-      rows.map((gig) => (
-        <article
-          key={gig.id}
-          className={`gigx-left-row${selectedGig?.id === gig.id ? ' is-active' : ''}`}
-          onClick={() => selectGigRow(gig.id)}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(event) => {
-            if (event.key === 'Enter' || event.key === ' ') selectGigRow(gig.id);
-          }}
-        >
-          <div className="gigx-left-thumb">{(gig.category || '--').slice(0, 2).toUpperCase()}</div>
-          <div>
-            <h4>{gig.title}</h4>
-            <p>{gig.sellerName} • {gig.sellerLevel}</p>
-            <small>
-              <FiStar size={11} /> {gig.rating} ({gig.reviews})
-              {gig.ownerType === 'squad' ? <span className="gigx-left-squad">Squad</span> : null}
-            </small>
-          </div>
-          <strong>From ${gig.price || 0}</strong>
-        </article>
-      ))
+      rows.map((gig, index) => {
+        const shade = getRecentGigShade(index);
+        return (
+          <article
+            key={gig.id}
+            className={`gigx-left-row gigx-left-row--${shade}${selectedGig?.id === gig.id ? ' is-active' : ''}`}
+            onClick={() => selectGigRow(gig.id)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') selectGigRow(gig.id);
+            }}
+          >
+            <div className={`gigx-left-thumb gigs-recent-logo gigs-recent-logo--${shade}`}>
+              {(gig.category || '--').slice(0, 2).toUpperCase()}
+            </div>
+            <div>
+              <h4>{gig.title}</h4>
+              <p>{gig.sellerName} • {gig.sellerLevel}</p>
+              <small>
+                <FiStar size={11} /> {gig.rating} ({gig.reviews})
+                {gig.ownerType === 'squad' ? <span className="gigx-left-squad">Squad</span> : null}
+              </small>
+            </div>
+            <strong>From ${gig.price || 0}</strong>
+          </article>
+        );
+      })
     )}
   </aside>
 );

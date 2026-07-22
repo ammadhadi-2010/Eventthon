@@ -1,8 +1,20 @@
 import API from '../../../../api/axiosConfig';
+import { resolveFeedAuthorFields } from './feedAuthor';
 
 const FEED_TIMEOUT_MS = 20000;
 
-const stripHtml = (value = '') => String(value).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+const stripHtml = (value = '') =>
+  String(value)
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/gi, "'")
+    .replace(/\u00a0/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 
 function safeArray(value) {
   return Array.isArray(value) ? value.filter(Boolean) : [];
@@ -26,6 +38,7 @@ export function normalizeTimelinePost(post = {}) {
   const postType = String(post.post_type || 'POST').toUpperCase();
   const media = safeArray(post.media);
   const coverImage = String(post.imageurl || post.cover_image || '').trim();
+  const authorFields = resolveFeedAuthorFields(post);
 
   return {
     ...post,
@@ -33,10 +46,11 @@ export function normalizeTimelinePost(post = {}) {
     id: postId,
     post_type: postType,
     content: String(post.content || post.message || '').trim(),
-    author_name: post.author_name || 'EventThon Member',
-    author_title: post.author_title || 'EventThon Member',
-    author_rank: post.author_rank || '',
-    author_imageurl: post.author_imageurl || post.authorImageurl || post.avatar || '',
+    author_name: authorFields.author_name,
+    author_title: String(post.author_title || post.designation || '').trim(),
+    author_rank: authorFields.author_rank,
+    author_id: authorFields.author_id || post.author_id || post.user_id || '',
+    author_imageurl: authorFields.author_imageurl,
     imageurl: coverImage,
     media: media.length ? media : coverImage ? [coverImage] : [],
     likes_count: Number(post.likes_count || 0),
@@ -53,14 +67,21 @@ export function normalizeTimelinePost(post = {}) {
 
 function mapArticleToFeedItem(article = {}) {
   const cover = String(article.imageurl || article.cover_image || '').trim();
+  const authorFields = resolveFeedAuthorFields(article);
+  const fullContent = stripHtml(article.content || '');
+  const previewContent = stripHtml(article.excerpt || article.content || '');
+
   return normalizeTimelinePost({
     ...article,
     _id: article._id || article.id,
     post_type: 'ARTICLE',
-    content: stripHtml(article.excerpt || article.content || ''),
-    full_content: article.content || '',
-    author_name: article.author_name || 'EventThon Member',
-    author_title: article.author_title || 'Article Author',
+    content: previewContent,
+    full_content: fullContent,
+    author_name: authorFields.author_name,
+    author_title: String(article.author_title || '').trim(),
+    author_rank: authorFields.author_rank,
+    author_id: authorFields.author_id || article.author_id || '',
+    author_imageurl: authorFields.author_imageurl,
     imageurl: cover,
     media: cover ? [cover] : [],
     article_title: article.title || '',

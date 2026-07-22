@@ -97,7 +97,11 @@ const ChatMessageBubble = ({
         <div className="msgx-bubble-meta">
           <small>{formatClock(msg.time)}</small>
           <small className={`msgx-ticks is-${msg.delivery || 'sent'}`}>
-            {msg.delivery === 'failed' ? '!' : msg.delivery === 'sent' ? '✓' : '✓✓'}
+            {msg.delivery === 'failed'
+              ? '!'
+              : msg.delivery === 'read' || msg.delivery === 'delivered'
+                ? '✓✓'
+                : '✓'}
           </small>
           {msg.starred ? <small>★</small> : null}
         </div>

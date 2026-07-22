@@ -2,6 +2,7 @@ import React from 'react';
 import OwnerCell from '../collaborations/OwnerCell';
 import SavedRowActions from './SavedRowActions';
 import ProjectRowMenu from '../shared/ProjectRowMenu';
+import { getProjectCardShade } from '../../utils/projectCardShades';
 
 function ProjectCell({ row }) {
   return (
@@ -14,9 +15,9 @@ function ProjectCell({ row }) {
   );
 }
 
-function SavedMobileCard({ row, onUnsave, buildMenuItems }) {
+function SavedMobileCard({ row, shade, onUnsave, buildMenuItems }) {
   return (
-    <article className="ph-mp-mobile-card ph-sv-mobile-card">
+    <article className={`ph-mp-mobile-card ph-mp-mobile-card--${shade} ph-sv-mobile-card`}>
       <div className="ph-mp-mobile-top">
         <div className="ph-sv-mobile-copy">
           <strong className="ph-mp-mobile-title">{row.title}</strong>
@@ -45,14 +46,18 @@ export default function SavedProjectsTable({ rows, onUnsave, buildMenuItems }) {
         {rows.length === 0 ? (
           <p className="ph-table-empty">No saved projects match your search.</p>
         ) : (
-          rows.map((row) => (
+          rows.map((row, index) => {
+            const shade = getProjectCardShade(index);
+            return (
             <SavedMobileCard
               key={row.id}
               row={row}
+              shade={shade}
               onUnsave={onUnsave}
               buildMenuItems={buildMenuItems}
             />
-          ))
+            );
+          })
         )}
       </div>
       <div className="ph-table-scroll">
@@ -74,8 +79,10 @@ export default function SavedProjectsTable({ rows, onUnsave, buildMenuItems }) {
                 </td>
               </tr>
             ) : (
-              rows.map((row) => (
-                <tr key={row.id} className="ph-mp-row">
+              rows.map((row, index) => {
+                const shade = getProjectCardShade(index);
+                return (
+                <tr key={row.id} className={`ph-mp-row ph-mp-row--${shade}`}>
                   <td>
                     <ProjectCell row={row} />
                   </td>
@@ -94,7 +101,8 @@ export default function SavedProjectsTable({ rows, onUnsave, buildMenuItems }) {
                     </div>
                   </td>
                 </tr>
-              ))
+                );
+              })
             )}
           </tbody>
         </table>

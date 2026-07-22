@@ -195,6 +195,18 @@
   font-family: inherit;
 }
 
+.account-hub__save--link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  margin-top: 4px;
+}
+
+.account-hub__card--cta {
+  margin-bottom: 16px;
+}
+
 .account-hub__save:disabled {
   opacity: 0.6;
   cursor: not-allowed;

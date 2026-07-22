@@ -13,6 +13,7 @@ from pymongo import ReturnDocument
 from database import outreach_ai_responder_settings_collection, outreach_replies_collection
 from backend_routes.email_sender import sender_from_env
 from .email_outreach_activity import log_outreach_activity
+from .email_outreach_automated_filter import log_ignored_automated_email, should_ignore_automated_email
 from .email_outreach_helpers import format_last_contact
 from .email_outreach_mail import send_outreach_email
 from .email_outreach_ollama import generate_ollama_reply
@@ -20,11 +21,20 @@ from .email_outreach_ollama import generate_ollama_reply
 logger = logging.getLogger("email_outreach.ai_responder")
 SETTINGS_ID = "default"
 
-DEFAULT_SYSTEM_PROMPT = (
-    "You are the EventThon AI Agent for eventthon@gmail.com. "
-    "Reply professionally about EventThon's events, gigs, squads, and verified hiring platform. "
-    "Keep replies concise (under 180 words) and sign off as EventThon Network."
-)
+DEFAULT_SYSTEM_PROMPT = """You are the official AI assistant for EventThon Network.
+
+Core objectives:
+1. STRICTLY FOCUS ON EVENTTHON NETWORK
+- Your primary and only task is to inform, assist, and guide users about EventThon Network services.
+- Always steer the conversation back to bringing users onto the EventThon Network platform.
+- Do NOT answer general tech, external platform queries, or off-topic questions unless they directly relate to joining or using EventThon Network.
+
+2. REPLY STYLE
+- Write concise, professional email replies (under 180 words).
+- Sign off as EventThon Network.
+- Highlight EventThon services when relevant: events, gigs, squads, verified hiring, wallet, and partner onboarding.
+
+If the message is off-topic, politely redirect the sender to EventThon Network and invite them to explore or join the platform."""
 
 
 class AiResponderSettingsBody(BaseModel):
@@ -68,6 +78,20 @@ async def _settings_enabled() -> dict[str, Any] | None:
     return doc
 
 
+async def _mark_skipped_automated(reply_id: str, reason: str) -> None:
+    await outreach_replies_collection.update_one(
+        {"id": reply_id},
+        {
+            "$set": {
+                "ai_reply_status": "skipped",
+                "status": "ignored_automated",
+                "ai_skip_reason": reason[:500],
+                "updated_at": datetime.now(timezone.utc),
+            }
+        },
+    )
+
+
 def _reply_subject(subject: str) -> str:
     clean = str(subject or "").strip() or "Your message"
     return clean if clean.lower().startswith("re:") else f"Re: {clean}"
@@ -82,7 +106,7 @@ async def _claim_reply(reply_id: str) -> dict[str, Any] | None:
         {
             "id": reply_id,
             "status": {"$ne": "ai_replied"},
-            "ai_reply_status": {"$nin": ["processing", "sent"]},
+            "ai_reply_status": {"$nin": ["processing", "sent", "skipped"]},
         },
         {"$set": {"ai_reply_status": "processing", "updated_at": datetime.now(timezone.utc)}},
         return_document=ReturnDocument.BEFORE,
@@ -116,6 +140,12 @@ async def try_auto_reply_to_inbound(reply_doc: dict[str, Any]) -> bool:
             logger.info("AI already replied to message_id=%s — skip", message_id)
             return False
 
+    ignore, reason = should_ignore_automated_email(reply_doc)
+    if ignore:
+        log_ignored_automated_email(logger, reply_doc, reason)
+        await _mark_skipped_automated(reply_id, reason)
+        return False
+
     sender = str(reply_doc.get("sender_email") or "").strip().lower()
     if not sender or "@" not in sender:
         return False
@@ -134,7 +164,9 @@ async def try_auto_reply_to_inbound(reply_doc: dict[str, Any]) -> bool:
     subject = _reply_subject(str(reply_doc.get("subject") or ""))
     user_prompt = (
         f"From: {sender}\nSubject: {reply_doc.get('subject') or ''}\n\n"
-        f"{incoming or '(empty body)'}\n\nWrite the reply body only."
+        f"{incoming or '(empty body)'}\n\n"
+        "Write the reply body only. Stay strictly on EventThon Network — "
+        "if the message is off-topic, redirect them to EventThon services and onboarding."
     )
 
     logger.info("AI Auto-Pilot generating reply | reply_id=%s to=%s", reply_id, sender)
@@ -189,8 +221,8 @@ async def process_pending_ai_replies(limit: int = 10) -> int:
         return 0
     cursor = outreach_replies_collection.find(
         {
-            "status": {"$ne": "ai_replied"},
-            "ai_reply_status": {"$nin": ["processing", "sent"]},
+            "status": {"$nin": ["ai_replied", "ignored_automated"]},
+            "ai_reply_status": {"$nin": ["processing", "sent", "skipped"]},
         }
     ).sort("received_at", -1).limit(limit)
     docs = await cursor.to_list(length=limit)

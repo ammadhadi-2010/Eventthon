@@ -1,6 +1,7 @@
 import React from 'react';
 import { StarRating } from '../../../../../components/reviews';
 import { avatarUrl } from '../../data/topCollaboratorsData';
+import { getProjectCardShade } from '../../utils/projectCardShades';
 
 function RankBadge({ rank }) {
   if (rank === 1) return <span className="ph-col-rank ph-col-rank--gold" aria-label="Rank 1">🥇</span>;
@@ -9,9 +10,9 @@ function RankBadge({ rank }) {
   return <span className="ph-col-rank ph-col-rank--num">{rank}</span>;
 }
 
-function CollaboratorMobileCard({ person, rank }) {
+function CollaboratorMobileCard({ person, rank, shade }) {
   return (
-    <article className="ph-col-mobile-card">
+    <article className={`ph-mp-mobile-card ph-mp-mobile-card--${shade} ph-col-mobile-card`}>
       <div className="ph-col-mobile-top">
         <RankBadge rank={rank} />
         <div className="ph-col-person">
@@ -58,9 +59,12 @@ export default function CollaboratorsTable({ rows, startRank = 1 }) {
   return (
     <>
       <div className="ph-col-mobile-list" aria-label="Top collaborators list">
-        {rows.map((person, index) => (
-          <CollaboratorMobileCard key={person.id} person={person} rank={startRank + index} />
-        ))}
+        {rows.map((person, index) => {
+          const shade = getProjectCardShade(index);
+          return (
+          <CollaboratorMobileCard key={person.id} person={person} rank={startRank + index} shade={shade} />
+          );
+        })}
       </div>
       <div className="ph-col-table-wrap">
         <table className="ph-col-table">
@@ -77,8 +81,9 @@ export default function CollaboratorsTable({ rows, startRank = 1 }) {
           <tbody>
             {rows.map((person, index) => {
               const rank = startRank + index;
+              const shade = getProjectCardShade(index);
               return (
-                <tr key={person.id}>
+                <tr key={person.id} className={`ph-mp-row ph-mp-row--${shade}`}>
                   <td>
                     <RankBadge rank={rank} />
                   </td>

@@ -91,7 +91,7 @@ export default function AdminNavbar() {
         actionProps={actionProps}
       />
 
-      <div className="agn-navbar__desktop hidden lg:grid">
+      <div className="agn-navbar__desktop">
         <section className="agn-navbar__left" aria-label="Admin brand and search">
           <button type="button" className="agn-navbar__logo-link" onClick={handleLogoClick} aria-label="Go to admin dashboard">
             <EventThonLogo variant="header" className="agn-navbar__logo-img" />

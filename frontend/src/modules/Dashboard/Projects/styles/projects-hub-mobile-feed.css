@@ -1,0 +1,48 @@
+﻿@media (max-width: 1023px) {
+  .ph-featured-carousel { flex-direction: row !important; align-items: stretch !important; gap: 0 !important; }
+  .ph-featured-arrow { display: none !important; }
+  .ph-featured-track {
+    display: flex !important; flex-direction: row !important; gap: 12px !important;
+    width: 100% !important; overflow-x: auto !important; overflow-y: hidden !important;
+    scroll-snap-type: x mandatory !important; padding: 2px 0 8px !important;
+    scrollbar-width: none; -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .ph-featured-track::-webkit-scrollbar { display: none; }
+  .ph-pcard {
+    flex: 0 0 46% !important; min-width: 46% !important;
+    max-width: 46% !important; scroll-snap-align: start !important;
+  }
+  .ph-pcard-title { color: #fff !important; font-weight: 600 !important; }
+  .ph-pcard-desc, .ph-pcard-agency { color: #e4e4e7 !important; }
+  .ph-pcard-progress-track,
+  .ph-table-mobile-progress .ph-pcard-progress-track {
+    width: 100%; flex: 1; height: 6px !important; background: #1e293b !important; border-radius: 999px !important;
+  }
+  .ph-pcard-progress-pct, .ph-pcard-meta { color: #fff !important; font-weight: 600 !important; }
+  .ph-section-title { color: #fff !important; }
+
+  .ph-table-scroll { display: none !important; }
+  .ph-table-mobile-list { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+  .ph-table-mobile-card {
+    display: flex; flex-direction: column; gap: 10px; padding: 14px; margin-bottom: 4px;
+    background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(30, 41, 59, 0.8); border-radius: 12px;
+  }
+  .ph-table-mobile-top { display: flex; align-items: flex-start; gap: 8px; min-width: 0; }
+  .ph-table-mobile-top .ph-table-project { flex: 1; min-width: 0; }
+  .ph-table-mobile-top .ph-table-project strong {
+    color: #fff !important; font-weight: 600 !important; font-size: 13px !important;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .ph-table-mobile-top .ph-status {
+    flex-shrink: 0; white-space: nowrap; font-size: 10px !important; font-weight: 700 !important;
+    padding: 2px 8px !important; border-radius: 999px !important;
+  }
+  .ph-table-mobile-progress { display: flex; align-items: center; gap: 8px; width: 100%; }
+  .ph-table-mobile-pct { flex-shrink: 0; font-size: 12px !important; font-weight: 600 !important; color: #fff !important; white-space: nowrap; }
+  .ph-table-mobile-meta {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    font-size: 12px; color: #e4e4e7; font-weight: 600;
+  }
+  .ph-table-mobile-empty { text-align: center; color: #94a3b8; padding: 20px 12px; font-size: 12px; }
+}

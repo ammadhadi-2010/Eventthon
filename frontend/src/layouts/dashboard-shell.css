@@ -358,3 +358,31 @@ main.center-content-scroll::-webkit-scrollbar {
   border-radius: 16px;
   cursor: pointer;
 }
+
+/* Mobile — fixed header + collapse top gap when scroll-hidden */
+@media (max-width: 1023px) {
+  .et-top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  main.center-content-scroll.et-main-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding-top: var(--et-nav-height, 70px);
+    transition: padding-top 0.3s ease-in-out;
+    box-sizing: border-box;
+  }
+
+  .et-app-shell--nav-hidden main.center-content-scroll.et-main-scroll {
+    padding-top: 0;
+  }
+
+  .et-app-shell--nav-hidden .et-main-inner--mobile-nav-pad,
+  .et-app-shell--nav-hidden .et-main-inner--admin-mobile-pad,
+  .et-app-shell--nav-hidden .et-main-inner--hub-mobile-pad {
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0));
+  }
+}

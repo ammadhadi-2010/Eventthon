@@ -1,0 +1,88 @@
+.wallet-page {
+  width: 100%;
+  min-width: 0;
+  color: #e8edf7;
+  font-family: 'DM Sans', 'Segoe UI', sans-serif;
+}
+
+.wallet-page,
+.wallet-page .wallet-hub-layout,
+.wallet-center-stack,
+.wallet-left-stack,
+.wallet-right-stack {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.wallet-page::-webkit-scrollbar,
+.wallet-page .wallet-hub-layout::-webkit-scrollbar {
+  display: none;
+}
+
+.wallet-hub-layout {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr) 300px;
+  gap: 16px;
+  align-items: start;
+  width: 100%;
+  min-width: 0;
+}
+
+.wallet-hub-layout__rail--left {
+  width: 250px;
+  min-width: 250px;
+  max-width: 250px;
+}
+
+.wallet-hub-layout__rail--right {
+  width: 300px;
+  min-width: 300px;
+  max-width: 300px;
+}
+
+.wallet-hub-layout__center {
+  min-width: 0;
+  width: 100%;
+}
+
+.wallet-center-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.wallet-home-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.wallet-home-stack .wallet-header {
+  margin-bottom: 0;
+}
+
+.wallet-home-stack .wallet-balance-grid {
+  margin-bottom: 4px;
+}
+
+.wallet-home-stack .wallet-quick-actions {
+  margin-top: 2px;
+}
+
+.wallet-home-stack .wallet-transactions {
+  margin-top: 4px;
+}
+
+.wallet-home-stack .wallet-footer-banner {
+  margin-top: 4px;
+}
+
+.wallet-left-drawer-backdrop {
+  display: none;
+}
+
+.center-content-scroll:has(.wallet-page) {
+  overflow-x: hidden;
+}

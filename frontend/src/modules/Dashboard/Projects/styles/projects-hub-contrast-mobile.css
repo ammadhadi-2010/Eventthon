@@ -43,12 +43,6 @@
     font-weight: 500;
   }
 
-  .ph-page .ph-rpt-tab:not(.is-active),
-  .ph-page .ph-mp-tab:not(.is-active),
-  .ph-page .ph-table-tab:not(.is-active) {
-    color: #d4d4d8 !important;
-  }
-
   .ph-page .ph-rpt-axis-x,
   .ph-page .ph-rpt-axis-y {
     fill: #d4d4d8 !important;

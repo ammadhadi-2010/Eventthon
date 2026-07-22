@@ -149,38 +149,40 @@
   padding: 0 4px;
 }
 
-/* Jobs board — 2-column card grid */
+/* Jobs board — single-column list (desktop) */
 .jobs-job-board .jobs-job-list-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   width: 100%;
 }
 
 .jobs-job-board .jobs-job-list-grid > .jobs-feed-end {
-  grid-column: 1 / -1;
+  width: 100%;
 }
 
 .jobs-job-board .gigs-job-row--premium {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1.5fr) minmax(130px, 0.85fr) minmax(150px, auto);
+  gap: 14px;
+  align-items: center;
   min-width: 0;
   width: 100%;
   height: auto;
-  grid-template-columns: unset;
+  padding: 14px 16px;
+  border-radius: 16px;
 }
 
 .jobs-job-board .gigs-job-row--premium .gigs-company-logo {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
 }
 
 .jobs-job-board .gigs-job-side--actions {
-  width: 100%;
-  margin-top: auto;
-  align-items: stretch;
+  width: auto;
+  margin-top: 0;
+  align-items: flex-end;
+  justify-self: end;
 }
 
 .jobs-job-board .gigs-job-side__btns {
@@ -188,12 +190,16 @@
   flex-direction: row;
   align-items: center;
   gap: 8px;
-  width: 100%;
+  width: auto;
+  justify-content: flex-end;
 }
 
 .jobs-job-board .gigs-job-side__btns .jh-apply-btn {
-  flex: 1 1 auto;
-  justify-content: center;
+  flex: 0 1 auto;
+  white-space: nowrap;
+  min-height: 40px;
+  padding: 0 22px;
+  font-size: 13px;
 }
 
 .gigs-company-logo.airbnb {

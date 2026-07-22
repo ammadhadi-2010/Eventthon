@@ -103,6 +103,24 @@
   -ms-overflow-style: none;
 }
 
+.msgx-day-separator {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0 12px;
+}
+
+.msgx-day-separator span {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(30, 41, 59, 0.85);
+  border: 1px solid rgba(71, 85, 105, 0.45);
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
 .msgx-chat-thread::-webkit-scrollbar {
   display: none;
   width: 0;
@@ -310,6 +328,10 @@
 }
 .msgx-ticks.is-read {
   color: #7dd3fc;
+}
+
+.msgx-ticks.is-delivered {
+  color: #94a3b8;
 }
 
 .msgx-bubble-row.is-right .msgx-ticks.is-read {

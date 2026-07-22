@@ -1,0 +1,75 @@
+.wallet-withdraw-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.wallet-withdraw-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.wallet-withdraw-form input {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.wallet-form-message {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(124, 58, 237, 0.14);
+  color: #ddd6fe;
+  font-size: 0.84rem;
+}
+
+.wallet-form-message--info {
+  background: rgba(34, 197, 94, 0.12);
+  color: #bbf7d0;
+}
+
+.wallet-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+}
+
+.wallet-toggle-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.wallet-toggle-row strong {
+  display: block;
+  font-size: 0.92rem;
+}
+
+.wallet-toggle-row span {
+  display: block;
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.78rem;
+}
+
+.wallet-toggle-row input {
+  width: 18px;
+  height: 18px;
+  accent-color: #9333ea;
+}
+
+.wallet-btn--danger {
+  border: 1px solid rgba(239, 68, 68, 0.45);
+  background: rgba(239, 68, 68, 0.14);
+  color: #fecaca;
+}

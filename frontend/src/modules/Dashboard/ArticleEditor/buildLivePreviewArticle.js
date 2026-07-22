@@ -1,9 +1,11 @@
+import { resolveDashboardMediaUrl } from '../utils/dashboardMedia';
+
 const stripHtml = (value) => value.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
 
 export function buildLivePreviewArticle(form, seoInsights, userData) {
   const plainContent = stripHtml(form.content || '');
   const wordCount = plainContent ? plainContent.split(/\s+/).length : 0;
-  const cover = form.coverPreview || '';
+  const cover = form.coverPreview || resolveDashboardMediaUrl(form.coverImageUrl) || '';
 
   return {
     title: form.title.trim() || 'Untitled Article',
@@ -19,6 +21,7 @@ export function buildLivePreviewArticle(form, seoInsights, userData) {
     author_name: userData?.fullname || userData?.name || userData?.username || 'You',
     imageurl: cover,
     cover_image: cover,
+    related_content: form.relatedContent || {},
     _previewFromEditor: true,
   };
 }

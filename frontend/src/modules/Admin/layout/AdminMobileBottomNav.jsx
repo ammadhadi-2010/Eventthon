@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FiBriefcase, FiClipboard, FiHome, FiUsers } from 'react-icons/fi';
+import useScrollHideNavbar from '../hooks/useScrollHideNavbar';
 import {
   ADMIN_MONITOR_SECTIONS,
   isMonitorTabActive,
@@ -20,10 +21,13 @@ const TAB_ICONS = {
 export default function AdminMobileBottomNav() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { hidden: navHidden } = useScrollHideNavbar(true);
 
   return (
     <nav
-      className="admin-mobile-bottom-nav lg:hidden flex h-16 flex-nowrap items-stretch justify-around px-1"
+      className={`admin-mobile-bottom-nav lg:hidden flex h-16 flex-nowrap items-stretch justify-around px-1${
+        navHidden ? ' admin-mobile-bottom-nav--scroll-hidden' : ''
+      }`}
       aria-label="Admin hub navigation"
     >
       {ADMIN_MONITOR_SECTIONS.map((tab) => {

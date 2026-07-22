@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { FiMapPin } from 'react-icons/fi';
 import JobBookmarkButton from '../components/JobBookmarkButton';
+import { getJobCardShade } from '../utils/jobCardShades';
 
-function CompanyLogo({ job }) {
+function CompanyLogo({ job, shade }) {
   const [broken, setBroken] = useState(false);
   const imageurl = String(job.imageurl || '').trim();
   const showImage = Boolean(imageurl) && !broken;
@@ -10,7 +11,7 @@ function CompanyLogo({ job }) {
   if (showImage) {
     return (
       <img
-        className="gigs-company-logo gigs-company-logo--image"
+        className="gigs-company-logo gigs-company-logo--image jobs-job-logo"
         src={imageurl}
         alt=""
         onError={() => setBroken(true)}
@@ -18,15 +19,28 @@ function CompanyLogo({ job }) {
     );
   }
 
-  return <div className={`gigs-company-logo ${job.logoClass}`}>{job.logoText}</div>;
+  return (
+    <div className={`gigs-company-logo jobs-job-logo jobs-job-logo--${shade}`}>
+      {job.logoText}
+    </div>
+  );
 }
 
-export default function JobsBrowseJobCard({ job, saved, onToggleSave, onApply, onSelect, isSelected }) {
+export default function JobsBrowseJobCard({
+  job,
+  index = 0,
+  saved,
+  onToggleSave,
+  onApply,
+  onSelect,
+  isSelected,
+}) {
+  const shade = getJobCardShade(index);
   const openDetails = () => onSelect?.(job);
 
   return (
     <article
-      className={`gigs-job-row gigs-job-row--premium gigs-job-row--clickable jobs-job-card${isSelected ? ' is-detail-open' : ''}`}
+      className={`gigs-job-row gigs-job-row--premium gigs-job-row--clickable jobs-job-card jobs-job-card--${shade}${isSelected ? ' is-detail-open' : ''}`}
       onClick={openDetails}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -38,7 +52,7 @@ export default function JobsBrowseJobCard({ job, saved, onToggleSave, onApply, o
       tabIndex={0}
       aria-label={`View details for ${job.role} at ${job.company}`}
     >
-      <CompanyLogo job={job} />
+      <CompanyLogo job={job} shade={shade} />
       <div className="gigs-job-main">
         <h4>{job.role}</h4>
         <p className="gigs-job-company">{job.company}</p>
@@ -67,7 +81,7 @@ export default function JobsBrowseJobCard({ job, saved, onToggleSave, onApply, o
               onApply?.(job);
             }}
           >
-            Apply Now
+            <span className="jh-apply-btn__text">Apply Now</span>
           </button>
           <span onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
             <JobBookmarkButton job={job} saved={saved} onToggle={onToggleSave} />

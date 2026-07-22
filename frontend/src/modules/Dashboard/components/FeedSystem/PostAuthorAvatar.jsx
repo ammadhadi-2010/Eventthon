@@ -1,25 +1,35 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { resolvePostAuthorAvatar } from './feedPostMedia';
+import { profileSubjectFromPost, resolveUserProfilePath } from '../../Profile/utils/profileLinks';
 
 export default function PostAuthorAvatar({ post, userData, borderColor }) {
   const [broken, setBroken] = useState(false);
   const src = resolvePostAuthorAvatar(post, userData);
   const initial = (post?.author_name || 'U').charAt(0).toUpperCase();
+  const profilePath = resolveUserProfilePath(profileSubjectFromPost(post), userData);
 
   return (
-    <div style={{ ...avatarBox, borderColor: borderColor || 'rgba(255,255,255,0.1)' }}>
-      {src && !broken ? (
-        <img
-          src={src}
-          alt={post?.author_name || 'Author'}
-          style={avatarImg}
-          onError={() => setBroken(true)}
-          loading="lazy"
-        />
-      ) : (
-        <span>{initial}</span>
-      )}
-    </div>
+    <Link
+      to={profilePath}
+      className="feed-post-avatar-link"
+      aria-label={`View ${post?.author_name || 'author'} profile`}
+      onClick={(event) => event.stopPropagation()}
+    >
+      <div style={{ ...avatarBox, borderColor: borderColor || 'rgba(255,255,255,0.1)' }}>
+        {src && !broken ? (
+          <img
+            src={src}
+            alt={post?.author_name || 'Author'}
+            style={avatarImg}
+            onError={() => setBroken(true)}
+            loading="lazy"
+          />
+        ) : (
+          <span>{initial}</span>
+        )}
+      </div>
+    </Link>
   );
 }
 

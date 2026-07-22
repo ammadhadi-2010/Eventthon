@@ -1,0 +1,116 @@
+﻿.ph-table-row--aurora,
+.ph-mp-row--aurora,
+.ph-table-mobile-card--aurora,
+.ph-mp-mobile-card--aurora {
+  background: linear-gradient(135deg, rgba(45, 212, 191, 0.28), rgba(139, 92, 246, 0.16), rgba(12, 18, 36, 0.88));
+  border-color: rgba(94, 234, 212, 0.55);
+  box-shadow: 0 10px 32px rgba(45, 212, 191, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.ph-table-row--cobalt,
+.ph-mp-row--cobalt,
+.ph-table-mobile-card--cobalt,
+.ph-mp-mobile-card--cobalt {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(29, 78, 216, 0.16), rgba(12, 18, 36, 0.88));
+  border-color: rgba(96, 165, 250, 0.58);
+  box-shadow: 0 10px 32px rgba(59, 130, 246, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.ph-table-row--coral,
+.ph-mp-row--coral,
+.ph-table-mobile-card--coral,
+.ph-mp-mobile-card--coral {
+  background: linear-gradient(135deg, rgba(251, 113, 133, 0.28), rgba(249, 115, 22, 0.16), rgba(12, 18, 36, 0.88));
+  border-color: rgba(253, 164, 175, 0.55);
+  box-shadow: 0 10px 32px rgba(251, 113, 133, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.ph-table-row--mint,
+.ph-mp-row--mint,
+.ph-table-mobile-card--mint,
+.ph-mp-mobile-card--mint {
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.28), rgba(16, 185, 129, 0.16), rgba(12, 18, 36, 0.88));
+  border-color: rgba(110, 231, 183, 0.55);
+  box-shadow: 0 10px 32px rgba(52, 211, 153, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.ph-table-row--plasma,
+.ph-mp-row--plasma,
+.ph-table-mobile-card--plasma,
+.ph-mp-mobile-card--plasma {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.16), rgba(12, 18, 36, 0.88));
+  border-color: rgba(192, 132, 252, 0.58);
+  box-shadow: 0 10px 32px rgba(168, 85, 247, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.ph-table-row--solar,
+.ph-mp-row--solar,
+.ph-table-mobile-card--solar,
+.ph-mp-mobile-card--solar {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.28), rgba(245, 158, 11, 0.16), rgba(12, 18, 36, 0.88));
+  border-color: rgba(253, 224, 71, 0.58);
+  box-shadow: 0 10px 32px rgba(251, 191, 36, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.ph-table-row--aurora > td,
+.ph-mp-row--aurora > td {
+  background: linear-gradient(135deg, rgba(45, 212, 191, 0.22), rgba(139, 92, 246, 0.12), rgba(12, 18, 36, 0.82));
+}
+.ph-table-row--cobalt > td,
+.ph-mp-row--cobalt > td {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.24), rgba(29, 78, 216, 0.12), rgba(12, 18, 36, 0.82));
+}
+.ph-table-row--coral > td,
+.ph-mp-row--coral > td {
+  background: linear-gradient(135deg, rgba(251, 113, 133, 0.22), rgba(249, 115, 22, 0.12), rgba(12, 18, 36, 0.82));
+}
+.ph-table-row--mint > td,
+.ph-mp-row--mint > td {
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.22), rgba(16, 185, 129, 0.12), rgba(12, 18, 36, 0.82));
+}
+.ph-table-row--plasma > td,
+.ph-mp-row--plasma > td {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.24), rgba(236, 72, 153, 0.12), rgba(12, 18, 36, 0.82));
+}
+.ph-table-row--solar > td,
+.ph-mp-row--solar > td {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.22), rgba(245, 158, 11, 0.12), rgba(12, 18, 36, 0.82));
+}
+
+.ph-table-row--aurora:hover,
+.ph-mp-row--aurora:hover,
+.ph-table-mobile-card--aurora:hover,
+.ph-mp-mobile-card--aurora:hover {
+  box-shadow: 0 14px 36px rgba(45, 212, 191, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-color: rgba(94, 234, 212, 0.72);
+}
+.ph-table-row--cobalt:hover,
+.ph-mp-row--cobalt:hover,
+.ph-table-mobile-card--cobalt:hover,
+.ph-mp-mobile-card--cobalt:hover {
+  box-shadow: 0 14px 36px rgba(59, 130, 246, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-color: rgba(96, 165, 250, 0.75);
+}
+.ph-table-row--coral:hover,
+.ph-mp-row--coral:hover,
+.ph-table-mobile-card--coral:hover,
+.ph-mp-mobile-card--coral:hover {
+  box-shadow: 0 14px 36px rgba(251, 113, 133, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-color: rgba(253, 164, 175, 0.72);
+}
+.ph-table-row--mint:hover,
+.ph-mp-row--mint:hover,
+.ph-table-mobile-card--mint:hover,
+.ph-mp-mobile-card--mint:hover {
+  box-shadow: 0 14px 36px rgba(52, 211, 153, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-color: rgba(110, 231, 183, 0.72);
+}
+.ph-table-row--plasma:hover,
+.ph-mp-row--plasma:hover,
+.ph-table-mobile-card--plasma:hover,
+.ph-mp-mobile-card--plasma:hover {
+  box-shadow: 0 14px 36px rgba(168, 85, 247, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-color: rgba(192, 132, 252, 0.75);
+}
+.ph-table-row--solar:hover,
+.ph-mp-row--solar:hover,
+.ph-table-mobile-card--solar:hover,
+.ph-mp-mobile-card--solar:hover {
+  box-shadow: 0 14px 36px rgba(251, 191, 36, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-color: rgba(253, 224, 71, 0.75);
+}

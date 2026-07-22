@@ -246,7 +246,7 @@ export default function DevProfileOverviewActivityFeed({ userData, draft, bundle
             ariaLabel="Filter activity"
           />
         </div>
-        <Link to="/profile" className="dpo-af-viewall" onClick={(e) => e.preventDefault()}>
+        <Link to="/profile?tab=activity" className="dpo-af-viewall">
           View All Activity →
         </Link>
       </div>

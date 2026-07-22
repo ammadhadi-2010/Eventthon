@@ -1,5 +1,6 @@
 import React from 'react';
 import ChatMessageBubble from './ChatMessageBubble';
+import { formatDaySeparator } from '../../utils/messagesFormat';
 
 const ChatThreadSection = ({
   orderInfo,
@@ -43,15 +44,29 @@ const ChatThreadSection = ({
         </div>
       </div>
     </div>
-    {thread.map((msg) => (
-      <ChatMessageBubble
-        key={msg.id}
-        msg={msg}
-        toAbsoluteUrl={toAbsoluteUrl}
-        onOpenMessageMenu={onOpenMessageMenu}
-        onToggleLike={onToggleLike}
-      />
-    ))}
+    {(() => {
+      let lastDay = '';
+      return thread.map((msg) => {
+        const dayLabel = formatDaySeparator(msg.time);
+        const showDay = dayLabel && dayLabel !== lastDay;
+        if (showDay) lastDay = dayLabel;
+        return (
+          <React.Fragment key={msg.id}>
+            {showDay ? (
+              <div className="msgx-day-separator" role="separator">
+                <span>{dayLabel}</span>
+              </div>
+            ) : null}
+            <ChatMessageBubble
+              msg={msg}
+              toAbsoluteUrl={toAbsoluteUrl}
+              onOpenMessageMenu={onOpenMessageMenu}
+              onToggleLike={onToggleLike}
+            />
+          </React.Fragment>
+        );
+      });
+    })()}
   </div>
 );
 

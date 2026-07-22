@@ -2,6 +2,7 @@ import React from 'react';
 import ProjectRowMenu from './shared/ProjectRowMenu';
 import { buildOwnerProjectMenuItems } from '../hooks/projectRowMenuItems';
 import { STATUS_LABELS } from '../data/projectsHubData';
+import { getProjectCardShade } from '../utils/projectCardShades';
 
 function TeamRow({ team }) {
   return (
@@ -46,8 +47,10 @@ export default function ProjectsTable({
         {rows.length === 0 ? (
           <p className="ph-table-mobile-empty">No projects match this filter.</p>
         ) : (
-          rows.map((row) => (
-            <article key={row.id} className="ph-table-mobile-card">
+          rows.map((row, index) => {
+            const shade = getProjectCardShade(index);
+            return (
+            <article key={row.id} className={`ph-table-mobile-card ph-table-mobile-card--${shade}`}>
               <div className="ph-table-mobile-top">
                 <div className="ph-table-project">
                   <span className={`ph-table-icon ph-table-icon--${row.iconTone}`}>{row.name.charAt(0)}</span>
@@ -77,7 +80,8 @@ export default function ProjectsTable({
                 <TeamRow team={row.team} />
               </div>
             </article>
-          ))
+            );
+          })
         )}
       </div>
       <div className="ph-table-scroll">
@@ -102,8 +106,10 @@ export default function ProjectsTable({
                 </td>
               </tr>
             ) : (
-              rows.map((row) => (
-                <tr key={row.id}>
+              rows.map((row, index) => {
+                const shade = getProjectCardShade(index);
+                return (
+                <tr key={row.id} className={`ph-table-row ph-table-row--${shade}`}>
                   <td>
                     <div className="ph-table-project">
                       <span className={`ph-table-icon ph-table-icon--${row.iconTone}`}>{row.name.charAt(0)}</span>
@@ -141,7 +147,8 @@ export default function ProjectsTable({
                     />
                   </td>
                 </tr>
-              ))
+                );
+              })
             )}
           </tbody>
         </table>

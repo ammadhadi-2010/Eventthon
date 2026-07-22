@@ -52,3 +52,9 @@
   display: inline-block;
   margin-top: 0.2rem;
 }
+
+.feed-post-text__toggle--inline {
+  display: inline;
+  margin-top: 0;
+  vertical-align: baseline;
+}

@@ -1,0 +1,75 @@
+﻿/* Project Hub right rail â€” package card typography & CTA placement */
+.ph-project-rail .gigx-package-price strong,
+.ph-project-rail .ph-rail-package__price-value,
+.ph-rail-package-card .ph-rail-package__price-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 2rem;
+  letter-spacing: -0.02em;
+  color: #f8fafc;
+}
+
+.ph-project-rail .gigx-package-price h4,
+.ph-rail-package__label {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1rem;
+  color: #94a3b8;
+  text-transform: none;
+}
+
+.ph-rail-package__copy {
+  margin: 8px 0 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #94a3b8;
+}
+
+.ph-project-rail .gigx-package-meta,
+.ph-rail-package__meta,
+.sq-pdv-packages__meta.ph-rail-package__meta {
+  margin: 6px 0 0;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: #64748b !important;
+}
+
+.ph-project-rail .gigx-package-body li,
+.ph-rail-package__features li,
+.sq-pdv-packages__body .ph-rail-package__features li {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: #94a3b8;
+}
+
+.ph-project-rail .pdv-sidebar-meta dd {
+  font-size: 0.875rem;
+  color: #e2e8f0;
+}
+
+.ph-rail-package__join {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ph-rail-package__join .sq-pdv-join__status {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.ph-rail-package__btn {
+  width: 100%;
+  min-height: 42px;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.ph-rail-package__btn--secondary {
+  margin-top: 0 !important;
+}

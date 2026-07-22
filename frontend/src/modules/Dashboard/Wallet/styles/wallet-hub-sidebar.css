@@ -1,0 +1,167 @@
+.wallet-left-stack,
+.wallet-right-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wallet-left-card,
+.wallet-side-panel,
+.wallet-security-card {
+  padding: 16px 18px;
+}
+
+.wallet-left-title {
+  margin: 0 0 12px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.wallet-left-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.wallet-left-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.wallet-left-menu-item.is-active {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.28), rgba(147, 51, 234, 0.16));
+  color: #ede9fe;
+  box-shadow: inset 0 0 0 1px rgba(167, 139, 250, 0.25);
+}
+
+.wallet-left-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.wallet-left-promo h4,
+.wallet-left-pro h4,
+.wallet-side-panel h4,
+.wallet-security-card h4 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.wallet-left-promo p,
+.wallet-left-pro p,
+.wallet-security-card p {
+  margin: 0 0 14px;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.wallet-left-promo-btn,
+.wallet-security-btn {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(124, 58, 237, 0.35);
+  background: rgba(124, 58, 237, 0.14);
+  color: #ddd6fe;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.wallet-left-pro-badge {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.wallet-left-pro-link {
+  display: inline-block;
+  color: #c4b5fd;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.wallet-side-panel h4 {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+}
+
+.wallet-side-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.wallet-side-row {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.82rem;
+  min-height: 44px;
+}
+
+.wallet-side-row > span:nth-child(2) {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.wallet-side-row > strong {
+  font-size: 0.78rem;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.wallet-side-row__icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+}
+
+.wallet-security-card {
+  text-align: center;
+}
+
+.wallet-security-icon {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(34, 197, 94, 0.16);
+  color: #4ade80;
+}

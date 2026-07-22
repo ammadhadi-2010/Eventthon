@@ -3,8 +3,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import SquadList from './components/SquadList';
 import SquadChat from './components/tabs/SquadChat/SquadChat';
 import SquadOverview from './components/SquadOverview';
+import SquadHubMobileBreadcrumb from './components/SquadHubMobileBreadcrumb';
 import CreateSquadPanel from './components/createSquad/CreateSquadPanel';
 import { subscribeHubDrawerToggle } from '../Navbar/hubDrawerBus';
+import { refreshScrollHideRoots } from '../../Admin/hooks/useScrollHideNavbar';
 import './styles/squad-hub.css';
 import './styles/squad-hub-mobile.css';
 import './styles/squad-hub-mobile-chrome.css';
@@ -78,12 +80,23 @@ const Squads = ({ userData }) => {
 
   useEffect(() => subscribeHubDrawerToggle('squads', () => setMobileListOpen(true)), []);
 
+  useEffect(() => {
+    refreshScrollHideRoots();
+    const timer = window.setTimeout(refreshScrollHideRoots, 400);
+    return () => window.clearTimeout(timer);
+  }, [selectedSquad?._id, centerTab]);
+
   return (
     <div
       className={`squad-hub squad-hub-mobile-shell hub-inner-mobile-shell${showCreatePanel ? ' squad-hub--creating' : ''}${
         mobileListOpen ? ' squad-hub--list-open' : ''
       }`}
     >
+      <SquadHubMobileBreadcrumb
+        squadName={selectedSquad?.squad_name || ''}
+        activeTab={centerTab}
+      />
+
       {mobileListOpen ? (
         <button
           type="button"

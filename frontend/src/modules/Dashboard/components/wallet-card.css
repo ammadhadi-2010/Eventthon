@@ -14,16 +14,17 @@
   flex-wrap: wrap;
 }
 
-.wallet-card__soon-badge {
+.wallet-card__open-link {
   margin-left: auto;
-  padding: 3px 8px;
+  padding: 3px 10px;
   border-radius: 999px;
-  background: rgba(251, 191, 36, 0.14);
-  color: #fbbf24;
-  font-size: 9px;
+  background: rgba(124, 58, 237, 0.16);
+  color: #c4b5fd;
+  font-size: 10px;
   font-weight: 800;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
+  text-decoration: none;
 }
 
 .wallet-card__title {
@@ -95,8 +96,9 @@
   font-weight: 700;
   color: #fff;
   cursor: pointer;
-  background: linear-gradient(135deg, #1d4ed8, #3b82f6);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  text-decoration: none;
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 

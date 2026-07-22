@@ -1,0 +1,67 @@
+/* Article Editor — field placeholders & input polish */
+
+.article-editor__title-input::placeholder {
+  color: #cbd5e1;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  opacity: 1;
+}
+
+.article-editor__title-input:focus::placeholder {
+  color: #64748b;
+}
+
+.article-editor__field-input::placeholder,
+.article-editor__field-input::-webkit-input-placeholder {
+  color: #cbd5e1;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  opacity: 1;
+}
+
+.article-editor__field-input:focus::placeholder {
+  color: #94a3b8;
+  transition: color 0.2s ease;
+}
+
+.article-editor__field-input:hover:not(:focus)::placeholder {
+  color: #e2e8f0;
+}
+
+textarea.article-editor__field-input::placeholder {
+  line-height: 1.5;
+}
+
+.article-editor__tag-input::placeholder {
+  color: #a5b4fc;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  opacity: 1;
+}
+
+.article-editor__cover-placeholder {
+  color: #e2e8f0 !important;
+  font-size: 13px !important;
+  font-weight: 600;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+}
+
+.article-editor__field-label {
+  color: #e2e8f0 !important;
+}
+
+.article-editor__field-input {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.article-editor__field-input:focus {
+  border-color: rgba(96, 165, 250, 0.45) !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.article-editor__field-input:not(:placeholder-shown) {
+  color: #ffffff !important;
+}

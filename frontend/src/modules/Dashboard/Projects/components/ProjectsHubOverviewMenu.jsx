@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { PROJECTS_MENU } from '../data/projectsHubData';
+import { getProjectCardShade } from '../utils/projectCardShades';
 
 const COUNT_KEYS = {
   'my-projects': 'my-projects',
@@ -46,14 +47,15 @@ export default function ProjectsHubOverviewMenu({ activeMenu, onMenuSelect, menu
       </button>
       {isOpen ? (
         <div className="ph-overview-menu-panel" role="menu" aria-label="Projects hub navigation">
-          {PROJECTS_MENU.map((item) => {
+          {PROJECTS_MENU.map((item, index) => {
             const liveCount = COUNT_KEYS[item.id] ? menuCounts[COUNT_KEYS[item.id]] : item.count;
+            const shade = getProjectCardShade(index);
             return (
               <button
                 key={item.id}
                 type="button"
                 role="menuitem"
-                className={`ph-overview-menu-item${activeMenu === item.id ? ' is-active' : ''}`}
+                className={`ph-overview-menu-item ph-overview-menu-item--${shade}${activeMenu === item.id ? ' is-active' : ''}`}
                 onClick={() => selectItem(item.id)}
               >
                 <span>{item.label}</span>

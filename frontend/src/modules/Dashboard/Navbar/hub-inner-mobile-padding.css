@@ -21,9 +21,14 @@
   .ph-page.ph-mobile-shell .ph-layout.ph-mobile-shell__body,
   .gigs-page .gigs-layout.gigs-mobile-shell__body,
   .jobs-page .jobs-mobile-shell__body,
-  .squad-hub-mobile-shell.hub-inner-mobile-shell,
   .dash-home-mobile-shell.hub-inner-mobile-shell {
     padding-top: 1rem !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .squad-hub-mobile-shell.hub-inner-mobile-shell {
+    padding-top: 0 !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
@@ -31,9 +36,14 @@
   .ph-mobile-shell .ph-center-stack,
   .gigs-page .gigs-hub-layout__center,
   .jobs-page .jobs-layout__center,
-  .dash-home-mobile-shell .dash-main-grid {
+  .dash-home-mobile-shell .dash-main-grid,
+  .wallet-page.wallet-mobile-shell .wallet-hub-layout__center {
     padding-left: 0.5rem !important;
     padding-right: 0.5rem !important;
+  }
+
+  .wallet-page.wallet-mobile-shell .wallet-hub-layout {
+    padding-top: 0.5rem !important;
   }
 
   .et-main-inner--admin:not(.et-main-inner--admin-preview) {
@@ -57,7 +67,7 @@
   }
 
   .squad-hub-mobile-shell.hub-inner-mobile-shell {
-    padding-top: 1rem !important;
+    padding-top: 0 !important;
   }
 
   .ph-page.ph-mobile-shell .ph-layout__rail--left.is-drawer-open {

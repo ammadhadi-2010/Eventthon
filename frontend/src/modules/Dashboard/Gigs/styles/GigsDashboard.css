@@ -1,4 +1,4 @@
-﻿/* Gigs dashboard styles — split under ./gd/ (250-line cap per file) */
+/* Gigs dashboard styles — split under ./gd/ (250-line cap per file) */
 @import './gd/gd-01.css';
 @import './gd/gd-02.css';
 @import './gd/gd-03.css';
@@ -30,3 +30,5 @@
 @import './gd/gd-29.css';
 @import './gd/gd-30.css';
 @import './gd/gd-31.css';
+@import './gd/gd-32.css';
+@import './gd/gd-33.css';

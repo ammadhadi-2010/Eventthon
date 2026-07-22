@@ -1,39 +1,44 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { FEATURED_PROJECTS } from '../data/projectsHubData';
 import ProjectCard from './ProjectCard';
 
-const SCROLL_STEP = 300;
+const AUTO_PLAY_MS = 3800;
 
 export default function ProjectsFeaturedSection({ projects = FEATURED_PROJECTS, onOpenProject }) {
   const trackRef = useRef(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  const pausedRef = useRef(false);
 
-  const updateScrollState = useCallback(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    const max = el.scrollWidth - el.clientWidth;
-    setCanScrollLeft(el.scrollLeft > 4);
-    setCanScrollRight(el.scrollLeft < max - 4);
-  }, []);
-
-  const scrollBy = (direction) => {
-    const el = trackRef.current;
-    if (!el) return;
-    el.scrollBy({ left: direction * SCROLL_STEP, behavior: 'smooth' });
-    window.setTimeout(updateScrollState, 280);
-  };
+  const loopProjects = useMemo(
+    () => (projects.length > 1 ? [...projects, ...projects] : projects),
+    [projects],
+  );
 
   useEffect(() => {
-    updateScrollState();
     const el = trackRef.current;
-    if (!el) return undefined;
-    const onResize = () => updateScrollState();
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, [projects, updateScrollState]);
+    if (!el || projects.length <= 1) return undefined;
+
+    const advance = () => {
+      if (pausedRef.current) return;
+
+      const card = el.querySelector('.ph-pcard');
+      const step = (card?.offsetWidth || 280) + 12;
+      const loopWidth = el.scrollWidth / 2;
+
+      if (el.scrollLeft >= loopWidth - 4) {
+        el.scrollTo({ left: 0, behavior: 'auto' });
+        window.requestAnimationFrame(() => {
+          el.scrollBy({ left: step, behavior: 'smooth' });
+        });
+        return;
+      }
+
+      el.scrollBy({ left: step, behavior: 'smooth' });
+    };
+
+    const timer = window.setInterval(advance, AUTO_PLAY_MS);
+    return () => window.clearInterval(timer);
+  }, [projects]);
 
   return (
     <section className="ph-card ph-featured">
@@ -43,34 +48,22 @@ export default function ProjectsFeaturedSection({ projects = FEATURED_PROJECTS, 
           View All
         </Link>
       </header>
-      <div className="ph-featured-carousel">
-        <button
-          type="button"
-          className="ph-featured-arrow ph-featured-arrow--left"
-          onClick={() => scrollBy(-1)}
-          disabled={!canScrollLeft}
-          aria-label="Previous featured projects"
-        >
-          <FiChevronLeft size={22} />
-        </button>
-        <div
-          ref={trackRef}
-          className="ph-featured-track"
-          onScroll={updateScrollState}
-        >
-          {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} onOpen={onOpenProject} />
+      <div
+        className="ph-featured-carousel"
+        onMouseEnter={() => { pausedRef.current = true; }}
+        onMouseLeave={() => { pausedRef.current = false; }}
+        onFocusCapture={() => { pausedRef.current = true; }}
+        onBlurCapture={() => { pausedRef.current = false; }}
+      >
+        <div ref={trackRef} className="ph-featured-track" aria-live="off">
+          {loopProjects.map((project, index) => (
+            <ProjectCard
+              key={`${project.id}-${index}`}
+              project={project}
+              onOpen={onOpenProject}
+            />
           ))}
         </div>
-        <button
-          type="button"
-          className="ph-featured-arrow ph-featured-arrow--right"
-          onClick={() => scrollBy(1)}
-          disabled={!canScrollRight}
-          aria-label="Next featured projects"
-        >
-          <FiChevronRight size={22} />
-        </button>
       </div>
     </section>
   );

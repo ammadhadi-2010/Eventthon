@@ -1,14 +1,11 @@
 /** Resolve squad profile image from API payload (imageurl, banner, etc.). */
+import { resolveDashboardMediaUrl, pickImageurl } from '../../utils/dashboardMedia';
+
 export function getSquadImageUrl(squad) {
   if (!squad) return '';
-  const url =
-    squad.imageurl ||
-    squad.imageUrl ||
-    squad.image_url ||
-    squad.banner ||
-    squad.avatar ||
-    '';
-  return typeof url === 'string' && url.trim() ? url.trim() : '';
+  const raw = pickImageurl(squad) || squad.banner || '';
+  if (!raw || raw.includes('ep-live-preview')) return '';
+  return resolveDashboardMediaUrl(raw) || (raw.startsWith('http') ? raw : '');
 }
 
 export function getSquadInitials(squad) {

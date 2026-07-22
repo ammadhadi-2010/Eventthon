@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiStar } from 'react-icons/fi';
 import { RECOMMENDED_GIGS } from '../../data/gigsRightSidebarData';
+import { getRecentGigShade } from '../../utils/recentGigShades';
 
 export default function GigsRecommendedSection() {
   const navigate = useNavigate();
@@ -13,10 +14,12 @@ export default function GigsRecommendedSection() {
         <Link to="/gigs/browse/featured">View All</Link>
       </div>
       <div className="gigs-right-list">
-        {RECOMMENDED_GIGS.map((gig) => (
+        {RECOMMENDED_GIGS.map((gig, index) => {
+          const shade = getRecentGigShade(index);
+          return (
           <article
             key={gig.id}
-            className="gigs-right-list-row is-interactive"
+            className={`gigs-right-list-row gigs-right-list-row--${shade} is-interactive`}
             role="button"
             tabIndex={0}
             onClick={() => navigate(gig.path)}
@@ -27,7 +30,7 @@ export default function GigsRecommendedSection() {
               }
             }}
           >
-            <div className="gigs-right-list-avatar">{gig.seller.charAt(0)}</div>
+            <div className={`gigs-right-list-avatar gigs-recent-logo gigs-recent-logo--${shade}`}>{gig.seller.charAt(0)}</div>
             <div>
               <h4>{gig.title}</h4>
               <p>
@@ -41,7 +44,8 @@ export default function GigsRecommendedSection() {
               <strong>From {gig.price}</strong>
             </div>
           </article>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

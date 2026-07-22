@@ -12,6 +12,7 @@ from database import lead_hunter_leads_collection, outreach_replies_collection
 from .email_outreach_activity import log_outreach_activity
 from .email_outreach_helpers import format_last_contact
 from .email_outreach_imap import fetch_unread_reply_messages, mark_message_seen
+from .email_outreach_automated_filter import log_ignored_automated_email, should_ignore_automated_email
 from .email_outreach_ai_responder import process_pending_ai_replies, try_auto_reply_to_inbound
 
 logger = logging.getLogger("email_outreach.replies")
@@ -65,6 +66,16 @@ async def save_incoming_reply(payload: dict[str, Any]) -> bool:
             return False
 
     sender_email = str(payload.get("sender_email") or "").lower().strip()
+    ignore, reason = should_ignore_automated_email(payload)
+    if ignore:
+        log_ignored_automated_email(logger, payload, reason)
+        if gmail_uid:
+            await mark_message_seen(gmail_uid)
+        return False
+
+    subject = str(payload.get("subject") or "").strip()
+    body_content = str(payload.get("body_content") or "").strip()
+
     lead_doc = await _find_lead_for_sender(sender_email)
     lead_id = str(lead_doc.get("id") or lead_doc.get("_id") or "") if lead_doc else ""
     company = str(lead_doc.get("company") or "") if lead_doc else ""
@@ -82,14 +93,17 @@ async def save_incoming_reply(payload: dict[str, Any]) -> bool:
         "sender_email": sender_email,
         "sender_name": sender_name,
         "recipient_email": str(payload.get("recipient_email") or "").lower().strip(),
-        "subject": str(payload.get("subject") or "").strip(),
-        "body_content": str(payload.get("body_content") or "").strip(),
+        "subject": subject,
+        "body_content": body_content,
         "received_at": received_at,
         "lead_id": lead_id,
         "company": company,
         "message_id": message_id,
         "gmail_uid": gmail_uid,
         "in_reply_to": str(payload.get("in_reply_to") or "").strip(),
+        "from_header": str(payload.get("from_header") or "").strip(),
+        "reply_to": str(payload.get("reply_to") or "").strip(),
+        "return_path": str(payload.get("return_path") or "").strip(),
         "status": "received",
         "ai_reply_status": "pending",
         "created_at": datetime.now(timezone.utc),

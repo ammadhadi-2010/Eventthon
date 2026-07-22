@@ -7,6 +7,7 @@ export function readStoredUserStub() {
   const role = String(localStorage.getItem('userRole') || 'candidate').trim() || 'candidate';
   const display = String(localStorage.getItem('userName') || '').trim();
   const imageurl = String(localStorage.getItem('userImageurl') || '').trim();
+  const banner = String(localStorage.getItem('userBanner') || '').trim();
 
   return {
     email: email || undefined,
@@ -17,6 +18,7 @@ export function readStoredUserStub() {
     imageurl: imageurl || undefined,
     profile_image_url: imageurl || undefined,
     avatar: imageurl || undefined,
+    banner: banner || undefined,
     _fromStorage: true,
   };
 }
@@ -37,6 +39,11 @@ export function persistUserSession(user) {
       '',
   ).trim();
   if (imageurl) localStorage.setItem('userImageurl', imageurl);
+
+  const banner = String(user.banner || user.cover_image || user.coverImage || '').trim();
+  if (banner) localStorage.setItem('userBanner', banner);
+
+  localStorage.setItem('userMediaVersion', String(Date.now()));
 
   const mongoUserId = String(user._id || user.user_id || '').trim();
   if (mongoUserId) localStorage.setItem('userId', mongoUserId);
@@ -61,5 +68,7 @@ export function clearStaleSession() {
     'userName',
     'userRole',
     'userImageurl',
+    'userBanner',
+    'userMediaVersion',
   ].forEach((key) => localStorage.removeItem(key));
 }

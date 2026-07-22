@@ -5,6 +5,7 @@ import {
   FiMessageSquare,
   FiRefreshCw,
 } from 'react-icons/fi';
+import { getProjectCardShade } from '../../utils/projectCardShades';
 
 const TYPE_ICONS = {
   updates: FiRefreshCw,
@@ -24,10 +25,11 @@ export default function ActivityFeedList({ items }) {
 
   return (
     <ul className="ph-act-list">
-      {items.map((item) => {
+      {items.map((item, index) => {
         const Icon = TYPE_ICONS[item.type] || FiRefreshCw;
+        const shade = getProjectCardShade(index);
         return (
-          <li key={item.id} className="ph-act-row">
+          <li key={item.id} className={`ph-act-row ph-act-row--${shade}`}>
             <span
               className="ph-act-row-icon"
               style={{ background: `${item.tone}22`, color: item.tone, borderColor: `${item.tone}55` }}

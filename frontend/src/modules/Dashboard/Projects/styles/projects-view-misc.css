@@ -1,0 +1,67 @@
+﻿.ph-reports-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.ph-chart-card h3 {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: #e2e8f0;
+}
+
+.ph-chart {
+  width: 100%;
+  height: 120px;
+  color: #6366f1;
+}
+
+.ph-chart--blue {
+  color: #3b82f6;
+}
+.ph-chart--green {
+  color: #22c55e;
+}
+
+.ph-chart-line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+}
+
+.ph-reports-note {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+}
+
+.ph-settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ph-settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 13px;
+  color: #e2e8f0;
+  cursor: pointer;
+}
+
+.ph-settings-row:last-child {
+  border-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .ph-gantt-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ph-gantt-axis {
+    padding-left: 0;
+  }
+}
