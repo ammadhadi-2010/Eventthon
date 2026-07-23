@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { API_BASE_URL } from '../../../api/axiosConfig';
+import { stripMediaUrlToStoragePath } from '../../../components/shared/utils/resolveMediaUrl';
 
 export const getArticleIdentifier = (userData) =>
   userData?.email ||
@@ -46,8 +47,11 @@ export const updateArticleById = async (articleId, payload, userData) => {
   data.append('category', payload.category || 'General');
   data.append('seo_score', String(payload.seoScore || 0));
   data.append('status_value', payload.status || 'draft');
+  const coverStoragePath =
+    stripMediaUrlToStoragePath(payload.coverImageUrl) ||
+    stripMediaUrlToStoragePath(payload.coverPreview);
   if (payload.coverImage) data.append('cover_image', payload.coverImage);
-  else if (payload.coverImageUrl) data.append('cover_image_url', payload.coverImageUrl);
+  else if (coverStoragePath) data.append('cover_image_url', coverStoragePath);
   if (payload.relatedContent) {
     data.append('related_content', JSON.stringify(payload.relatedContent));
   }

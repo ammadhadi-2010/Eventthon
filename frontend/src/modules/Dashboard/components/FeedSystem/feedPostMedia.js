@@ -1,4 +1,4 @@
-import { API_BASE_URL } from '../../../../api/axiosConfig';
+import { pickPostMediaPath, resolveMediaUrl } from '../../../../components/shared/utils/resolveMediaUrl';
 import { pickImageurl, resolveDashboardMediaUrl, getUserDisplayName } from '../../utils/dashboardMedia';
 import { resolveFeedAuthorFields } from './feedAuthor';
 
@@ -27,11 +27,7 @@ export function normalizeFeedLabel(label = '') {
 }
 
 export function resolveFeedMediaUrl(raw) {
-  const v = String(raw || '').trim();
-  if (!v || v.includes('ep-live-preview')) return '';
-  if (v.startsWith('http') || v.startsWith('blob:') || v.startsWith('data:')) return v;
-  const base = API_BASE_URL.replace(/\/$/, '');
-  return `${base}${v.startsWith('/') ? v : `/${v}`}`;
+  return resolveMediaUrl(raw);
 }
 
 export function isVideoMediaPath(raw) {
@@ -51,15 +47,15 @@ function collectRawMediaPaths(post) {
   if (Array.isArray(media)) {
     media.forEach((item) => {
       if (typeof item === 'string') paths.push(item);
-      else paths.push(item?.url || item?.imageurl || item?.imageUrl || item?.src || '');
+      else paths.push(pickPostMediaPath(item));
     });
   } else if (typeof media === 'string') {
     paths.push(media);
   }
-  if (post?.post_type === 'ARTICLE') {
-    const cover = post?.cover_image || post?.imageurl || post?.imageUrl || '';
-    if (cover) paths.push(cover);
-  }
+
+  const cover = pickPostMediaPath(post);
+  if (cover) paths.push(cover);
+
   return paths.filter(Boolean);
 }
 

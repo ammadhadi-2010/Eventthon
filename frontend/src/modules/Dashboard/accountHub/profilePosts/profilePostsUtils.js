@@ -1,4 +1,4 @@
-import { getUserDisplayName } from '../../utils/dashboardMedia';
+import { getUserDisplayName, pickPostMediaPath } from '../../utils/dashboardMedia';
 
 const GENERIC_STATUSES = new Set(['', 'published', 'live', 'active']);
 
@@ -33,9 +33,7 @@ function resolveStatus(item = {}) {
 }
 
 function resolveImageurl(item = {}) {
-  const media = Array.isArray(item.media) ? item.media : [];
-  const firstMedia = typeof media[0] === 'string' ? media[0] : media[0]?.url || media[0]?.imageurl;
-  return String(item.imageurl || item.cover_image || item.imageUrl || firstMedia || '').trim();
+  return pickPostMediaPath(item);
 }
 
 function resolveMetrics(item = {}) {

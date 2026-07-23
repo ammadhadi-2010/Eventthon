@@ -21,6 +21,11 @@ export { default as FeedProjectThumbRail } from './feed/FeedProjectThumbRail';
 export { default as FeedFollowRail } from './feed/FeedFollowRail';
 
 export { timeAgo, isWithinLastHour } from './utils/relativeActivityTime';
-export { resolveMediaUrl } from './utils/resolveMediaUrl';
+export {
+  resolveMediaUrl,
+  pickPostMediaPath,
+  normalizeMediaStoragePath,
+  stripMediaUrlToStoragePath,
+} from './utils/resolveMediaUrl';
 
 export { ReviewCard, StarRating, toReviewCardProps, getStarSlots } from '../reviews';

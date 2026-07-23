@@ -1,4 +1,4 @@
-import { resolveDashboardMediaUrl } from '../utils/dashboardMedia';
+import { pickPostMediaPath, resolveDashboardMediaUrl } from '../utils/dashboardMedia';
 import { UPDATE_ACTION_LABELS } from './updatesExplorerConfig';
 import { themeForType } from './updateThemes';
 import { formatUpdateTime } from './mapUpdatesFeed';
@@ -19,7 +19,7 @@ export function mapExplorerRow(row) {
     theme,
     title,
     message: row.message || '',
-    imageurl: resolveDashboardMediaUrl(row.imageurl || ''),
+    imageurl: resolveDashboardMediaUrl(pickPostMediaPath(row)),
     authorName: row.author_name || 'EventThon Member',
     authorTitle: row.author_title || 'Member',
     authorImageurl: authorImage,

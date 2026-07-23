@@ -1,4 +1,10 @@
-import { API_BASE_URL } from '../../../api/axiosConfig';
+import {
+  pickPostMediaPath,
+  resolveMediaUrl,
+  stripMediaUrlToStoragePath,
+} from '../../../components/shared/utils/resolveMediaUrl';
+
+export { pickPostMediaPath, stripMediaUrlToStoragePath };
 
 /** Standard profile / preview image from API payload (imageurl first). */
 export function pickImageurl(entity) {
@@ -31,12 +37,9 @@ export function appendMediaCacheBust(url, seed) {
 }
 
 export function resolveDashboardMediaUrl(raw, cacheSeed) {
-  const v = pickImageurl({ imageurl: raw }) || String(raw || '').trim();
-  if (!v || v.includes('ep-live-preview')) return '';
-  if (v.startsWith('http') || v.startsWith('blob:') || v.startsWith('data:')) {
-    return appendMediaCacheBust(v, cacheSeed);
-  }
-  const resolved = `${API_BASE_URL}${v.startsWith('/') ? v : `/${v}`}`;
+  const v = pickPostMediaPath(raw) || pickImageurl(typeof raw === 'object' ? raw : { imageurl: raw }) || String(raw || '').trim();
+  if (!v) return '';
+  const resolved = resolveMediaUrl(v);
   return appendMediaCacheBust(resolved, cacheSeed);
 }
 

@@ -10,8 +10,10 @@ from .article_helpers import (
     estimate_reading_time,
     resolve_author,
     resolve_existing_media_path,
+    resolve_media_path_for_api,
     save_uploaded_image,
     serialize_article,
+    stored_media_path,
     unlink_static_file,
 )
 from database import comment_collection
@@ -50,9 +52,9 @@ async def save_article_document(
     if cover_image and cover_image.filename:
         cover_url = await save_uploaded_image(cover_image)
     elif cover_image_url:
-        cover_url = resolve_existing_media_path(cover_image_url)
+        cover_url = resolve_media_path_for_api(cover_image_url)
         if not cover_url:
-            raise HTTPException(status_code=400, detail="Cover image not found on server. Upload again.")
+            raise HTTPException(status_code=400, detail="Invalid cover image path. Upload again.")
     tag_list = [tag.strip() for tag in (tags or "").split(",") if tag.strip()]
     clean_title = title.strip()
     clean_content = content.strip()
@@ -126,13 +128,13 @@ async def update_article_document(
     from .article_helpers import require_article_author
     await require_article_author(article, identifier)
 
-    cover_url = resolve_existing_media_path(article.get("cover_image") or article.get("imageurl") or "")
+    cover_url = stored_media_path(article.get("cover_image") or article.get("imageurl") or "")
     if cover_image and cover_image.filename:
         cover_url = await save_uploaded_image(cover_image)
     elif cover_image_url:
-        resolved = resolve_existing_media_path(cover_image_url)
+        resolved = resolve_media_path_for_api(cover_image_url)
         if not resolved:
-            raise HTTPException(status_code=400, detail="Cover image not found on server. Upload again.")
+            raise HTTPException(status_code=400, detail="Invalid cover image path. Upload again.")
         cover_url = resolved
 
     clean_title = title.strip()

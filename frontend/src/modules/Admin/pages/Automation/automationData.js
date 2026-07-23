@@ -40,7 +40,7 @@ export function resolveAutomationMediaUrl(path) {
 }
 
 export function resolvePostImageurl(row = {}) {
-  const raw = String(row.imageurl || '').trim();
+  const raw = String(row.imageurl || row.image_url || row.media_url || row.cover_image || '').trim();
   if (raw) return resolveAutomationMediaUrl(raw) || raw;
   return '';
 }

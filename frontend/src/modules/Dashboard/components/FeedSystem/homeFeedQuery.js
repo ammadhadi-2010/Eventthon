@@ -1,4 +1,5 @@
 import API from '../../../../api/axiosConfig';
+import { pickPostMediaPath } from '../../../../components/shared/utils/resolveMediaUrl';
 import { resolveFeedAuthorFields } from './feedAuthor';
 
 const FEED_TIMEOUT_MS = 20000;
@@ -37,7 +38,7 @@ export function normalizeTimelinePost(post = {}) {
 
   const postType = String(post.post_type || 'POST').toUpperCase();
   const media = safeArray(post.media);
-  const coverImage = String(post.imageurl || post.cover_image || '').trim();
+  const coverImage = pickPostMediaPath(post);
   const authorFields = resolveFeedAuthorFields(post);
 
   return {
@@ -66,7 +67,7 @@ export function normalizeTimelinePost(post = {}) {
 }
 
 function mapArticleToFeedItem(article = {}) {
-  const cover = String(article.imageurl || article.cover_image || '').trim();
+  const cover = pickPostMediaPath(article);
   const authorFields = resolveFeedAuthorFields(article);
   const fullContent = stripHtml(article.content || '');
   const previewContent = stripHtml(article.excerpt || article.content || '');

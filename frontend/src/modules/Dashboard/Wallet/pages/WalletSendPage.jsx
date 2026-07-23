@@ -113,3 +113,4 @@ export default function WalletSendPage({ wallet, userData, onTransfer, onBack })
     </WalletSubpageShell>
   );
 }
+

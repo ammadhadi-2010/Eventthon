@@ -91,6 +91,37 @@ def resolve_existing_media_path(stored: str) -> str:
     return ""
 
 
+def stored_media_path(stored: str) -> str:
+    """Normalized /static/... path for DB/API (no disk check)."""
+    return normalize_media_path(stored)
+
+
+def resolve_media_path_for_api(stored: str) -> str:
+    """Prefer on-disk path when present; fix extension case; else keep stored value."""
+    verified = resolve_existing_media_path(stored)
+    if verified:
+        return verified
+
+    path = stored_media_path(stored)
+    if not path.startswith("/static/"):
+        return path
+
+    abs_guess = static_file_abspath(path)
+    if abs_guess and os.path.isfile(abs_guess):
+        rel = os.path.relpath(abs_guess, STATIC_DIR).replace("\\", "/")
+        return f"/static/{rel}"
+
+    directory = os.path.dirname(abs_guess) if abs_guess else ""
+    basename = os.path.basename(abs_guess) if abs_guess else ""
+    if directory and basename and os.path.isdir(directory):
+        for name in os.listdir(directory):
+            if name.lower() == basename.lower():
+                rel = os.path.relpath(os.path.join(directory, name), STATIC_DIR).replace("\\", "/")
+                return f"/static/{rel}"
+
+    return path
+
+
 def rewrite_article_content_html(html: str) -> str:
     source = html or ""
     if not source:
@@ -101,9 +132,9 @@ def rewrite_article_content_html(html: str) -> str:
         src = (match.group(2) or "").strip()
         if not src or src.startswith("data:") or src.startswith("blob:"):
             return match.group(0)
-        resolved = resolve_existing_media_path(src)
+        resolved = resolve_media_path_for_api(src)
         if not resolved:
-            return ""
+            return match.group(0)
         return f"src={quote}{resolved}{quote}"
 
     return re.sub(r'src=(["\'])([^"\']+)\1', repl, source, flags=re.IGNORECASE)
@@ -111,8 +142,8 @@ def rewrite_article_content_html(html: str) -> str:
 
 def serialize_article(article: dict) -> dict:
     article["_id"] = str(article["_id"])
-    cover_image = resolve_existing_media_path(article.get("cover_image") or "")
-    imageurl = resolve_existing_media_path(article.get("imageurl") or "") or cover_image
+    cover_image = resolve_media_path_for_api(article.get("cover_image") or "")
+    imageurl = resolve_media_path_for_api(article.get("imageurl") or "") or cover_image
     article["cover_image"] = cover_image
     article["imageurl"] = imageurl
     article["content"] = rewrite_article_content_html(article.get("content") or "")

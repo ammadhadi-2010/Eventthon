@@ -3,7 +3,7 @@ import { FiCornerDownRight, FiMoreHorizontal, FiThumbsUp } from 'react-icons/fi'
 import ReplyComposer from '../Global/ReplyComposer';
 import CommentAvatar from './CommentAvatar';
 import { BusinessIcon } from '../../../../components/lottie';
-import { API_BASE_URL } from '../../../../api/axiosConfig';
+import { resolveMediaUrl } from '../../../../components/shared/utils/resolveMediaUrl';
 
 /**
  * Single comment row with profile avatar, bubble, stickers, and replies.
@@ -22,11 +22,7 @@ export default function IndividualCommentCard({
   onMenuAction,
   buildReplyKey,
 }) {
-  const resolvedImageUrl = comment.image_url
-    ? String(comment.image_url).startsWith('http')
-      ? comment.image_url
-      : `${API_BASE_URL}${comment.image_url}`
-    : null;
+  const resolvedImageUrl = comment.image_url ? resolveMediaUrl(comment.image_url) : null;
 
   return (
     <article className="cm-comment-card">

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { FiArrowRight, FiClock, FiEdit2, FiEye, FiTrash2 } from 'react-icons/fi';
-import { resolveDashboardMediaUrl } from '../utils/dashboardMedia';
+import { pickPostMediaPath, resolveDashboardMediaUrl } from '../utils/dashboardMedia';
 import { normalizeArticleTitle } from './articleLibraryUtils';
 
 export default function ArticleLibraryCard({ article, onOpen, onEdit, onDelete }) {
   const [imageBroken, setImageBroken] = useState(false);
-  const coverSrc = resolveDashboardMediaUrl(article.imageurl || article.cover_image);
+  const coverSrc = resolveDashboardMediaUrl(pickPostMediaPath(article));
   const showCover = Boolean(coverSrc) && !imageBroken;
   const displayTitle = normalizeArticleTitle(article.title);
   const status = String(article.status || 'draft').toLowerCase();

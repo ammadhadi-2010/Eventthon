@@ -15,13 +15,15 @@ import {
   FiType,
   FiUnderline,
 } from 'react-icons/fi';
+import { resolveMediaUrl, stripMediaUrlToStoragePath } from '../../../components/shared/utils/resolveMediaUrl';
 import { API_BASE_URL } from '../../../api/axiosConfig';
 import ProfileCard from '../components/ProfileCard';
-import { resolveDashboardMediaUrl } from '../utils/dashboardMedia';
+import { pickPostMediaPath, resolveDashboardMediaUrl } from '../utils/dashboardMedia';
 import { deleteArticleById, fetchArticleById, updateArticleById, uploadArticleMedia, getArticleIdentifier } from './articleApi';
 import { ARTICLE_CATEGORIES } from './articleCategories';
 import { createEmptyArticleForm } from './articleEditorDefaults';
 import { buildLivePreviewArticle } from './buildLivePreviewArticle';
+import { resolveArticleHtmlContent } from './articleContentUtils';
 import ArticleEditorMoreMenu from './ArticleEditorMoreMenu';
 import AttachRelatedContentModule from './relatedContent/AttachRelatedContentModule';
 import { normalizeRelatedContent } from './relatedContent/relatedContentConfig';
@@ -72,6 +74,7 @@ const ArticleEditor = ({ userData }) => {
         setLoadingArticle(true);
         const article = await fetchArticleById(articleId);
         if (!article) return;
+        const coverPath = pickPostMediaPath(article);
         setForm((prev) => ({
           ...prev,
           title: article.title || '',
@@ -82,10 +85,10 @@ const ArticleEditor = ({ userData }) => {
           metaTitle: article.meta_title || '',
           metaDescription: article.meta_description || '',
           category: article.category || 'SEO',
-          content: article.content || '',
+          content: resolveArticleHtmlContent(article.content || ''),
           coverImage: null,
-          coverImageUrl: article.imageurl || article.cover_image || '',
-          coverPreview: resolveDashboardMediaUrl(article.imageurl || article.cover_image) || '',
+          coverImageUrl: coverPath,
+          coverPreview: resolveDashboardMediaUrl(coverPath) || '',
           relatedContent: normalizeRelatedContent(article.related_content),
         }));
       } catch (error) {
@@ -208,9 +211,9 @@ const ArticleEditor = ({ userData }) => {
     try {
       setStatusMessage('Uploading image...');
       const imageurl = await uploadArticleMedia(file);
-      const src = imageurl.startsWith('http') ? imageurl : `${API_BASE_URL}${imageurl}`;
+      const src = resolveMediaUrl(imageurl);
       insertBlockHtml(
-        `<img src="${src}" alt="" data-imageurl="${imageurl}" style="max-width:100%;border-radius:12px;margin:12px 0;display:block;" />`,
+        `<img src="${src}" alt="" data-imageurl="${stripMediaUrlToStoragePath(imageurl)}" style="max-width:100%;border-radius:12px;margin:12px 0;display:block;" />`,
       );
       setStatusMessage('Image added to article content.');
     } catch (error) {
@@ -345,7 +348,12 @@ const ArticleEditor = ({ userData }) => {
     data.append('category', form.category);
     data.append('seo_score', String(seoInsights.score));
     if (form.coverImage) data.append('cover_image', form.coverImage);
-    else if (form.coverImageUrl) data.append('cover_image_url', form.coverImageUrl);
+    else {
+      const coverStoragePath =
+        stripMediaUrlToStoragePath(form.coverImageUrl) ||
+        stripMediaUrlToStoragePath(form.coverPreview);
+      if (coverStoragePath) data.append('cover_image_url', coverStoragePath);
+    }
     data.append('related_content', JSON.stringify(form.relatedContent || {}));
     return data;
   };

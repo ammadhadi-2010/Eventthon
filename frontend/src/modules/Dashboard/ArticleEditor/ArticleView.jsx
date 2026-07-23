@@ -4,7 +4,7 @@ import { FiClock } from 'react-icons/fi';
 import ProfileCard from '../components/ProfileCard';
 import WalletCard from '../components/WalletCard';
 import { belongsToCurrentUser } from '../accountHub/profilePosts/profilePostsUtils';
-import { resolveDashboardMediaUrl } from '../utils/dashboardMedia';
+import { pickPostMediaPath, resolveDashboardMediaUrl } from '../utils/dashboardMedia';
 import { deleteArticleById, fetchArticleById, incrementArticleMetric } from './articleApi';
 import { resolveArticleHtmlContent } from './articleContentUtils';
 import ArticleViewBreadcrumb from './ArticleViewBreadcrumb';
@@ -59,7 +59,7 @@ const ArticleView = ({ userData }) => {
     () => resolveArticleHtmlContent(article?.content || ''),
     [article?.content],
   );
-  const coverSrc = resolveDashboardMediaUrl(article?.imageurl || article?.cover_image);
+  const coverSrc = resolveDashboardMediaUrl(pickPostMediaPath(article));
   const showCoverFallback = Boolean(coverSrc && coverBroken);
 
   const handleDelete = async () => {

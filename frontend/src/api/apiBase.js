@@ -14,5 +14,12 @@ export function resolveApiBaseUrl() {
     return envUrl;
   }
 
-  return envUrl || LOCAL_API;
+  if (envUrl) return envUrl;
+
+  // Same-origin works when nginx proxies /api and /static/uploads/ to the backend.
+  if (typeof window !== 'undefined' && window.location?.origin) {
+    return String(window.location.origin).replace(/\/+$/, '');
+  }
+
+  return LOCAL_API;
 }

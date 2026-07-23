@@ -1,11 +1,8 @@
-import { API_BASE_URL } from '../../../../api/axiosConfig';
+import { resolveMediaUrl as resolveSharedMediaUrl } from '../../../../components/shared/utils/resolveMediaUrl';
 import { getAvatarUrl } from '../../Navbar/userMenuUtils';
 
 function resolveMediaUrl(raw) {
-  const v = String(raw || '').trim();
-  if (!v || v.includes('ep-live-preview')) return '';
-  if (v.startsWith('http') || v.startsWith('blob:') || v.startsWith('data:')) return v;
-  return `${API_BASE_URL}${v.startsWith('/') ? v : `/${v}`}`;
+  return resolveSharedMediaUrl(raw);
 }
 
 /** Profile photo for a comment author (high-res when available). */
