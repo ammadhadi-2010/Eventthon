@@ -7,6 +7,7 @@ from typing import Optional
 from bson import ObjectId
 from fastapi import HTTPException, UploadFile
 
+from backend_routes.common.media_urls import resolve_public_media_url
 from .related_content_helpers import normalize_related_content
 from database import user_collection
 from .article_config import STATIC_DIR, UPLOAD_DIR, COMMENTS_UPLOAD_DIR
@@ -132,7 +133,7 @@ def rewrite_article_content_html(html: str) -> str:
         src = (match.group(2) or "").strip()
         if not src or src.startswith("data:") or src.startswith("blob:"):
             return match.group(0)
-        resolved = resolve_media_path_for_api(src)
+        resolved = resolve_public_media_url(resolve_media_path_for_api(src) or src)
         if not resolved:
             return match.group(0)
         return f"src={quote}{resolved}{quote}"
@@ -162,7 +163,10 @@ def serialize_article(article: dict) -> dict:
         article["created_at"] = article["created_at"].isoformat()
     if isinstance(article.get("updated_at"), datetime):
         article["updated_at"] = article["updated_at"].isoformat()
-    return article
+
+    from backend_routes.common.media_urls import apply_public_media_urls
+
+    return apply_public_media_urls(article)
 
 
 async def save_uploaded_image(file: UploadFile, *, target_dir: str = UPLOAD_DIR, url_prefix: str = "/static/uploads/articles") -> str:

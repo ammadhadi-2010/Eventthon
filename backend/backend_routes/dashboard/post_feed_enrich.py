@@ -2,6 +2,7 @@ from bson import ObjectId
 from datetime import datetime
 
 from database import user_collection, comment_collection
+from backend_routes.common.media_urls import apply_public_media_urls
 
 GENERIC_AUTHOR_NAMES = {
     "",
@@ -115,7 +116,7 @@ async def enrich_posts_list(posts: list, *, include_comments: bool = True) -> li
         elif not post.get("author_rank"):
             post["author_rank"] = "frontline"
 
-        posts[index] = post
+        posts[index] = apply_public_media_urls(post)
 
     return posts
 
@@ -174,6 +175,6 @@ async def enrich_articles_list(articles: list) -> list:
                 article["author_name"] = "Member"
         if not article.get("author_rank"):
             article["author_rank"] = "frontline"
-        articles[index] = article
+        articles[index] = apply_public_media_urls(article)
 
     return articles
