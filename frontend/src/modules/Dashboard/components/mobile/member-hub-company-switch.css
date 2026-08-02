@@ -19,6 +19,7 @@
     text-overflow: ellipsis;
   }
 
+  .cp-mobile-topbar .et-hub-switch--compact,
   .msgx-mobile-topbar .et-hub-switch--compact {
     flex-shrink: 0;
     height: 32px;

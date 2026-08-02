@@ -19,7 +19,10 @@ import './styles/gigs-hub-shell.css';
 import './styles/gigs-hub-rail.css';
 import './styles/gigs-hub-center.css';
 import './styles/gigs-hub-mobile.css';
+import './styles/gh-breadcrumb.css';
 import './components/gigs-create-gig-mobile.css';
+import GigsBreadcrumb from './components/GigsBreadcrumb';
+import { buildGigsHubCrumbs } from './utils/gigsBreadcrumbs';
 
 const TAB_PANEL_SECTIONS = new Set([
   'My Gigs', 'Orders', 'Saved Gigs', 'Reviews', 'Proposals', 'Create Gig', 'Earnings', 'Settings',
@@ -105,8 +108,6 @@ const GigsPage = () => {
   ) : (
     <GigsMainContent
       hub={hub}
-      activeSection={activeSection}
-      onSectionSelect={handleSectionSelect}
       onCreateGig={() => setActiveSection('Create Gig')}
       onGoToMyGigs={openMyGigs}
       onOpenOrders={openOrders}
@@ -144,6 +145,10 @@ const GigsPage = () => {
       leftRail={<GigsLeftSidebar activeSection={activeSection} onSectionSelect={handleSectionSelect} />}
       center={
         <div className={`gigs-hub-center-panel__inner${centerClass ? ` ${centerClass}` : ''}`}>
+          <GigsBreadcrumb
+            items={buildGigsHubCrumbs(activeSection)}
+            className="gh-breadcrumb--compact"
+          />
           {centerContent}
         </div>
       }

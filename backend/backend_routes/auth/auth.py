@@ -10,6 +10,7 @@ from pydantic import BaseModel
 from typing import Optional
 from .company_onboarding import create_pending_company_for_employer, save_company_proof_upload
 from .legacy_routes import router as legacy_router
+from backend_routes.referrals.referral_service import apply_referral_for_new_user, ensure_referral_code
 def _company_filter(company_id: str) -> dict:
     cid = str(company_id or "").strip()
     if not cid:
@@ -69,6 +70,7 @@ async def register_user(
     tax_id: str = Form("", max_length=160),
     registration_number: str = Form("", max_length=160),
     imageurl: UploadFile | None = File(None),
+    referral_code: str = Form("", max_length=40),
 ):
     clean_mobile = str(mobile).strip()
     clean_email = str(email).lower().strip()
@@ -128,6 +130,8 @@ async def register_user(
                 imageurl=proof_url,
             )
             await user_collection.update_one({"_id": user_oid}, {"$set": {"company_id": company_id}})
+        await ensure_referral_code({"_id": user_oid})
+        await apply_referral_for_new_user(user_oid, referral_code)
         return {"status": "success", "user_id": str(user_oid), "company_id": company_id, "role": clean_role}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database Error: {str(e)}")

@@ -1,6 +1,9 @@
 import API from '../../../../api/axiosConfig';
 import { assertProfileIdentifier, getProfileSessionHeaders } from '../utils/profileSession';
 
+const PROFILE_ME_CACHE_MS = 8000;
+let profileMeCache = { key: '', at: 0, promise: null };
+
 function profileHeaders(identifier) {
   return {
     ...getProfileSessionHeaders(),
@@ -18,13 +21,33 @@ export async function blobUrlToFile(blobUrl, filename) {
   return new File([blob], filename, { type: blob.type || 'image/jpeg' });
 }
 
-export async function fetchProfileMe(identifier) {
+export async function fetchProfileMe(identifier, { force = false } = {}) {
   const id = assertProfileIdentifier(identifier);
-  const response = await API.get(`/api/profile/me/${encodeURIComponent(id)}`, {
-    headers: profileHeaders(id),
-    timeout: 15000,
-  });
-  return response.data;
+  const now = Date.now();
+  if (
+    !force &&
+    profileMeCache.key === id &&
+    profileMeCache.promise &&
+    now - profileMeCache.at < PROFILE_ME_CACHE_MS
+  ) {
+    return profileMeCache.promise;
+  }
+
+  profileMeCache = {
+    key: id,
+    at: now,
+    promise: API.get(`/api/profile/me/${encodeURIComponent(id)}`, {
+      headers: profileHeaders(id),
+      timeout: 15000,
+    }).then((response) => response.data),
+  };
+
+  try {
+    return await profileMeCache.promise;
+  } catch (err) {
+    if (profileMeCache.key === id) profileMeCache = { key: '', at: 0, promise: null };
+    throw err;
+  }
 }
 
 export async function updateProfileData(identifier, payload) {

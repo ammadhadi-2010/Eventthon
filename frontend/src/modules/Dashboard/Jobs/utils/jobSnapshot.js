@@ -10,6 +10,7 @@ export function toJobSnapshot(job) {
     logoText: job.logoText,
     logoClass: job.logoClass,
     imageurl: job.imageurl || '',
+    listingKind: job.listingKind || 'company',
     tags: job.tags || [],
     category: job.category,
     experienceLevel: job.experienceLevel,

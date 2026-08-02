@@ -1,22 +1,32 @@
-.et-user-menu-mobile-overlay {
+.et-user-menu-mobile-root {
   position: fixed;
   inset: 0;
-  z-index: 2400;
+  z-index: 2600;
+  pointer-events: none;
+}
+
+.et-user-menu-mobile-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   border: 0;
   padding: 0;
   background: rgba(2, 6, 23, 0.72);
   backdrop-filter: blur(4px);
   cursor: pointer;
+  pointer-events: auto;
 }
 
 .et-user-menu-mobile-panel {
-  position: fixed;
+  position: absolute;
   top: calc(var(--et-nav-offset, 70px) + 8px);
   right: 12px;
   left: 12px;
-  z-index: 2410;
+  z-index: 1;
   max-height: calc(100vh - var(--et-nav-offset, 70px) - 5.5rem);
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  pointer-events: auto;
 }
 
 .et-user-menu-mobile-panel .et-user-menu {
@@ -34,6 +44,7 @@
 }
 
 @media (min-width: 1024px) {
+  .et-user-menu-mobile-root,
   .et-user-menu-mobile-overlay,
   .et-user-menu-mobile-panel {
     display: none !important;

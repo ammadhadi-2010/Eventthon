@@ -1,0 +1,115 @@
+/* Guides hub — bright text, filter chips, card grid */
+.guides-page { width: 100%; color: #f1f5f9; }
+.guides-head {
+  display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between;
+  gap: 14px; margin-bottom: 16px;
+}
+.guides-head__title-row { display: flex; align-items: center; gap: 10px; }
+.guides-head__icon {
+  display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(139, 92, 246, 0.45));
+  color: #e0e7ff; border: 1px solid rgba(167, 139, 250, 0.4);
+}
+.guides-head h1 { margin: 0; font-size: clamp(1.55rem, 3vw, 2rem); font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+.guides-head__sub { margin: 6px 0 0; max-width: 52ch; font-size: 14px; line-height: 1.55; font-weight: 550; color: #f1f5f9; }
+.guides-search {
+  display: flex; align-items: center; gap: 8px; min-width: min(100%, 240px); padding: 10px 12px;
+  border-radius: 12px; border: 1px solid rgba(148, 163, 184, 0.3); background: rgba(15, 23, 42, 0.9);
+}
+.guides-search input {
+  flex: 1; min-width: 0; border: 0; outline: none; background: transparent;
+  color: #f8fafc; font-size: 13px; font-weight: 600;
+}
+.guides-filters {
+  display: flex; flex-wrap: nowrap; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 16px;
+  scrollbar-width: thin;
+}
+.guides-filters button {
+  flex: 0 0 auto; border: 1px solid rgba(148, 163, 184, 0.28); background: rgba(15, 23, 42, 0.85);
+  color: #e2e8f0; border-radius: 999px; padding: 8px 14px; font-size: 12px; font-weight: 750; cursor: pointer;
+}
+.guides-filters button.is-active,
+.guides-filters button:hover {
+  color: #fff; border-color: rgba(167, 139, 250, 0.55);
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.4), rgba(139, 92, 246, 0.28));
+}
+.guides-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-bottom: 18px;
+}
+.guides-card {
+  display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 16px; text-align: left;
+  border: 1px solid rgba(148, 163, 184, 0.22); background: rgba(15, 23, 42, 0.92); color: inherit;
+  cursor: pointer; min-height: 100%;
+}
+.guides-card:hover { border-color: rgba(167, 139, 250, 0.45); }
+.guides-card__top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.guides-card__icon {
+  width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center;
+  background: rgba(99, 102, 241, 0.28); color: #c4b5fd;
+}
+.guides-card__level {
+  font-size: 11px; font-weight: 800; padding: 4px 8px; border-radius: 999px; color: #fff;
+}
+.guides-card__level.is-beginner { background: rgba(139, 92, 246, 0.55); }
+.guides-card__level.is-intermediate { background: rgba(16, 185, 129, 0.45); }
+.guides-card__level.is-advanced { background: rgba(244, 63, 94, 0.45); }
+.guides-card h3 { margin: 0; font-size: 15px; font-weight: 800; color: #fff; }
+.guides-card p { margin: 0; font-size: 13px; line-height: 1.5; font-weight: 550; color: #e2e8f0; }
+.guides-card__meta { display: flex; flex-wrap: wrap; gap: 10px; font-size: 12px; font-weight: 700; color: #e2e8f0; }
+.guides-card__progress { margin-top: auto; }
+.guides-card__bar {
+  height: 6px; border-radius: 999px; background: rgba(148, 163, 184, 0.2); overflow: hidden; margin-bottom: 6px;
+}
+.guides-card__bar > span {
+  display: block; height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+}
+.guides-card__bar > span.is-done { background: linear-gradient(90deg, #10b981, #34d399); }
+.guides-card__pct { margin: 0; font-size: 11px; font-weight: 800; color: #f1f5f9; }
+.guides-list { display: flex; flex-direction: column; gap: 10px; }
+.guides-list__item {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%;
+  padding: 14px 16px; border-radius: 14px; border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(15, 23, 42, 0.88); color: #f1f5f9; cursor: pointer; text-align: left;
+}
+.guides-list__item:hover { border-color: rgba(167, 139, 250, 0.4); }
+.guides-list__item strong { display: block; font-size: 14px; font-weight: 800; color: #fff; }
+.guides-list__item span { font-size: 12px; font-weight: 650; color: #e2e8f0; }
+.guides-empty { margin: 8px 0; font-size: 13px; font-weight: 650; color: #e2e8f0; }
+.guides-rail { display: flex; flex-direction: column; gap: 12px; }
+.guides-rail__card {
+  padding: 12px; border-radius: 14px; border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(15, 23, 42, 0.92);
+}
+.guides-rail__title {
+  margin: 0 0 10px; font-size: 11px; font-weight: 800; letter-spacing: 0.08em;
+  text-transform: uppercase; color: #e2e8f0; display: flex; align-items: center; gap: 6px;
+}
+.guides-rail__popular { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.guides-rail__popular button {
+  width: 100%; display: flex; gap: 10px; align-items: flex-start; border: 0; background: transparent;
+  color: #f1f5f9; cursor: pointer; text-align: left; padding: 6px; border-radius: 8px;
+}
+.guides-rail__popular button:hover { background: rgba(99, 102, 241, 0.12); }
+.guides-rail__num {
+  width: 22px; height: 22px; border-radius: 999px; display: grid; place-items: center; flex-shrink: 0;
+  font-size: 11px; font-weight: 800; color: #fff; background: #6366f1;
+}
+.guides-rail__popular strong { display: block; font-size: 13px; font-weight: 800; color: #fff; }
+.guides-rail__popular em { font-style: normal; font-size: 11px; font-weight: 650; color: #e2e8f0; }
+.guides-rail__view-all {
+  display: inline-block; margin-top: 10px; font-size: 12px; font-weight: 800; color: #c4b5fd;
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.guides-rail__copy { margin: 0 0 10px; font-size: 12px; line-height: 1.5; font-weight: 600; color: #e2e8f0; }
+.guides-rail__cta {
+  display: inline-flex; width: 100%; justify-content: center; padding: 10px; border-radius: 10px;
+  background: #7c3aed; color: #fff; font-size: 12px; font-weight: 800; text-decoration: none;
+}
+
+@media (max-width: 900px) {
+  .guides-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 767px) {
+  .guides-head__sub, .guides-card p, .guides-card__meta, .guides-list__item span { color: #f8fafc; }
+}

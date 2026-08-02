@@ -17,15 +17,15 @@
     gap: 6px;
   }
 
-  .member-navbar__mobile-brand {
+  .member-navbar__mobile-left {
     min-width: 0;
-    gap: 10px !important;
+    gap: 6px !important;
     margin-left: 0;
     padding-left: 0;
   }
 
   .member-navbar__hub-drawer-trigger {
-    margin-left: 2px;
+    margin-left: 0;
   }
 
   .member-navbar__logo-link {
@@ -35,11 +35,23 @@
     background: transparent;
     padding: 0;
     cursor: pointer;
+    flex-shrink: 0;
   }
 
   .member-navbar__logo-img {
     height: 1.55rem;
     width: auto;
+  }
+
+  .member-navbar__company-switch {
+    flex-shrink: 0;
+    max-width: 7rem;
+  }
+
+  .member-navbar__company-switch .et-hub-switch__text {
+    max-width: 4.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .member-navbar__search-toggle {
@@ -97,9 +109,6 @@
     padding: 0;
   }
 
-  .member-navbar__mobile-brand {
-    min-width: 0;
-  }
 }
 
 @media (min-width: 1024px) {

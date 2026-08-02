@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API, { API_BASE_URL } from '../../api/axiosConfig';
 import PasswordInput from '../../components/PasswordInput';
 import AuthShell from './AuthShell';
 import EventThonLogo from '../../components/brand/EventThonLogo';
 import { GLOBAL_COUNTRIES } from '../../data/globalCountries';
+import {
+  captureReferralFromUrl,
+  clearStoredReferralCode,
+  getStoredReferralCode,
+} from '../../utils/referralStorage';
+import {
+  captureCompanyInviteFromUrl,
+  getStoredCompanyInviteToken,
+} from '../../utils/companyInviteStorage';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -21,6 +30,18 @@ const SignIn = () => {
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [referralCode, setReferralCode] = useState('');
+  const [companyInvite, setCompanyInvite] = useState('');
+
+  useEffect(() => {
+    const code = captureReferralFromUrl() || getStoredReferralCode();
+    if (code) setReferralCode(code);
+    const invite = captureCompanyInviteFromUrl();
+    if (invite.token) setCompanyInvite(invite.token);
+    if (invite.email) {
+      setFormData((prev) => ({ ...prev, email: invite.email }));
+    }
+  }, []);
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -33,12 +54,15 @@ const SignIn = () => {
         payload.append(key, value);
       });
       payload.append('role', formData.register_as_company ? 'employer' : 'candidate');
+      if (referralCode) payload.append('referral_code', referralCode);
       const response = await API.post('/api/auth/register', payload, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       if (response.data.status === "success") {
+        clearStoredReferralCode();
         alert("Registration Successful! Please Log In.");
-        navigate('/auth/login');
+        const token = getStoredCompanyInviteToken() || companyInvite;
+        navigate(token ? `/auth/login?invite=${encodeURIComponent(token)}` : '/auth/login');
       }
     } catch (error) {
       const isNetwork =
@@ -77,6 +101,14 @@ const SignIn = () => {
         </div>
 
         <h2 className="title-text">JOIN THE NETWORK</h2>
+        {companyInvite ? (
+          <p className="auth-referral-note">
+            You were invited to a company team — create your account with the invited email, then accept the invitation.
+          </p>
+        ) : null}
+        {referralCode ? (
+          <p className="auth-referral-note">You were invited — referral code <strong>{referralCode}</strong> will be applied.</p>
+        ) : null}
 
         <form onSubmit={handleSignIn} className="login-form">
           <div className="input-row">
@@ -86,8 +118,14 @@ const SignIn = () => {
               onChange={(e) => setFormData({...formData, last_name: e.target.value})} required />
           </div>
 
-          <input className="glass-input" type="email" placeholder="Email Address" 
-            onChange={(e) => setFormData({...formData, email: e.target.value})} required />
+          <input
+            className="glass-input"
+            type="email"
+            placeholder="Email Address"
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            required
+          />
           
           <PasswordInput
             wrapperClassName="password-wrapper"

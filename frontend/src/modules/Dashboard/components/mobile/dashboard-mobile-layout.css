@@ -62,9 +62,9 @@
 
   .dash-main-grid {
 
-    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-columns: minmax(250px, 290px) minmax(0, 1fr) minmax(250px, 300px);
 
-    gap: 1.5rem;
+    gap: 12px;
 
   }
 
@@ -78,7 +78,9 @@
 
     top: 8px;
 
-    grid-column: span 3;
+    grid-column: auto;
+
+    width: 100%;
 
   }
 
@@ -86,7 +88,7 @@
 
   .dash-center-feed {
 
-    grid-column: span 6;
+    grid-column: auto;
 
   }
 
@@ -96,7 +98,9 @@
 
     display: block;
 
-    grid-column: span 3;
+    grid-column: auto;
+
+    width: 100%;
 
   }
 

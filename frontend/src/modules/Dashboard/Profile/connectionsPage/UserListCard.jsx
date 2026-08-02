@@ -38,9 +38,19 @@ export default function UserListCard({ user, listMode, socialVariant, onSocialAc
   const isCommanders = listMode === 'commanders';
   const isMutual = listMode === 'social' && socialVariant === 'mutual';
 
+  const profileTo = user.profilePath || '/profile';
+
   return (
     <article className={`pnet-user-card${isMutual ? ' pnet-user-card--mutual' : ''}`}>
-      <img className="pnet-user-card__av" src={avatarUrl} alt="" />
+      <img
+        className="pnet-user-card__av"
+        src={avatarUrl}
+        alt=""
+        onError={(e) => {
+          e.currentTarget.onerror = null;
+          e.currentTarget.src = `https://api.dicebear.com/8.x/avataaars/svg?seed=${encodeURIComponent(name || 'member')}`;
+        }}
+      />
       <div className="pnet-user-card__mid">
         <div className="pnet-user-card__name-row">
           <span className="pnet-user-card__name">{name}</span>
@@ -77,7 +87,7 @@ export default function UserListCard({ user, listMode, socialVariant, onSocialAc
 
       <div className="pnet-user-card__actions">
         {isCommanders ? (
-          <Link to="/profile" className="pnet-btn pnet-btn--primary">
+          <Link to={profileTo} className="pnet-btn pnet-btn--primary">
             View Profile
           </Link>
         ) : isMutual ? (

@@ -15,6 +15,7 @@ from .footer_service import (
     create_footer_resource,
     delete_footer_resource,
     get_footer_resources,
+    seed_footer_defaults,
     update_footer_resource,
 )
 
@@ -40,6 +41,13 @@ async def list_footer_resources(
 async def create_footer_resource_route(payload: FooterResourceCreate):
     row = await create_footer_resource(payload)
     return {"status": "success", "data": row}
+
+
+@router.post("/seed-defaults")
+async def seed_footer_defaults_route(force: bool = Query(False)):
+    """Seed Privacy, Terms, Documentation, Guides, and Tutorials when missing."""
+    result = await seed_footer_defaults(force=force)
+    return {"status": "success", "data": result}
 
 
 @router.post("/upload-media")

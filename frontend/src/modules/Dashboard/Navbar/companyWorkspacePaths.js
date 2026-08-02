@@ -13,6 +13,7 @@ export function isCompanyWorkspacePath(pathname = '') {
   if (path.startsWith('/company-panel')) return true;
   if (!path.startsWith('/company/')) return false;
   if (isCompanyMarketingPath(path)) return false;
+  if (path.startsWith('/company/invite')) return false;
   return (
     path.startsWith('/company/dashboard') ||
     path.startsWith('/company/messages') ||

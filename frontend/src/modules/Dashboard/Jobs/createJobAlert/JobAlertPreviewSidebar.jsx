@@ -1,6 +1,7 @@
 import React from 'react';
-import { FiBell, FiBriefcase, FiCheck, FiClock, FiMapPin } from 'react-icons/fi';
+import { FiBriefcase, FiCheck, FiClock, FiMapPin } from 'react-icons/fi';
 import { BusinessIcon, BUSINESS_LOTTIE } from '../../../../components/lottie';
+import JobCompanyLogo from '../components/JobCompanyLogo';
 
 function Toggle({ checked, onChange, label, sub }) {
   return (
@@ -29,6 +30,7 @@ export default function JobAlertPreviewSidebar({
   submitting = false,
   onCreate,
   onSaveDraft,
+  submitLabel = 'Create Alert',
 }) {
   const title = form.jobTitle.trim() || 'Frontend Developer';
   const extraSkills = Math.max(0, form.skills.length - 3);
@@ -38,9 +40,13 @@ export default function JobAlertPreviewSidebar({
     <aside className="ja-preview-stack">
       <div className="ja-preview-card gigs-card">
         <div className="ja-preview-card__head">
-          <span className="ja-preview-bell" aria-hidden>
-            <FiBell size={18} />
-          </span>
+          <JobCompanyLogo
+            company={title}
+            logoText={title.slice(0, 1)}
+            alertKind="job"
+            shade="electric"
+            className="ja-preview-logo"
+          />
           <div>
             <h3 className="ja-preview-title">
               {title}
@@ -116,7 +122,7 @@ export default function JobAlertPreviewSidebar({
       </div>
 
       <button type="button" className="ja-create-btn" onClick={onCreate} disabled={submitting}>
-        {submitting ? 'Creating…' : 'Create Alert'}
+        {submitting ? 'Working…' : submitLabel}
       </button>
       <button type="button" className="ja-draft-btn" onClick={onSaveDraft} disabled={submitting}>
         Save as Draft

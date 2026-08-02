@@ -68,6 +68,8 @@ const InviteMembersModal = ({ isOpen, onClose, squadId, invitedBy, squadName = '
           role: 'Member',
           invited_by: invitedBy,
           invitee_user_id: user._id,
+          email: user.email || undefined,
+          mobile: user.mobile || undefined,
         });
         if (res?.status === 'success') {
           notifyAlertsRefresh();

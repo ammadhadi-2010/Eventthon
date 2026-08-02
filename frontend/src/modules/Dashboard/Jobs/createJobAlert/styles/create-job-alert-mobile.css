@@ -80,13 +80,34 @@
     display: none;
   }
 
-  .ja-header {
+  /* Global navbar is shown — hide duplicate wizard top bar */
+  .ja-mobile-header {
     display: none !important;
+  }
+
+  .ja-header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    margin: 0 0 12px !important;
+    padding: 0 !important;
+  }
+
+  .ja-header__title {
+    font-size: 1.125rem !important;
+    margin: 0 !important;
+  }
+
+  .ja-header__sub {
+    font-size: 12px !important;
+    margin: 4px 0 0 !important;
+    color: #94a3b8 !important;
   }
 
   .ja-wizard-body {
     width: 100%;
-    padding: 4rem 12px 5rem;
+    padding: 8px 12px 5.5rem;
     box-sizing: border-box;
   }
 

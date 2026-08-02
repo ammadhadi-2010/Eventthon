@@ -7,14 +7,31 @@
     margin: 0 !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
+    padding-bottom: 0 !important;
+    min-height: 0 !important;
+  }
+
+  .et-hub-pin-wrap:has(.dash-home-shell) {
+    min-height: 0 !important;
+    flex: none !important;
   }
 
   .dash-home-mobile-shell {
     padding-top: 1rem;
   }
 
+  /* Feed end sits flush with footer — bottom nav clearance lives in footer */
+  .dash-home-mobile-shell.hub-inner-mobile-shell {
+    padding-bottom: 0 !important;
+    min-height: 0 !important;
+  }
+
+  .et-main-scroll:has(.dash-home-shell) .et-footer {
+    margin-top: 0;
+  }
+
   .dash-home-mobile-drawer-layer {
-    top: var(--hub-mobile-topbar-h, 3.5rem) !important;
+    top: var(--et-nav-height, 70px) !important;
   }
 }
 

@@ -1,58 +1,122 @@
-import React from 'react';
-import { FaDiscord } from 'react-icons/fa6';
+import React, { useMemo, useState } from 'react';
 import FooterPageShell from '../components/FooterPageShell';
-import PageHero from '../components/PageHero';
-import { EVENT_COUNTDOWN, LEADERBOARD, THREADS } from '../data/communityData';
+import CommunityLeftNav from '../components/CommunityLeftNav';
+import CommunityRightRail from '../components/CommunityRightRail';
+import CommunityHubFeed from '../components/CommunityHubFeed';
+import CommunityCreatePostModal from '../components/CommunityCreatePostModal';
+import useResourcesFooterContent from '../hooks/useResourcesFooterContent';
+import {
+  COMMUNITY_ACTIONS,
+  COMMUNITY_CATEGORIES,
+  COMMUNITY_FOOTER_STATS,
+  COMMUNITY_HIGHLIGHTS,
+  COMMUNITY_NAV,
+  COMMUNITY_STATS,
+  COMMUNITY_SUBTITLE,
+  FEATURED_DISCUSSIONS,
+  TOP_MEMBERS,
+  TRENDING_TOPICS,
+  UPCOMING_EVENTS,
+} from '../data/communityData';
+import { readViewerAvatar } from '../utils/communityAvatar';
+import '../styles/community.css';
 
 export default function Community() {
+  const { data, loading } = useResourcesFooterContent('Community');
+  const [section, setSection] = useState('overview');
+  const [createOpen, setCreateOpen] = useState(false);
+  const [userPosts, setUserPosts] = useState([]);
+
+  const subtitle = data?.subtitle || COMMUNITY_SUBTITLE;
+  const discordUrl = data?.discordUrl || 'https://discord.com/invite/eventthon';
+  const members = data?.topMembers?.length || data?.members?.length
+    ? (data.topMembers || data.members)
+    : TOP_MEMBERS;
+  const baseDiscussions = data?.discussions?.length ? data.discussions : FEATURED_DISCUSSIONS;
+  const discussions = useMemo(
+    () => [...userPosts, ...baseDiscussions],
+    [userPosts, baseDiscussions],
+  );
+  const trending = data?.trending?.length ? data.trending : TRENDING_TOPICS;
+  const events = data?.events?.length ? data.events : UPCOMING_EVENTS;
+  const actions = data?.actions?.length ? data.actions : COMMUNITY_ACTIONS;
+  const categories = data?.categories?.length ? data.categories : COMMUNITY_CATEGORIES;
+  const stats = data?.stats?.length ? data.stats : COMMUNITY_STATS;
+
+  const onPublish = ({ title, summary, body, category }) => {
+    const viewerAvatar = readViewerAvatar();
+    setUserPosts((prev) => [
+      {
+        id: `user-${Date.now()}`,
+        title,
+        summary,
+        body,
+        replies: 0,
+        icon: 'star',
+        tone: 'violet',
+        avatars: [viewerAvatar],
+        category,
+      },
+      ...prev,
+    ]);
+    setCreateOpen(false);
+    setSection('discussions');
+    window.setTimeout(() => {
+      document.getElementById('comm-discussions')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 80);
+  };
+
+  const onSelect = (id) => {
+    setSection(id);
+    const map = {
+      events: 'comm-events',
+      discussions: 'comm-discussions',
+      announcements: 'comm-discussions',
+      members: 'comm-categories',
+    };
+    const el = map[id];
+    if (el) {
+      window.setTimeout(() => {
+        document.getElementById(el)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 40);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <FooterPageShell variant="resources">
-      <PageHero title="Community" subtitle="Forums, leaderboards, and live events for EventThon creators." />
-      <div className="fp-grid-2">
-        <section className="fp-card">
-          <h2 style={{ marginTop: 0, color: '#f8fafc' }}>Leaderboard</h2>
-          {LEADERBOARD.map((row) => (
-            <div key={row.rank} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid rgba(148,163,184,0.1)' }}>
-              <span style={{ color: '#cbd5e1' }}>#{row.rank} {row.name}</span>
-              <strong style={{ color: '#a78bfa' }}>{row.points} pts</strong>
-            </div>
-          ))}
-        </section>
-        <section className="fp-card">
-          <h2 style={{ marginTop: 0, color: '#f8fafc' }}>{EVENT_COUNTDOWN.label}</h2>
-          <p className="fp-metric" style={{ fontSize: 28 }}>{EVENT_COUNTDOWN.days}d {EVENT_COUNTDOWN.hours}h</p>
-          <p style={{ color: '#94a3b8', fontSize: 13 }}>Until the next global community session.</p>
-          <a
-            href="https://discord.com"
-            target="_blank"
-            rel="noreferrer"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              marginTop: 14,
-              padding: '12px 18px',
-              borderRadius: 12,
-              background: '#5865F2',
-              color: '#fff',
-              fontWeight: 700,
-              textDecoration: 'none',
-              fontSize: 13,
-            }}
-          >
-            <FaDiscord size={16} /> Join Discord Server
-          </a>
-        </section>
-      </div>
-      <section className="fp-card">
-        <h2 style={{ marginTop: 0, color: '#f8fafc' }}>Recent Threads</h2>
-        {THREADS.map((thread) => (
-          <div key={thread.id} style={{ padding: '12px 0', borderBottom: '1px solid rgba(148,163,184,0.1)' }}>
-            <strong style={{ color: '#f1f5f9' }}>{thread.title}</strong>
-            <p style={{ margin: '4px 0 0', fontSize: 12, color: '#64748b' }}>{thread.replies} replies · {thread.ago}</p>
-          </div>
-        ))}
-      </section>
+    <FooterPageShell
+      variant="resources"
+      leftSlot={(
+        <CommunityLeftNav
+          nav={COMMUNITY_NAV}
+          activeId={section}
+          stats={stats}
+          discordUrl={discordUrl}
+          onSelect={onSelect}
+          onCreatePost={() => setCreateOpen(true)}
+        />
+      )}
+      rightSlot={<CommunityRightRail members={members} highlights={COMMUNITY_HIGHLIGHTS} />}
+    >
+      {loading ? <p className="comm-empty">Loading community…</p> : null}
+      <CommunityHubFeed
+        subtitle={subtitle}
+        actions={actions}
+        discussions={discussions}
+        categories={categories}
+        trending={trending}
+        events={events}
+        footerStats={COMMUNITY_FOOTER_STATS}
+        section={section}
+        onSelectSection={onSelect}
+      />
+      <CommunityCreatePostModal
+        open={createOpen}
+        onClose={() => setCreateOpen(false)}
+        onPublish={onPublish}
+        categories={categories}
+      />
     </FooterPageShell>
   );
 }

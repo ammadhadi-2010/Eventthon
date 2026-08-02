@@ -10,6 +10,8 @@ from database import (
     report_collection,
     user_collection,
 )
+from backend_routes.common.media_urls import resolve_public_media_url
+from backend_routes.alerts.alerts_helpers import parse_entity_imageurl, resolve_user
 
 from .admin_bug_alert_feed import fetch_bug_report_alert_rows
 
@@ -36,6 +38,13 @@ def _section_for(ts: Any) -> str:
     return "earlier"
 
 
+def _public_image(raw: str) -> str:
+    value = str(raw or "").strip()
+    if not value:
+        return ""
+    return resolve_public_media_url(value) or value
+
+
 def _alert_row(
     alert_id: str,
     category: str,
@@ -47,9 +56,11 @@ def _alert_row(
     created_at: Any = None,
     is_read: bool = False,
     actor_name: str = "EventThon",
+    imageurl: str = "",
 ) -> Dict[str, Any]:
     ts = created_at if isinstance(created_at, datetime) else datetime.utcnow()
-    return {
+    avatar = _public_image(imageurl)
+    row = {
         "_id": alert_id,
         "category": category,
         "priority": priority,
@@ -61,6 +72,10 @@ def _alert_row(
         "is_read": is_read,
         "created_at": _iso(ts),
     }
+    if avatar:
+        row["imageurl"] = avatar
+        row["actor_imageurl"] = avatar
+    return row
 
 
 async def build_admin_alert_feed(read_ids: set[str]) -> List[dict]:
@@ -71,43 +86,64 @@ async def build_admin_alert_feed(read_ids: set[str]) -> List[dict]:
         {"verification_status": {"$in": ["pending", "submitted", "review"]}}
     ).sort("created_at", -1).limit(25):
         aid = f"verification-{doc.get('_id')}"
+        actor = str(doc.get("name") or doc.get("mobile") or "Member")
         rows.append(
             _alert_row(
                 aid,
                 "verification",
                 "User verification pending",
-                str(doc.get("name") or doc.get("mobile") or "Member"),
+                actor,
                 priority="high",
                 action_url="/admin-control/verification",
                 created_at=doc.get("created_at") or now,
                 is_read=aid in read_ids,
-                actor_name="Identity Review",
+                actor_name=actor,
+                imageurl=parse_entity_imageurl(doc),
             )
         )
 
     async for doc in companies_collection.find({}).sort("created_at", -1).limit(30):
         status = str(doc.get("status") or "").lower()
         is_pending = status in {"pending", "review", "submitted"}
-        is_new = doc.get("created_at") and (now - doc.get("created_at")).days < 7 if isinstance(doc.get("created_at"), datetime) else False
+        is_new = (
+            doc.get("created_at")
+            and (now - doc.get("created_at")).days < 7
+            if isinstance(doc.get("created_at"), datetime)
+            else False
+        )
         if not is_pending and not is_new:
             continue
         aid = f"company-{'pending' if is_pending else 'new'}-{doc.get('_id')}"
+        company_name = str(doc.get("name") or "Company")
         rows.append(
             _alert_row(
                 aid,
                 "company_signup",
                 "Company verification pending" if is_pending else "New company signup",
-                str(doc.get("name") or "Company"),
+                company_name,
                 priority="high" if is_pending else "medium",
                 action_url="/admin-control/companies",
                 created_at=doc.get("created_at") or now,
                 is_read=aid in read_ids,
-                actor_name=str(doc.get("name") or "Company"),
+                actor_name=company_name,
+                imageurl=parse_entity_imageurl(doc),
             )
         )
 
     async for doc in report_collection.find({}).sort("created_at", -1).limit(20):
         aid = f"flagged-{doc.get('_id')}"
+        reporter = str(
+            doc.get("reporter_name")
+            or doc.get("reporter_email")
+            or doc.get("user_email")
+            or "Reporter"
+        )
+        image = parse_entity_imageurl(doc)
+        if not image:
+            reporter_user = await resolve_user(
+                str(doc.get("reporter_email") or doc.get("user_email") or doc.get("user_id") or "")
+            )
+            image = parse_entity_imageurl(reporter_user)
         rows.append(
             _alert_row(
                 aid,
@@ -118,7 +154,8 @@ async def build_admin_alert_feed(read_ids: set[str]) -> List[dict]:
                 action_url="/admin-control/users",
                 created_at=doc.get("created_at") or now,
                 is_read=aid in read_ids,
-                actor_name="Trust & Safety",
+                actor_name=reporter,
+                imageurl=image,
             )
         )
 
@@ -140,6 +177,18 @@ async def build_admin_alert_feed(read_ids: set[str]) -> List[dict]:
         {"from_user_id": {"$nin": [ADMIN_ACTOR, "eventthon-admin-support"]}, "status": "new"}
     ).sort("created_at", -1).limit(20):
         aid = f"support-{doc.get('_id')}"
+        actor = str(doc.get("from_user_name") or "Employer")
+        image = parse_entity_imageurl(doc)
+        if not image:
+            support_user = await resolve_user(
+                str(doc.get("from_user_email") or doc.get("from_user_id") or "")
+            )
+            image = parse_entity_imageurl(support_user)
+        if not image:
+            company = await companies_collection.find_one(
+                {"name": {"$regex": f"^{actor}$", "$options": "i"}}
+            )
+            image = parse_entity_imageurl(company)
         rows.append(
             _alert_row(
                 aid,
@@ -150,9 +199,23 @@ async def build_admin_alert_feed(read_ids: set[str]) -> List[dict]:
                 action_url="/admin-control/chat",
                 created_at=doc.get("created_at") or now,
                 is_read=aid in read_ids,
-                actor_name=str(doc.get("from_user_name") or "Employer"),
+                actor_name=actor,
+                imageurl=image,
             )
         )
+
+    bug_rows = await fetch_bug_report_alert_rows(read_ids, limit=20)
+    for bug in bug_rows:
+        image = str(bug.get("imageurl") or bug.get("actor_imageurl") or "").strip()
+        if not image:
+            reporter_user = await resolve_user(
+                str(bug.get("actor_email") or bug.get("actor_name") or "")
+            )
+            image = parse_entity_imageurl(reporter_user)
+        if image:
+            bug["imageurl"] = _public_image(image)
+            bug["actor_imageurl"] = bug["imageurl"]
+        rows.append(bug)
 
     rows.sort(key=lambda x: x.get("created_at", ""), reverse=True)
     return rows

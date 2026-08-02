@@ -328,6 +328,21 @@ select.glass-input option {
   color: #e2e8f0;
 }
 
+.auth-referral-note {
+  margin: -0.75rem 0 1rem;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  font-size: 12px;
+  color: #c4b5fd;
+  line-height: 1.45;
+}
+
+.auth-referral-note strong {
+  color: #e9d5ff;
+}
+
 .field-label {
   color: #94a3b8;
   font-size: 11px;

@@ -35,7 +35,13 @@ function channelLabel(enabled) {
   return enabled ? 'Enabled' : 'Disabled';
 }
 
-export default function JobAlertCompletePreview({ form, submitting, onCreate, onSaveDraft }) {
+export default function JobAlertCompletePreview({
+  form,
+  submitting,
+  onCreate,
+  onSaveDraft,
+  submitLabel = 'Confirm & Publish Alert',
+}) {
   return (
     <section className="ja-panel ja-step6-preview" aria-labelledby="ja-step6-preview-title">
       <header className="ja-step6-preview__head">
@@ -89,7 +95,7 @@ export default function JobAlertCompletePreview({ form, submitting, onCreate, on
           disabled={submitting}
           className="ja-step6-publish bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm px-6 py-2.5 rounded-xl transition-all shadow-lg"
         >
-          {submitting ? 'Publishing...' : 'Confirm & Publish Alert'}
+          {submitting ? 'Publishing...' : submitLabel}
         </button>
         <button
           type="button"

@@ -1,19 +1,5 @@
 import { getRankMeta } from '../../../Admin/pages/UserManagement/userManagementData';
-import { getUserDisplayName } from '../../utils/dashboardMedia';
-
-function isSameAuthor(post, currentUser) {
-  if (!post || !currentUser) return false;
-  const postAuthorId = String(post.author_id || post.user_id || '').trim();
-  const currentId = String(currentUser._id || currentUser.id || '').trim();
-  if (postAuthorId && currentId && postAuthorId === currentId) return true;
-
-  const author = String(post.author_name || '').trim().toLowerCase();
-  const selfName = getUserDisplayName(currentUser).trim().toLowerCase();
-  if (author && selfName && author === selfName) return true;
-
-  const emailPrefix = String(currentUser.email || '').split('@')[0].toLowerCase();
-  return Boolean(emailPrefix && author && author === emailPrefix);
-}
+import { isPostByCurrentUser } from './feedAuthor';
 
 function normalizeRankKey(value) {
   const raw = String(value || '').trim().toLowerCase();
@@ -27,7 +13,7 @@ export function resolveAuthorRankKey(post = {}, userData = null) {
     post.author_rank || post.author_rank_key || post.rank_tier || post.rank,
   );
   if (stored) return stored;
-  if (isSameAuthor(post, userData)) {
+  if (isPostByCurrentUser(post, userData)) {
     return normalizeRankKey(userData?.rank) || 'frontline';
   }
   return 'frontline';

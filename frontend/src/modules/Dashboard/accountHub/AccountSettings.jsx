@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PasswordInput from '../../../components/PasswordInput';
-import { fetchAccountSettings, saveAccountSettings } from './accountSettingsApi';import './account-hub.css';
+import { fetchAccountSettings, saveAccountSettings } from './accountSettingsApi';
+import { persistUserSession } from '../../../utils/storedUser';
+import './account-hub.css';
 
 export default function AccountSettings({ userData, onSave }) {
   const [fullName, setFullName] = useState('');
@@ -64,6 +66,13 @@ export default function AccountSettings({ userData, onSave }) {
       }
       if (result?.fullName) {
         localStorage.setItem('userName', result.fullName);
+        persistUserSession({
+          full_name: result.fullName,
+          display_name: result.fullName,
+          first_name: result.fullName.split(/\s+/)[0] || '',
+          last_name: result.fullName.split(/\s+/).slice(1).join(' ') || '',
+        });
+        window.dispatchEvent(new CustomEvent('et:profile-updated'));
       }
 
       setLockInfo((prev) => ({ ...prev, ...result }));

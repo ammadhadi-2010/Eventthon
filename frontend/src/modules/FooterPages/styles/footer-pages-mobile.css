@@ -1,5 +1,9 @@
 /* Footer inner pages — layout utilities + mobile cleanup */
 
+.fp-left-drawer-backdrop {
+  display: none;
+}
+
 .fp-section-title {
   margin: 0 0 12px;
   font-size: 15px;
@@ -54,13 +58,47 @@
 
   .fp-page-shell > .fp-hub-row {
     flex-direction: column;
-    gap: 0;
+    gap: 16px;
     max-height: none !important;
   }
 
-  .fp-page-shell .fp-layout__rail--left,
+  .fp-page-shell .fp-layout__rail--left {
+    display: block !important;
+    position: fixed;
+    top: var(--et-nav-height, 70px);
+    left: 0;
+    bottom: 0;
+    z-index: 1200;
+    width: min(86vw, 300px);
+    max-width: 300px;
+    padding: 16px 12px 24px;
+    background: rgba(8, 12, 22, 0.98);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    transform: translateX(-105%);
+    transition: transform 0.24s ease;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  .fp-page-shell .fp-layout__rail--left.is-drawer-open {
+    transform: translateX(0);
+  }
+
+  .fp-left-drawer-backdrop.is-visible {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1190;
+    border: none;
+    background: rgba(0, 0, 0, 0.55);
+    cursor: pointer;
+  }
+
   .fp-page-shell .fp-layout__rail--right {
-    display: none !important;
+    display: block !important;
+    width: 100%;
+    max-width: none;
+    order: 3;
   }
 
   .fp-page-shell .fp-layout__center {
@@ -68,6 +106,13 @@
     max-width: 100%;
     min-width: 0;
     overflow-x: hidden;
+    order: 2;
+  }
+
+  .fp-cta-aside {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .fp-content-stack {

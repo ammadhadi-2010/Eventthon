@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  FiBookmark, FiCheck, FiCheckCircle, FiChevronRight, FiClipboard, FiUsers, FiUser,
+  FiBookmark, FiCheck, FiCheckCircle, FiChevronRight, FiClipboard, FiCreditCard,
+  FiHeart, FiHelpCircle, FiSettings, FiUsers, FiUser,
 } from 'react-icons/fi';
 import EventThonBadge from '../../../components/EventThonBadge';
 import { rankCodeToBadgeProps } from '../../../components/badgeTierProps';
 import { getRankMeta } from '../../Admin/pages/UserManagement/userManagementData';
 import { getUserDisplayName, pickImageurl, resolveDashboardMediaUrl } from '../utils/dashboardMedia';
+import { hasStoredSession } from '../../../utils/storedUser';
+import { useHomeSidebarMetrics, formatSidebarCount } from '../hooks/useHomeSidebarMetrics';
+import InviteFriendsSection from './InviteFriendsSection';
 import './home-left-sidebar.css';
 const STREAK_DAYS = [
   { label: 'M', done: true },
@@ -20,6 +24,7 @@ const STREAK_DAYS = [
 
 const QUICK_LINKS = [
   { label: 'My Profile', to: '/profile', Icon: FiUser },
+  { label: '❤️ Donate', to: '/donate', Icon: FiHeart },
   { label: 'Saved Items', to: '/jobs/saved', Icon: FiBookmark },
   { label: 'Browse Squads', to: '/squads', Icon: FiUsers },
   { label: 'My Applications', to: '/jobs/applications', Icon: FiClipboard },
@@ -45,20 +50,24 @@ function WalletSparkline() {
   );
 }
 
-const DRAWER_QUICK_LINKS = QUICK_LINKS.filter((link) =>
-  ['My Profile', 'Saved Items', 'Browse Squads'].includes(link.label),
-);
+const DRAWER_QUICK_LINKS = [
+  { label: 'Profile', to: '/profile', Icon: FiUser },
+  { label: 'Wallet', to: '/wallet', Icon: FiCreditCard },
+  { label: 'Settings', to: '/dashboard/settings', Icon: FiSettings },
+  { label: 'Help', to: '/resources/help', Icon: FiHelpCircle },
+  { label: '❤️ Donate', to: '/donate', Icon: FiHeart },
+];
 
 export default function HomeLeftSidebar({ userData, drawerMode = false }) {
   const [avatarBroken, setAvatarBroken] = useState(false);
+  const { metrics } = useHomeSidebarMetrics(userData);
   const displayName = getUserDisplayName(userData) || 'Anonymous User';
   const avatarSrc = resolveDashboardMediaUrl(pickImageurl(userData));
+  const bannerSrc = resolveDashboardMediaUrl(userData?.banner || userData?.cover_image || userData?.coverImageUrl || '');
   const showAvatar = Boolean(avatarSrc) && !avatarBroken;
-  const level = Number(userData?.level || userData?.xp_level || 78);
-  const etPower = Number(userData?.et_power || 8560);
-  const rankNo = Number(userData?.rank_number || 248);
-  const balance = Number(userData?.wallet_balance || 12560);
-  const usdValue = (balance / 100).toFixed(2);
+  const xpLevel = Math.max(1, Math.floor(metrics.xp / 500) + 1);
+  const thonBalance = metrics.thonBalance;
+  const usdValue = (thonBalance / 100).toFixed(2);
   const verified = userData?.verified || userData?.is_verified || userData?.identity_status === 'Active';
   const rankMeta = getRankMeta(userData?.rank || 'frontline');
   const badgeProps = rankCodeToBadgeProps(rankMeta.code, { label: rankMeta.label });
@@ -70,6 +79,12 @@ export default function HomeLeftSidebar({ userData, drawerMode = false }) {
     <div className="hls-stack">
       {drawerMode ? null : (
       <section className="hls-card hls-profile-card">
+        <div
+          className={`hls-profile-banner${bannerSrc ? ' hls-profile-banner--image' : ''}`}
+          style={bannerSrc ? { backgroundImage: `url(${bannerSrc})` } : undefined}
+          aria-hidden
+        />
+
         <Link to="/profile" className="hls-profile-card-link" aria-label="Open your profile">
         <div className="hls-avatar-wrap">
           <div className="hls-avatar-ring">
@@ -79,7 +94,7 @@ export default function HomeLeftSidebar({ userData, drawerMode = false }) {
               <span className="hls-avatar-fallback">{displayName.charAt(0).toUpperCase()}</span>
             )}
           </div>
-          <span className="hls-level-badge">{level}</span>
+          <span className="hls-level-badge">{xpLevel}</span>
         </div>
 
         <div className="hls-name-row">
@@ -100,31 +115,46 @@ export default function HomeLeftSidebar({ userData, drawerMode = false }) {
           <span>{rankMeta.label}</span>
         </div>
         <div className="hls-xp-track">
-          <div className="hls-xp-fill" style={{ width: '72%' }} />
+          <div className="hls-xp-fill" style={{ width: `${metrics.xpProgressPct || 0}%` }} />
         </div>
 
         <div className="hls-metric-row">
-          <div><span className="hls-metric-label">XP Level</span><strong>{level}</strong></div>
-          <div><span className="hls-metric-label">ET Power</span><strong>{etPower.toLocaleString()}</strong></div>
-          <div><span className="hls-metric-label">Rank</span><strong>#{rankNo}</strong></div>
+          <div><span className="hls-metric-label">XP</span><strong>{metrics.xp.toLocaleString()}</strong></div>
+          <div><span className="hls-metric-label">Thon</span><strong>{formatSidebarCount(thonBalance)}</strong></div>
+          <div><span className="hls-metric-label">Rank</span><strong>{rankMeta.label.split(' ')[0]}</strong></div>
         </div>
 
         <div className="hls-social-row">
-          <span><FiUsers /> 12 Squads</span>
-          <span><FiUser /> 1.2K Followers</span>
-          <span><FiCheckCircle /> 342 Connections</span>
+          <span><FiUsers /> {formatSidebarCount(metrics.squads)} Squads</span>
+          <span><FiUser /> {formatSidebarCount(metrics.followers)} Followers</span>
+          <span><FiCheckCircle /> {formatSidebarCount(metrics.connections)} Connections</span>
         </div>
+
+        <Link to="/profile" className="hls-view-profile-btn">
+          View Profile
+        </Link>
       </section>
       )}
 
       <section className="hls-card hls-wallet-card">
-        <h4 className="hls-section-title">EARNING WALLET</h4>
+        <div className="hls-wallet-head">
+          <h4 className="hls-section-title">Earning Wallet</h4>
+          <span className="hls-wallet-chip">Thon</span>
+        </div>
+        <p className="hls-wallet-balance-label">Total Balance</p>
         <p className="hls-wallet-balance">
-          Total Balance: <strong>{balance.toLocaleString()} ET Coins</strong>
+          <strong>{thonBalance.toLocaleString()}</strong>
+          <span className="hls-wallet-unit">Thon</span>
         </p>
         <p className="hls-wallet-usd">≈ ${usdValue} USD</p>
-        <WalletSparkline />
-        <p className="hls-wallet-growth">+18.6% this month</p>
+        {thonBalance > 0 ? (
+          <>
+            <WalletSparkline />
+            <p className="hls-wallet-growth">Available Thon balance</p>
+          </>
+        ) : (
+          <p className="hls-wallet-growth">No Thon balance yet — complete gigs or deposits to earn.</p>
+        )}
         <div className="hls-wallet-actions">
           <Link to="/wallet" className="hls-btn hls-btn-outline">Deposit</Link>
           <Link to="/wallet" className="hls-btn hls-btn-primary">Withdraw</Link>
@@ -164,6 +194,21 @@ export default function HomeLeftSidebar({ userData, drawerMode = false }) {
           ))}
         </nav>
       </section>
+
+      {!drawerMode ? (
+        <Link to="/donate" className="hls-donate-card">
+          <span className="hls-donate-card__icon" aria-hidden>❤️</span>
+          <div>
+            <strong>Donate &amp; Support</strong>
+            <p>Give to verified causes through EventThon</p>
+          </div>
+          <FiChevronRight className="hls-donate-card__chev" aria-hidden />
+        </Link>
+      ) : null}
+
+      {hasStoredSession() && !drawerMode ? (
+        <InviteFriendsSection userData={userData} />
+      ) : null}
     </div>
   );
 }

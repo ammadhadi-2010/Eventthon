@@ -1,0 +1,50 @@
+/* Company hub breadcrumbs */
+
+.cp-breadcrumb {
+  margin: 0 0 4px;
+}
+
+.cp-breadcrumb__list {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.cp-breadcrumb__list::-webkit-scrollbar {
+  display: none;
+}
+
+.cp-breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.cp-breadcrumb__sep {
+  color: #64748b;
+}
+
+.cp-breadcrumb__link {
+  font-size: 12px;
+  font-weight: 600;
+  color: #a5b4fc;
+  text-decoration: none;
+}
+
+.cp-breadcrumb__link:hover,
+.cp-breadcrumb__link:focus-visible {
+  color: #c7d2fe;
+}
+
+.cp-breadcrumb__current {
+  font-size: 12px;
+  font-weight: 700;
+  color: #e2e8f0;
+}

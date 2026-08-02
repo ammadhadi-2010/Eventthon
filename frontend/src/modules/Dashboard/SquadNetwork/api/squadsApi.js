@@ -5,7 +5,7 @@ const TIMEOUT = 15000;
 const LIST_TTL_MS = 30000;
 const CREATE_PATHS = ['/api/squads/create', '/squads/create'];
 
-let listCache = { at: 0, payload: null };
+let listCache = { at: 0, key: '', payload: null };
 
 function sessionConfig(extra = {}) {
   return {
@@ -18,29 +18,73 @@ function sessionConfig(extra = {}) {
 function normalizeSquadsList(data) {
   if (Array.isArray(data)) return data;
   if (Array.isArray(data?.squads)) return data.squads;
+  if (Array.isArray(data?.invites)) return data.invites;
   if (data?.status === 'success' && Array.isArray(data?.data)) return data.data;
   return [];
 }
 
-export async function fetchSquadsList({ force = false } = {}) {
+export async function fetchSquadsList({ force = false, scope = 'all' } = {}) {
   const now = Date.now();
-  if (!force && listCache.payload && now - listCache.at < LIST_TTL_MS) {
+  const key = String(scope || 'all');
+  if (!force && listCache.payload && listCache.key === key && now - listCache.at < LIST_TTL_MS) {
     return listCache.payload;
   }
-  const res = await API.get('/api/squads', sessionConfig());
+  const res = await API.get('/api/squads', {
+    ...sessionConfig(),
+    params: { scope: key },
+  });
   const rows = normalizeSquadsList(res.data);
-  const payload = { squads: rows, total: rows.length };
-  listCache = { at: now, payload };
+  const counts = res.data?.counts || {
+    all: rows.length,
+    mine: rows.filter((s) => s.membership === 'member').length,
+    invites: rows.filter((s) => s.membership === 'pending').length,
+  };
+  const payload = { squads: rows, total: rows.length, counts, scope: key };
+  listCache = { at: now, key, payload };
   return payload;
 }
 
 export function invalidateSquadsListCache() {
-  listCache = { at: 0, payload: null };
+  listCache = { at: 0, key: '', payload: null };
+}
+
+export async function fetchMySquadInvites() {
+  const res = await API.get('/api/squads/invites/mine', sessionConfig());
+  return {
+    invites: Array.isArray(res.data?.invites) ? res.data.invites : normalizeSquadsList(res.data),
+    total: Number(res.data?.total || 0),
+  };
+}
+
+export async function respondSquadInvite(squadId, action, userId) {
+  const res = await API.post(
+    `/squads/${squadId}/invites/respond`,
+    { action, user_id: userId || undefined },
+    {
+      ...sessionConfig(),
+      headers: { ...getSquadsSessionHeaders(), 'Content-Type': 'application/json' },
+    },
+  );
+  invalidateSquadsListCache();
+  return res.data;
+}
+
+export async function hireSquad(squadId, payload = {}) {
+  const res = await API.post(`/squads/${squadId}/hire`, payload, {
+    ...sessionConfig(),
+    headers: { ...getSquadsSessionHeaders(), 'Content-Type': 'application/json' },
+  });
+  return res.data;
 }
 
 export async function fetchSquadDetail(squadId) {
   const res = await API.get(`/squads/${squadId}`, sessionConfig());
   return res.data;
+}
+
+export async function fetchSquadInvitePreview(squadId) {
+  const res = await API.get(`/squads/${squadId}/invite-preview`, sessionConfig());
+  return res.data?.data || res.data || null;
 }
 
 export async function createSquad(payload) {
@@ -66,6 +110,7 @@ export async function inviteSquadMember(squadId, payload) {
     ...sessionConfig(),
     headers: { ...getSquadsSessionHeaders(), 'Content-Type': 'application/json' },
   });
+  invalidateSquadsListCache();
   return res.data;
 }
 

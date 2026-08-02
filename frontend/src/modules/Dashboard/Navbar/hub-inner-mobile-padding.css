@@ -25,6 +25,11 @@
     padding-top: 1rem !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .jobs-page .jobs-mobile-shell__body {
+    padding-top: 0 !important;
   }
 
   .squad-hub-mobile-shell.hub-inner-mobile-shell {
@@ -72,20 +77,50 @@
 
   .ph-page.ph-mobile-shell .ph-layout__rail--left.is-drawer-open {
     display: block !important;
-    position: fixed;
-    top: var(--et-nav-height, 70px);
-    left: 0;
-    height: calc(100dvh - var(--et-nav-height, 70px));
-    width: 80vw;
-    max-width: 320px;
-    z-index: 50;
-    margin: 0;
-    padding: 12px 8px 24px;
-    border-right: 1px solid #1e293b;
-    background: #020617;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65);
-    overflow-y: auto;
-    box-sizing: border-box;
+    position: fixed !important;
+    top: var(--et-nav-height, 70px) !important;
+    left: 0 !important;
+    right: auto !important;
+    height: calc(100dvh - var(--et-nav-height, 70px)) !important;
+    max-height: none !important;
+    width: 80vw !important;
+    max-width: 320px !important;
+    z-index: 9999 !important;
+    margin: 0 !important;
+    padding: 12px 10px calc(5.5rem + env(safe-area-inset-bottom, 0px)) !important;
+    border: 0 !important;
+    border-right: 1px solid #1e293b !important;
+    border-radius: 0 !important;
+    background: #020617 !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65) !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    box-sizing: border-box !important;
+  }
+
+  .et-app-shell--nav-hidden .ph-page.ph-mobile-shell .ph-layout__rail--left.is-drawer-open {
+    top: 0 !important;
+    height: 100dvh !important;
+  }
+
+  .ph-page.ph-mobile-shell .ph-layout__rail--left.is-drawer-open .ph-left {
+    display: block !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: min-content !important;
+    overflow: visible !important;
+    padding-bottom: 8px !important;
+  }
+
+  .ph-page.ph-mobile-shell .ph-layout__rail--left.is-drawer-open .ph-create-box,
+  .ph-page.ph-mobile-shell .ph-layout__rail--left.is-drawer-open .ph-categories {
+    display: block !important;
+  }
+
+  .ph-page.ph-mobile-shell .ph-layout__rail--left.is-drawer-open .ph-showroom-premium {
+    display: flex !important;
   }
 
   .ph-hub-drawer-backdrop {

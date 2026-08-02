@@ -94,8 +94,9 @@
 }
 
 @media (max-width: 1023px) {
-  .dash-left-rail-close {
-    display: inline-flex;
+  .et-main-inner:has(.dash-home-shell).et-main-inner--hub-mobile-pad,
+  .et-main-inner:has(.dash-home-shell).et-main-inner--mobile-nav-pad {
+    padding-bottom: 0 !important;
   }
 }
 
@@ -113,6 +114,24 @@
   .dash-right-rail-inner > * {
     width: 100%;
     max-width: 100%;
+  }
+
+  /* Home feed — tighter columns without breaking pinned sidebar scroll */
+  .et-hub-pin-wrap:has(.dash-home-shell) .dash-main-grid {
+    grid-template-columns: minmax(250px, 290px) minmax(0, 1fr) minmax(250px, 300px);
+    gap: 12px;
+  }
+
+  .dash-home-shell .hls-stack {
+    max-width: none;
+  }
+
+  .et-main-inner:has(.dash-home-shell) {
+    padding-bottom: 12px;
+  }
+
+  .et-main-scroll:has(.dash-home-shell) .et-footer {
+    margin-top: 16px;
   }
 }
 

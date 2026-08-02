@@ -5,14 +5,21 @@ import InboxSidebar from '../components/InboxSidebar';
 
 /** Desktop-only 3-column inbox — unchanged layout engine. */
 export default function MessagesInboxDesktopView({
+  companyMode = false,
+  squadMode = false,
+  squad = null,
+  onOpenSquadMembers,
   loading,
   errorText,
   sendError,
   gigsSurfaceNotice,
   visibleRows,
   sourceRows,
+  chatRows,
   query,
   activeFilter,
+  companyFilters,
+  setCompanyFilters,
   selectedRow,
   refreshing,
   sending,
@@ -35,6 +42,8 @@ export default function MessagesInboxDesktopView({
   onUpdatePreference,
   onGigSurfaceNotice,
   onFocusInboxSearch,
+  onHiringStageChange,
+  onLabelsChange,
 }) {
   const desktopSelected = selectedRow || visibleRows[0] || null;
 
@@ -44,14 +53,20 @@ export default function MessagesInboxDesktopView({
         {loading ? (
           <div className="msgx-loading">Loading inbox...</div>
         ) : errorText ? (
-          <div className="msgx-error">{errorText}</div>
+          <div className="msgx-error">
+            {typeof errorText === 'string' ? errorText : 'Something went wrong loading inbox.'}
+          </div>
         ) : (
           <div className="msgx-main-grid">
             <InboxSidebar
+              companyMode={companyMode}
+              squadMode={squadMode}
               rows={visibleRows}
               allRows={sourceRows}
               query={query}
               activeFilter={activeFilter}
+              companyFilters={companyFilters}
+              onCompanyFiltersChange={setCompanyFilters}
               selectedId={desktopSelected?._id || ''}
               onQueryChange={setQuery}
               onFilterChange={setActiveFilter}
@@ -63,8 +78,10 @@ export default function MessagesInboxDesktopView({
               searchInputRef={inboxSearchInputRef}
             />
             <ChatWindow
+              companyMode={companyMode}
+              squadMode={squadMode}
               selectedMessage={desktopSelected}
-              allMessages={sourceRows}
+              allMessages={chatRows || sourceRows}
               currentUserId={userId}
               onSendMessage={onSendMessage}
               onUpdateDeliveryStatus={onUpdateDeliveryStatus}
@@ -75,13 +92,21 @@ export default function MessagesInboxDesktopView({
               onFetchConversationPreference={onFetchConversationPreference}
               sending={sending}
             />
-            <ConversationDetails
-              selectedMessage={desktopSelected}
-              onFetchSidebarData={onFetchSidebarData}
-              onUpdatePreference={onUpdatePreference}
-              onGigSurfaceNotice={onGigSurfaceNotice}
-              onFocusInboxSearch={onFocusInboxSearch}
-            />
+            <aside className="msgx-details" aria-label="Conversation details">
+              <ConversationDetails
+                companyMode={companyMode}
+                squadMode={squadMode}
+                squad={squad}
+                onOpenSquadMembers={onOpenSquadMembers}
+                selectedMessage={desktopSelected}
+                onHiringStageChange={onHiringStageChange}
+                onLabelsChange={onLabelsChange}
+                onFetchSidebarData={onFetchSidebarData}
+                onUpdatePreference={onUpdatePreference}
+                onGigSurfaceNotice={onGigSurfaceNotice}
+                onFocusInboxSearch={onFocusInboxSearch}
+              />
+            </aside>
           </div>
         )}
         {sendError ? <div className="msgx-error">{sendError}</div> : null}

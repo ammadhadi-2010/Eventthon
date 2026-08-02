@@ -4,6 +4,22 @@
   gap: 1rem;
 }
 
+.ep-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.55rem;
+  font-size: 13px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.ep-back-link:hover {
+  color: #7dd3fc;
+}
+
 .ep-root {
   --ep-bg: #0b0e14;
   --ep-panel: rgba(15, 23, 42, 0.72);

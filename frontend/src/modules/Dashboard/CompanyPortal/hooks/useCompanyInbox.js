@@ -18,6 +18,7 @@ export function useCompanyInbox(channel = 'all') {
   const [refreshing, setRefreshing] = useState(false);
   const [errorText, setErrorText] = useState('');
   const [messages, setMessages] = useState([]);
+  const [threadMessages, setThreadMessages] = useState([]);
   const [counts, setCounts] = useState(EMPTY_COUNTS);
 
   const loadInbox = useCallback(
@@ -38,9 +39,11 @@ export function useCompanyInbox(channel = 'all') {
         });
         const body = res?.data || {};
         setMessages(Array.isArray(body.messages) ? body.messages : []);
+        setThreadMessages(Array.isArray(body.thread_messages) ? body.thread_messages : []);
         setCounts(body.counts_by_channel || EMPTY_COUNTS);
       } catch (error) {
         setMessages([]);
+        setThreadMessages([]);
         setCounts(EMPTY_COUNTS);
         setErrorText(error?.response?.data?.detail || error?.message || 'Failed to load company inbox.');
       } finally {
@@ -55,5 +58,14 @@ export function useCompanyInbox(channel = 'all') {
     loadInbox(false);
   }, [loadInbox]);
 
-  return { loading, refreshing, errorText, messages, counts, loadInbox, employerId: resolveEmployerId() };
+  return {
+    loading,
+    refreshing,
+    errorText,
+    messages,
+    threadMessages,
+    counts,
+    loadInbox,
+    employerId: resolveEmployerId(),
+  };
 }

@@ -1,4 +1,4 @@
-import { getUserDisplayName, pickImageurl } from '../../utils/dashboardMedia';
+import { getEntityDisplayName, getUserDisplayName, pickImageurl } from '../../utils/dashboardMedia';
 
 const GENERIC_AUTHOR_NAMES = new Set([
   '',
@@ -13,14 +13,27 @@ export function isGenericAuthorName(value = '') {
   return GENERIC_AUTHOR_NAMES.has(String(value || '').trim().toLowerCase());
 }
 
-function pickFirstValidName(candidates = []) {
+function isAccountHandle(value = '', context = {}) {
+  const text = String(value || '').trim().toLowerCase();
+  if (!text || isGenericAuthorName(text)) return false;
+
+  const username = String(context.username || context.user_name || context.name || '').trim().toLowerCase();
+  if (username && text === username) return true;
+
+  const email = String(context.author_email || context.email || '').trim().toLowerCase();
+  if (email.includes('@') && text === email.split('@')[0]) return true;
+
+  return false;
+}
+
+function pickFirstValidName(candidates = [], context = {}) {
   for (const candidate of candidates) {
     const value = String(candidate || '').trim();
-    if (value && !isGenericAuthorName(value)) return value;
+    if (value && !isGenericAuthorName(value) && !isAccountHandle(value, context)) return value;
   }
   for (const candidate of candidates) {
     const value = String(candidate || '').trim();
-    if (value) return value;
+    if (value && !isGenericAuthorName(value)) return value;
   }
   return 'Member';
 }
@@ -28,16 +41,29 @@ function pickFirstValidName(candidates = []) {
 /** Normalize author display fields from timeline/article API payloads. */
 export function resolveFeedAuthorFields(source = {}) {
   const author = source.author || source.user || source.created_by || {};
+  const context = {
+    ...author,
+    author_email: source.author_email || author.email,
+    email: author.email || source.author_email,
+  };
 
-  const authorName = pickFirstValidName([
-    source.author_name,
-    author.name,
-    author.username,
-    author.display_name,
-    getUserDisplayName(author),
-    source.author_email?.includes('@') ? source.author_email.split('@')[0] : '',
-    author.email?.includes('@') ? author.email.split('@')[0] : '',
-  ]);
+  const apiAuthorName = String(source.author_name || '').trim();
+  const authorName = apiAuthorName && !isGenericAuthorName(apiAuthorName)
+    ? apiAuthorName
+    : pickFirstValidName([
+      `${source.first_name || author.first_name || ''} ${source.last_name || author.last_name || ''}`.trim(),
+      source.full_name,
+      author.full_name,
+      source.display_name,
+      author.display_name,
+      author.name,
+      source.name,
+      author.username,
+      source.username,
+      getEntityDisplayName(author),
+      getEntityDisplayName(source),
+      apiAuthorName,
+    ], context);
 
   const authorImageurl = pickImageurl({
     imageurl:
@@ -64,6 +90,25 @@ export function resolveFeedAuthorFields(source = {}) {
     author_rank: authorRank,
     author_id: authorId,
   };
+}
+
+export function isPostByCurrentUser(post = {}, currentUser = null) {
+  if (!post || !currentUser) return false;
+  const postAuthorId = String(post.author_id || post.user_id || '').trim();
+  const currentId = String(
+    currentUser._id || currentUser.id || currentUser.user_id || '',
+  ).trim();
+  return Boolean(postAuthorId && currentId && postAuthorId === currentId);
+}
+
+export function resolvePostDisplayAuthorName(post = {}, userData = null) {
+  const fields = resolveFeedAuthorFields(post);
+  if (!userData || !isPostByCurrentUser(post, userData)) {
+    return fields.author_name;
+  }
+
+  const liveName = getUserDisplayName(userData);
+  return liveName && liveName !== 'Member' ? liveName : fields.author_name;
 }
 
 export function truncateFeedText(text = '', maxChars = 340) {

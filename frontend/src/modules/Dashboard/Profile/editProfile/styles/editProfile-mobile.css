@@ -6,14 +6,25 @@
 }
 
 @media (max-width: 1023px) {
+  /* Use global MemberNavbar — HubMobileTopBar is hidden by unified-global-nav */
   .et-app-shell:has(.ep-mobile-shell) .et-top-nav {
+    display: block !important;
+  }
+
+  .et-app-shell:has(.ep-mobile-shell) .hub-mobile-chrome {
     display: none !important;
+  }
+
+  .et-app-shell:has(.ep-mobile-shell) {
+    --et-nav-height: 3.5rem;
+    --et-nav-offset: 3.5rem;
   }
 
   .et-app-shell:has(.ep-mobile-shell) .et-main-inner {
     max-width: none !important;
     width: 100% !important;
     margin: 0 !important;
+    padding-top: 0 !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
@@ -23,13 +34,16 @@
   }
 
   .ep-mobile-shell {
-    --ep-mobile-topbar-h: 3.5rem;
     padding-top: 0 !important;
     padding-bottom: 5.5rem !important;
   }
 
+  .ep-mobile-shell.ep-root {
+    padding-top: 0.35rem !important;
+  }
+
   .ep-mobile-shell .ep-flow-shell {
-    padding-top: calc(var(--ep-mobile-topbar-h) + 0.35rem);
+    padding-top: 0.25rem;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
   }
@@ -132,6 +146,11 @@
     border-bottom-color: rgba(255, 255, 255, 0.08);
   }
 
+  .ep-mobile-shell .ep-back-link {
+    font-size: 12px;
+    margin-bottom: 0.4rem;
+  }
+
   .ep-mobile-shell .ep-page-header h1 {
     font-size: 1.35rem;
   }
@@ -142,13 +161,114 @@
     line-height: 1.45;
   }
 
-  /* Step list before forms on mobile */
+  /* Wizard: no horizontal step strip scroll — progress bar instead */
+  .ep-mobile-shell .ep-step-strip {
+    display: none !important;
+  }
+
+  .ep-mobile-shell .ep-wizard-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 0.15rem;
+    padding: 0.75rem 0.85rem;
+    border-radius: 12px;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    background: rgba(15, 23, 42, 0.72);
+  }
+
+  .ep-mobile-shell .ep-wizard-progress__label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #94a3b8;
+  }
+
+  .ep-mobile-shell .ep-wizard-progress__track {
+    height: 4px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+  }
+
+  .ep-mobile-shell .ep-wizard-progress__fill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #38bdf8, #6366f1, #a78bfa);
+  }
+
+  .ep-mobile-shell .ep-wizard-progress__step-name {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 800;
+    color: #f1f5f9;
+  }
+
+  .ep-mobile-shell .ep-center-stack--wizard {
+    gap: 0.85rem;
+  }
+
+  .ep-mobile-shell .ep-prefs-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+  }
+
+  .ep-mobile-shell .ep-prefs-footer .ep-btn-save-continue,
+  .ep-mobile-shell .ep-prefs-footer .ep-btn-view-profile {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .ep-mobile-shell .ep-prefs-done-hint {
+    text-align: center;
+  }
+
+  /* Left steps rail = drawer (opened from navbar list button) */
   .ep-mobile-shell .ep-flow-grid__cell--left {
+    display: none;
     order: 1;
   }
 
+  .ep-mobile-shell .ep-flow-grid__cell--left.is-drawer-open {
+    display: block !important;
+    position: fixed !important;
+    top: var(--et-nav-height, 3.5rem) !important;
+    left: 0 !important;
+    right: auto !important;
+    width: min(86vw, 320px) !important;
+    height: calc(100dvh - var(--et-nav-height, 3.5rem)) !important;
+    z-index: 9999 !important;
+    margin: 0 !important;
+    padding: 10px 8px 20px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    background: #020617 !important;
+    border-right: 1px solid #1e293b !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65) !important;
+    box-sizing: border-box !important;
+  }
+
+  .ep-left-drawer-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: rgba(2, 6, 23, 0.62);
+    cursor: pointer;
+  }
+
+  .ep-left-drawer-backdrop.is-visible {
+    display: block;
+  }
+
   .ep-mobile-shell .ep-flow-grid__cell--center {
-    order: 2;
+    order: 1;
   }
 
   .ep-mobile-shell .ep-flow-grid__cell--right {
@@ -157,6 +277,13 @@
 
   .ep-mobile-shell .ep-flow-grid {
     gap: 1rem;
+  }
+
+  .ep-mobile-shell .ep-flow-grid__cell--left.is-drawer-open .ep-left-rail {
+    padding: 0.85rem 0.75rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #0b1220;
   }
 
   .ep-mobile-shell .ep-left-rail {

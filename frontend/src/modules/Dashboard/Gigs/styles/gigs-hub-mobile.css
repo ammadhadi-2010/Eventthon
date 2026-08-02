@@ -414,12 +414,13 @@
   .gigs-hero-mobile-actions__btn {
     flex: 1 1 0;
     min-width: 0;
+    min-height: 36px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 6px;
+    padding: 8px 10px;
     border-radius: 12px;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
     font-family: inherit;
     text-align: center;
@@ -432,10 +433,9 @@
 
   .gigs-hero-mobile-actions__btn:active { transform: scale(0.95); }
 
-  .gigs-hero-mobile-actions__btn--menu {
-    border: 1px solid #334155;
-    background: #1e293b;
-    color: #fff;
+  .gigs-hero-mobile-actions__btn--menu,
+  .gigs-hero-mobile-actions__menu-panel {
+    display: none !important;
   }
 
   .gigs-hero-mobile-actions__btn--create {
@@ -450,44 +450,6 @@
     background: linear-gradient(90deg, #2563eb, #4f46e5, #7c3aed);
     color: #fff;
     box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
-  }
-
-  .gigs-hero-mobile-actions__menu-panel {
-    position: absolute;
-    left: 0;
-    top: calc(100% + 6px);
-    width: 14rem;
-    max-height: 320px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: 6px;
-    background: #020617;
-    border: 1px solid #1e293b;
-    border-radius: 12px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65);
-    z-index: 60;
-  }
-
-  .gigs-hero-mobile-actions__menu-item {
-    width: 100%;
-    padding: 8px 10px;
-    border: 0;
-    border-radius: 8px;
-    background: transparent;
-    color: #e4e4e7;
-    font-size: 12px;
-    font-weight: 600;
-    text-align: left;
-    cursor: pointer;
-    font-family: inherit;
-  }
-
-  .gigs-hero-mobile-actions__menu-item.is-active,
-  .gigs-hero-mobile-actions__menu-item:hover {
-    background: rgba(56, 189, 248, 0.12);
-    color: #fff;
   }
 
   .gigs-hero-header {

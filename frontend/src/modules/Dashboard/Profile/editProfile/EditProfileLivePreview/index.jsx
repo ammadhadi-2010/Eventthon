@@ -25,10 +25,11 @@ const EditProfileLivePreview = ({ draft, userData, focusStepId = 'basic' }) => {
   const scrollRef = useRef(null);
 
   const displayName = useMemo(() => {
+    const full = draft.fullName?.trim();
+    if (full) return full;
     const joined = [draft.firstName, draft.lastName].filter(Boolean).join(' ').trim();
-    if (joined) return joined;
-    return draft.fullName?.trim() || 'Your name';
-  }, [draft.firstName, draft.lastName, draft.fullName]);
+    return joined || 'Your name';
+  }, [draft.fullName, draft.firstName, draft.lastName]);
 
   const headline = draft.headline?.trim() || 'Professional headline';
 

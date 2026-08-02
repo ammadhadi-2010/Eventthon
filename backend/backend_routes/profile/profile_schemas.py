@@ -79,6 +79,17 @@ def profile_update_payload(data: ProfileUpdate) -> dict:
     else:
         raw = data.dict(exclude_none=True)
     out = {k: v for k, v in raw.items() if v is not None}
+    if "first_name" in out or "last_name" in out:
+        first = str(out.get("first_name") or "").strip()
+        last = str(out.get("last_name") or "").strip()
+        full = f"{first} {last}".strip()
+        if full:
+            out["full_name"] = full
+            out["display_name"] = full
+        else:
+            # Never wipe stored names when the client sends empty name parts.
+            out.pop("first_name", None)
+            out.pop("last_name", None)
     if "imageurl" in out:
         url = str(out.pop("imageurl") or "").strip()
         if url:

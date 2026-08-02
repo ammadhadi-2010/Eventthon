@@ -61,6 +61,9 @@ async def send_chat_message(
     }
     if context_id:
         doc[id_key_map[chat_type]] = context_id
+    candidate_uid = str(payload.candidate_user_id or "").strip()
+    if candidate_uid:
+        doc["candidate_user_id"] = candidate_uid
 
     result = await collection.insert_one(doc)
     from_name = await _resolve_user_name(payload.from_user_id.strip(), {})

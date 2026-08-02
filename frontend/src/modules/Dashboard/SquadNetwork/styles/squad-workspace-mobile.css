@@ -91,6 +91,41 @@
     gap: 12px;
   }
 
+  .sq-ws-portfolio {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .sq-ws-mini-project--with-media {
+    grid-template-columns: 72px minmax(0, 1fr) !important;
+    gap: 8px !important;
+    padding: 10px !important;
+  }
+
+  .sq-ws-mini-project__cover {
+    min-height: 72px !important;
+    border-radius: 8px !important;
+  }
+
+  .sq-ws-mini-project__title {
+    font-size: 0.8125rem !important;
+  }
+
+  .sq-ws-mini-project__meta {
+    font-size: 0.625rem !important;
+  }
+
+  .sq-ws-review-summary .reviews-write-btn {
+    width: 100%;
+    margin-left: 0;
+    justify-content: center;
+  }
+
+  .sq-ws-section-head {
+    flex-wrap: wrap;
+  }
+
   .sq-ws-features {
     grid-template-columns: 1fr;
   }

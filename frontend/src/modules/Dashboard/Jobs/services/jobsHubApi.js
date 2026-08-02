@@ -31,6 +31,14 @@ export async function fetchJobsHubMetrics() {
   return res?.data || {};
 }
 
+export async function fetchJobsPlatformSettings() {
+  const res = await API.get('/api/jobs/hub/platform-settings');
+  return {
+    jobs: res?.data?.jobs || null,
+    opportunities: res?.data?.opportunities || null,
+  };
+}
+
 export async function fetchJobsSidebarAnalytics() {
   const res = await API.get(`/api/jobs/hub/sidebar-analytics${userQuery()}`);
   return {
@@ -98,6 +106,8 @@ export async function searchHubJobs(filters = {}) {
     category: filters.category || '',
     experience_level: filters.experienceLevel || '',
     job_type: filters.jobType || '',
+    listing_kind: filters.listingKind || '',
+    company: filters.company || '',
     location: filters.location || '',
     work_mode: filters.workMode || '',
   };
@@ -110,6 +120,11 @@ export async function searchHubJobs(filters = {}) {
   };
 }
 
+export async function fetchTopCompanies(limit = 24) {
+  const res = await API.get(`/api/jobs/hub/top-companies${listingQuery({ limit })}`);
+  return res?.data?.data || [];
+}
+
 export async function fetchRecommendedJobs() {
   const res = await API.get(`/api/jobs/hub/recommended${userQuery()}`);
   return res?.data?.data || [];
@@ -117,6 +132,11 @@ export async function fetchRecommendedJobs() {
 
 export async function fetchJobAlerts() {
   const res = await API.get(`/api/jobs/hub/alerts${userQuery()}`);
+  return res?.data?.data || [];
+}
+
+export async function fetchJobAlertMatches() {
+  const res = await API.get(`/api/jobs/hub/alert-matches${userQuery()}`);
   return res?.data?.data || [];
 }
 
@@ -136,8 +156,41 @@ export async function createJobAlert(form) {
     keywords: form.keywords,
     email_notifications: form.emailNotifications,
     notification_email: form.notificationEmail,
+    alert_kind: form.alertKind === 'opportunity' ? 'opportunity' : 'job',
   });
   return res?.data?.data;
+}
+
+/** Company hiring job or community opportunity (pending until admin approves). */
+export async function createJobListing(form, listingKind = 'opportunity') {
+  const payload = {
+    user_id: resolveUserId(),
+    listing_kind: listingKind,
+    job_title: form.jobTitle,
+    job_description: form.jobDescription,
+    employment_type: form.opportunityType || form.employmentType,
+    experience_level: form.experienceLevel,
+    career_level: form.careerLevel,
+    job_category: form.jobCategory,
+    salary_min: form.salaryMin,
+    salary_max: form.salaryMax,
+    work_mode: form.workMode,
+    skills: form.skills,
+    keywords: form.keywords,
+    email_notifications: false,
+  };
+  if (listingKind === 'opportunity') {
+    payload.opportunity_type = form.opportunityType;
+    payload.budget_model = form.budgetModel;
+    payload.budget_amount = form.budgetAmount;
+    payload.equity_share = form.equityShare;
+    payload.duration = form.duration;
+    payload.deadline = form.deadline;
+    payload.people_needed = Number(form.peopleNeeded) || 1;
+    payload.attachment_names = form.attachmentNames || [];
+  }
+  const res = await API.post('/api/jobs/hub/listings', payload);
+  return res?.data;
 }
 
 export async function patchJobAlert(alertId, payload) {

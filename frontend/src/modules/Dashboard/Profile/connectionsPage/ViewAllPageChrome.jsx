@@ -18,7 +18,7 @@ export default function ViewAllPageChrome({
       aria-hidden={!isHeaderVisible}
     >
       <header className="pnet-main__head">
-        <Link to="/dashboard" className="pnet-back" aria-label="Back to home">
+        <Link to="/profile" className="pnet-back" aria-label="Back to profile">
           <ArrowLeft size={18} strokeWidth={2} />
         </Link>
         <div className="pnet-main__titles">

@@ -1,52 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import UpdatesExplorerSidebar from './UpdatesExplorerSidebar';
 import UpdatesExplorerHeader from './UpdatesExplorerHeader';
 import UpdateGridCard from './UpdateGridCard';
 import UpdatesPagination from './UpdatesPagination';
 import useUpdatesExplorer from './useUpdatesExplorer';
-import HubMobileTopBar from '../components/mobile/HubMobileTopBar';
-import { HUB_MOBILE_SEARCH } from '../components/mobile/hubMobileSearchPresets';
-import '../components/mobile/dashboard-home-mobile.css';
 import './updates-explorer.css';
 import './updates-explorer-mobile.css';
 import './updates-explorer-mobile-chrome.css';
 
 export default function UpdatesExplorerPage({ userData }) {
   const explorer = useUpdatesExplorer();
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  useEffect(() => {
-    const mobile = window.matchMedia('(max-width: 1023px)');
-    if (!mobile.matches) return undefined;
-
-    const scrollRoot = document.querySelector('main.et-main-scroll') || window;
-    const getScrollY = () => (scrollRoot === window ? window.scrollY : scrollRoot.scrollTop);
-
-    const handleScroll = () => {
-      const currentScroll = getScrollY();
-      if (currentScroll > lastScrollY && currentScroll > 50) {
-        setIsHeaderVisible(false);
-      } else {
-        setIsHeaderVisible(true);
-      }
-      setLastScrollY(currentScroll);
-    };
-
-    scrollRoot.addEventListener('scroll', handleScroll, { passive: true });
-    return () => scrollRoot.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
 
   return (
-    <div className="upd-explorer upd-explorer-mobile-shell">
-      <HubMobileTopBar
-        isVisible={isHeaderVisible}
-        avatarAction="leftDrawer"
-        avatarAriaLabel="Open menu"
-        searchQuery={explorer.searchQuery}
-        onSearchQueryChange={explorer.setSearchQuery}
-        {...HUB_MOBILE_SEARCH.updates}
-      />
+    <div className="upd-explorer upd-explorer-mobile-shell hub-inner-mobile-shell">
       <UpdatesExplorerSidebar
         userData={userData}
         menuFilter={explorer.menuFilter}

@@ -62,6 +62,17 @@
   min-width: 0;
 }
 
+.sq-members-modal-error {
+  margin: 0 0 10px;
+  color: #f87171;
+  font-size: 12px;
+}
+
+.sq-members-ghost-btn.is-active {
+  border-color: rgba(59, 130, 246, 0.45);
+  color: #93c5fd;
+}
+
 .sq-members-ghost-btn,
 .sq-members-primary-btn {
   border-radius: 12px;

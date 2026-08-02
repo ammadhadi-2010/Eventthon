@@ -11,6 +11,7 @@ import { blobUrlToFile, updateProfileData, uploadUserImage } from '../../service
 import { validateProfileImageFile } from '../../utils/profileMedia';
 import { persistUserSession } from '../../../../../utils/storedUser';
 import CoverBannerCropModal from './CoverBannerCropModal';
+import { splitProfileFullName } from '../EditProfileFlowPage';
 import '../editProfileLayout.css';
 
 const HEADLINE_MAX = 80;
@@ -81,15 +82,20 @@ const EditProfileBasicFields = ({
     setBannerCropOpen(false);
   };
 
-  const syncNameParts = (full) => {
-    const t = full.trim();
-    if (!t) return { fullName: '', firstName: '', lastName: '' };
-    const parts = t.split(/\s+/);
-    return {
-      fullName: full,
-      firstName: parts[0] || '',
-      lastName: parts.slice(1).join(' ') || '',
-    };
+  const syncNameParts = (full) => splitProfileFullName(full);
+
+  const resolveDraftNameParts = () => {
+    const typed = String(
+      draft.fullName ?? [draft.firstName, draft.lastName].filter(Boolean).join(' '),
+    ).trim();
+    if (typed) return splitProfileFullName(typed);
+
+    if (typeof window !== 'undefined') {
+      const stored = String(localStorage.getItem('userName') || '').trim();
+      if (stored) return splitProfileFullName(stored);
+    }
+
+    return splitProfileFullName('');
   };
 
   const availDotClass =
@@ -153,17 +159,31 @@ const EditProfileBasicFields = ({
 
       const socialList = sanitizeSocialLinksForSave(draft.socialLinks);
       const websiteUrl = socialList.find((x) => x.platform === 'website')?.url ?? '';
+      const nameParts = resolveDraftNameParts();
+      const fullName = nameParts.fullName;
 
-      await updateProfileData(userIdentifier, {
-        first_name: draft.firstName ?? '',
-        last_name: draft.lastName ?? '',
+      const profilePayload = {
         headline: draft.headline ?? '',
         city: draft.city ?? '',
         country: draft.countryCode ?? '',
         availability: draft.availability ?? 'available',
         social_links: socialList,
         ...(websiteUrl ? { link_website: websiteUrl } : {}),
-      });
+      };
+      if (fullName) {
+        profilePayload.first_name = nameParts.firstName;
+        profilePayload.last_name = nameParts.lastName;
+      }
+
+      await updateProfileData(userIdentifier, profilePayload);
+      if (fullName) {
+        persistUserSession({
+          first_name: nameParts.firstName,
+          last_name: nameParts.lastName,
+          full_name: fullName,
+          display_name: fullName,
+        });
+      }
       if (typeof refreshData === 'function') {
         await refreshData();
       }
@@ -246,22 +266,20 @@ const EditProfileBasicFields = ({
 
         <div className="ep-basic-media-col min-w-0">
           <p className="ep-basic-label-title">Cover Banner</p>
-          <div className="ep-basic-banner relative overflow-hidden rounded-xl border border-white/[0.08] shadow-lg shadow-black/30">
+          <div
+            className={`ep-basic-banner relative overflow-hidden rounded-xl border border-white/[0.08] shadow-lg shadow-black/30${draft.coverImageUrl ? ' ep-basic-banner--has-cover' : ''}`}
+          >
             {draft.coverImageUrl ? (
               <img src={draft.coverImageUrl} alt="" className="absolute inset-0 z-0 h-full w-full object-cover" />
-            ) : null}
-            <div className="ep-basic-banner__glow pointer-events-none absolute inset-0 z-[1]" aria-hidden />
-            <div
-              className="pointer-events-none absolute inset-0 z-[1] opacity-[0.35]"
-              style={{
-                backgroundImage: `radial-gradient(ellipse 80% 60% at 70% 40%, rgba(167, 139, 250, 0.45), transparent 55%),
-                  radial-gradient(ellipse 50% 40% at 20% 80%, rgba(99, 102, 241, 0.35), transparent 50%)`,
-              }}
-            />
-            <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-br from-[#1e1b4b]/92 via-[#312e81]/88 to-[#0f172a]/92" />
+            ) : (
+              <>
+                <div className="ep-basic-banner__glow pointer-events-none absolute inset-0 z-[1]" aria-hidden />
+                <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-br from-[#1e1b4b]/92 via-[#312e81]/88 to-[#0f172a]/92" />
+              </>
+            )}
             <button
               type="button"
-              className="absolute bottom-3 right-3 z-[2] flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/50 text-violet-100 shadow-md backdrop-blur-sm transition hover:bg-black/65 hover:text-white"
+              className="absolute bottom-3 right-3 z-[2] flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/45 text-white shadow-md backdrop-blur-sm transition hover:bg-black/60"
               aria-label="Upload cover banner"
               onClick={() => bannerInputRef.current?.click()}
             >

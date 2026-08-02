@@ -1,4 +1,4 @@
-/* Mobile only (< 1024px). Card typography uses Tailwind max-lg: in UpdateGridCard.jsx */
+/* Mobile only (< 1024px). Full-width feed cards — not a cramped 2-col grid. */
 
 @media (max-width: 1023px) {
   .upd-explorer__sidebar {
@@ -7,7 +7,10 @@
 
   .upd-explorer {
     grid-template-columns: minmax(0, 1fr) !important;
-    padding: 8px 10px 12px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 6px 12px 20px;
     gap: 8px;
     min-height: auto;
   }
@@ -15,11 +18,20 @@
   .upd-explorer__main {
     width: 100%;
     max-width: 100%;
+    min-width: 0;
+    gap: 10px;
+  }
+
+  .upd-explorer__header {
+    width: 100%;
+    min-width: 0;
     gap: 8px;
+    margin: 0;
+    padding: 0;
   }
 
   .upd-explorer__header h1 {
-    font-size: 1rem;
+    font-size: 1.125rem;
     line-height: 1.25;
   }
 
@@ -29,6 +41,7 @@
 
   .upd-explorer__header-top {
     gap: 0.5rem;
+    align-items: center;
   }
 
   .upd-explorer__header-title-wrap {
@@ -36,6 +49,7 @@
     align-items: center;
     gap: 8px;
     min-width: 0;
+    flex: 1;
   }
 
   .upd-explorer__header-back {
@@ -43,8 +57,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
     padding: 0;
     border: 1px solid #334155;
     border-radius: 999px;
@@ -66,8 +80,8 @@
   }
 
   .upd-explorer__header-actions select {
-    max-width: 7.5rem;
-    padding: 4px 6px;
+    max-width: 8.5rem;
+    padding: 6px 8px;
     font-size: 12px;
   }
 
@@ -76,11 +90,13 @@
     flex-wrap: nowrap;
     align-items: center;
     justify-content: flex-start;
-    gap: 0.5rem;
+    gap: 8px;
     width: 100%;
+    margin: 0 -4px;
+    padding: 2px 4px 8px;
     overflow-x: auto;
-    padding: 0.25rem 0.5rem 0.5rem;
-    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
@@ -90,24 +106,113 @@
   }
 
   .upd-explorer__pill {
-    flex-shrink: 0;
+    flex: 0 0 auto;
     scroll-snap-align: start;
     white-space: nowrap;
-    padding: 0.25rem 0.625rem;
+    padding: 7px 14px;
     font-size: 12px;
   }
 
+  /* One card per row on phones + tablets in portrait */
   .upd-explorer__grid:not(.is-list) {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 0.5rem;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px;
+    width: 100%;
   }
 
-  .upd-update-card:not(.is-list) .upd-grid-card__media {
+  .upd-explorer__grid.is-list {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px;
+  }
+
+  .upd-explorer__hint {
+    padding: 28px 8px;
+    text-align: center;
+  }
+
+  .upd-update-card,
+  .upd-grid-card {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .upd-update-card:not(.is-list),
+  .upd-grid-card:not(.is-list) {
+    max-height: none !important;
+    padding: 14px 14px 12px !important;
+    gap: 10px !important;
+    border-radius: 14px;
+  }
+
+  .upd-update-card:not(.is-list) .upd-update-card__body,
+  .upd-grid-card:not(.is-list) .upd-update-card__body {
+    gap: 8px !important;
+    overflow: visible !important;
+  }
+
+  .upd-update-card:not(.is-list) .upd-grid-card__media,
+  .upd-grid-card:not(.is-list) .upd-grid-card__media {
     height: auto !important;
+    max-height: 180px !important;
+    min-height: 120px;
+    object-fit: cover !important;
+    border-radius: 10px;
   }
 
-  .upd-update-card:not(.is-list) .upd-grid-card__footer {
-    margin-top: 0;
-    gap: 0.375rem;
+  .upd-update-card:not(.is-list) .upd-grid-card__media-round,
+  .upd-grid-card:not(.is-list) .upd-grid-card__media-round {
+    width: 72px !important;
+    height: 72px !important;
+  }
+
+  .upd-update-card:not(.is-list) .upd-grid-card__media-fallback,
+  .upd-update-card:not(.is-list) .upd-grid-card__badge,
+  .upd-grid-card:not(.is-list) .upd-grid-card__media-fallback,
+  .upd-grid-card:not(.is-list) .upd-grid-card__badge {
+    min-height: 96px !important;
+    max-height: none !important;
+  }
+
+  .upd-update-card:not(.is-list) .upd-grid-card__footer,
+  .upd-grid-card:not(.is-list) .upd-grid-card__footer {
+    margin-top: 4px;
+    gap: 8px;
+    padding-top: 4px;
+  }
+
+  .upd-update-card:not(.is-list) .upd-grid-card__stats,
+  .upd-grid-card:not(.is-list) .upd-grid-card__stats {
+    gap: 12px;
+    font-size: 12px;
+  }
+
+  .upd-update-card:not(.is-list) .upd-grid-card__action,
+  .upd-grid-card:not(.is-list) .upd-grid-card__action {
+    font-size: 12px;
+  }
+
+  .upd-update-card:not(.is-list) .upd-grid-card__author-avatar,
+  .upd-grid-card:not(.is-list) .upd-grid-card__author-avatar {
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  .upd-explorer__pagination {
+    margin-top: 4px;
+    margin-bottom: 8px;
+  }
+}
+
+/* Narrow phones: keep comfortable edge padding */
+@media (max-width: 480px) {
+  .upd-explorer {
+    padding: 8px 10px 18px;
+  }
+
+  .upd-update-card:not(.is-list),
+  .upd-grid-card:not(.is-list) {
+    padding: 12px !important;
   }
 }

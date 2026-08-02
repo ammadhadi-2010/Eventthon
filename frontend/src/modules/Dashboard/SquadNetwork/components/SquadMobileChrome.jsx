@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { FiChevronDown, FiCompass, FiEdit2, FiUserPlus } from 'react-icons/fi';
+import { FiChevronDown, FiCompass, FiEdit2, FiUserPlus, FiZap } from 'react-icons/fi';
 
 export function SquadMobileActionToolbar({
   tabs,
@@ -7,6 +7,7 @@ export function SquadMobileActionToolbar({
   onTabChange,
   onInvite,
   onExplore,
+  onHire,
   canExplore = true,
   canInvite = true,
   onEditSquad,
@@ -80,11 +81,15 @@ export function SquadMobileActionToolbar({
           </button>
         ) : null}
 
-        {canExplore ? (
-          <button type="button" className="squad-hub__toolbar-edit" onClick={onExplore}>
-            <FiCompass size={12} /> Explore
-          </button>
-        ) : null}
+        <button
+          type="button"
+          className="squad-hub__toolbar-explore"
+          onClick={onExplore}
+          disabled={!canExplore}
+          title={canExplore ? 'Open public showroom' : 'Public listing required'}
+        >
+          <FiCompass size={11} /> Explore
+        </button>
 
         <button
           type="button"
@@ -96,7 +101,12 @@ export function SquadMobileActionToolbar({
           <FiEdit2 size={12} /> Edit
         </button>
 
-        <div className="squad-hub__toolbar-menu">{headerMenu}</div>
+        <div className="squad-hub__toolbar-hire-row">
+          <button type="button" className="squad-hub__toolbar-hire" onClick={onHire}>
+            <FiZap size={12} aria-hidden /> Hire Squad
+          </button>
+          <div className="squad-hub__toolbar-menu">{headerMenu}</div>
+        </div>
       </div>
     </div>
   );

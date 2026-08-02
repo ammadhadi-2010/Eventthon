@@ -95,13 +95,24 @@ async def _build_application_doc(
         company = card["company"]
         logo_text = card["logoText"]
         logo_class = card["logoClass"]
+        imageurl = card.get("imageurl") or ""
+        listing_kind = card.get("listingKind") or ""
     elif snap:
         role = snap.get("role") or "Role"
         company = snap.get("company") or "Company"
         logo_text = snap.get("logoText") or "J"
         logo_class = snap.get("logoClass") or "google"
+        imageurl = snap.get("imageurl") or ""
+        listing_kind = snap.get("listingKind") or ""
     else:
-        role, company, logo_text, logo_class = "Role", "Company", "J", "google"
+        role, company, logo_text, logo_class, imageurl, listing_kind = (
+            "Role",
+            "Company",
+            "J",
+            "google",
+            "",
+            "",
+        )
 
     applied_label = _format_applied_on(applied_at)
     return {
@@ -116,6 +127,8 @@ async def _build_application_doc(
         "company": company,
         "logo_text": logo_text,
         "logo_class": logo_class,
+        "imageurl": imageurl,
+        "listing_kind": listing_kind,
         "created_at": applied_at,
     }
 

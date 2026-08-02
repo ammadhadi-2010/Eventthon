@@ -30,6 +30,14 @@ async def fetch_bug_report_alert_rows(read_ids: set[str], *, limit: int = 20) ->
         issue_title = build_title({"type": doc.get("type"), "description": doc.get("description")})
         created = doc.get("created_at") if isinstance(doc.get("created_at"), datetime) else now
 
+        actor_email = str(doc.get("user_email") or "").strip().lower()
+        actor_name = str(doc.get("user_name") or actor_email or doc.get("user_mobile") or "Reporter")
+        imageurl = str(
+            doc.get("user_imageurl")
+            or doc.get("imageurl")
+            or doc.get("profile_image_url")
+            or ""
+        ).strip()
         rows.append(
             {
                 "_id": alert_id,
@@ -39,7 +47,10 @@ async def fetch_bug_report_alert_rows(read_ids: set[str], *, limit: int = 20) ->
                 "title": f"New Bug Report Pending Verification: {issue_title}",
                 "message": str(doc.get("description") or "User submitted a new bug report.")[:160],
                 "issue_title": issue_title,
-                "actor_name": str(doc.get("user_email") or doc.get("user_mobile") or "Reporter"),
+                "actor_name": actor_name,
+                "actor_email": actor_email,
+                "imageurl": imageurl,
+                "actor_imageurl": imageurl,
                 "action_url": BUG_REPORTS_PANEL_URL,
                 "action_label": "Open Bug Reports",
                 "section": _section_for(created),

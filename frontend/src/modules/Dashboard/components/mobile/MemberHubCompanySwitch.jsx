@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiBriefcase } from 'react-icons/fi';
 import { useCompanyHubAccess } from '../../Navbar/useCompanyHubAccess';
@@ -10,9 +10,13 @@ import './member-hub-company-switch.css';
  * Mobile member-hub chip: returns employer users to the company dashboard.
  * Hidden on company workspace routes and for non-employer accounts.
  */
-export default function MemberHubCompanySwitch({ variant = 'default', className = '' }) {
+export default function MemberHubCompanySwitch({ variant = 'default', className = '', user }) {
   const navigate = useNavigate();
-  const { showSwitchToCompany, companyDashboardPath } = useCompanyHubAccess();
+  const { showSwitchToCompany, companyDashboardPath } = useCompanyHubAccess(user);
+
+  useEffect(() => {
+    if (showSwitchToCompany) prefetchCompanyPortalDashboard();
+  }, [showSwitchToCompany]);
 
   if (!showSwitchToCompany) return null;
 

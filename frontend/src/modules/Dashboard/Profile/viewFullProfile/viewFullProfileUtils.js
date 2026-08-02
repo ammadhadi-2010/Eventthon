@@ -1,5 +1,3 @@
-import { PLACEHOLDER_PROJECTS } from './viewFullProfileConstants';
-
 export function fmtMemberSince(val) {
   const raw = val?.created_at ?? val?.createdAt ?? val?.joined_at;
   if (!raw) return '—';
@@ -29,19 +27,16 @@ export function fmtEarnings(n) {
 
 export function buildFeaturedProjects(projects) {
   const list = Array.isArray(projects) ? projects : [];
-  const real = list.filter((p) => String(p.title || '').trim()).slice(0, 3);
-  if (real.length >= 3) return real;
-  return [...real, ...PLACEHOLDER_PROJECTS.slice(real.length)].slice(0, 3);
+  return list.filter((p) => String(p.title || '').trim()).slice(0, 3);
 }
 
-export function perfRows(projectCount) {
+export function perfRows(projectCount, stats = {}) {
+  const rows = [];
   const n = Math.min(99, Math.max(0, Number(projectCount) || 0));
-  return [...PERF_IMPORT, { label: 'Projects completed', value: `${n}+` }];
+  if (n > 0) rows.push({ label: 'Projects completed', value: String(n) });
+  const score = Number(stats.success_score);
+  if (Number.isFinite(score) && score > 0) {
+    rows.push({ label: 'On-time delivery', value: `${Math.round(score)}%` });
+  }
+  return rows;
 }
-
-const PERF_IMPORT = [
-  { label: 'Response time', value: '98%' },
-  { label: 'On-time delivery', value: '100%' },
-  { label: 'Repeat clients', value: '72%' },
-  { label: 'Client satisfaction', value: '99%' },
-];

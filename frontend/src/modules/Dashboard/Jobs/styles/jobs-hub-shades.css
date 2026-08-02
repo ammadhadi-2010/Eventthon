@@ -151,3 +151,86 @@
   border-radius: 12px;
   font-weight: 800;
 }
+
+/* Applications / Alerts / Companies — same shine as Browse Jobs */
+.jh-app-row.jh-job-row[class*='--'],
+.jh-app-mobile-card.jh-job-row[class*='--'],
+.ja-alert-row.jh-job-row[class*='--'],
+.jh-companies-row.jh-job-row[class*='--'] {
+  border-radius: 14px;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.jh-companies-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.jh-companies-row.jh-job-row[class*='--'] {
+  border-bottom: none;
+  padding: 14px 16px;
+  list-style: none;
+}
+
+.ja-alert-row.jh-job-row[class*='--'] .ja-alert-row__avatar.jobs-job-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.jh-app-row.jh-job-row--crimson,
+.jh-app-mobile-card.jh-job-row--crimson,
+.ja-alert-row.jh-job-row--crimson,
+.jh-companies-row.jh-job-row--crimson {
+  background: linear-gradient(135deg, rgba(255, 51, 102, 0.2), rgba(12, 18, 36, 0.94));
+  border-color: rgba(255, 107, 157, 0.48);
+  box-shadow: 0 10px 32px rgba(255, 51, 102, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.jh-app-row.jh-job-row--electric,
+.jh-app-mobile-card.jh-job-row--electric,
+.ja-alert-row.jh-job-row--electric,
+.jh-companies-row.jh-job-row--electric {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.18), rgba(12, 18, 36, 0.94));
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 10px 32px rgba(0, 153, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.jh-app-row.jh-job-row--lime,
+.jh-app-mobile-card.jh-job-row--lime,
+.ja-alert-row.jh-job-row--lime,
+.jh-companies-row.jh-job-row--lime {
+  background: linear-gradient(135deg, rgba(132, 204, 22, 0.18), rgba(12, 18, 36, 0.94));
+  border-color: rgba(163, 230, 53, 0.48);
+  box-shadow: 0 10px 32px rgba(132, 204, 22, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.jh-app-row.jh-job-row--sunset,
+.jh-app-mobile-card.jh-job-row--sunset,
+.ja-alert-row.jh-job-row--sunset,
+.jh-companies-row.jh-job-row--sunset {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(12, 18, 36, 0.94));
+  border-color: rgba(251, 146, 60, 0.5);
+  box-shadow: 0 10px 32px rgba(255, 107, 53, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.jh-app-row.jh-job-row--fuchsia,
+.jh-app-mobile-card.jh-job-row--fuchsia,
+.ja-alert-row.jh-job-row--fuchsia,
+.jh-companies-row.jh-job-row--fuchsia {
+  background: linear-gradient(135deg, rgba(217, 70, 239, 0.2), rgba(12, 18, 36, 0.94));
+  border-color: rgba(232, 121, 249, 0.5);
+  box-shadow: 0 10px 32px rgba(217, 70, 239, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.jh-app-row.jh-job-row--gold,
+.jh-app-mobile-card.jh-job-row--gold,
+.ja-alert-row.jh-job-row--gold,
+.jh-companies-row.jh-job-row--gold {
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.2), rgba(12, 18, 36, 0.94));
+  border-color: rgba(250, 204, 21, 0.52);
+  box-shadow: 0 10px 32px rgba(234, 179, 8, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}

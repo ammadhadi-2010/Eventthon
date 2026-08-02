@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import FooterPageHeader from './FooterPageHeader';
 
-export default function LegalDocLayout({ title, sections }) {
+export default function LegalDocLayout({ title, sections, lastUpdated = 'May 24, 2026' }) {
   const [activeId, setActiveId] = useState(sections[0]?.id);
   const activeIndex = Math.max(0, sections.findIndex((s) => s.id === activeId));
   const active = sections[activeIndex] || sections[0];
@@ -23,7 +23,7 @@ export default function LegalDocLayout({ title, sections }) {
         onSectionStep={onSectionStep}
       />
       <div className="fp-hero-sub fp-legal-updated">
-        <p>Last updated: May 24, 2026</p>
+        <p>Last updated: {lastUpdated}</p>
       </div>
       <div className="fp-hub-row fp-inner-split" style={{ gap: 16 }}>
         <nav className="fp-card fp-inner-nav">

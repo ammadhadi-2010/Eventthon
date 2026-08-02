@@ -174,12 +174,38 @@
     white-space: nowrap;
   }
 
+  .cp-messages-page .msgx-item-more {
+    display: inline-flex;
+  }
+
+  .cp-messages-page .msgx-item-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
   .cp-messages-page .msgx-mobile-chat-shell {
     min-height: calc(100dvh - var(--cp-mobile-topbar-h, 3.5rem) - var(--cp-mobile-bottom-nav-h, 4rem) - 7rem);
+    min-height: calc(100svh - var(--cp-mobile-topbar-h, 3.5rem) - var(--cp-mobile-bottom-nav-h, 4rem) - 7rem);
   }
 
   .cp-messages-page .msgx-mobile-chat-shell .msgx-chat {
     min-height: inherit;
+  }
+
+  .cp-messages-page .sch-action--workspace {
+    display: inline-flex !important;
+  }
+
+  .cp-messages-page .sch-head__back,
+  .cp-messages-page .msgx-chat-back {
+    display: none !important;
+  }
+
+  .cp-messages-page .msgx-mobile-chat-shell {
+    min-height: calc(
+      100dvh - var(--cp-mobile-topbar-h, 3.5rem) - var(--cp-mobile-bottom-nav-h, 4rem) -
+        3.25rem
+    ) !important;
   }
 }
 

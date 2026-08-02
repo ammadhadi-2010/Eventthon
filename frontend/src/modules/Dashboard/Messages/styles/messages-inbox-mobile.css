@@ -1,7 +1,7 @@
 /* Messages Inbox — isolated mobile shell (desktop: MessagesInbox.layout.css only) */
 
 .msgx-desktop-only {
-  display: none;
+  display: none !important;
   width: 100%;
 }
 
@@ -13,18 +13,39 @@
   position: relative;
 }
 
+.msgx-page--mobile {
+  width: 100%;
+  min-height: 0;
+}
+
 @media (min-width: 1024px) {
   .msgx-desktop-only {
-    display: block;
+    display: block !important;
   }
 
   .msgx-mobile-only {
     display: none !important;
   }
+
+  .msgx-mobile-chrome,
+  .msgx-chat-back,
+  .sch-head__back,
+  .sch-action--workspace {
+    display: none !important;
+  }
 }
 
 @media (max-width: 1023px) {
-  .et-app-shell:has(.msgx-mobile-screen) .et-main-inner {
+  .msgx-desktop-only {
+    display: none !important;
+  }
+
+  .msgx-mobile-only {
+    display: flex !important;
+  }
+
+  .et-app-shell:has(.msgx-mobile-screen) .et-main-inner,
+  .et-app-shell:has(.msgx-page--mobile) .et-main-inner {
     max-width: none !important;
     width: 100% !important;
     margin: 0 !important;
@@ -34,8 +55,12 @@
   .msgx-mobile-screen {
     --msgx-mobile-chrome-h: 3.5rem;
     min-height: calc(100dvh - 4rem);
-    padding-bottom: 5rem;
+    min-height: calc(100svh - 4rem);
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
     box-sizing: border-box;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 
   .msgx-mobile-chrome {
@@ -138,7 +163,26 @@
     padding-top: calc(var(--et-nav-height, 70px) + var(--msgx-mobile-chrome-h, 3.5rem));
     flex: 1 1 auto;
     min-height: 0;
+    width: 100%;
     transition: padding-top 0.3s ease-in-out;
+  }
+
+  /* Public messages: no second chrome row — only global top nav offset */
+  .msgx-mobile-list-shell--public {
+    padding-top: 0 !important;
+  }
+
+  .msgx-page--mobile .msgx-mobile-list-shell--public .msgx-sidebar {
+    min-height: calc(100dvh - var(--et-nav-height, 70px) - 5rem);
+    padding-top: 8px;
+  }
+
+  .msgx-page--mobile .msgx-mobile-list-shell .msgx-sidebar {
+    min-height: calc(100dvh - var(--et-nav-height, 70px) - var(--msgx-mobile-chrome-h, 3.5rem) - 5rem);
+  }
+
+  .msgx-page--mobile .msgx-mobile-list-shell .msgx-empty {
+    margin-top: 24px;
   }
 
   .et-app-shell--nav-hidden .msgx-mobile-list-shell {
@@ -150,42 +194,112 @@
     border-radius: 0;
     background: transparent;
     min-height: calc(100dvh - var(--msgx-mobile-chrome-h, 3.5rem) - 4rem);
-    padding: 10px 12px;
+    padding: 10px 12px calc(12px + env(safe-area-inset-bottom, 0px));
     gap: 10px;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .msgx-mobile-list-shell .msgx-list {
     max-height: none;
     flex: 1 1 auto;
+    overflow: visible;
   }
 
   .msgx-mobile-list-shell .msgx-sidebar-head h3 {
     font-size: 1.25rem;
   }
 
+  .msgx-mobile-list-shell .msgx-filters {
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .msgx-mobile-list-shell .msgx-filters button {
+    flex-shrink: 0;
+  }
+
+  /* Touch: always show conversation 3-dot (no hover) */
+  .msgx-mobile-screen .msgx-item-more {
+    display: inline-flex;
+  }
+
+  .msgx-mobile-screen .msgx-item:hover .msgx-time {
+    display: inline-flex;
+  }
+
+  .msgx-mobile-screen .msgx-item-meta-top {
+    gap: 4px;
+  }
+
+  .msgx-mobile-screen .msgx-item {
+    padding: 12px;
+    margin-bottom: 8px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .msgx-mobile-screen .msgx-item-avatar {
+    width: 42px;
+    height: 42px;
+    font-size: 15px;
+  }
+
+  .msgx-mobile-screen .msgx-item-top h4 {
+    font-size: 14px;
+  }
+
+  .msgx-mobile-screen .msgx-item p {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.35;
+  }
+
+  /* —— Full-screen chat —— */
   .msgx-mobile-chat-shell {
+    position: relative;
     flex: 1 1 auto;
     min-height: calc(100dvh - var(--et-nav-height, 70px) - 4rem);
+    min-height: calc(100svh - var(--et-nav-height, 70px) - 4rem);
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: 100vw;
+    overflow: hidden;
+  }
+
+  /* Keep header menus clickable/visible above the thread */
+  .msgx-mobile-chat-shell .sch-head,
+  .msgx-mobile-chat-shell .msgx-chat-head {
+    overflow: visible;
+    z-index: 90;
+  }
+
+  .msgx-mobile-chat-shell .msgx-chat {
+    overflow: visible;
+  }
+
+  .msgx-mobile-chat-shell .msgx-chat-thread {
+    overflow: auto;
+    min-height: 0;
   }
 
   .et-app-shell--nav-hidden .msgx-mobile-chat-shell {
     min-height: calc(100dvh - 4rem);
+    min-height: calc(100svh - 4rem);
   }
 
   .msgx-mobile-chat-shell .msgx-chat {
     flex: 1 1 auto;
     border: 0;
     border-radius: 0;
-    min-height: calc(100dvh - var(--et-nav-height, 70px) - 4rem);
+    min-height: 0;
+    height: 100%;
     max-height: none;
-  }
-
-  .et-app-shell--nav-hidden .msgx-mobile-chat-shell .msgx-chat {
-    min-height: calc(100dvh - 4rem);
+    width: 100%;
   }
 
   .msgx-mobile-chat-shell .msgx-chat-head {
@@ -193,9 +307,12 @@
     top: 0;
     z-index: 40;
     flex-shrink: 0;
+    padding: 10px 12px;
+    gap: 8px;
   }
 
-  .msgx-mobile-chat-shell .msgx-chat-back {
+  .msgx-mobile-chat-shell .msgx-chat-back,
+  .msgx-mobile-chat-shell .sch-head__back {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -220,11 +337,252 @@
   .msgx-mobile-chat-shell .msgx-chat-head-main > div {
     min-width: 0;
   }
+
+  .msgx-mobile-chat-shell .msgx-chat-head h3 {
+    font-size: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .msgx-mobile-chat-shell .msgx-chat-thread {
+    padding: 12px 10px calc(12px + env(safe-area-inset-bottom, 0px));
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .msgx-mobile-chat-shell .msgx-bubble {
+    max-width: min(88%, 420px);
+    padding: 8px 28px 7px 11px;
+  }
+
+  /* Composer: stack tools above input on narrow phones */
+  .msgx-mobile-chat-shell .msgx-chat-compose {
+    padding: 8px 10px calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .msgx-mobile-chat-shell .msgx-compose-main-row {
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+
+  .msgx-mobile-chat-shell .msgx-compose-tool-group {
+    order: 1;
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .msgx-mobile-chat-shell .msgx-compose-tool-group::-webkit-scrollbar {
+    display: none;
+  }
+
+  .msgx-mobile-chat-shell .msgx-compose-tool-btn {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+  }
+
+  .msgx-mobile-chat-shell .msgx-compose-textarea {
+    order: 2;
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 16px; /* prevent iOS zoom */
+  }
+
+  .msgx-mobile-chat-shell .msgx-compose-send-btn {
+    order: 3;
+    min-width: 44px;
+    width: 44px;
+    height: 40px;
+    padding: 0;
+  }
+
+  .msgx-mobile-chat-shell .msgx-compose-send-btn span {
+    display: none;
+  }
+
+  /* Smart header — compact mobile */
+  .msgx-mobile-chat-shell .sch-head {
+    padding: 10px 10px 11px;
+    gap: 8px;
+  }
+
+  .msgx-mobile-chat-shell .sch-head__top {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .msgx-mobile-chat-shell .sch-head__actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 6px;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .msgx-mobile-chat-shell .sch-head__actions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .msgx-mobile-chat-shell .sch-action {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .msgx-mobile-chat-shell .sch-action span {
+    display: none;
+  }
+
+  .msgx-mobile-chat-shell .sch-action--workspace {
+    display: inline-flex;
+    width: auto;
+    min-width: 34px;
+    padding: 0 10px;
+    gap: 6px;
+  }
+
+  .msgx-mobile-chat-shell .sch-action--workspace span {
+    display: inline;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .msgx-mobile-chat-shell .sch-head__avatar-wrap,
+  .msgx-mobile-chat-shell .sch-head__avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .msgx-mobile-chat-shell .sch-head__name-row h3 {
+    font-size: 14px;
+  }
+
+  .msgx-mobile-chat-shell .sch-head__status {
+    font-size: 11px;
+    flex-wrap: wrap;
+  }
+
+  .msgx-mobile-chat-shell .sch-assigned {
+    display: none;
+  }
+
+  /* Company workspace bottom sheet */
+  .msgx-mobile-workspace {
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .msgx-mobile-workspace__scrim {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: rgba(2, 6, 23, 0.62);
+    cursor: pointer;
+  }
+
+  .msgx-mobile-workspace__panel {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-height: min(86dvh, 860px);
+    display: flex;
+    flex-direction: column;
+    border-radius: 18px 18px 0 0;
+    border: 1px solid rgba(71, 85, 105, 0.55);
+    border-bottom: 0;
+    background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+    box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.45);
+    animation: msgx-sheet-up 0.22s ease-out;
+  }
+
+  @keyframes msgx-sheet-up {
+    from {
+      transform: translateY(12%);
+      opacity: 0.7;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .msgx-mobile-workspace__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 14px 14px 10px;
+    border-bottom: 1px solid rgba(51, 65, 85, 0.55);
+    flex-shrink: 0;
+  }
+
+  .msgx-mobile-workspace__head h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 750;
+    color: #f8fafc;
+  }
+
+  .msgx-mobile-workspace__close {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid rgba(71, 85, 105, 0.55);
+    background: rgba(15, 23, 42, 0.9);
+    color: #e2e8f0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .msgx-mobile-workspace__body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+    padding: 12px 12px calc(16px + env(safe-area-inset-bottom, 0px));
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .msgx-mobile-workspace__body .chs-side,
+  .msgx-mobile-workspace__body .msgx-details {
+    max-height: none;
+  }
+
+  /* New message overlay mobile */
+  .msgx-overlay-card {
+    width: min(520px, calc(100vw - 24px));
+    max-height: calc(100dvh - 48px);
+    overflow: auto;
+  }
 }
 
-@media (min-width: 1024px) {
-  .msgx-mobile-chrome,
-  .msgx-chat-back {
-    display: none !important;
+/* Company mode inside mobile: list uses inline search (no chrome) */
+@media (max-width: 1023px) {
+  .msgx-mobile-screen--company {
+    padding-bottom: 0;
+  }
+
+  .msgx-mobile-screen--company .msgx-mobile-list-shell {
+    padding-top: 0;
+  }
+
+  .msgx-mobile-screen--company .msgx-mobile-list-shell .msgx-sidebar {
+    min-height: calc(100dvh - 8rem);
   }
 }

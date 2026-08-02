@@ -6,13 +6,13 @@ import Navbar from './Navbar';
 import CompanyNavbar from './CompanyNavbar';
 import { isCompanyWorkspacePath } from './companyWorkspacePaths';
 
-export default function DashboardNavSwitcher({ user, notifCount }) {
+export default function DashboardNavSwitcher({ user }) {
   const { pathname } = useLocation();
   if (isAdminControlPath(pathname)) {
     return <AdminNavbar />;
   }
   if (isCompanyWorkspacePath(pathname)) {
-    return <CompanyNavbar user={user} notifCount={notifCount} />;
+    return <CompanyNavbar user={user} />;
   }
-  return <Navbar user={user} notifCount={notifCount} />;
+  return <Navbar user={user} />;
 }

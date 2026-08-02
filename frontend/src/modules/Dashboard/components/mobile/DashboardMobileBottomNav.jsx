@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FiBell, FiBriefcase, FiClipboard, FiHome, FiUsers } from 'react-icons/fi';
+import { FiBell, FiBriefcase, FiClipboard, FiHome, FiLayers, FiUsers } from 'react-icons/fi';
 import useScrollHideNavbar from '../../../Admin/hooks/useScrollHideNavbar';
 import './dashboard-mobile-bottom-nav.css';
 
@@ -8,7 +8,7 @@ const NAV_ITEMS = [
   { key: 'home', label: 'Home', path: '/dashboard', Icon: FiHome },
   { key: 'squads', label: 'Squads', path: '/squads', Icon: FiUsers },
   { key: 'projects', label: 'Projects', path: '/projects', Icon: FiBriefcase },
-  { key: 'gigs', label: 'Gigs', path: '/gigs', Icon: FiBriefcase },
+  { key: 'gigs', label: 'Gigs', path: '/gigs', Icon: FiLayers },
   { key: 'jobs', label: 'Jobs', path: '/jobs', Icon: FiClipboard },
   { key: 'alerts', label: 'Alerts Hub', path: '/notifications/alerts', Icon: FiBell },
 ];

@@ -1,0 +1,108 @@
+/* Admin Chat — right details + presence / delivery ticks */
+
+.admin-chat__presence.is-online,
+.admin-chat__panel-meta.is-online { color: #4ade80; }
+
+.admin-chat__presence.is-away,
+.admin-chat__panel-meta.is-away { color: #facc15; }
+
+.admin-chat__presence.is-offline,
+.admin-chat__panel-meta.is-offline { color: #94a3b8; }
+
+.admin-chat__ticks {
+  margin-left: 6px;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.admin-chat__ticks.is-sent,
+.admin-chat__ticks.is-delivered,
+.admin-chat__ticks.is-sending { color: #94a3b8; }
+
+.admin-chat__ticks.is-read,
+.admin-chat__ticks.is-seen { color: #38bdf8; }
+
+.admin-chat__ticks.is-failed { color: #f87171; }
+
+.admin-chat__details--empty {
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  padding: 20px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.admin-chat__details-hero {
+  padding: 14px 12px 12px;
+  text-align: center;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.admin-chat__details-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  object-fit: cover;
+  background: #1e293b;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  margin-bottom: 8px;
+}
+
+.admin-chat__details-hero h3 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  color: #f8fafc;
+}
+
+.admin-chat__details-chip {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #c7d2fe;
+  background: rgba(99, 102, 241, 0.18);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+}
+
+.admin-chat__details-list {
+  margin: 0;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-chat__details-list > div {
+  min-width: 0;
+}
+
+.admin-chat__details-list dt {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0 0 3px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #64748b;
+}
+
+.admin-chat__details-list dd {
+  margin: 0;
+  font-size: 12px;
+  color: #e2e8f0;
+  word-break: break-word;
+}
+
+.admin-chat__details-note {
+  margin: auto 14px 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+  font-size: 11px;
+  color: #64748b;
+  line-height: 1.45;
+}

@@ -74,6 +74,25 @@ async def resolve_company_for_user(user_id: str) -> Optional[dict]:
             return doc
     if user:
         email = str(user.get("email") or "").strip().lower()
+        # Prefer company from invite-based membership (not auto-created drafts)
+        try:
+            from database import company_members_collection
+
+            member_q = {
+                "status": "active",
+                "$or": (
+                    [{"user_id": str(user.get("_id") or "")}, {"email": email}]
+                    if email
+                    else [{"user_id": str(user.get("_id") or "")}]
+                ),
+            }
+            member = await company_members_collection.find_one(member_q)
+            if member and member.get("company_id"):
+                found = await find_company(str(member["company_id"]))
+                if found:
+                    return found
+        except Exception:
+            pass
         if email:
             doc = await companies_collection.find_one(
                 {"owner_user_id": {"$regex": f"^{email}$", "$options": "i"}}

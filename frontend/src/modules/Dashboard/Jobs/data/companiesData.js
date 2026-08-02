@@ -1,58 +1,11 @@
-export const COMPANY_INDUSTRIES = ['All Industries', 'Technology', 'E-commerce', 'Media', 'Fintech', 'Design Tools'];
+/** Industry filter labels for Top Companies — derived from live listings. */
+export const ALL_INDUSTRIES_LABEL = 'All Industries';
 
-export const TOP_COMPANIES = [
-  {
-    id: 'c1',
-    name: 'Google',
-    industry: 'Technology',
-    jobsLabel: '125 Jobs',
-    rating: 4.5,
-    logoText: 'G',
-    logoClass: 'google',
-  },
-  {
-    id: 'c2',
-    name: 'Microsoft',
-    industry: 'Technology',
-    jobsLabel: '98 Jobs',
-    rating: 4.4,
-    logoText: 'M',
-    logoClass: 'microsoft',
-  },
-  {
-    id: 'c3',
-    name: 'Amazon',
-    industry: 'E-commerce',
-    jobsLabel: '86 Jobs',
-    rating: 4.3,
-    logoText: 'a',
-    logoClass: 'amazon',
-  },
-  {
-    id: 'c4',
-    name: 'Netflix',
-    industry: 'Media',
-    jobsLabel: '42 Jobs',
-    rating: 4.2,
-    logoText: 'N',
-    logoClass: 'netflix',
-  },
-  {
-    id: 'c5',
-    name: 'Figma',
-    industry: 'Design Tools',
-    jobsLabel: '28 Jobs',
-    rating: 4.6,
-    logoText: 'F',
-    logoClass: 'figma',
-  },
-  {
-    id: 'c6',
-    name: 'Stripe',
-    industry: 'Fintech',
-    jobsLabel: '51 Jobs',
-    rating: 4.5,
-    logoText: 'S',
-    logoClass: 'stripe',
-  },
-];
+export function buildCompanyIndustries(rows = []) {
+  const set = new Set();
+  (Array.isArray(rows) ? rows : []).forEach((row) => {
+    const ind = String(row?.industry || '').trim();
+    if (ind) set.add(ind);
+  });
+  return [ALL_INDUSTRIES_LABEL, ...Array.from(set).sort((a, b) => a.localeCompare(b))];
+}

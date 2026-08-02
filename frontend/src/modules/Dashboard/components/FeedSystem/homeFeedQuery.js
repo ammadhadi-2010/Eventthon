@@ -116,20 +116,23 @@ export async function fetchHomeTimelineFeed() {
   let postItems = [];
   let articleItems = [];
 
-  try {
-    const postsRes = await API.get('/api/posts/all', { timeout: FEED_TIMEOUT_MS });
-    postItems = parsePostsResponse(postsRes?.data);
+  const [postsResult, articlesResult] = await Promise.allSettled([
+    API.get('/api/posts/all', { timeout: FEED_TIMEOUT_MS }),
+    API.get('/api/articles/articles/all', { timeout: FEED_TIMEOUT_MS }),
+  ]);
+
+  if (postsResult.status === 'fulfilled') {
+    postItems = parsePostsResponse(postsResult.value?.data);
     console.info('Home timeline posts loaded:', postItems.length);
-  } catch (err) {
-    console.error('Home feed posts request failed:', err?.message || err);
+  } else {
+    console.error('Home feed posts request failed:', postsResult.reason?.message || postsResult.reason);
   }
 
-  try {
-    const articlesRes = await API.get('/api/articles/articles/all', { timeout: FEED_TIMEOUT_MS });
-    articleItems = parseArticlesResponse(articlesRes?.data);
+  if (articlesResult.status === 'fulfilled') {
+    articleItems = parseArticlesResponse(articlesResult.value?.data);
     console.info('Home timeline articles loaded:', articleItems.length);
-  } catch (err) {
-    console.error('Home feed articles request failed:', err?.message || err);
+  } else {
+    console.error('Home feed articles request failed:', articlesResult.reason?.message || articlesResult.reason);
   }
 
   const mergedFeed = [...postItems, ...articleItems].sort((a, b) => {

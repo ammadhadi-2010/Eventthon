@@ -51,12 +51,16 @@ async def create_squad_impl(payload: CreateSquadPayload, user: dict):
         clean_invite = (invite.name or "").strip()
         if not clean_invite or clean_invite == leader_name:
             continue
+        invitee_id = (getattr(invite, "invitee_user_id", None) or "").strip() or f"m-{uuid.uuid4().hex[:8]}"
         members.append(
             {
-                "id": f"m-{uuid.uuid4().hex[:8]}",
+                "id": invitee_id,
                 "name": clean_invite,
+                "email": (getattr(invite, "email", None) or "").strip() or None,
+                "mobile": (getattr(invite, "mobile", None) or "").strip() or None,
                 "role": invite.role or "Member",
                 "online": False,
+                "invite_status": "pending",
                 "invited_by": payload.leader_id,
                 "avatar": normalize_member_avatar({"name": clean_invite}),
             }

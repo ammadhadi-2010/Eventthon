@@ -28,7 +28,8 @@ export function persistUserSession(user) {
 
   const first = String(user.first_name || '').trim();
   const last = String(user.last_name || '').trim();
-  const fullName = `${first} ${last}`.trim();
+  const fullName = String(user.full_name || user.display_name || user.fullName || '').trim()
+    || `${first} ${last}`.trim();
   if (fullName) localStorage.setItem('userName', fullName);
 
   const imageurl = String(
@@ -47,6 +48,15 @@ export function persistUserSession(user) {
 
   const mongoUserId = String(user._id || user.user_id || '').trim();
   if (mongoUserId) localStorage.setItem('userId', mongoUserId);
+
+  const role = String(user.role || '').trim();
+  if (role) localStorage.setItem('userRole', role);
+
+  const companyId = String(user.company_id || user.companyId || '').trim();
+  if (companyId) localStorage.setItem('companyId', companyId);
+
+  const companyStatus = String(user.company_status || user.companyStatus || '').trim();
+  if (companyStatus) localStorage.setItem('companyStatus', companyStatus);
 }
 
 export function hasStoredSession() {

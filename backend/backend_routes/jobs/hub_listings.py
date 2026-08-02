@@ -65,6 +65,7 @@ def job_doc_to_listing_card(doc: dict) -> dict:
         "tags": tags,
         "remote": bool(doc.get("remote", True)),
         "description": doc.get("description") or doc.get("summary") or "",
+        "listingKind": str(doc.get("listing_kind") or "company"),
         "requirements": [
             str(t).strip()
             for t in (doc.get("application_requirements") or doc.get("skills_tags") or [])
@@ -98,6 +99,8 @@ def job_matches_filters(
     category: str = "",
     experience_level: str = "",
     job_type: str = "",
+    listing_kind: str = "",
+    company: str = "",
     location: str = "",
     work_mode: str = "",
     salary_min: Optional[int] = None,
@@ -110,6 +113,11 @@ def job_matches_filters(
             [card["role"], card["company"], card["category"], " ".join(card["tags"])]
         ).lower()
         if needle not in blob:
+            return False
+    company_filter = (company or "").strip().lower()
+    if company_filter and company_filter not in ("", "any", "all"):
+        company_blob = f"{card.get('company') or ''} {card.get('companyId') or ''}".lower()
+        if company_filter not in company_blob:
             return False
     if category and category.strip().lower() not in ("", "any", "all"):
         cat_l = category.strip().lower()
@@ -137,8 +145,19 @@ def job_matches_filters(
             pass
         else:
             return False
+    kind_filter = (listing_kind or "").strip().lower()
+    if kind_filter and kind_filter not in ("", "any", "all"):
+        if kind_filter != str(card.get("listingKind") or doc.get("listing_kind") or "").lower():
+            return False
     if job_type and job_type.strip().lower() not in ("", "any"):
-        if job_type.lower() not in (card.get("type") or "").lower():
+        type_blob = " ".join(
+            [
+                str(card.get("type") or ""),
+                str(doc.get("opportunity_type") or ""),
+                str(doc.get("employment_type") or ""),
+            ]
+        ).lower()
+        if job_type.lower() not in type_blob:
             return False
     loc_filter = (location or work_mode or "").strip()
     if loc_filter and loc_filter.lower() not in ("", "any"):

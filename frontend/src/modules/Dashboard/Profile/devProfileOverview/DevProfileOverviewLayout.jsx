@@ -89,6 +89,7 @@ export default function DevProfileOverviewLayout({ userData, refreshData, search
           verified={verified}
           rankMeta={rankMeta}
           projectCount={projectCount}
+          gamification={bundle?.gamification}
           hideStatStrip
           isProfileOwner
         />

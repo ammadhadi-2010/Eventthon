@@ -20,7 +20,7 @@ const SECTION_FIELDS = {
 };
 
 /**
- * Center column: quick step strip + stacked sections; active step follows scroll + left rail.
+ * Center column: desktop = stacked scroll; mobile wizard = one active step at a time.
  */
 const EditProfileCenterColumn = ({
   draft,
@@ -30,6 +30,7 @@ const EditProfileCenterColumn = ({
   refreshData,
   activeStepIndex = 0,
   onGoToStep,
+  wizardMode = false,
   onAfterBasicContinue,
   onAfterAboutContinue,
   onBackAbout,
@@ -42,111 +43,135 @@ const EditProfileCenterColumn = ({
   onAfterIdentityContinue,
   onBackIdentity,
   onBackPreferences,
-  onAfterPreferencesContinue,
   onPreferencesSaved,
-}) => (
-  <div className="ep-center-stack flex min-w-0 max-w-full flex-col gap-5 pb-6 sm:gap-6 sm:pb-8">
-    <nav className="ep-step-strip ep-root" aria-label="Profile steps">
-      {EDIT_PROFILE_STEPS.map((step, idx) => (
-        <button
-          key={step.id}
-          type="button"
-          data-ep-step={step.id}
-          onClick={() => {
-            if (typeof onGoToStep === 'function') onGoToStep(idx);
-          }}
-          className={`ep-step-pill ${idx === activeStepIndex ? 'ep-step-pill--active' : ''}`}
-        >
-          <span className="ep-step-pill__num">{idx + 1}</span>
-          <span className="ep-step-pill__label">{step.label}</span>
-        </button>
-      ))}
-    </nav>
+}) => {
+  const stepsToRender = wizardMode
+    ? EDIT_PROFILE_STEPS.filter((_, idx) => idx === activeStepIndex)
+    : EDIT_PROFILE_STEPS;
 
-    {EDIT_PROFILE_STEPS.map((step, idx) => {
-      const Body = SECTION_FIELDS[step.id];
-      if (!Body && step.id !== 'preferences' && step.id !== 'identity') return null;
-      return (
-        <EditProfileSectionCard
-          key={step.id}
-          sectionId={`edit-section-${step.id}`}
-          stepId={step.id}
-          stepIndex={idx}
-          label={step.label}
-          hint={step.hint}
-          hintInline={step.id === 'basic'}
-          isActiveStep={idx === activeStepIndex}
-          locked={false}
-        >
-          {step.id === 'basic' ? (
-            <EditProfileBasicFields
-              draft={draft}
-              setDraft={setDraft}
-              userIdentifier={userIdentifier}
-              refreshData={refreshData}
-              onContinue={onAfterBasicContinue}
+  return (
+    <div
+      className={`ep-center-stack flex min-w-0 max-w-full flex-col gap-5 pb-6 sm:gap-6 sm:pb-8${wizardMode ? ' ep-center-stack--wizard' : ''}`}
+    >
+      {wizardMode ? (
+        <div className="ep-wizard-progress" aria-live="polite">
+          <span className="ep-wizard-progress__label">
+            Step {activeStepIndex + 1} of {EDIT_PROFILE_STEPS.length}
+          </span>
+          <div className="ep-wizard-progress__track" aria-hidden>
+            <span
+              className="ep-wizard-progress__fill"
+              style={{
+                width: `${Math.round(((activeStepIndex + 1) / EDIT_PROFILE_STEPS.length) * 100)}%`,
+              }}
             />
-          ) : step.id === 'about' ? (
-            <EditProfileAboutFields
-              draft={draft}
-              setDraft={setDraft}
-              userIdentifier={userIdentifier}
-              refreshData={refreshData}
-              onBack={onBackAbout}
-              onContinue={onAfterAboutContinue}
-            />
-          ) : step.id === 'experience' ? (
-            <EditProfileExperienceFields
-              draft={draft}
-              setDraft={setDraft}
-              userIdentifier={userIdentifier}
-              refreshData={refreshData}
-              onBack={onBackExperience}
-              onContinue={onAfterExperienceContinue}
-            />
-          ) : step.id === 'projects' ? (
-            <EditProfileProjectsFields
-              draft={draft}
-              setDraft={setDraft}
-              userIdentifier={userIdentifier}
-              refreshData={refreshData}
-              onBack={onBackProjects}
-              onContinue={onAfterProjectsContinue}
-            />
-          ) : step.id === 'skills' ? (
-            <EditProfileSkillsNicheFields
-              draft={draft}
-              setDraft={setDraft}
-              userIdentifier={userIdentifier}
-              refreshData={refreshData}
-              onBack={onBackSkills}
-              onContinue={onAfterSkillsContinue}
-            />
-          ) : step.id === 'identity' ? (
-            <EditProfileIdentityFields
-              userData={userData}
-              refreshData={refreshData}
-              onBack={onBackIdentity}
-              onContinue={onAfterIdentityContinue}
-            />
-          ) : step.id === 'preferences' ? (
-            <EditProfilePreferencesFields
-              draft={draft}
-              setDraft={setDraft}
-              userData={userData}
-              userIdentifier={userIdentifier}
-              refreshData={refreshData}
-              onPreferencesSaved={onPreferencesSaved}
-              onBack={onBackPreferences}
-              onContinue={onAfterPreferencesContinue}
-            />
-          ) : Body ? (
-            <Body draft={draft} setDraft={setDraft} />
-          ) : null}
-        </EditProfileSectionCard>
-      );
-    })}
-  </div>
-);
+          </div>
+          <p className="ep-wizard-progress__step-name">{EDIT_PROFILE_STEPS[activeStepIndex]?.label}</p>
+        </div>
+      ) : (
+        <nav className="ep-step-strip ep-root" aria-label="Profile steps">
+          {EDIT_PROFILE_STEPS.map((step, idx) => (
+            <button
+              key={step.id}
+              type="button"
+              data-ep-step={step.id}
+              onClick={() => {
+                if (typeof onGoToStep === 'function') onGoToStep(idx);
+              }}
+              className={`ep-step-pill ${idx === activeStepIndex ? 'ep-step-pill--active' : ''}`}
+            >
+              <span className="ep-step-pill__num">{idx + 1}</span>
+              <span className="ep-step-pill__label">{step.label}</span>
+            </button>
+          ))}
+        </nav>
+      )}
+
+      {stepsToRender.map((step) => {
+        const idx = EDIT_PROFILE_STEPS.findIndex((s) => s.id === step.id);
+        const Body = SECTION_FIELDS[step.id];
+        if (!Body && step.id !== 'preferences' && step.id !== 'identity') return null;
+        return (
+          <EditProfileSectionCard
+            key={step.id}
+            sectionId={`edit-section-${step.id}`}
+            stepId={step.id}
+            stepIndex={idx}
+            label={step.label}
+            hint={step.hint}
+            hintInline={step.id === 'basic'}
+            isActiveStep={idx === activeStepIndex}
+            locked={false}
+          >
+            {step.id === 'basic' ? (
+              <EditProfileBasicFields
+                draft={draft}
+                setDraft={setDraft}
+                userIdentifier={userIdentifier}
+                refreshData={refreshData}
+                onContinue={onAfterBasicContinue}
+              />
+            ) : step.id === 'about' ? (
+              <EditProfileAboutFields
+                draft={draft}
+                setDraft={setDraft}
+                userIdentifier={userIdentifier}
+                refreshData={refreshData}
+                onBack={onBackAbout}
+                onContinue={onAfterAboutContinue}
+              />
+            ) : step.id === 'experience' ? (
+              <EditProfileExperienceFields
+                draft={draft}
+                setDraft={setDraft}
+                userIdentifier={userIdentifier}
+                refreshData={refreshData}
+                onBack={onBackExperience}
+                onContinue={onAfterExperienceContinue}
+              />
+            ) : step.id === 'projects' ? (
+              <EditProfileProjectsFields
+                draft={draft}
+                setDraft={setDraft}
+                userIdentifier={userIdentifier}
+                refreshData={refreshData}
+                onBack={onBackProjects}
+                onContinue={onAfterProjectsContinue}
+              />
+            ) : step.id === 'skills' ? (
+              <EditProfileSkillsNicheFields
+                draft={draft}
+                setDraft={setDraft}
+                userIdentifier={userIdentifier}
+                refreshData={refreshData}
+                onBack={onBackSkills}
+                onContinue={onAfterSkillsContinue}
+              />
+            ) : step.id === 'identity' ? (
+              <EditProfileIdentityFields
+                userData={userData}
+                refreshData={refreshData}
+                onBack={onBackIdentity}
+                onContinue={onAfterIdentityContinue}
+              />
+            ) : step.id === 'preferences' ? (
+              <EditProfilePreferencesFields
+                draft={draft}
+                setDraft={setDraft}
+                userData={userData}
+                userIdentifier={userIdentifier}
+                refreshData={refreshData}
+                onPreferencesSaved={onPreferencesSaved}
+                onBack={onBackPreferences}
+              />
+            ) : Body ? (
+              <Body draft={draft} setDraft={setDraft} />
+            ) : null}
+          </EditProfileSectionCard>
+        );
+      })}
+    </div>
+  );
+};
 
 export default EditProfileCenterColumn;

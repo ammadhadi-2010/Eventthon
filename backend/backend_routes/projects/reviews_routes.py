@@ -50,6 +50,7 @@ class ProjectReviewPayload(BaseModel):
     owner_user_id: str = Field(..., min_length=2, max_length=120)
     buyer_user_id: str = Field(..., min_length=2, max_length=120)
     buyer_name: str = Field(..., min_length=2, max_length=120)
+    buyer_avatar: str = Field("", max_length=500)
     project_id: str = Field("", max_length=120)
     project_title: str = Field("Project", max_length=240)
     rating: int = Field(..., ge=1, le=5)
@@ -70,6 +71,7 @@ async def get_project_reviews_summary(
                 "id": str(doc.get("_id") or ""),
                 "owner_user_id": owner_id,
                 "buyer_name": str(doc.get("buyer_name") or "Client").strip(),
+                "buyer_avatar": str(doc.get("buyer_avatar") or "").strip(),
                 "project_title": str(doc.get("project_title") or "Project").strip(),
                 "comment": str(doc.get("comment") or "").strip(),
                 "rating": int(doc.get("rating") or 0),
@@ -125,6 +127,7 @@ async def upsert_project_review(payload: ProjectReviewPayload):
                 "owner_user_id": owner_id,
                 "buyer_user_id": buyer_id,
                 "buyer_name": payload.buyer_name.strip(),
+                "buyer_avatar": (payload.buyer_avatar or "").strip(),
                 "project_id": payload.project_id.strip(),
                 "project_title": payload.project_title.strip() or "Project",
                 "rating": int(payload.rating),
@@ -141,6 +144,7 @@ async def upsert_project_review(payload: ProjectReviewPayload):
         "review": {
             "id": str(saved.get("_id") or ""),
             "buyer_name": saved.get("buyer_name"),
+            "buyer_avatar": saved.get("buyer_avatar") or "",
             "project_title": saved.get("project_title"),
             "rating": saved.get("rating"),
             "comment": saved.get("comment"),

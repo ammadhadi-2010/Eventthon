@@ -1,4 +1,24 @@
 import { resolveProjectContributors } from '../../../Projects/utils/projectContributors';
+import { resolveDashboardMediaUrl } from '../../../utils/dashboardMedia';
+
+const FALLBACK_PROJECT_COVER =
+  'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=480&h=320&fit=crop';
+
+export function resolveSquadProjectCover(project) {
+  const raw =
+    project?.cover_preview ||
+    project?.coverPreview ||
+    project?.imageurl ||
+    project?.imageUrl ||
+    project?.cover_image ||
+    project?.thumbnail ||
+    project?.banner ||
+    '';
+  const resolved = resolveDashboardMediaUrl(raw);
+  if (resolved) return resolved;
+  if (typeof raw === 'string' && raw.startsWith('http')) return raw;
+  return FALLBACK_PROJECT_COVER;
+}
 
 const TECH_GLOW = {
   react: '#38bdf8',
@@ -134,6 +154,7 @@ export function normalizeSquadProjectCard(project, index = 0) {
     id: project?.id || `project-${index}`,
     title: project?.title || 'Untitled Project',
     description: String(description).replace(/<[^>]+>/g, '').slice(0, 220),
+    coverImage: resolveSquadProjectCover(project || {}),
     statusKey,
     statusLabel: statusLabel(statusKey),
     progress,

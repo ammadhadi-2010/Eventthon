@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { resolvePostAuthorAvatar } from './feedPostMedia';
 import { profileSubjectFromPost, resolveUserProfilePath } from '../../Profile/utils/profileLinks';
@@ -6,6 +6,9 @@ import { profileSubjectFromPost, resolveUserProfilePath } from '../../Profile/ut
 export default function PostAuthorAvatar({ post, userData, borderColor }) {
   const [broken, setBroken] = useState(false);
   const src = resolvePostAuthorAvatar(post, userData);
+  useEffect(() => {
+    setBroken(false);
+  }, [src]);
   const initial = (post?.author_name || 'U').charAt(0).toUpperCase();
   const profilePath = resolveUserProfilePath(profileSubjectFromPost(post), userData);
 

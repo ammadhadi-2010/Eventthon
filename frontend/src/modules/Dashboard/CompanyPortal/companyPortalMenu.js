@@ -5,9 +5,8 @@ export const COMPANY_HUB_MENU = [
     label: 'Jobs',
     children: [
       { id: 'all-jobs', label: 'All Jobs', to: '/company/dashboard/jobs' },
-      { id: 'add-job', label: 'Add New Job', to: '/jobs/alerts/new' },
+      { id: 'add-job', label: 'Post a Job', to: '/company/dashboard/jobs/new' },
       { id: 'applications', label: 'Applications', to: '/company/dashboard/applications' },
-      { id: 'alerts', label: 'Job Alerts', to: '/jobs/alerts' },
     ],
   },
   { id: 'talent', label: 'Talent Search', to: '/company/dashboard/coming-soon/talent', comingSoon: true },

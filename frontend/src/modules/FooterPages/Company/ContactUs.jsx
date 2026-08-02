@@ -1,9 +1,22 @@
 import React, { useState } from 'react';
-import { FiClock, FiMail, FiMapPin } from 'react-icons/fi';
+import { FiClock, FiMail, FiMapPin, FiPhone } from 'react-icons/fi';
 import FooterPageShell from '../components/FooterPageShell';
 import PageHero from '../components/PageHero';
+import useCompanyFooterContent from '../hooks/useCompanyFooterContent';
+import '../styles/contact-us.css';
 
 export default function ContactUs() {
+  const { data, loading } = useCompanyFooterContent('Contact Us');
+  const page = data || {
+    subtitle: 'Reach the EventThon team for support, partnerships, or press.',
+    intro: 'Reach the EventThon team for support, partnerships, or press.',
+    context: '',
+    contextParagraphs: [],
+    email: 'hello@eventthon.com',
+    phone: '',
+    addressLines: ['1200 Innovation Drive, Suite 400', 'San Francisco, CA'],
+    hours: 'Mon–Fri, 9:00 AM – 6:00 PM PST',
+  };
   const [form, setForm] = useState({ name: '', email: '', message: '' });
 
   const onSubmit = (e) => {
@@ -12,26 +25,78 @@ export default function ContactUs() {
     setForm({ name: '', email: '', message: '' });
   };
 
+  const contextParagraphs =
+    page.contextParagraphs?.length > 0
+      ? page.contextParagraphs
+      : page.context
+        ? [page.context]
+        : [];
+
   return (
     <FooterPageShell variant="company">
-      <PageHero title="Contact Us" subtitle="Reach the EventThon team for support, partnerships, or press." />
-      <div className="fp-grid-2">
-        <div>
-          <div className="fp-card">
-            <FiMail style={{ color: '#8b5cf6' }} />
-            <p style={{ margin: '8px 0 0', fontWeight: 700, color: '#f1f5f9' }}>hello@eventthon.com</p>
+      <PageHero title="Contact Us" subtitle={page.subtitle || page.intro} />
+      {loading ? <p className="fp-body-text">Loading...</p> : null}
+
+      {(page.intro || contextParagraphs.length > 0) ? (
+        <section className="fp-card contact-copy" aria-label="Contact details from EventThon">
+          {page.intro ? (
+            <div className="contact-copy__block">
+              <h2 className="contact-copy__label">Contact Intro</h2>
+              <p className="contact-copy__text">{page.intro}</p>
+            </div>
+          ) : null}
+          {contextParagraphs.length > 0 ? (
+            <div className="contact-copy__block">
+              <h2 className="contact-copy__label">Contact Context</h2>
+              {contextParagraphs.map((para) => (
+                <p key={para.slice(0, 48)} className="contact-copy__text">
+                  {para}
+                </p>
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      <div className="fp-grid-2 contact-grid">
+        <div className="contact-info-col">
+          <div className="fp-card contact-info-card">
+            <FiMail className="contact-info-card__icon" aria-hidden />
+            <p className="contact-info-card__label">Email</p>
+            <a className="contact-info-card__value" href={`mailto:${page.email}`}>
+              {page.email}
+            </a>
           </div>
-          <div className="fp-card">
-            <FiMapPin style={{ color: '#8b5cf6' }} />
-            <p style={{ margin: '8px 0 0', color: '#94a3b8' }}>1200 Innovation Drive, Suite 400<br />San Francisco, CA</p>
+          {page.phone ? (
+            <div className="fp-card contact-info-card">
+              <FiPhone className="contact-info-card__icon" aria-hidden />
+              <p className="contact-info-card__label">Phone</p>
+              <a className="contact-info-card__value" href={`tel:${page.phone.replace(/\s+/g, '')}`}>
+                {page.phone}
+              </a>
+            </div>
+          ) : null}
+          <div className="fp-card contact-info-card">
+            <FiMapPin className="contact-info-card__icon" aria-hidden />
+            <p className="contact-info-card__label">Location</p>
+            <p className="contact-info-card__muted">
+              {(page.addressLines || []).map((line) => (
+                <React.Fragment key={line}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}
+            </p>
           </div>
-          <div className="fp-card">
-            <FiClock style={{ color: '#8b5cf6' }} />
-            <p style={{ margin: '8px 0 0', color: '#94a3b8' }}>Mon–Fri, 9:00 AM – 6:00 PM PST</p>
+          <div className="fp-card contact-info-card">
+            <FiClock className="contact-info-card__icon" aria-hidden />
+            <p className="contact-info-card__label">Office Hours</p>
+            <p className="contact-info-card__muted">{page.hours}</p>
           </div>
         </div>
-        <form className="fp-card" onSubmit={onSubmit}>
-          <h2 style={{ marginTop: 0, color: '#f8fafc' }}>Send a message</h2>
+
+        <form className="fp-card contact-form" onSubmit={onSubmit}>
+          <h2 className="contact-form__title">Send a message</h2>
           {['name', 'email'].map((field) => (
             <input
               key={field}
@@ -53,7 +118,9 @@ export default function ContactUs() {
             onChange={(e) => setForm((p) => ({ ...p, message: e.target.value }))}
             style={{ marginBottom: 14, resize: 'vertical' }}
           />
-          <button type="submit" className="et-guest-popup__primary" style={{ width: '100%' }}>Submit</button>
+          <button type="submit" className="et-guest-popup__primary" style={{ width: '100%' }}>
+            Submit
+          </button>
         </form>
       </div>
     </FooterPageShell>

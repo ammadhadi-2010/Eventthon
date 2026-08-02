@@ -67,8 +67,10 @@ def build_network_row(
     uid = str(doc.get("_id"))
     followers = _followers_count(doc)
     connections = _connections_count(doc)
+    username = str(doc.get("username") or doc.get("user_name") or "").strip()
     row: Dict[str, Any] = {
         "id": uid,
+        "username": username,
         "name": name,
         "avatarUrl": _avatar(doc),
         "headline": _headline(doc),
@@ -77,7 +79,10 @@ def build_network_row(
         "connectionsLabel": f"{connections} connections",
         "online": bool(doc.get("is_online")),
         "commanderBadge": _commander_badge(doc, idx) if list_key == "commanders" else None,
-        "verified": str(doc.get("identity_status") or "").lower() in ("approved", "verified"),
+        "verified": str(doc.get("identity_status") or "").strip().lower()
+        in ("approved", "verified", "active")
+        or str(doc.get("admin_status") or "").strip().lower() == "approved"
+        or doc.get("verified") is True,
     }
     if list_key == "mutual" and mutual_count > 0:
         row.update(

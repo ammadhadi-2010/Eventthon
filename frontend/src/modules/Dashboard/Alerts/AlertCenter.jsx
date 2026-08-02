@@ -1,20 +1,26 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import "./AlertCenter.css";
-import "./alert-center-mobile.css";
-import "./alert-center-mobile-toolbar.css";
-import "./alert-center-mobile-sheets.css";
-import "./alert-center-mobile-drawer.css";
-import "./alert-center-mobile-topbar.css";
-import AlertNavSidebar from "./components/AlertNavSidebar";
-import AlertsHeader from "./components/AlertsHeader";
-import AlertStatsGrid from "./components/AlertStatsGrid";
-import AlertsTimeline from "./components/AlertsTimeline";
-import AlertRightSidebar from "./components/AlertRightSidebar";
-import AlertsMobileChrome from "./components/AlertsMobileChrome";
-import AlertsMobileFilterSheet from "./components/AlertsMobileFilterSheet";
-import { useAlertCenterData } from "./hooks/useAlertCenterData";
-import { useAlertCenterScrollChrome } from "./hooks/useAlertCenterScrollChrome";
-import { buildDisplayAlerts, toggleListSelection } from "./utils/alertCenterFilters";
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import './AlertCenter.css';
+import './alert-center-mobile.css';
+import './alert-center-mobile-toolbar.css';
+import './alert-center-mobile-sheets.css';
+import './alert-center-mobile-drawer.css';
+import './alert-center-mobile-topbar.css';
+import './ah-breadcrumb.css';
+import AlertNavSidebar from './components/AlertNavSidebar';
+import AlertsHeader from './components/AlertsHeader';
+import AlertStatsGrid from './components/AlertStatsGrid';
+import AlertsTimeline from './components/AlertsTimeline';
+import AlertRightSidebar from './components/AlertRightSidebar';
+import AlertsMobileChrome from './components/AlertsMobileChrome';
+import AlertsMobileFilterSheet from './components/AlertsMobileFilterSheet';
+import AlertsBreadcrumb from './components/AlertsBreadcrumb';
+import { useAlertCenterData } from './hooks/useAlertCenterData';
+import { buildDisplayAlerts, toggleListSelection } from './utils/alertCenterFilters';
+import {
+  buildAlertsHubCrumbs,
+  buildEmployerAlertsHubCrumbs,
+} from './utils/alertsBreadcrumbs';
+import { subscribeHubDrawerToggle } from '../Navbar/hubDrawerBus';
 
 const AlertCenter = ({ userData: userDataProp, employerMode = false }) => {
   const {
@@ -27,52 +33,56 @@ const AlertCenter = ({ userData: userDataProp, employerMode = false }) => {
     handleOpenAlert,
   } = useAlertCenterData({ userDataProp, employerMode });
 
-  const { isVisible } = useAlertCenterScrollChrome();
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeCategory, setActiveCategory] = useState('all');
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedPriorities, setSelectedPriorities] = useState([]);
   const [onlyUnread, setOnlyUnread] = useState(false);
-  const [statusText, setStatusText] = useState("");
+  const [statusText, setStatusText] = useState('');
   const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
   const [filterSheetOpen, setFilterSheetOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
 
   const openLeftDrawer = useCallback(() => setLeftDrawerOpen(true), []);
   const closeLeftDrawer = useCallback(() => setLeftDrawerOpen(false), []);
 
+  useEffect(
+    () => subscribeHubDrawerToggle(employerMode ? 'company-alerts' : 'alerts', openLeftDrawer),
+    [employerMode, openLeftDrawer],
+  );
+
   useEffect(() => {
     if (!leftDrawerOpen) return undefined;
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = '';
     };
   }, [leftDrawerOpen]);
 
   const handleQuickAction = (actionKey) => {
-    if (actionKey === "pause") {
-      setStatusText("Do Not Disturb enabled for this session.");
+    if (actionKey === 'pause') {
+      setStatusText('Do Not Disturb enabled for this session.');
       return;
     }
-    if (actionKey === "history") {
-      setActiveCategory("all");
-      setStatusText("Showing full alert history.");
+    if (actionKey === 'history') {
+      setActiveCategory('all');
+      setStatusText('Showing full alert history.');
       return;
     }
-    if (actionKey === "settings") {
-      setStatusText("Notification settings panel synced.");
+    if (actionKey === 'settings') {
+      setStatusText('Notification settings panel synced.');
       return;
     }
-    if (actionKey === "support") {
-      setStatusText("Support request shortcut is ready.");
+    if (actionKey === 'support') {
+      setStatusText('Support request shortcut is ready.');
     }
   };
 
-  const handleApplyFilters = () => setStatusText("Filters applied.");
+  const handleApplyFilters = () => setStatusText('Filters applied.');
   const handleClearFilters = () => {
     setSelectedTypes([]);
     setSelectedPriorities([]);
     setOnlyUnread(false);
-    setStatusText("Filters cleared.");
+    setStatusText('Filters cleared.');
   };
 
   const displayAlerts = useMemo(
@@ -93,6 +103,17 @@ const AlertCenter = ({ userData: userDataProp, employerMode = false }) => {
     active: c.key === activeCategory,
   }));
 
+  const activeCategoryLabel =
+    enhancedCategories.find((c) => c.key === activeCategory)?.label || 'All Alerts';
+
+  const breadcrumbItems = useMemo(
+    () =>
+      employerMode
+        ? buildEmployerAlertsHubCrumbs(activeCategory, activeCategoryLabel)
+        : buildAlertsHubCrumbs(activeCategory, activeCategoryLabel),
+    [employerMode, activeCategory, activeCategoryLabel],
+  );
+
   const filterProps = {
     selectedTypes,
     selectedPriorities,
@@ -102,36 +123,18 @@ const AlertCenter = ({ userData: userDataProp, employerMode = false }) => {
     onClearFilters: handleClearFilters,
   };
 
-  const shellClass = `alerts-page-shell alerts-mobile-shell${
-    employerMode ? " alerts-mobile-shell--company" : ""
+  const shellClass = `alerts-page-shell alerts-mobile-shell hub-inner-mobile-shell${
+    employerMode ? ' alerts-mobile-shell--company' : ''
   }`;
 
   return (
     <div className={shellClass}>
-      {!employerMode ? (
-        <AlertsMobileChrome
-          isVisible={isVisible}
-          onOpenLeftDrawer={openLeftDrawer}
-          onMarkAllRead={handleMarkAllRead}
-          marking={marking}
-          onOpenFilters={() => setFilterSheetOpen(true)}
-          onQuickAction={handleQuickAction}
-          searchQuery={searchQuery}
-          onSearchQueryChange={setSearchQuery}
-        />
-      ) : (
-        <AlertsMobileChrome
-          toolbarOnly
-          isVisible
-          onOpenLeftDrawer={openLeftDrawer}
-          onMarkAllRead={handleMarkAllRead}
-          marking={marking}
-          onOpenFilters={() => setFilterSheetOpen(true)}
-          onQuickAction={handleQuickAction}
-          searchQuery={searchQuery}
-          onSearchQueryChange={setSearchQuery}
-        />
-      )}
+      <AlertsMobileChrome
+        onMarkAllRead={handleMarkAllRead}
+        marking={marking}
+        onOpenFilters={() => setFilterSheetOpen(true)}
+        onQuickAction={handleQuickAction}
+      />
 
       {leftDrawerOpen ? (
         <button
@@ -142,7 +145,7 @@ const AlertCenter = ({ userData: userDataProp, employerMode = false }) => {
         />
       ) : null}
 
-      <div className={`alerts-left-rail${leftDrawerOpen ? " is-drawer-open" : ""}`}>
+      <div className={`alerts-left-rail${leftDrawerOpen ? ' is-drawer-open' : ''}`}>
         <AlertNavSidebar
           categories={enhancedCategories}
           activeCategory={activeCategory}
@@ -150,12 +153,13 @@ const AlertCenter = ({ userData: userDataProp, employerMode = false }) => {
             setActiveCategory(key);
             closeLeftDrawer();
           }}
-          onManagePreferences={() => setStatusText("Preferences panel is ready.")}
+          onManagePreferences={() => setStatusText('Preferences panel is ready.')}
         />
       </div>
 
       <main className="alerts-main-content">
         <div className="alerts-mobile-feed">
+          <AlertsBreadcrumb items={breadcrumbItems} className="ah-breadcrumb--compact" />
           <AlertsHeader onMarkAllRead={handleMarkAllRead} busy={marking} />
           <AlertStatsGrid stats={stats} />
           {statusText ? <div className="alerts-loading">{statusText}</div> : null}

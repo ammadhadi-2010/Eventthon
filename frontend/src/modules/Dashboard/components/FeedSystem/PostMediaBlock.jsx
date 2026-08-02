@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FiImage, FiVideo } from 'react-icons/fi';
 
 function MediaUnavailable({ label }) {
@@ -12,6 +12,9 @@ function MediaUnavailable({ label }) {
 
 function FeedImage({ src }) {
   const [broken, setBroken] = useState(false);
+  useEffect(() => {
+    setBroken(false);
+  }, [src]);
   if (broken) return <MediaUnavailable label="Image preview unavailable" />;
   return (
     <img
@@ -26,6 +29,9 @@ function FeedImage({ src }) {
 
 function FeedVideo({ src }) {
   const [broken, setBroken] = useState(false);
+  useEffect(() => {
+    setBroken(false);
+  }, [src]);
   if (broken) return <MediaUnavailable label="Video preview unavailable" />;
   return (
     <video

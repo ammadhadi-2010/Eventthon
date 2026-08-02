@@ -38,6 +38,13 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  width: fit-content;
+}
+
+.et-footer__brand-head:hover .et-footer__brand-name {
+  color: #e9d5ff;
 }
 
 .et-footer__brand-name {
@@ -220,6 +227,26 @@
   box-shadow: 0 8px 20px rgba(139, 92, 246, 0.35);
 }
 
+.et-footer__newsletter-submit:disabled,
+.et-footer__newsletter-form input:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.et-footer__newsletter-status {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6ee7b7;
+}
+
+.et-footer__newsletter-error {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fda4af;
+}
+
 .et-footer__checks {
   list-style: none;
   margin: 0;
@@ -240,4 +267,35 @@
 .et-footer__checks svg {
   color: var(--et-footer-purple);
   flex-shrink: 0;
+}
+
+.et-footer__quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 12px;
+  margin: 8px 0 24px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  background: rgba(15, 23, 42, 0.45);
+}
+
+.et-footer__quick-link {
+  font-size: 13px;
+  font-weight: 700;
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.et-footer__quick-link:hover {
+  color: #f472b6;
+}
+
+.et-footer__quick-sep {
+  color: #475569;
+  font-size: 12px;
+  user-select: none;
 }

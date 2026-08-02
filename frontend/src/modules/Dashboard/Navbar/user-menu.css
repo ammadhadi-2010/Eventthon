@@ -132,6 +132,15 @@
   background: rgba(248, 113, 113, 0.1);
 }
 
+.et-user-menu__item--donate {
+  color: #f9a8d4;
+}
+
+.et-user-menu__item--donate:hover {
+  background: rgba(236, 72, 153, 0.12);
+  color: #fbcfe8;
+}
+
 .et-user-menu__divider {
   height: 1px;
   background: rgba(255, 255, 255, 0.06);

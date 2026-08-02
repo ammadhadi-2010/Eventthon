@@ -1,0 +1,212 @@
+/* Mobile one-row cards — recommended + applications + alerts (keep all content) */
+@media (max-width: 900px) {
+  .jobs-page .jh-app-mobile-stack,
+  .jobs-page .ja-matches-list {
+    gap: 10px !important;
+  }
+
+  /* —— Recommended: reset broken grid areas, no overlap —— */
+  .jobs-page .jh-rec-row.jh-mobile-data-card,
+  .jobs-page .jh-rec-row {
+    display: grid !important;
+    grid-template-columns: 44px minmax(0, 1fr) !important;
+    grid-template-rows: auto !important;
+    grid-template-areas: none !important;
+    align-items: start !important;
+    gap: 10px !important;
+    min-height: 0 !important;
+    padding: 12px !important;
+    border-radius: 14px !important;
+    flex-direction: unset !important;
+  }
+
+  .jobs-page .jh-rec-row > * {
+    grid-area: auto !important;
+  }
+
+  .jobs-page .jh-rec-row .jh-rec-row__logo,
+  .jobs-page .jh-rec-row .gigs-company-logo,
+  .jobs-page .jh-rec-row .gigs-company-logo--image {
+    display: block !important;
+    width: 44px !important;
+    height: 44px !important;
+    max-width: 44px !important;
+    max-height: 44px !important;
+    border-radius: 12px !important;
+    object-fit: cover !important;
+    flex-shrink: 0 !important;
+    position: static !important;
+    margin: 0 !important;
+  }
+
+  .jobs-page .jh-rec-row__main {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  .jobs-page .jh-rec-row__head {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
+  .jobs-page .jh-rec-row__copy {
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+  }
+
+  .jobs-page .jh-rec-row__copy h3,
+  .jobs-page .jh-rec-row__main h3 {
+    margin: 0 !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #f8fafc !important;
+    line-height: 1.3 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+  }
+
+  .jobs-page .jh-rec-row__copy p,
+  .jobs-page .jh-rec-row__main p {
+    margin: 3px 0 0 !important;
+    font-size: 12px !important;
+    color: #cbd5e1 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+  }
+
+  .jobs-page .jh-rec-row__side {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    gap: 4px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .jobs-page .jh-rec-row__salary {
+    display: block !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: #e2e8f0 !important;
+    white-space: nowrap !important;
+  }
+
+  .jobs-page .jh-rec-row__match {
+    display: inline-flex !important;
+    padding: 3px 8px !important;
+    border-radius: 999px !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
+    color: #f8fafc !important;
+    background: rgba(255, 255, 255, 0.16) !important;
+  }
+
+  .jobs-page .jh-rec-row__tags {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+    margin-top: 8px !important;
+  }
+
+  .jobs-page .jh-rec-row__tags span {
+    font-size: 10px !important;
+    padding: 2px 7px !important;
+  }
+
+  /* —— Applications —— */
+  .jobs-page .jh-app-mobile-card {
+    display: grid !important;
+    grid-template-columns: 40px minmax(0, 1fr) auto !important;
+    grid-template-areas: none !important;
+    align-items: center !important;
+    gap: 10px !important;
+    min-height: 64px !important;
+    padding: 10px 12px !important;
+    border-radius: 14px !important;
+    flex-direction: unset !important;
+  }
+
+  .jobs-page .jh-app-mobile-card > * {
+    grid-area: auto !important;
+  }
+
+  .jobs-page .jh-app-mobile-card .gigs-company-logo,
+  .jobs-page .jh-app-mobile-card .gigs-company-logo--image,
+  .jobs-page .jh-app-mobile-card__logo {
+    width: 40px !important;
+    height: 40px !important;
+    max-width: 40px !important;
+    max-height: 40px !important;
+    border-radius: 12px !important;
+    object-fit: cover !important;
+    position: static !important;
+  }
+
+  .jobs-page .jh-app-mobile-card__copy {
+    min-width: 0 !important;
+  }
+
+  .jobs-page .jh-app-mobile-card__title {
+    margin: 0 !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #f8fafc !important;
+  }
+
+  .jobs-page .jh-app-mobile-card__meta {
+    margin: 2px 0 0 !important;
+    font-size: 11px !important;
+    color: #cbd5e1 !important;
+  }
+
+  .jobs-page .jh-app-mobile-card .jh-app-row__badge {
+    margin: 0 !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* —— Alerts + matches —— */
+  .jobs-page .ja-alert-row.jh-mobile-data-card,
+  .jobs-page .ja-alert-row {
+    min-height: 64px !important;
+    padding: 10px 12px !important;
+    border-radius: 14px !important;
+  }
+
+  .jobs-page .ja-match-card {
+    display: grid !important;
+    grid-template-columns: 40px minmax(0, 1fr) auto !important;
+    grid-template-areas: none !important;
+    align-items: center !important;
+    gap: 10px !important;
+    min-height: 64px !important;
+    padding: 10px 12px !important;
+    border-radius: 14px !important;
+  }
+
+  .jobs-page .ja-match-card .gigs-company-logo,
+  .jobs-page .ja-match-card .gigs-company-logo--image {
+    width: 40px !important;
+    height: 40px !important;
+    max-width: 40px !important;
+    max-height: 40px !important;
+    object-fit: cover !important;
+    border-radius: 12px !important;
+    position: static !important;
+  }
+
+  .jobs-page .ja-match-card__cta {
+    min-height: 32px !important;
+    padding: 0 12px !important;
+    border-radius: 999px !important;
+    font-size: 11px !important;
+  }
+
+  .jobs-page .ja-match-card__title-row {
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+}

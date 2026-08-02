@@ -30,10 +30,7 @@ export default function Overview({
         searchQuery={searchQuery}
         onSearchChange={onSearchChange}
         onViewAnalytics={onViewAnalytics}
-        activeMenu={activeMenu}
-        onMenuSelect={onMenuSelect}
         onNewProject={onNewProject}
-        menuCounts={menuCounts}
       />
       <ProjectsKpiTiles kpis={kpis} budgetSummary={budgetSummary} />
       <ProjectsFeaturedSection projects={featured} onOpenProject={onOpenProject} />

@@ -97,35 +97,41 @@ export default function CompanySettingsPage() {
   }
 
   return (
-    <section className="cp-section cp-glass">
-      <div className="cp-section__head">
-        <h2>Company Settings</h2>
-      </div>
-      {notice ? <p className="cp-form-success">{notice}</p> : null}
-      {fail ? <p className="cp-form-error">{fail}</p> : null}
-      <form className="cp-settings-form" onSubmit={onSubmit}>
-        <CompanySettingsProfileFields
-          form={form}
-          countries={countries}
-          sizeOptions={SIZE_OPTIONS}
-          logoPreviewUrl={logoPreviewUrl}
-          coverPreviewUrl={coverPreviewUrl}
-          onFieldChange={onField}
-          onLogoImageurlChange={onLogoImageurl}
-          onCoverImageurlChange={onCoverImageurl}
-        />
-        <CompanySettingsVerification
-          businessRegTaxId={form.businessRegTaxId}
-          currentProofUrl={company.verificationProofImageurl}
-          onBusinessRegTaxIdChange={(v) => setForm((p) => ({ ...p, businessRegTaxId: v }))}
-          onProofImageurlChange={onVerificationImageurl}
-        />
-        <div className="cp-settings-form__full">
-          <button type="submit" className="cp-retry-btn" disabled={saving}>
-            {saving ? 'Saving...' : 'Save Changes'}
-          </button>
-        </div>
-      </form>
-    </section>
+    <div className="cp-settings-page">
+      <header className="cp-settings-page__hero">
+        <h1>Company Settings</h1>
+        <p>
+          Update branding, cover banner, and verification details. A strong cover photo appears on your Company Hub hero.
+        </p>
+      </header>
+
+      <section className="cp-section cp-glass cp-settings-page__panel">
+        {notice ? <p className="cp-form-success">{notice}</p> : null}
+        {fail ? <p className="cp-form-error">{fail}</p> : null}
+        <form className="cp-settings-form" onSubmit={onSubmit}>
+          <CompanySettingsProfileFields
+            form={form}
+            countries={countries}
+            sizeOptions={SIZE_OPTIONS}
+            logoPreviewUrl={logoPreviewUrl}
+            coverPreviewUrl={coverPreviewUrl}
+            onFieldChange={onField}
+            onLogoImageurlChange={onLogoImageurl}
+            onCoverImageurlChange={onCoverImageurl}
+          />
+          <CompanySettingsVerification
+            businessRegTaxId={form.businessRegTaxId}
+            currentProofUrl={company.verificationProofImageurl}
+            onBusinessRegTaxIdChange={(v) => setForm((p) => ({ ...p, businessRegTaxId: v }))}
+            onProofImageurlChange={onVerificationImageurl}
+          />
+          <div className="cp-settings-form__full">
+            <button type="submit" className="cp-settings-save" disabled={saving}>
+              {saving ? 'Saving...' : 'Save Changes'}
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
   );
 }

@@ -24,8 +24,6 @@ const GigsBrowseHeroCard = ({
   onSearchTermChange,
   onSearch,
   onFiltersApplied,
-  activeSection,
-  onSectionSelect,
   onCreateGig,
 }) => {
   const [activeFilter, setActiveFilter] = useState('');
@@ -73,11 +71,7 @@ const GigsBrowseHeroCard = ({
         </div>
       </div>
 
-      <GigsHeroMobileActionBar
-        activeSection={activeSection}
-        onSectionSelect={onSectionSelect}
-        onCreateGig={onCreateGig}
-      />
+      <GigsHeroMobileActionBar onCreateGig={onCreateGig} />
 
       <div className="gigs-hero-search-row">
         <div className="gigs-search-wrap">

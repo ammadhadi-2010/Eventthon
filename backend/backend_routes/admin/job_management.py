@@ -201,6 +201,13 @@ async def update_job_status(body: JobStatusUpdateBody):
     patch["updated_at"] = datetime.utcnow().isoformat()
     await persist_admin_job(doc, patch)
     updated = await _find_job(body.job_id)
+    if str(body.status or "").strip().lower() in {"active", "approved", "published", "open"}:
+        try:
+            from backend_routes.jobs.hub_alert_match import notify_matching_alerts_for_job
+
+            await notify_matching_alerts_for_job(str(updated.get("_id") or body.job_id))
+        except Exception:
+            pass
     app_map = await _applicant_count_map([str(updated.get("_id") or "")])
     return {
         "status": "success",

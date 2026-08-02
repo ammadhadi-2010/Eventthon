@@ -50,31 +50,6 @@
     justify-items: center;
   }
 
-  .jh-rec-row {
-    grid-template-columns: 44px 1fr;
-    grid-template-areas:
-      'logo main'
-      'salary salary'
-      'match match';
-  }
-
-  .jh-rec-row .gigs-company-logo {
-    grid-area: logo;
-  }
-
-  .jh-rec-row__main {
-    grid-area: main;
-  }
-
-  .jh-rec-row__salary {
-    grid-area: salary;
-  }
-
-  .jh-rec-row__match {
-    grid-area: match;
-    justify-self: start;
-  }
-
   .jh-app-row {
     grid-template-columns: 40px 1fr;
     grid-template-areas:

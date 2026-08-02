@@ -34,10 +34,10 @@ export default function JobShowroomAside({ data, isGuest, slug }) {
             Create Job Alert
           </Link>
         ) : (
-          <button type="button" className="ps-mp-secondary-btn">
+          <Link to="/jobs/alerts/new" className="ps-mp-secondary-btn">
             <Bell size={14} style={{ marginRight: 6, verticalAlign: 'middle' }} />
             Create Job Alert
-          </button>
+          </Link>
         )}
       </div>
     </aside>

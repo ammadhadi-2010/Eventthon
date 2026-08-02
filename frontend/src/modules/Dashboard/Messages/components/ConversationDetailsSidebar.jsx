@@ -84,7 +84,7 @@ const ConversationDetailsSidebar = ({
       setSidebarData(null);
       setMuted(false);
       setBlocked(false);
-      return;
+      return undefined;
     }
     let alive = true;
     Promise.resolve(onFetchSidebarData?.(selectedMessage))
@@ -100,7 +100,15 @@ const ConversationDetailsSidebar = ({
     return () => {
       alive = false;
     };
-  }, [selectedMessage, onFetchSidebarData]);
+    // Only refetch when conversation identity changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    selectedMessage?._id,
+    selectedMessage?.seller_user_id,
+    selectedMessage?.context_id,
+    selectedMessage?.peer_user_id,
+    selectedMessage?.from_user_id,
+  ]);
 
   useEffect(() => {
     if (!filesModalOpen) return undefined;
@@ -139,7 +147,10 @@ const ConversationDetailsSidebar = ({
   const memberSince = profile.member_since ? formatDateTime(profile.member_since) : 'Feb 2023';
   const country = profile.country || 'Pakistan';
   const badge = profile.badge || 'Top Rated Seller';
-  const isOnline = Boolean(profile.online);
+  const onlineStatus = String(profile.online_status || (profile.online ? 'online' : 'offline')).toLowerCase();
+  const isOnline = onlineStatus === 'online';
+  const profileImage =
+    resolveAttachmentUrl(profile.imageurl || profile.avatar || selectedMessage.from_user_imageurl || '');
 
   const handleToggleMute = async () => {
     const next = !muted;
@@ -167,13 +178,19 @@ const ConversationDetailsSidebar = ({
 
       <section className="msgx-side-card is-profile">
         <div className="msgx-side-profile">
-          <div className="msgx-side-avatar">{displayName.slice(0, 1).toUpperCase()}</div>
+          {profileImage ? (
+            <img className="msgx-side-avatar msgx-side-avatar--img" src={profileImage} alt="" />
+          ) : (
+            <div className="msgx-side-avatar">{displayName.slice(0, 1).toUpperCase()}</div>
+          )}
           <div>
             <div className="msgx-side-name-row">
               <h5>{displayName}</h5>
               <span>{badge}</span>
             </div>
-            <p className="msgx-side-online"><i /> {isOnline ? 'Online' : 'Offline'}</p>
+            <p className={`msgx-side-online is-${onlineStatus}`}>
+              <i /> {isOnline ? 'Online' : onlineStatus === 'away' ? 'Away' : 'Offline'}
+            </p>
           </div>
         </div>
       </section>

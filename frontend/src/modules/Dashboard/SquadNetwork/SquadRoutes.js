@@ -7,12 +7,18 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Squads from './Squads';
 import SquadDetail from './SquadDetail/SquadDetail';
 import SquadCommandCenter from './SquadCommandCenter';
+import SquadReviewsPage from './pages/SquadReviewsPage';
+import SquadPortfolioPage from './pages/SquadPortfolioPage';
 
 const SquadRoutes = ({ userData }) => {
     return (
         <Routes>
             {/* Main Squads List */}
             <Route path="/" element={<Squads userData={userData} />} />
+
+            {/* View-all pages (before :id) */}
+            <Route path=":id/reviews" element={<SquadReviewsPage userData={userData} />} />
+            <Route path=":id/portfolio" element={<SquadPortfolioPage userData={userData} />} />
 
             {/* Squad Detail View */}
             <Route path=":id" element={<SquadDetail userData={userData} />} />

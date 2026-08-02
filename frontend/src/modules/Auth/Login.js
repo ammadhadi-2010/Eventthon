@@ -7,6 +7,12 @@ import './Login.css';
 import AuthShell from './AuthShell';
 import EventThonLogo from '../../components/brand/EventThonLogo';
 import { API_BASE_URL } from '../../api/axiosConfig';
+import { prefetchCompanyPortalDashboard } from '../../components/views/company/services/prefetchCompanyPortalDashboard';
+import { persistAuthSession, resolvePostLoginPath } from './authSession';
+import {
+  captureCompanyInviteFromUrl,
+  getStoredCompanyInviteEmail,
+} from '../../utils/companyInviteStorage';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,9 +24,15 @@ const Login = () => {
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [hasCompanyInvite, setHasCompanyInvite] = useState(false);
 
   // --- HIDDEN ADMIN TRIGGER (Alt + A) ---
   useEffect(() => {
+    const invite = captureCompanyInviteFromUrl();
+    if (invite.token) setHasCompanyInvite(true);
+    const invitedEmail = invite.email || getStoredCompanyInviteEmail();
+    if (invitedEmail) setEmail(invitedEmail);
+
     const handleKeyDown = (e) => {
       if (e.altKey && e.key === 'a') {
         e.preventDefault();
@@ -46,38 +58,18 @@ const Login = () => {
 });
 
         // Backend se 'status': 'success' aa raha hy
-if (response.data.status === "success") {
+        if (response.data.status === "success") {
     console.log("Login successful, synchronizing session...");
 
-    // 1. Purana session saaf karein
-    localStorage.clear();
-
-    // 2. Data nikaalein
-    const { user } = response.data;
-    
-    // 3. Storage mein save karein
-    if (user.email) localStorage.setItem('userEmail', user.email);
-    localStorage.setItem('userMobile', user.mobile); 
-    if (user.user_id) localStorage.setItem('userId', user.user_id);
-    localStorage.setItem('userName', user.first_name); 
-    localStorage.setItem('userRole', user.role);
-    if (user.company_id) localStorage.setItem('companyId', user.company_id);
-    if (user.company_status) localStorage.setItem('companyStatus', user.company_status);
-    
-    if (user.rank) localStorage.setItem('userRank', user.rank);
+    const { user, access_token: accessToken } = response.data;
+    persistAuthSession(user, accessToken || '');
 
     console.log(`Access Granted: ${user.role} mode.`);
 
-    // 4. ✅ ROLE-BASED NAVIGATION (Ye sab se zaroori hy)
-    if (user.role === 'admin') {
-        // Admin ko seedha HQ (Admin Panel) bhejein
-        navigate('/admin-control');
-    } else if (user.role === 'employer') {
-        navigate('/company/dashboard');
-    } else {
-        // Candidate ko default jobs board index par bhejein
-        navigate('/jobs');
+    if (user.role === 'employer') {
+        prefetchCompanyPortalDashboard();
     }
+    navigate(resolvePostLoginPath(user));
 }
 
     } catch (error) {
@@ -105,6 +97,10 @@ if (response.data.status === "success") {
     }
 };
 
+  const handleGoogleLogin = () => {
+    window.location.href = `${API_BASE_URL}/api/auth/google`;
+  };
+
   return (
     <AuthShell brandTagline="Join the elite: collaborate, learn & earn on the verified network.">
       <div className="bg-glow-top" />
@@ -117,6 +113,11 @@ if (response.data.status === "success") {
         <h2 className="title-text">
           {isAdminMode ? 'ADMIN VERIFICATION' : 'PROFESSIONAL LOGIN'}
         </h2>
+        {hasCompanyInvite && !isAdminMode ? (
+          <p className="auth-referral-note">
+            Sign in with the invited email to accept your company team invitation.
+          </p>
+        ) : null}
 
         <form onSubmit={handleManualLogin} className="login-form">
           <input 
@@ -162,8 +163,10 @@ if (response.data.status === "success") {
         {!isAdminMode && (
           <>
             <div className="divider"><span>OR CONTINUE WITH</span></div>
-            <div className="social-login" style={{ opacity: 0.6, pointerEvents: 'none' }}>
-              <button className="glass-input">Google Login (Pending)</button>
+            <div className="social-login">
+              <button type="button" className="glass-input" onClick={handleGoogleLogin}>
+                Continue with Google
+              </button>
             </div>
             <p className="footer-link">
   New to the network? 

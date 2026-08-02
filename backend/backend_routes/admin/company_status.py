@@ -15,6 +15,10 @@ REJECT_ACTIONS = {"reject", "rejected", "reject_request", "deny"}
 
 APPROVED_MESSAGE = "Your company has been verified. You can now publish jobs and gigs."
 REJECTED_MESSAGE = "Your company verification request was rejected. Please update your documents and resubmit."
+PENDING_REVIEW_MESSAGE = (
+    "Your company profile is successfully submitted and is under review by our Admin team. "
+    "Features will unlock shortly upon verification."
+)
 
 
 def _normalize_action(action: str) -> str:
@@ -54,8 +58,23 @@ async def apply_company_status_action(company_doc: dict, action: str) -> dict:
     await companies_collection.update_one({"_id": company_doc["_id"]}, {"$set": patch})
     updated = await companies_collection.find_one({"_id": company_doc["_id"]})
     result = updated or {**company_doc, **patch}
+    # Keep owner user company_status in sync so hub access / UI refresh cleanly.
     owner = str(result.get("owner_user_id") or "").strip()
     if owner:
+        from database import user_collection
+
+        user_patch = {
+            "company_id": str(result.get("_id") or ""),
+            "updated_at": now,
+        }
+        if code in APPROVE_ACTIONS:
+            user_patch["company_status"] = "verified"
+        elif code in REJECT_ACTIONS:
+            user_patch["company_status"] = "rejected"
+        await user_collection.update_one(
+            {"$or": [{"email": owner.lower()}, {"email": owner}, {"user_id": owner}]},
+            {"$set": user_patch},
+        )
         await notify_employer_verification_status(
             owner,
             approved=code in APPROVE_ACTIONS,

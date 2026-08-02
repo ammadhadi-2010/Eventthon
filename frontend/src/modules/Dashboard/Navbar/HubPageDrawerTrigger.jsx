@@ -4,12 +4,18 @@ import { useLocation } from 'react-router-dom';
 import { dispatchHubDrawerToggle, resolveHubFromPath } from './hubDrawerBus';
 
 const HUB_LABELS = {
-  home: 'Open home menu',
+  home: 'Open menu',
+  alerts: 'Open alerts menu',
+  'company-alerts': 'Open notifications menu',
   squads: 'Open squads menu',
   projects: 'Open projects menu',
   gigs: 'Open gigs menu',
   jobs: 'Open jobs menu',
   wallet: 'Open wallet menu',
+  donate: 'Open donation menu',
+  resources: 'Open resources menu',
+  profile: 'Open profile steps menu',
+  company: 'Open company menu',
 };
 
 export default function HubPageDrawerTrigger({ className = '' }) {

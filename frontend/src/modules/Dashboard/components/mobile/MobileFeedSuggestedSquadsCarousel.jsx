@@ -13,7 +13,7 @@ export default function MobileFeedSuggestedSquadsCarousel({
   const squadRows = squads.length ? squads : SUGGESTED_SQUADS;
 
   return (
-    <section className="dash-mobile-carousel" aria-label="Suggested squads carousel">
+    <section className="dash-mobile-carousel dash-feed-carousel--desktop" aria-label="Suggested squads carousel">
       <div className="dash-mobile-carousel__head">
         <h3 className="dash-mobile-carousel__title">Suggested For You</h3>
         <Link to={DASHBOARD_SIDEBAR_ROUTES.squads} className="dash-mobile-carousel__link">
@@ -24,10 +24,12 @@ export default function MobileFeedSuggestedSquadsCarousel({
         {squadRows.map((squad) => {
           const joined = Boolean(joinedSquads[squad.id]);
           const imageurl = resolveDashboardMediaUrl(squad.imageurl);
+          const bannerImage = resolveDashboardMediaUrl(squad.banner || squad.cover_image || squad.imageurl);
           return (
             <MobileFeedPortraitCard
               key={`squad-${squad.id}`}
               accentColor={squad.color || '#7c3aed'}
+              bannerImage={bannerImage}
               avatarLabel={String(squad.title || 'S').charAt(0)}
               avatarImage={imageurl}
               name={squad.title}

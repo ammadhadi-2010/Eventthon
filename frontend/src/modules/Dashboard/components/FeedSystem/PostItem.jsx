@@ -12,6 +12,7 @@ import PostExpandableText from './PostExpandableText';
 import PostArticleHeading from './PostArticleHeading';
 import PostHeaderControls from './PostHeaderControls';
 import { resolveAuthorRankMeta } from './postAuthorRank';
+import { resolvePostDisplayAuthorName } from './feedAuthor';
 import { profileSubjectFromPost, resolveUserProfilePath } from '../../Profile/utils/profileLinks';
 import {
   getPostMediaItems,
@@ -29,7 +30,7 @@ const PostItem = ({ post, userData, onDeleted }) => {
   const isArticle = post.post_type === 'ARTICLE';
   const rankMeta = resolveAuthorRankMeta(post, userData);
   const badgeProps = rankCodeToBadgeProps(rankMeta.code, { label: rankMeta.label });
-  const authorName = post.author_name || 'Member';
+  const authorName = resolvePostDisplayAuthorName(post, userData);
   const authorProfilePath = resolveUserProfilePath(profileSubjectFromPost(post), userData);
 
   const getPostTypeDetails = (type) => {

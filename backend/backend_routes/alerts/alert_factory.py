@@ -34,6 +34,9 @@ async def push_alert(
     message: str,
     details: str = "",
     actor_name: str = "EventThon",
+    actor_imageurl: str = "",
+    actor_user_id: str = "",
+    actor_email: str = "",
     priority: str = "medium",
     action_label: str = "View",
     action_url: str = "/notifications/alerts",
@@ -58,6 +61,14 @@ async def push_alert(
         "is_read": False,
         "created_at": datetime.utcnow(),
     }
+    image = str(actor_imageurl or "").strip()
+    if image:
+        doc["imageurl"] = image
+        doc["actor_imageurl"] = image
+    if actor_user_id:
+        doc["actor_user_id"] = str(actor_user_id).strip()
+    if actor_email:
+        doc["actor_email"] = str(actor_email).strip().lower()
     if audience:
         doc["audience"] = audience
     else:

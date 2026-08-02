@@ -1,9 +1,17 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { FiX } from 'react-icons/fi';
+import React, { useEffect, useState } from 'react';
+import { FiArrowLeft, FiX } from 'react-icons/fi';
 import EventThonBadge from '../EventThonBadge';
 import { ELITE_RANK_MATRIX } from '../../models/rankMatrixData';
 import { ensureRankMatrixLoaded, getCachedRankMatrix } from '../../services/rankMatrixCache';
 import './footer-rank-matrix-modal.css';
+
+function mergeRankRows(apiRows = []) {
+  if (!apiRows.length) return ELITE_RANK_MATRIX;
+  const byCode = Object.fromEntries(apiRows.map((row) => [row.rankCode, row]));
+  const merged = ELITE_RANK_MATRIX.map((def) => ({ ...def, ...(byCode[def.rankCode] || {}) }));
+  const extras = apiRows.filter((row) => !ELITE_RANK_MATRIX.some((def) => def.rankCode === row.rankCode));
+  return extras.length ? [...merged, ...extras] : merged;
+}
 
 function RankMatrixCard({ row }) {
   return (
@@ -37,16 +45,38 @@ function RankMatrixCard({ row }) {
   );
 }
 
+function useIsMobileRankMatrix(breakpoint = 767) {
+  const [mobile, setMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia(`(max-width: ${breakpoint}px)`).matches : false,
+  );
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${breakpoint}px)`);
+    const onChange = () => setMobile(mq.matches);
+    onChange();
+    mq.addEventListener?.('change', onChange);
+    return () => mq.removeEventListener?.('change', onChange);
+  }, [breakpoint]);
+  return mobile;
+}
+
 export default function RankMatrixModal({ open, onClose }) {
-  const [ready, setReady] = useState(false);
+  const isMobile = useIsMobileRankMatrix();
+  const [rows, setRows] = useState(() => mergeRankRows(getCachedRankMatrix()));
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!open) return undefined;
     let active = true;
+    setLoading(true);
     ensureRankMatrixLoaded()
-      .catch(() => null)
+      .then((data) => {
+        if (active) setRows(mergeRankRows(data));
+      })
+      .catch(() => {
+        if (active) setRows(mergeRankRows(getCachedRankMatrix()));
+      })
       .finally(() => {
-        if (active) setReady(true);
+        if (active) setLoading(false);
       });
     return () => {
       active = false;
@@ -62,11 +92,6 @@ export default function RankMatrixModal({ open, onClose }) {
     };
   }, [open]);
 
-  const rows = useMemo(() => {
-    const cached = getCachedRankMatrix();
-    return cached.length ? cached : ELITE_RANK_MATRIX;
-  }, [ready, open]);
-
   if (!open) return null;
 
   return (
@@ -79,6 +104,10 @@ export default function RankMatrixModal({ open, onClose }) {
         onClick={(e) => e.stopPropagation()}
       >
         <header className="et-rank-matrix__head">
+          <button type="button" className="et-rank-matrix__back" onClick={onClose} aria-label="Back">
+            <FiArrowLeft size={18} />
+            <span>Back</span>
+          </button>
           <div className="et-rank-matrix__head-copy">
             <p className="et-rank-matrix__eyebrow">EventThon Elite Progression</p>
             <h2 id="et-rank-matrix-title">Rank Matrix</h2>
@@ -92,49 +121,55 @@ export default function RankMatrixModal({ open, onClose }) {
         </header>
 
         <div className="et-rank-matrix__body">
-          <div className="et-rank-matrix__desktop et-rank-matrix__table-wrap">
-            <table className="et-rank-matrix__table">
-              <thead>
-                <tr>
-                  <th>Rank</th>
-                  <th>Points</th>
-                  <th>Deals</th>
-                  <th>Stars</th>
-                  <th>Perks &amp; Rewards</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((row) => (
-                  <tr key={row.rankCode}>
-                    <td>
-                      <div className="et-rank-matrix__rank-cell">
-                        <EventThonBadge tier={row.badgeTier || row.rankCode} variant="sm" label={row.rankName} />
-                        <div>
-                          <strong>{row.rankCode}</strong>
-                          <span>{row.rankName}</span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>{row.minPoints}</td>
-                    <td>{row.minDealsRequired}</td>
-                    <td>{row.minStarRating}</td>
-                    <td>
-                      <p className="et-rank-matrix__benefits">{row.benefits}</p>
-                      {row.featureOnFrontlineDashboard ? (
-                        <span className="et-rank-matrix__vanguard-tag">Ultimate Vanguard — Recruiter Featured</span>
-                      ) : null}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          {loading && !rows.length ? (
+            <p className="et-rank-matrix__loading">Loading ranks…</p>
+          ) : null}
 
-          <div className="et-rank-matrix__mobile">
-            {rows.map((row) => (
-              <RankMatrixCard key={row.rankCode} row={row} />
-            ))}
-          </div>
+          {!isMobile ? (
+            <div className="et-rank-matrix__desktop et-rank-matrix__table-wrap">
+              <table className="et-rank-matrix__table">
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th>Points</th>
+                    <th>Deals</th>
+                    <th>Stars</th>
+                    <th>Perks &amp; Rewards</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows.map((row) => (
+                    <tr key={row.rankCode}>
+                      <td>
+                        <div className="et-rank-matrix__rank-cell">
+                          <EventThonBadge tier={row.badgeTier || row.rankCode} variant="sm" label={row.rankName} />
+                          <div>
+                            <strong>{row.rankCode}</strong>
+                            <span>{row.rankName}</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>{row.minPoints}</td>
+                      <td>{row.minDealsRequired}</td>
+                      <td>{row.minStarRating}</td>
+                      <td>
+                        <p className="et-rank-matrix__benefits">{row.benefits}</p>
+                        {row.featureOnFrontlineDashboard ? (
+                          <span className="et-rank-matrix__vanguard-tag">Ultimate Vanguard — Recruiter Featured</span>
+                        ) : null}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="et-rank-matrix__mobile">
+              {rows.map((row) => (
+                <RankMatrixCard key={row.rankCode} row={row} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

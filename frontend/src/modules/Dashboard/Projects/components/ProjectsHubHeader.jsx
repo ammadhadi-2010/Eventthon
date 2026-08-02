@@ -6,10 +6,7 @@ export default function ProjectsHubHeader({
   searchQuery,
   onSearchChange,
   onViewAnalytics,
-  activeMenu,
-  onMenuSelect,
   onNewProject,
-  menuCounts,
 }) {
   return (
     <>
@@ -20,11 +17,8 @@ export default function ProjectsHubHeader({
         </div>
         <div className="ph-hero-actions">
           <ProjectsHubActionBar
-            activeMenu={activeMenu}
-            onMenuSelect={onMenuSelect}
             onViewAnalytics={onViewAnalytics}
             onNewProject={onNewProject}
-            menuCounts={menuCounts}
           />
           <button type="button" className="ph-btn ph-btn--analytics ph-btn--desktop-only" onClick={onViewAnalytics}>
             <FiBarChart2 size={16} aria-hidden />

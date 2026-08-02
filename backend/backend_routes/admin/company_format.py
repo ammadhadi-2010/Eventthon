@@ -24,9 +24,11 @@ def _format_joined(ts: Any) -> str:
 
 
 def _is_verified(doc: dict) -> bool:
+    """True when admin-approved (active/verified) or is_verified flag set."""
     if doc.get("is_verified") is True:
         return True
-    return str(doc.get("status") or "").lower() == "verified"
+    status = str(doc.get("status") or "").strip().lower()
+    return status in ("verified", "active")
 
 
 def company_to_row(doc: dict, open_jobs: int = 0) -> Dict[str, Any]:
@@ -68,9 +70,13 @@ def company_to_row(doc: dict, open_jobs: int = 0) -> Dict[str, Any]:
 def company_db_from_body(body: dict) -> Dict[str, Any]:
     imageurl = str(body.get("imageurl") or body.get("logo_url") or "").strip()
     status = str(body.get("status") or "pending").strip().lower() or "pending"
+    if status in ("approved", "approve", "verify"):
+        status = "active"
     is_verified = body.get("is_verified")
     if is_verified is None:
-        is_verified = status == "verified"
+        is_verified = status in ("verified", "active")
+    if is_verified and status == "pending":
+        status = "active"
     return {
         "name": str(body.get("name") or "").strip(),
         "logo_url": imageurl,

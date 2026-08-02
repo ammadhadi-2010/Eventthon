@@ -3,13 +3,23 @@ import { FiChevronDown, FiFilter, FiPlus, FiSearch, FiX } from 'react-icons/fi';
 import MembersTabMemberRow from './MembersTabMemberRow';
 import '../../styles/squad-members-tab.css';
 
-const MembersTab = ({ members = [], canInvite = false, onInvite, onUpdateMemberRole, onRemoveMember }) => {
+const MembersTab = ({
+  members = [],
+  canInvite = false,
+  onInvite,
+  onUpdateMemberRole,
+  onRemoveMember,
+  onSendMemberMessage,
+}) => {
   const [query, setQuery] = useState('');
   const [roleFilter, setRoleFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [filtersOpen, setFiltersOpen] = useState(true);
   const [activeMenuId, setActiveMenuId] = useState(null);
   const [messageTarget, setMessageTarget] = useState(null);
   const [messageText, setMessageText] = useState('');
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState('');
 
   const total = members.length;
   const online = members.filter((m) => m.online).length;
@@ -34,11 +44,28 @@ const MembersTab = ({ members = [], canInvite = false, onInvite, onUpdateMemberR
     });
   }, [members, query, roleFilter, statusFilter]);
 
-  const handleMessageSend = () => {
+  const handleMessageSend = async () => {
     if (!messageTarget) return;
-    window.alert(`Message sent to ${messageTarget.name}: ${messageText || '(empty)'}`);
-    setMessageText('');
-    setMessageTarget(null);
+    const body = messageText.trim();
+    if (!body) {
+      setSendError('Write a message first.');
+      return;
+    }
+    if (!onSendMemberMessage) {
+      setSendError('Messaging is unavailable right now.');
+      return;
+    }
+    setSending(true);
+    setSendError('');
+    try {
+      await onSendMemberMessage(messageTarget, body);
+      setMessageText('');
+      setMessageTarget(null);
+    } catch (err) {
+      setSendError(err?.message || 'Could not send message.');
+    } finally {
+      setSending(false);
+    }
   };
 
   const handleRoleChange = async (member, role) => {
@@ -68,7 +95,13 @@ const MembersTab = ({ members = [], canInvite = false, onInvite, onUpdateMemberR
           <FiSearch size={13} />
           <input placeholder="Search members..." value={query} onChange={(e) => setQuery(e.target.value)} />
         </div>
-        <button type="button" className="sq-members-ghost-btn"><FiFilter /> Filters</button>
+        <button
+          type="button"
+          className={`sq-members-ghost-btn${filtersOpen ? ' is-active' : ''}`}
+          onClick={() => setFiltersOpen((v) => !v)}
+        >
+          <FiFilter /> Filters
+        </button>
         {canInvite ? (
           <button type="button" className="sq-members-primary-btn" onClick={onInvite}>
             <FiPlus /> Invite Members
@@ -109,24 +142,26 @@ const MembersTab = ({ members = [], canInvite = false, onInvite, onUpdateMemberR
         </div>
       </div>
 
-      <div className="sq-members-filter-pills">
-        {[
-          ['all', 'All Roles', roleFilter, setRoleFilter],
-          ['admin', 'Admins', roleFilter, setRoleFilter],
-          ['moderator', 'Moderators', roleFilter, setRoleFilter],
-          ['online', 'Online', statusFilter, setStatusFilter],
-          ['offline', 'Offline', statusFilter, setStatusFilter],
-        ].map(([key, label, active, setter]) => (
-          <button
-            key={key}
-            type="button"
-            className={`sq-members-filter-pill${active === key ? ' is-active' : ''}`}
-            onClick={() => setter(key)}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
+      {filtersOpen ? (
+        <div className="sq-members-filter-pills">
+          {[
+            ['all', 'All Roles', roleFilter, setRoleFilter],
+            ['admin', 'Admins', roleFilter, setRoleFilter],
+            ['moderator', 'Moderators', roleFilter, setRoleFilter],
+            ['online', 'Online', statusFilter, setStatusFilter],
+            ['offline', 'Offline', statusFilter, setStatusFilter],
+          ].map(([key, label, active, setter]) => (
+            <button
+              key={key}
+              type="button"
+              className={`sq-members-filter-pill${active === key ? ' is-active' : ''}`}
+              onClick={() => setter(key)}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      ) : null}
 
       {messageTarget ? (
         <div className="sq-members-modal-overlay" onClick={() => setMessageTarget(null)}>
@@ -143,9 +178,17 @@ const MembersTab = ({ members = [], canInvite = false, onInvite, onUpdateMemberR
               value={messageText}
               onChange={(e) => setMessageText(e.target.value)}
             />
+            {sendError ? <p className="sq-members-modal-error">{sendError}</p> : null}
             <div className="sq-members-modal-actions">
               <button type="button" className="sq-members-modal-cancel" onClick={() => setMessageTarget(null)}>Cancel</button>
-              <button type="button" className="sq-members-modal-send" onClick={handleMessageSend}>Send Message</button>
+              <button
+                type="button"
+                className="sq-members-modal-send"
+                disabled={sending}
+                onClick={handleMessageSend}
+              >
+                {sending ? 'Sending…' : 'Send Message'}
+              </button>
             </div>
           </div>
         </div>

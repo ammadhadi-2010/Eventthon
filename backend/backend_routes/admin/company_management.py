@@ -8,7 +8,11 @@ from bson import ObjectId
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
 
-from .company_status import apply_company_status_action
+from .company_status import (
+    APPROVED_MESSAGE,
+    PENDING_REVIEW_MESSAGE,
+    apply_company_status_action,
+)
 
 from database import companies_collection
 from .company_format import company_db_from_body, company_to_row
@@ -24,7 +28,7 @@ class CompanyCreateBody(BaseModel):
     website: str = Field("", max_length=240)
     size: str = Field("", max_length=80)
     location: str = Field("", max_length=160)
-    status: str = Field("pending", max_length=32)
+    status: str = Field("active", max_length=32)
     owner_user_id: str = Field("", max_length=120)
     description: str = Field("", max_length=500)
     followers: int = Field(0, ge=0)
@@ -97,6 +101,8 @@ async def create_company(body: CompanyCreateBody):
         raise HTTPException(status_code=400, detail="Company name is required")
     now = datetime.utcnow().isoformat()
     fields = company_db_from_body(body.model_dump())
+    verified = bool(fields.get("is_verified"))
+    status = str(fields.get("status") or "pending").lower()
     doc = {
         **fields,
         "description": body.description.strip(),
@@ -104,12 +110,17 @@ async def create_company(body: CompanyCreateBody):
         "owner_user_id": body.owner_user_id.strip() or None,
         "verification_proof_imageurl": body.verification_proof_imageurl.strip(),
         "verification_submitted_at": now,
-        "verification_message": "Your company profile is successfully submitted and is under review by our Admin team. Features will unlock shortly upon verification.",
+        "verification_message": APPROVED_MESSAGE if verified else PENDING_REVIEW_MESSAGE,
+        "is_draft": False,
         "is_admin_seed": not bool(body.owner_user_id.strip()),
         "is_claimed": False,
         "created_at": now,
         "updated_at": now,
     }
+    if verified:
+        doc["verified_at"] = now
+        doc["status"] = "active" if status != "verified" else status
+        doc["is_verified"] = True
     result = await companies_collection.insert_one(doc)
     doc["_id"] = result.inserted_id
     return {"status": "success", "data": company_to_row(doc, 0)}
@@ -156,8 +167,28 @@ async def update_company(company_id: str, body: CompanyUpdateBody):
         patch["is_verified"] = bool(data["is_verified"])
         if data["is_verified"]:
             patch["status"] = "active"
+            patch["is_draft"] = False
+            patch["verification_message"] = APPROVED_MESSAGE
+            patch["verified_at"] = datetime.utcnow().isoformat()
+        else:
+            patch["verification_message"] = PENDING_REVIEW_MESSAGE
     if "status" in data and "is_verified" not in data:
-        patch["status"] = str(data["status"]).lower()
+        status_val = str(data["status"]).lower()
+        patch["status"] = status_val
+        if status_val in ("active", "verified", "approved"):
+            patch["status"] = "active" if status_val != "verified" else "verified"
+            patch["is_verified"] = True
+            patch["is_draft"] = False
+            patch["verification_message"] = APPROVED_MESSAGE
+            patch["verified_at"] = datetime.utcnow().isoformat()
+        elif status_val == "pending":
+            patch["is_verified"] = False
+            patch["verification_message"] = PENDING_REVIEW_MESSAGE
+        elif status_val in ("rejected", "reject"):
+            patch["is_verified"] = False
+            patch["verification_message"] = (
+                "Your company verification request was rejected. Please update your documents and resubmit."
+            )
     if not patch:
         raise HTTPException(status_code=400, detail="No fields to update")
     patch["updated_at"] = datetime.utcnow().isoformat()

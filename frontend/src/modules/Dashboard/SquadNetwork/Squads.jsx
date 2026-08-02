@@ -13,6 +13,14 @@ import './styles/squad-hub-mobile-chrome.css';
 import './styles/squad-hub-mobile-tooltips.css';
 
 const LAST_SQUAD_KEY = 'et:lastSquadId';
+const HUB_TABS = ['Overview', 'Chat', 'Projects', 'Members', 'Activity', 'Files', 'Settings'];
+
+function normalizeHubTab(value) {
+  const raw = String(value || '').trim();
+  if (!raw) return '';
+  const normalized = raw.charAt(0).toUpperCase() + raw.slice(1).toLowerCase();
+  return HUB_TABS.includes(normalized) ? normalized : '';
+}
 
 const Squads = ({ userData }) => {
   const location = useLocation();
@@ -28,12 +36,53 @@ const Squads = ({ userData }) => {
   const [mobileListOpen, setMobileListOpen] = useState(false);
   const [squadSearchQuery, setSquadSearchQuery] = useState('');
   const prevSquadIdRef = useRef(null);
+  const pendingTabRef = useRef('');
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search || '');
+    const tabFromQuery = normalizeHubTab(params.get('tab') || params.get('openTab'));
+    const focusSquadId = params.get('squad') || params.get('join') || '';
+    let changed = false;
+    if (tabFromQuery) {
+      pendingTabRef.current = tabFromQuery;
+      setCenterTab(tabFromQuery);
+      params.delete('tab');
+      params.delete('openTab');
+      changed = true;
+    }
+    if (focusSquadId) {
+      try {
+        sessionStorage.setItem(LAST_SQUAD_KEY, String(focusSquadId));
+      } catch {
+        /* ignore */
+      }
+      if (params.get('join') || params.get('squad')) {
+        setActiveTab('Invites');
+      }
+      params.delete('squad');
+      params.delete('join');
+      changed = true;
+    }
+    if (!changed) return;
+    const nextSearch = params.toString();
+    navigate(
+      { pathname: location.pathname, search: nextSearch ? `?${nextSearch}` : '' },
+      { replace: true, state: location.state },
+    );
+  }, [location.search, location.pathname, location.state, navigate]);
 
   useEffect(() => {
     const navState = location.state;
-    if (!navState?.squadProjectsRefresh) return;
-    if (navState.openTab) setCenterTab(navState.openTab);
-    setProjectsRefreshToken((prev) => prev + 1);
+    if (!navState) return;
+    const tabFromState = normalizeHubTab(navState.openTab);
+    if (tabFromState) {
+      pendingTabRef.current = tabFromState;
+      setCenterTab(tabFromState);
+    }
+    if (!navState.squadProjectsRefresh && !tabFromState) return;
+    if (navState.squadProjectsRefresh) {
+      setProjectsRefreshToken((prev) => prev + 1);
+    }
     navigate(location.pathname, { replace: true, state: null });
   }, [location.state, location.pathname, navigate]);
 
@@ -44,7 +93,9 @@ const Squads = ({ userData }) => {
       return;
     }
     if (prevSquadIdRef.current !== squadId) {
-      setCenterTab('Overview');
+      const pending = pendingTabRef.current;
+      pendingTabRef.current = '';
+      setCenterTab(pending || 'Overview');
       setHubMetrics(null);
       prevSquadIdRef.current = squadId;
       try {
@@ -122,6 +173,13 @@ const Squads = ({ userData }) => {
         searchQuery={squadSearchQuery}
         onSearchQueryChange={setSquadSearchQuery}
         lastSquadIdKey={LAST_SQUAD_KEY}
+        onOpenInviteSquad={(squad) => {
+          if (squad) setSelectedSquad(squad);
+          pendingTabRef.current = 'Chat';
+          setCenterTab('Chat');
+          setActiveTab('My Squads');
+          setSquadRefreshToken((n) => n + 1);
+        }}
       />
 
       {showCreatePanel ? (
@@ -135,7 +193,9 @@ const Squads = ({ userData }) => {
           onCreated={handleCreated}
         />
       ) : (
-        <div className="squad-hub__workspace">
+        <div
+          className={`squad-hub__workspace${centerTab === 'Chat' ? ' squad-hub__workspace--chat-full' : ''}`}
+        >
           <SquadChat
             selectedSquad={selectedSquad}
             userData={userData}
@@ -149,20 +209,23 @@ const Squads = ({ userData }) => {
             onMobileBack={() => setMobileListOpen(true)}
           />
 
-          <SquadOverview
-            selectedSquad={selectedSquad}
-            members={hubMetrics?.membersList || selectedSquad?.members || []}
-            hubMetrics={hubMetrics}
-            activityOverview={hubMetrics?.activityOverview || []}
-            onQuickAction={(action) => {
-              if (action === 'project') setCenterTab('Projects');
-              if (action === 'poll') setCenterTab('Activity');
-              if (action === 'upload') setCenterTab('Files');
-              if (action === 'meeting') setCenterTab('Settings');
-              if (action === 'chat') setCenterTab('Chat');
-              if (action === 'overview') setCenterTab('Overview');
-            }}
-          />
+          {centerTab !== 'Chat' ? (
+            <SquadOverview
+              selectedSquad={selectedSquad}
+              members={hubMetrics?.membersList || selectedSquad?.members || []}
+              hubMetrics={hubMetrics}
+              activityOverview={hubMetrics?.activityOverview || []}
+              onTabChange={setCenterTab}
+              onQuickAction={(action) => {
+                if (action === 'project') setCenterTab('Projects');
+                if (action === 'poll') setCenterTab('Activity');
+                if (action === 'upload') setCenterTab('Files');
+                if (action === 'meeting') setCenterTab('Settings');
+                if (action === 'chat') setCenterTab('Chat');
+                if (action === 'overview') setCenterTab('Overview');
+              }}
+            />
+          ) : null}
         </div>
       )}
     </div>

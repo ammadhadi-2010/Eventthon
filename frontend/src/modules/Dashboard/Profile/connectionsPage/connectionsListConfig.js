@@ -19,21 +19,21 @@ export function getListPageMeta(listKey, stats = {}) {
   const meta = {
     commanders: {
       listMode: 'commanders',
-      title: (s) => `Top Commanders (${fmtK(s.top_commanders ?? 8)})`,
+      title: (s) => `Top Commanders (${fmtK(s.top_commanders ?? 0)})`,
       subtitle:
         'Top Commanders are elite leaders who lead squads and drive the community forward.',
       searchPlaceholder: 'Search commanders…',
-      totalFromStats: (s) => s.top_commanders ?? 8,
+      totalFromStats: (s) => s.top_commanders ?? 0,
     },
     mutual: {
       listMode: 'social',
       socialVariant: 'mutual',
-      title: (s) => `Mutual Connections (${fmtK(s.connections_mutual ?? 24)})`,
+      title: (s) => `Mutual Connections (${fmtK(s.connections_mutual ?? 0)})`,
       /** Filled in ConnectionsPage with signed-in user’s display name */
       resolveSubtitle: (viewerName) =>
         `People you and ${viewerName?.trim() || 'your profile'} both know.`,
       searchPlaceholder: 'Search connections…',
-      totalFromStats: (s) => s.connections_mutual ?? 24,
+      totalFromStats: (s) => s.connections_mutual ?? 0,
     },
     followers: {
       listMode: 'social',

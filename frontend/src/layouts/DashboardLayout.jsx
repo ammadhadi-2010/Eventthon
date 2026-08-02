@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import DashboardNavSwitcher from '../modules/Dashboard/Navbar/DashboardNavSwitcher';
+import { CompanyMobileChromeProvider } from '../components/views/company/context/CompanyMobileChromeContext';
 import { CompanyWorkspaceProvider } from '../components/views/company/context/CompanyWorkspaceContext';
 import { isAdminControlPath, isAdminFullBleedPath } from '../modules/Admin/layout/adminWorkspacePaths';
 import { isAdminPreviewPath } from '../modules/Admin/layout/adminPreviewPaths';
@@ -11,14 +12,14 @@ import useScrollHideNavbar, {
 } from '../modules/Admin/hooks/useScrollHideNavbar';
 import { isCompanyWorkspacePath } from '../modules/Dashboard/Navbar/companyWorkspacePaths';
 import { readCompanyHubAccess } from '../modules/Dashboard/Navbar/useCompanyHubAccess';
+import { prefetchCompanyPortalDashboard } from '../components/views/company/services/prefetchCompanyPortalDashboard';
 import { useLocation } from 'react-router-dom';
 import Footer from '../components/Footer';
-import { fetchAlertsBundle } from '../modules/Dashboard/Alerts/services/alertsApi';
-import { fetchEmployerAlertsBundle } from '../modules/Dashboard/Alerts/services/employerAlertsApi';
 import { hasStoredSession, readStoredUserStub } from '../utils/storedUser';
 import useTelemetry from '../hooks/useTelemetry';
 import FloatingActionStack from '../components/FloatingActionStack';
 import DashboardMobileBottomNav from '../modules/Dashboard/components/mobile/DashboardMobileBottomNav';
+import MemberMobileNavDrawer from '../modules/Dashboard/components/mobile/MemberMobileNavDrawer';
 import MobileUserMenuOverlay from '../modules/Dashboard/Navbar/MobileUserMenuOverlay';
 import { DashboardShellContext } from '../modules/Dashboard/context/dashboardShellContext';
 import '../BackgroundCanvas.css';
@@ -31,40 +32,17 @@ const DashboardLayout = ({ children, userData, refreshData }) => {
   const adminHub = isAdminControlPath(location.pathname);
   const { hidden: navHidden } = useScrollHideNavbar(true);
   const companyHub = !adminHub && isCompanyWorkspacePath(location.pathname);
-  const employerWorkspace = !adminHub && readCompanyHubAccess();
-  const [notifCount, setNotifCount] = useState(0);
   const [mobileLeftDrawerOpen, setMobileLeftDrawerOpen] = useState(false);
   const [mobileUserMenuOpen, setMobileUserMenuOpen] = useState(false);
   const storedUser = useMemo(() => readStoredUserStub(), []);
   const effectiveUser = userData || storedUser;
-
-  const refreshAlertCount = useCallback(async () => {
-    if (adminHub || !effectiveUser) {
-      setNotifCount(0);
-      return;
-    }
-    try {
-      const bundle = companyHub
-        ? await fetchEmployerAlertsBundle(effectiveUser)
-        : await fetchAlertsBundle(effectiveUser);
-      setNotifCount(bundle?.stats?.unread ?? 0);
-    } catch {
-      setNotifCount(0);
-    }
-  }, [effectiveUser, companyHub, adminHub]);
+  const employerWorkspace = !adminHub && readCompanyHubAccess(effectiveUser);
 
   useEffect(() => {
-    if (adminHub || !effectiveUser) return undefined;
-    const timer = window.setTimeout(() => {
-      refreshAlertCount();
-    }, 400);
-    const onAlertsChanged = () => refreshAlertCount();
-    window.addEventListener('et:alerts-changed', onAlertsChanged);
-    return () => {
-      window.clearTimeout(timer);
-      window.removeEventListener('et:alerts-changed', onAlertsChanged);
-    };
-  }, [refreshAlertCount, adminHub, effectiveUser]);
+    if (adminHub || !employerWorkspace) return undefined;
+    prefetchCompanyPortalDashboard();
+    return undefined;
+  }, [adminHub, employerWorkspace, effectiveUser?.role, effectiveUser?.company_id, effectiveUser?.companyId]);
 
   const isAuthenticated = Boolean(effectiveUser) || hasStoredSession();
   const telemetryEnabled = isAuthenticated && !adminHub;
@@ -95,6 +73,8 @@ const DashboardLayout = ({ children, userData, refreshData }) => {
   const showAdminMobileBottomNav = adminHub && !isAdminFullBleedPath(location.pathname);
   const adminPreview = adminHub && isAdminPreviewPath(location.pathname);
   const hubMobilePad = showMobileBottomNav || showAdminMobileBottomNav;
+  const showMemberNavDrawer =
+    showMobileBottomNav && location.pathname.startsWith('/messages');
 
   const shell = (
     <DashboardShellContext.Provider value={shellContextValue}>
@@ -103,7 +83,7 @@ const DashboardLayout = ({ children, userData, refreshData }) => {
       <div className="et-glow-spot" aria-hidden />
 
       <header className={`et-top-nav${navHidden ? ' et-top-nav--scroll-hidden' : ''}`}>
-        <DashboardNavSwitcher user={effectiveUser} notifCount={notifCount} />
+        <DashboardNavSwitcher user={effectiveUser} />
       </header>
 
       <main className="center-content-scroll et-main-scroll">
@@ -116,6 +96,7 @@ const DashboardLayout = ({ children, userData, refreshData }) => {
       <FloatingActionStack userData={effectiveUser} />
       {showMobileBottomNav ? <DashboardMobileBottomNav /> : null}
       {showAdminMobileBottomNav ? <AdminMobileBottomNav /> : null}
+      {showMemberNavDrawer ? <MemberMobileNavDrawer /> : null}
 
       <MobileUserMenuOverlay
         open={mobileUserMenuOpen}
@@ -126,11 +107,16 @@ const DashboardLayout = ({ children, userData, refreshData }) => {
     </DashboardShellContext.Provider>
   );
 
-  return employerWorkspace ? (
-    <CompanyWorkspaceProvider>{adminHub ? <AdminSidebarProvider>{shell}</AdminSidebarProvider> : shell}</CompanyWorkspaceProvider>
-  ) : (
-    adminHub ? <AdminSidebarProvider>{shell}</AdminSidebarProvider> : shell
+  const withCompany = (node) => (
+    <CompanyWorkspaceProvider>
+      <CompanyMobileChromeProvider>{node}</CompanyMobileChromeProvider>
+    </CompanyWorkspaceProvider>
   );
+
+  if (employerWorkspace) {
+    return withCompany(adminHub ? <AdminSidebarProvider>{shell}</AdminSidebarProvider> : shell);
+  }
+  return adminHub ? <AdminSidebarProvider>{shell}</AdminSidebarProvider> : shell;
 };
 
 export default DashboardLayout;

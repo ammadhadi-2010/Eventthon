@@ -1,0 +1,56 @@
+/* Shared vivid card shades — all Jobs hub mobile rows */
+@media (max-width: 900px) {
+  .jobs-page .jobs-job-card--crimson,
+  .jobs-page .jh-job-row--crimson,
+  .jobs-page .jh-app-mobile-card.jh-job-row--crimson,
+  .jobs-page .ja-match-card.jh-job-row--crimson {
+    background: linear-gradient(120deg, rgba(255, 51, 102, 0.42), rgba(15, 23, 42, 0.92)) !important;
+    border-color: rgba(255, 107, 157, 0.65) !important;
+    box-shadow: 0 8px 22px rgba(255, 51, 102, 0.22) !important;
+  }
+
+  .jobs-page .jobs-job-card--electric,
+  .jobs-page .jh-job-row--electric,
+  .jobs-page .jh-app-mobile-card.jh-job-row--electric,
+  .jobs-page .ja-match-card.jh-job-row--electric {
+    background: linear-gradient(120deg, rgba(0, 212, 255, 0.38), rgba(15, 23, 42, 0.92)) !important;
+    border-color: rgba(56, 189, 248, 0.65) !important;
+    box-shadow: 0 8px 22px rgba(0, 153, 255, 0.22) !important;
+  }
+
+  .jobs-page .jobs-job-card--lime,
+  .jobs-page .jh-job-row--lime,
+  .jobs-page .jh-app-mobile-card.jh-job-row--lime,
+  .jobs-page .ja-match-card.jh-job-row--lime {
+    background: linear-gradient(120deg, rgba(132, 204, 22, 0.38), rgba(15, 23, 42, 0.92)) !important;
+    border-color: rgba(163, 230, 53, 0.62) !important;
+    box-shadow: 0 8px 22px rgba(132, 204, 22, 0.2) !important;
+  }
+
+  .jobs-page .jobs-job-card--sunset,
+  .jobs-page .jh-job-row--sunset,
+  .jobs-page .jh-app-mobile-card.jh-job-row--sunset,
+  .jobs-page .ja-match-card.jh-job-row--sunset {
+    background: linear-gradient(120deg, rgba(255, 107, 53, 0.4), rgba(15, 23, 42, 0.92)) !important;
+    border-color: rgba(251, 146, 60, 0.65) !important;
+    box-shadow: 0 8px 22px rgba(255, 107, 53, 0.22) !important;
+  }
+
+  .jobs-page .jobs-job-card--fuchsia,
+  .jobs-page .jh-job-row--fuchsia,
+  .jobs-page .jh-app-mobile-card.jh-job-row--fuchsia,
+  .jobs-page .ja-match-card.jh-job-row--fuchsia {
+    background: linear-gradient(120deg, rgba(217, 70, 239, 0.4), rgba(15, 23, 42, 0.92)) !important;
+    border-color: rgba(232, 121, 249, 0.65) !important;
+    box-shadow: 0 8px 22px rgba(217, 70, 239, 0.22) !important;
+  }
+
+  .jobs-page .jobs-job-card--gold,
+  .jobs-page .jh-job-row--gold,
+  .jobs-page .jh-app-mobile-card.jh-job-row--gold,
+  .jobs-page .ja-match-card.jh-job-row--gold {
+    background: linear-gradient(120deg, rgba(234, 179, 8, 0.4), rgba(15, 23, 42, 0.92)) !important;
+    border-color: rgba(250, 204, 21, 0.68) !important;
+    box-shadow: 0 8px 22px rgba(234, 179, 8, 0.22) !important;
+  }
+}

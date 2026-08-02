@@ -131,6 +131,16 @@
 
 .ep-basic-banner {
   min-height: 7.75rem;
+  background: #0f172a;
+}
+
+.ep-basic-banner--has-cover {
+  background: #0b1220;
+}
+
+.ep-basic-banner--has-cover img {
+  filter: none;
+  opacity: 1;
 }
 
 .ep-basic-banner__glow {

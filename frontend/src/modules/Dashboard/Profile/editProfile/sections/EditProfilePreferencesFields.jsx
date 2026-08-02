@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { FiArrowLeft, FiArrowRight, FiBell, FiEye, FiLayers } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
+import { FiArrowLeft, FiArrowRight, FiBell, FiEye, FiLayers, FiUser } from 'react-icons/fi';
 import EventThonBadge from '../../../../../components/EventThonBadge';
 import { rankCodeToBadgeProps } from '../../../../../components/badgeTierProps';
 import { getRankMeta } from '../../../../Admin/pages/UserManagement/userManagementData';
@@ -20,10 +21,10 @@ const EditProfilePreferencesFields = ({
   refreshData,
   onPreferencesSaved,
   onBack,
-  onContinue,
 }) => {
   const prefs = draft.profilePreferences || defaultPrefs();
   const [saving, setSaving] = useState(false);
+  const [prefsSaved, setPrefsSaved] = useState(() => Boolean(userData?.profile_onboarding_complete));
   const rankMeta = getRankMeta(userData?.rank || 'frontline');
   const badgeProps = rankCodeToBadgeProps(rankMeta.code, { label: rankMeta.label });
 
@@ -47,6 +48,7 @@ const EditProfilePreferencesFields = ({
         order_alerts: Boolean(p.notifyGigs),
       });
       if (typeof refreshData === 'function') await refreshData();
+      setPrefsSaved(true);
       if (typeof onPreferencesSaved === 'function') {
         onPreferencesSaved(res?.completion_pct ?? 100);
       }
@@ -80,12 +82,6 @@ const EditProfilePreferencesFields = ({
               <button type="button" className="ep-btn-back-about" onClick={() => onBack()} disabled={saving}>
                 <FiArrowLeft className="h-4 w-4" aria-hidden />
                 Previous
-              </button>
-            ) : null}
-            {typeof onContinue === 'function' ? (
-              <button type="button" className="ep-btn-save-continue" onClick={() => onContinue()} disabled={saving}>
-                Continue
-                <FiArrowRight className="h-4 w-4" aria-hidden />
               </button>
             ) : null}
           </div>
@@ -171,12 +167,23 @@ const EditProfilePreferencesFields = ({
         </label>
       </div>
 
-      <div className="ep-basic-footer flex justify-end pt-2">
+      <div className="ep-basic-footer ep-prefs-footer flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-end">
         <button type="button" className="ep-btn-save-continue" onClick={savePreferences} disabled={saving}>
-          {saving ? 'Saving…' : 'Save preferences'}
+          {saving ? 'Saving…' : prefsSaved ? 'Saved — update again' : 'Save preferences'}
           <FiArrowRight className="h-4 w-4" aria-hidden />
         </button>
+        {prefsSaved ? (
+          <Link to="/profile/view" className="ep-btn-view-profile">
+            <FiUser className="h-4 w-4" aria-hidden />
+            View full profile
+          </Link>
+        ) : null}
       </div>
+      {prefsSaved ? (
+        <p className="ep-prefs-done-hint text-center text-[12px] font-medium text-emerald-300/90 sm:text-right">
+          Preferences saved. You can open your full profile now.
+        </p>
+      ) : null}
     </div>
   );
 };

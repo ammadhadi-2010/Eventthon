@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiBell, FiMessageSquare } from 'react-icons/fi';
+import { FiMessageSquare } from 'react-icons/fi';
 import { navStyles } from './NavStyles';
 import UserMenu from './UserMenu.jsx';
 import HubUserAdminSwitch from './HubUserAdminSwitch';
@@ -11,9 +11,7 @@ export default function MemberNavbarActions({
   profileOpen,
   onToggleProfile,
   onCloseProfile,
-  notifCount,
   onChat,
-  onNotif,
   mobileInline = false,
 }) {
   return (
@@ -31,16 +29,6 @@ export default function MemberNavbarActions({
         aria-label="Open messages"
       >
         <FiMessageSquare size={18} />
-      </button>
-      <button
-        type="button"
-        className="member-navbar__icon-btn"
-        style={navStyles.rightSideIcon}
-        onClick={onNotif}
-        aria-label="Open notifications"
-      >
-        <FiBell size={18} />
-        {notifCount > 0 ? <span style={navStyles.neonBadge}>{notifCount}</span> : null}
       </button>
       <button
         type="button"

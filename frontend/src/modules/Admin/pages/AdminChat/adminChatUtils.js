@@ -1,15 +1,12 @@
-import { API_BASE_URL } from '../../../../api/axiosConfig';
+import { resolveMediaUrl } from '../../../../components/shared/utils/resolveMediaUrl';
 
 export function resolveAdminChatAvatar(imageurl, name = '') {
   const raw = String(imageurl || '').trim();
   if (!raw) {
     const letter = String(name || 'E').trim().charAt(0).toUpperCase() || 'E';
-    return `https://ui-avatars.com/api/?name=${encodeURIComponent(letter)}&background=1e293b&color=fff`;
+    return `https://ui-avatars.com/api/?name=${encodeURIComponent(letter)}&background=1e293b&color=e2e8f0&bold=true`;
   }
-  if (raw.startsWith('http://') || raw.startsWith('https://')) return raw;
-  const base = String(API_BASE_URL || '').replace(/\/+$/, '');
-  const path = raw.startsWith('/') ? raw : `/${raw}`;
-  return `${base}${path}`;
+  return resolveMediaUrl(raw) || raw;
 }
 
 export function formatChatTime(value) {

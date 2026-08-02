@@ -5,6 +5,8 @@ export const EMPTY_JOBS_FILTERS = {
   category: '',
   experienceLevel: '',
   jobType: '',
+  listingKind: '',
+  company: '',
   location: '',
   workMode: '',
   salaryMin: null,

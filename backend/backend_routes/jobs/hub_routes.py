@@ -26,12 +26,13 @@ from .hub_saved import (
     unsave_job,
 )
 from .hub_listings import public_listings_query
-from .hub_publish import publish_job_from_alert
+from .hub_publish import publish_job_listing
 from .hub_search import search_hub_jobs
 from .hub_sidebar import compute_market_insights, user_application_feed
 from backend_routes.company_portal.verification_gate import ensure_company_posting_unlocked
 from .hub_shared import (
     CreateJobAlertPayload,
+    CreateJobListingPayload,
     UpdateApplicationFlowPayload,
     UpdateJobAlertPayload,
     alert_to_card,
@@ -39,7 +40,6 @@ from .hub_shared import (
     application_flow_steps,
     normalize_status,
 )
-from backend_routes.public.public_marketplace_defaults import JOB_BOARD_STATS
 
 router = APIRouter(prefix="/jobs/hub", tags=["Jobs Hub"])
 
@@ -59,6 +59,8 @@ async def hub_sidebar_analytics(user_id: str = Query("", max_length=120)):
 
 @router.get("/metrics")
 async def hub_metrics(user_id: str = Query(..., min_length=2, max_length=120)):
+    from .hub_search_stats import build_search_stats
+
     uid = _uid(user_id)
     active_jobs = await jobs_collection.count_documents(public_listings_query())
     app_total = await job_applications_collection.count_documents(
@@ -66,14 +68,36 @@ async def hub_metrics(user_id: str = Query(..., min_length=2, max_length=120)):
     )
     alerts_total = await job_alerts_collection.count_documents({"user_id": uid})
     saved_total = await saved_count(uid)
+    stats = await build_search_stats()
     return {
         "status": "success",
-        "stats": JOB_BOARD_STATS,
+        "stats": stats,
         "activeJobsCount": active_jobs,
         "menuCounts": {
             "applications": app_total,
             "saved": saved_total,
             "alerts": alerts_total,
+        },
+    }
+
+
+@router.get("/platform-settings")
+async def hub_platform_settings():
+    """Public Jobs hub flags controlled from Admin Job / Opportunity Settings."""
+    from backend_routes.admin.job_hub_settings import (
+        get_job_hub_settings,
+        get_opportunity_hub_settings,
+        parse_opportunity_types,
+    )
+
+    jobs = await get_job_hub_settings()
+    opportunities = await get_opportunity_hub_settings()
+    return {
+        "status": "success",
+        "jobs": jobs,
+        "opportunities": {
+            **opportunities,
+            "opportunityTypeList": parse_opportunity_types(opportunities.get("opportunityTypes") or ""),
         },
     }
 
@@ -126,13 +150,26 @@ async def list_alerts(user_id: str = Query(..., min_length=2, max_length=120)):
     return {"status": "success", "data": rows}
 
 
+@router.get("/alert-matches")
+async def list_alert_matches(user_id: str = Query(..., min_length=2, max_length=120)):
+    """Listings that matched this user's job/opportunity alerts (Apply / Join)."""
+    from .hub_alert_match import list_alert_matches_for_user
+
+    uid = _uid(user_id)
+    data = await list_alert_matches_for_user(uid)
+    return {"status": "success", "data": data}
+
+
 @router.post("/alerts")
 async def create_alert(payload: CreateJobAlertPayload):
+    """Seeker alert only — does not publish a public job listing."""
     uid = _uid(payload.user_id)
-    await ensure_company_posting_unlocked(uid, feature="jobs")
     title = payload.job_title.strip()
     if not title:
         raise HTTPException(status_code=400, detail="Job title required")
+    kind = str(payload.alert_kind or "job").strip().lower()
+    if kind not in {"job", "opportunity"}:
+        kind = "job"
     doc = {
         "user_id": uid,
         "title": title,
@@ -148,14 +185,58 @@ async def create_alert(payload: CreateJobAlertPayload):
         "keywords": payload.keywords or [],
         "email_enabled": payload.email_notifications,
         "notification_email": payload.notification_email,
-        "logo_class": "google",
+        "alert_kind": kind,
+        "logo_class": "grid" if kind == "opportunity" else "google",
         "created_at": datetime.utcnow().isoformat(),
     }
     result = await job_alerts_collection.insert_one(doc)
     doc["_id"] = result.inserted_id
-    alert_id = str(result.inserted_id)
-    await publish_job_from_alert(payload, alert_id)
     return {"status": "success", "data": alert_to_card(doc)}
+
+
+@router.post("/listings")
+async def create_job_listing(payload: CreateJobListingPayload):
+    """Post a company hiring job or a community opportunity (pending until approved)."""
+    uid = _uid(payload.user_id)
+    title = payload.job_title.strip()
+    if not title:
+        raise HTTPException(status_code=400, detail="Job title required")
+
+    kind = str(payload.listing_kind or "opportunity").strip().lower()
+    if kind not in {"company", "opportunity"}:
+        raise HTTPException(status_code=400, detail="listing_kind must be company or opportunity")
+
+    company_id = None
+    if kind == "company":
+        company = await ensure_company_posting_unlocked(
+            uid, feature="jobs", require_company=True
+        )
+        company_id = str(company.get("_id") or company.get("id") or "").strip()
+        if not company_id:
+            raise HTTPException(status_code=403, detail="Company account required to post hiring jobs.")
+    else:
+        # Opportunities are for members; pending company owners stay unblocked.
+        if len(uid) < 2:
+            raise HTTPException(status_code=400, detail="Sign in required.")
+
+    job_id = await publish_job_listing(
+        payload,
+        listing_kind=kind,
+        company_id=company_id,
+        posted_by=uid,
+    )
+    doc = await jobs_collection.find_one({"_id": job_id})
+    from .hub_listings import job_doc_to_listing_card
+
+    return {
+        "status": "success",
+        "data": job_doc_to_listing_card(doc) if doc else {"id": job_id, "jobId": job_id},
+        "message": (
+            "Job submitted for review."
+            if kind == "company"
+            else "Opportunity submitted for review."
+        ),
+    }
 
 
 @router.get("/search")
@@ -163,7 +244,9 @@ async def hub_search(
     q: str = Query("", max_length=120),
     category: str = Query("", max_length=80),
     experience_level: str = Query("", max_length=60),
-    job_type: str = Query("", max_length=40),
+    job_type: str = Query("", max_length=48),
+    listing_kind: str = Query("", max_length=32),
+    company: str = Query("", max_length=120),
     location: str = Query("", max_length=80),
     work_mode: str = Query("", max_length=40),
     salary_min: Optional[int] = Query(None, ge=0, le=500),
@@ -175,11 +258,21 @@ async def hub_search(
         category=category,
         experience_level=experience_level,
         job_type=job_type,
+        listing_kind=listing_kind,
+        company=company,
         location=location,
         work_mode=work_mode,
         salary_min=salary_min,
         salary_max=salary_max,
     )
+    return {"status": "success", "data": data}
+
+
+@router.get("/top-companies")
+async def hub_top_companies(limit: int = Query(24, ge=1, le=40)):
+    from .hub_top_companies import list_top_companies
+
+    data = await list_top_companies(limit=limit)
     return {"status": "success", "data": data}
 
 

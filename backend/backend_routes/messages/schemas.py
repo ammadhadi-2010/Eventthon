@@ -23,6 +23,7 @@ class ChatSendPayload(BaseModel):
     attachments: list[dict] = Field(default_factory=list)
     reply_to_id: str = Field("", max_length=80)
     message_type: str = Field("text", max_length=24)
+    candidate_user_id: str = Field("", max_length=120)
 
 
 class UnifiedContactDeliveryPayload(BaseModel):

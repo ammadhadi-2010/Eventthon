@@ -15,14 +15,26 @@ router = APIRouter(tags=["User Profile Overview"])
 
 
 @router.get("/overview-data/{identifier}")
-async def get_profile_overview(identifier: str, user: dict = Depends(verify_profile_owner)):
+async def get_profile_overview(
+    identifier: str,
+    user: dict = Depends(verify_profile_owner),
+    count_view: bool = Query(False, description="Increment profile_views (for public visitors)"),
+):
     uid = str(user["_id"])
-    await user_collection.update_one(
-        {"_id": user["_id"]},
-        {"$inc": {"profile_stats.profile_views": 1}},
-        upsert=False,
-    )
+    # Owner dashboard loads should not inflate own view count by default
+    if count_view:
+        await user_collection.update_one(
+            {"_id": user["_id"]},
+            {"$inc": {"profile_stats.profile_views": 1}},
+            upsert=False,
+        )
+        user = await user_collection.find_one({"_id": user["_id"]}) or user
     stats = merge_profile_stats(user)
+    # Align Top Commanders count with network list (all other members, ranked)
+    if int(stats.get("top_commanders") or 0) <= 0:
+        stats["top_commanders"] = int(
+            await user_collection.count_documents({"_id": {"$ne": user["_id"]}})
+        )
     activity = await fetch_user_activity(uid)
     suggested = await fetch_suggested_connects(user.get("_id"), 5)
     gamification = await build_gamification_snapshot(user)

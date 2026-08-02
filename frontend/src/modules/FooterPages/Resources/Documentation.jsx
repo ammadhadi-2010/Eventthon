@@ -1,75 +1,74 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import FooterPageShell from '../components/FooterPageShell';
-import PageHero from '../components/PageHero';
-import CodeSnippetBox from '../components/CodeSnippetBox';
-import { DOC_NAV, DOC_SNIPPETS } from '../data/documentationData';
+import DocsSideNav from '../components/DocsSideNav';
+import DocsRightRail from '../components/DocsRightRail';
+import DocsQuickStart, { DocsTopicArticle } from '../components/DocsQuickStart';
+import useResourcesFooterContent from '../hooks/useResourcesFooterContent';
+import { DOC_NAV_GROUPS, DOC_PAGES, DOC_TOC } from '../data/documentationData';
+import { buildDocsCrumbs } from '../utils/footerBreadcrumbs';
+import '../styles/documentation.css';
 
 export default function Documentation() {
-  const [section, setSection] = useState('start');
+  const { data, loading } = useResourcesFooterContent('Documentation');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const topicFromUrl = searchParams.get('topic') || 'getting-started';
+  const [topicId, setTopicId] = useState(topicFromUrl);
   const [query, setQuery] = useState('');
-  const snippet = DOC_SNIPPETS[section];
-  const sectionIndex = Math.max(0, DOC_NAV.findIndex((n) => n.id === section));
+  const [tocId, setTocId] = useState(DOC_TOC[0]?.id || 'what');
 
-  const onSectionStep = useCallback((delta) => {
-    const next = Math.min(DOC_NAV.length - 1, Math.max(0, sectionIndex + delta));
-    setSection(DOC_NAV[next].id);
-  }, [sectionIndex]);
+  useEffect(() => {
+    setTopicId(topicFromUrl);
+  }, [topicFromUrl]);
+
+  const pages = data?.pages || DOC_PAGES;
+  const page = pages[topicId] || pages['getting-started'] || DOC_PAGES['getting-started'];
+  const isQuickStart = page?.kind === 'quickstart';
+  const crumbs = useMemo(() => buildDocsCrumbs(topicId, page), [topicId, page]);
+
+  const onSelect = useCallback(
+    (id) => {
+      setTopicId(id);
+      setTocId(DOC_TOC[0]?.id || 'what');
+      setSearchParams(id === 'getting-started' ? { topic: id } : { topic: id });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    },
+    [setSearchParams],
+  );
+
+  const onTocClick = useCallback((id) => {
+    setTocId(id);
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, []);
+
+  useEffect(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return;
+    const hit = DOC_NAV_GROUPS.flatMap((g) => g.items).find(
+      (item) => !item.to && item.label.toLowerCase().includes(q),
+    );
+    if (hit) onSelect(hit.id);
+  }, [query, onSelect]);
 
   return (
-    <FooterPageShell variant="resources">
-      <PageHero
-        title="Documentation"
-        subtitle="Technical guides for integrating with EventThon APIs and SDKs."
-        sectionIds={DOC_NAV.map((n) => n.id)}
-        activeSectionIndex={sectionIndex}
-        onSectionStep={onSectionStep}
-      />
-      <div className="fp-hub-row fp-inner-split">
-        <nav className="fp-card fp-inner-nav">
-          <p className="fp-tag" style={{ marginBottom: 10 }}>On this page</p>
-          <ul className="fp-nav-list">
-            {DOC_NAV.map((item) => (
-              <li key={item.id}>
-                <button
-                  type="button"
-                  className={section === item.id ? 'is-active' : ''}
-                  style={{
-                    width: '100%',
-                    textAlign: 'left',
-                    border: 0,
-                    background: section === item.id ? 'rgba(99,102,241,0.18)' : 'transparent',
-                    color: section === item.id ? '#e9d5ff' : '#cbd5e1',
-                    padding: '10px 12px',
-                    borderRadius: 10,
-                    cursor: 'pointer',
-                    fontSize: 13,
-                    fontWeight: 600,
-                  }}
-                  onClick={() => setSection(item.id)}
-                >
-                  {item.label}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <div className="fp-inner-main">
-          <div className="fp-card">
-            <input
-              className="fp-search"
-              type="search"
-              placeholder="Search docs..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              aria-label="Search documentation"
-            />
-            <h2 className="fp-section-title">{DOC_NAV.find((n) => n.id === section)?.label}</h2>
-            <p className="fp-prose">
-              {query ? `Showing results for "${query}" in ${section} documentation.` : 'Reference material and copy-ready samples for your integration.'}
-            </p>
-            <CodeSnippetBox code={snippet.code} title={snippet.title} />
-          </div>
-        </div>
+    <FooterPageShell
+      variant="resources"
+      breadcrumbs={crumbs}
+      leftSlot={
+        <DocsSideNav
+          activeId={topicId}
+          onSelect={onSelect}
+          query={query}
+          onQueryChange={setQuery}
+        />
+      }
+      rightSlot={
+        <DocsRightRail activeTocId={tocId} onTocClick={onTocClick} showToc={isQuickStart} />
+      }
+    >
+      <div className="docs-page">
+        {loading ? <p className="docs-article__meta">Loading documentation…</p> : null}
+        {isQuickStart ? <DocsQuickStart page={page} /> : <DocsTopicArticle page={page} />}
       </div>
     </FooterPageShell>
   );

@@ -1,4 +1,5 @@
 import { API_BASE_URL } from '../../../api/axiosConfig';
+import { getUserDisplayName } from '../utils/dashboardMedia';
 
 const BIO_FALLBACK = 'Experienced Full Stack Developer';
 
@@ -36,14 +37,7 @@ export function getDisplayBio(user) {
 }
 
 export function getDisplayName(user) {
-  const candidates = [user?.name, user?.full_name, user?.username];
-  for (const raw of candidates) {
-    const plain = stripHtmlToPlainText(raw);
-    if (plain && !plain.includes('ep-live-preview')) return plain;
-  }
-  const email = user?.email || localStorage.getItem('userEmail') || '';
-  if (email && email.includes('@')) return email.split('@')[0];
-  return 'EventThon User';
+  return getUserDisplayName(user);
 }
 
 export function getAvatarUrl(user) {

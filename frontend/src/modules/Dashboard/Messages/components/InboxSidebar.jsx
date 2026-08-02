@@ -1,6 +1,8 @@
-import React from 'react';
-import { FiEdit2, FiRefreshCw, FiSearch } from 'react-icons/fi';
+import React, { useState } from 'react';
+import { FiEdit2, FiFilter, FiRefreshCw, FiSearch } from 'react-icons/fi';
 import { MESSAGE_FILTERS } from '../data/messageFilters';
+import CompanyInboxFilters from './companyOps/CompanyInboxFilters';
+import './companyOps/company-ops.css';
 import ConversationListItem from './ConversationListItem';
 
 const InboxSidebar = ({
@@ -18,16 +20,38 @@ const InboxSidebar = ({
   onNewMessage,
   searchInputRef,
   hideInlineSearch = false,
+  companyMode = false,
+  squadMode = false,
+  companyFilters = null,
+  onCompanyFiltersChange,
 }) => {
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const powerMode = companyMode || squadMode;
   const totalCount = allRows.length;
   const unreadCount = allRows.filter((row) => String(row.status || '').toLowerCase() === 'new').length;
   const mentionCount = allRows.filter((row) => String(row.body || '').includes('@')).length;
+  const advancedActive = Boolean(
+    companyFilters?.skills ||
+      companyFilters?.date ||
+      companyFilters?.stage ||
+      (companyFilters?.labels || []).length,
+  );
 
   return (
-    <aside className="msgx-sidebar">
+    <aside className={`msgx-sidebar${powerMode ? ' msgx-sidebar--company' : ''}`}>
       <div className="msgx-sidebar-head">
-        <h3>Messages</h3>
+        <h3>{squadMode ? 'Squad Members' : 'Messages'}</h3>
         <div className="msgx-sidebar-actions">
+          {companyMode ? (
+            <button
+              type="button"
+              title="Advanced filters"
+              className={filtersOpen || advancedActive ? 'is-on' : ''}
+              onClick={() => setFiltersOpen((v) => !v)}
+            >
+              <FiFilter size={13} />
+            </button>
+          ) : null}
           <button type="button" title="Refresh" onClick={onRefresh} disabled={refreshing}>
             <FiRefreshCw size={13} />
           </button>
@@ -43,7 +67,13 @@ const InboxSidebar = ({
             ref={searchInputRef}
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
-            placeholder="Search conversations..."
+            placeholder={
+              squadMode
+                ? 'Search squad members…'
+                : companyMode
+                  ? 'Search candidates, jobs…'
+                  : 'Search conversations...'
+            }
           />
         </div>
       ) : null}
@@ -61,6 +91,10 @@ const InboxSidebar = ({
         ))}
       </div>
 
+      {companyMode && companyFilters && filtersOpen ? (
+        <CompanyInboxFilters filters={companyFilters} onChange={onCompanyFiltersChange} />
+      ) : null}
+
       <div className="msgx-list">
         {rows.length === 0 ? (
           <p className="msgx-empty">No conversations found.</p>
@@ -72,6 +106,7 @@ const InboxSidebar = ({
               active={selectedId === row._id}
               onSelect={onSelect}
               onMenuAction={onMenuAction}
+              companyMode={companyMode || squadMode}
             />
           ))
         )}

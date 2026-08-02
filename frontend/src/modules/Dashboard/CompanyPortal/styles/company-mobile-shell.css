@@ -10,6 +10,11 @@
     display: none !important;
   }
 
+  .et-app-shell:has(.cp-mobile-shell) main.et-main-scroll,
+  .et-app-shell:has(.cp-mobile-shell) main.center-content-scroll.et-main-scroll {
+    padding-top: 0 !important;
+  }
+
   .et-app-shell:has(.cp-mobile-shell) .et-main-inner {
     max-width: none !important;
     width: 100% !important;

@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { resolveCommentAvatar } from './commentIdentity';
 
 const SIZES = { sm: 32, md: 40, lg: 48 };
@@ -15,6 +15,9 @@ const CommentAvatar = memo(function CommentAvatar({
   const px = typeof size === 'number' ? size : SIZES[size] || SIZES.md;
   const [failed, setFailed] = useState(false);
   const src = resolveCommentAvatar(person, currentUser);
+  useEffect(() => {
+    setFailed(false);
+  }, [src]);
   const name = person?.author_name || person?.name || 'User';
   const initial = name.charAt(0).toUpperCase() || 'U';
 

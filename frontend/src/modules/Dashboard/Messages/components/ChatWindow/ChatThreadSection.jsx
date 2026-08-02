@@ -11,6 +11,8 @@ const ChatThreadSection = ({
   onShowNotice,
   onOpenMessageMenu,
   onToggleLike,
+  richStatus = false,
+  peerTyping = false,
 }) => (
   <div className="msgx-chat-thread">
     <div className="msgx-chat-banner">
@@ -62,11 +64,13 @@ const ChatThreadSection = ({
               toAbsoluteUrl={toAbsoluteUrl}
               onOpenMessageMenu={onOpenMessageMenu}
               onToggleLike={onToggleLike}
+              richStatus={richStatus}
             />
           </React.Fragment>
         );
       });
     })()}
+    {peerTyping ? <div className="msgx-typing-row">Typing…</div> : null}
   </div>
 );
 

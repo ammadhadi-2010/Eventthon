@@ -16,7 +16,7 @@ export async function runSavedJobToggle(job, { savedJobIds, savedJobs, metrics, 
 
   const uid = resolveJobsUserId();
   if (!uid || uid.length < 2) {
-    console.warn('Sign in with your mobile or email to save jobs.');
+    console.warn('Sign in with your mobile or email to save jobs or opportunities.');
     return null;
   }
 

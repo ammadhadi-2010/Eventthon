@@ -1,3 +1,32 @@
 node_modules/
 backend/.mongo-data/
 backend/static/uploads/
+
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+!**/.env.example
+backend/.env
+frontend/.env
+frontend/.env.development
+frontend/.env.local
+frontend/.env.production.local
+
+# Python / Node junk
+__pycache__/
+*.py[cod]
+*.pyc
+.Python
+venv/
+.venv/
+*.egg-info/
+.pytest_cache/
+
+# Build artifacts
+frontend/build/
+frontend/build.zip
+dist/
+*.log
+.DS_Store
+Thumbs.db

@@ -1,18 +1,12 @@
 import React from 'react';
-import { ReviewCard, StarRating, toReviewCardProps } from '../../../../components/reviews';
 import { resolvePreviewMedia } from '../editProfile/EditProfileLivePreview/livePreviewUtils';
-import {
-  DEFAULT_ABOUT,
-  FEATURE_BULLETS,
-  MOCK_REVIEWS,
-  STAR_BARS,
-} from './viewFullProfileConstants';
 import { bioPlain, perfRows } from './viewFullProfileUtils';
 
-export default function ViewFullProfileCenterColumn({ draft, featuredProjects, projectCount }) {
-  const aboutText = bioPlain(draft.bio) || DEFAULT_ABOUT;
+export default function ViewFullProfileCenterColumn({ draft, featuredProjects, projectCount, stats = {} }) {
+  const bio = bioPlain(draft.bio);
+  const aboutText = bio || 'Add your bio in Edit profile to tell visitors about your work.';
   const skillTags = (draft.skillEntries || []).map((s) => s.name).filter(Boolean).slice(0, 12);
-  const perf = perfRows(projectCount);
+  const perf = perfRows(projectCount, stats);
   const experiences = Array.isArray(draft.experiences)
     ? draft.experiences.filter((x) => String(x.role || '').trim() || String(x.company || '').trim())
     : [];
@@ -22,35 +16,36 @@ export default function ViewFullProfileCenterColumn({ draft, featuredProjects, p
       <section className="vfps-card" id="vfps-section-about">
         <h2 className="vfps-card-title">About me</h2>
         <p className="vfps-muted">{aboutText}</p>
-        <div className="vfps-benefits">
-          {FEATURE_BULLETS.map((t) => (
-            <span key={t} className="vfps-benefit-pill">
-              {t}
-            </span>
-          ))}
-        </div>
       </section>
 
       <section className="vfps-card" id="vfps-section-skills">
         <h2 className="vfps-card-title">Top skills</h2>
-        <div className="vfps-skill-cloud vfps-skill-cloud--flush">
-          {(skillTags.length ? skillTags : ['React', 'Node.js', 'TypeScript', 'UI/UX']).map((t) => (
-            <span key={t} className="vfps-tag">
-              {t}
-            </span>
-          ))}
-        </div>
-        <h2 className="vfps-card-title" style={{ marginTop: '0.5rem' }}>
-          Performance
-        </h2>
-        <div className="vfps-perf">
-          {perf.map((p) => (
-            <div key={p.label} className="vfps-perf-item">
-              <div className="vfps-perf-val">{p.value}</div>
-              <div className="vfps-perf-lab">{p.label}</div>
+        {skillTags.length ? (
+          <div className="vfps-skill-cloud vfps-skill-cloud--flush">
+            {skillTags.map((t) => (
+              <span key={t} className="vfps-tag">
+                {t}
+              </span>
+            ))}
+          </div>
+        ) : (
+          <p className="vfps-muted">Add skills in Edit profile.</p>
+        )}
+        {perf.length ? (
+          <>
+            <h2 className="vfps-card-title" style={{ marginTop: '0.5rem' }}>
+              Performance
+            </h2>
+            <div className="vfps-perf">
+              {perf.map((p) => (
+                <div key={p.label} className="vfps-perf-item">
+                  <div className="vfps-perf-val">{p.value}</div>
+                  <div className="vfps-perf-lab">{p.label}</div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        ) : null}
       </section>
 
       {experiences.length > 0 ? (
@@ -96,98 +91,57 @@ export default function ViewFullProfileCenterColumn({ draft, featuredProjects, p
         </section>
       ) : null}
 
-      <section className="vfps-card" id="vfps-section-projects">
-        <h2 className="vfps-card-title">Featured projects</h2>
-        <div className="vfps-projects">
-          {featuredProjects.map((p) => {
-            const isPh = String(p.id || '').startsWith('ph-');
-            const img = p.imageUrl && !isPh ? resolvePreviewMedia(p.imageUrl) : '';
-            return (
-              <article key={p.id} className="vfps-project">
-                <span className="vfps-project-badge">Featured</span>
-                <div className="vfps-project-thumb">
-                  {img ? (
-                    <img src={img} alt="" />
-                  ) : (
-                    <div style={{ width: '100%', height: '100%', minHeight: 120 }} />
-                  )}
-                </div>
-                <div className="vfps-project-body">
-                  <h3 className="vfps-project-title">{p.title}</h3>
-                  <p className="vfps-project-desc">{p.desc || p.description || ''}</p>
-                  {p.tech?.length ? (
-                    <div className="vfps-project-tech">
-                      {p.tech.slice(0, 4).map((t) => (
-                        <span key={t}>{t}</span>
-                      ))}
-                    </div>
-                  ) : null}
-                  <div className="vfps-project-meta">
-                    {p.metric || (p.keyResults && p.keyResults[0]) || 'High impact delivery'}
+      {featuredProjects.length > 0 ? (
+        <section className="vfps-card" id="vfps-section-projects">
+          <h2 className="vfps-card-title">Featured projects</h2>
+          <div className="vfps-projects">
+            {featuredProjects.map((p) => {
+              const img = p.imageUrl ? resolvePreviewMedia(p.imageUrl) : '';
+              return (
+                <article key={p.id} className="vfps-project">
+                  <span className="vfps-project-badge">Featured</span>
+                  <div className="vfps-project-thumb">
+                    {img ? (
+                      <img src={img} alt="" />
+                    ) : (
+                      <div style={{ width: '100%', height: '100%', minHeight: 120 }} />
+                    )}
                   </div>
-                  <a
-                    className="vfps-project-link"
-                    href={p.linkUrl || '#'}
-                    onClick={(e) => !p.linkUrl && e.preventDefault()}
-                  >
-                    View project →
-                  </a>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </section>
+                  <div className="vfps-project-body">
+                    <h3 className="vfps-project-title">{p.title}</h3>
+                    <p className="vfps-project-desc">{p.desc || p.description || ''}</p>
+                    {p.tech?.length ? (
+                      <div className="vfps-project-tech">
+                        {p.tech.slice(0, 4).map((t) => (
+                          <span key={t}>{t}</span>
+                        ))}
+                      </div>
+                    ) : null}
+                    {(p.metric || p.keyResults?.[0]) ? (
+                      <div className="vfps-project-meta">
+                        {p.metric || p.keyResults[0]}
+                      </div>
+                    ) : null}
+                    <a
+                      className="vfps-project-link"
+                      href={p.linkUrl || '#'}
+                      onClick={(e) => !p.linkUrl && e.preventDefault()}
+                    >
+                      View project →
+                    </a>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
 
       <section className="vfps-card vfps-card--reviews" id="vfps-section-reviews">
         <div className="vfps-reviews-cardhead">
           <h2 className="vfps-reviews-cardtitle">Reviews &amp; Ratings</h2>
-          <a href="#reviews" className="vfps-reviews-viewall" onClick={(e) => e.preventDefault()}>
-            View All Reviews →
-          </a>
         </div>
-        <div className="vfps-reviews-body">
-          <div className="vfps-reviews-summary">
-            <div className="vfps-reviews-score">
-              <div className="vfps-reviews-scoreline">
-                <span className="vfps-reviews-num">4.9</span>
-                <StarRating rating={4.9} className="vfps-reviews-stars vfps-reviews-stars--hero" iconSize={16} />
-              </div>
-              <p className="vfps-reviews-count">(128 reviews)</p>
-            </div>
-            <div className="vfps-reviews-dist" aria-label="Rating distribution">
-              {STAR_BARS.map(([label, pct]) => (
-                <div key={label} className="vfps-dist-row">
-                  <span className="vfps-dist-label">{label}</span>
-                  <div className="vfps-dist-track">
-                    <div className="vfps-dist-fill" style={{ width: `${pct}%` }} />
-                  </div>
-                  <span className="vfps-dist-pct">{pct}%</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="vfps-review-list">
-            {MOCK_REVIEWS.map((r) => (
-              <ReviewCard
-                key={r.id}
-                variant="list"
-                className="vfps-review-item"
-                showReply
-                {...toReviewCardProps({
-                  name: r.name,
-                  projectTag: r.projectTag,
-                  rating: r.rating,
-                  text: r.text,
-                  timeAgo: r.timeAgo,
-                })}
-              />
-            ))}
-          </div>
-        </div>
-        <button type="button" className="vfps-load">
-          Load More Reviews
-        </button>
+        <p className="vfps-muted">No reviews yet.</p>
       </section>
     </div>
   );

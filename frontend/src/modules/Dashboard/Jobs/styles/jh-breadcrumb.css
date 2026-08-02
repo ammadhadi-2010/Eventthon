@@ -1,0 +1,86 @@
+/* Jobs hub breadcrumbs — Home → Jobs → current (desktop + mobile) */
+.jh-breadcrumb {
+  width: 100%;
+  margin: 0 0 12px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.jh-breadcrumb__list {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.jh-breadcrumb__list::-webkit-scrollbar {
+  display: none;
+}
+
+.jh-breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.jh-breadcrumb__sep {
+  color: #475569;
+  flex-shrink: 0;
+}
+
+.jh-breadcrumb__link {
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.jh-breadcrumb__link:hover,
+.jh-breadcrumb__link:focus-visible {
+  color: #e2e8f0;
+  outline: none;
+}
+
+.jh-breadcrumb__current {
+  color: #f1f5f9;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.jh-breadcrumb--bar {
+  margin: 0;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 23, 42, 0.96);
+}
+
+.jh-breadcrumb--compact {
+  margin: 0 0 10px;
+}
+
+.jobs-layout__center > .jh-breadcrumb {
+  padding: 4px 2px 0;
+}
+
+@media (max-width: 900px) {
+  .jobs-layout__center > .jh-breadcrumb {
+    position: sticky;
+    top: 0;
+    z-index: 45;
+    margin: 0 0 8px;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(9, 13, 22, 0.96);
+  }
+
+  .jh-subview-shell > .jh-breadcrumb--bar + .jh-mobile-subview-body {
+    padding-top: 0;
+  }
+}

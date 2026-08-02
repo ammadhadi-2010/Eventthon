@@ -79,6 +79,13 @@ def is_squad_member(squad: dict, user: dict | None) -> bool:
     return status in ("accepted", "", "active")
 
 
+def is_pending_squad_invite(squad: dict, user: dict | None) -> bool:
+    member = find_member(squad, user)
+    if not member:
+        return False
+    return str(member.get("invite_status") or "").lower() == "pending"
+
+
 def squad_is_private(squad: dict) -> bool:
     settings = normalize_squad_settings(squad.get("settings"))
     return not bool(settings.get("publicListing", True))
@@ -90,9 +97,14 @@ def assert_hub_member(squad: dict, user: dict | None) -> None:
 
 
 def assert_hub_read_access(squad: dict, user: dict | None) -> None:
-    if squad.get("status") == "archived" and not is_squad_member(squad, user):
+    if squad.get("status") == "archived" and not (
+        is_squad_member(squad, user) or is_pending_squad_invite(squad, user)
+    ):
         raise HTTPException(status_code=404, detail="Squad not found")
-    if squad_is_private(squad) and not is_squad_member(squad, user):
+    # Pending invitees may preview private squads before accept/decline
+    if squad_is_private(squad) and not (
+        is_squad_member(squad, user) or is_pending_squad_invite(squad, user)
+    ):
         raise HTTPException(status_code=403, detail="Private squad — members only")
 
 

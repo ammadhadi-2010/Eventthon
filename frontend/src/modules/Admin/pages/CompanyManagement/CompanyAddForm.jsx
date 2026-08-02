@@ -22,7 +22,7 @@ export default function CompanyAddForm({ onSubmit, saving, sectionRef, firstInpu
         size: form.size.trim(),
         location: form.location.trim(),
         imageurl: form.imageurl.trim(),
-        status: 'pending',
+        status: 'active',
       });
       setForm(EMPTY);
     } catch (err) {

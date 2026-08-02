@@ -1,0 +1,189 @@
+/* Company hub — Recent Applications (shade rows + status badges) */
+
+.cp-recent-apps .cp-apps-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.cp-apps-list__row {
+  --app-accent: #67e8f9;
+  --app-glow: rgba(45, 212, 191, 0.28);
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px 16px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--app-accent) 42%, transparent);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--app-accent) 22%, transparent),
+    rgba(12, 18, 36, 0.9) 55%,
+    rgba(8, 12, 24, 0.95)
+  );
+  box-shadow:
+    0 10px 28px color-mix(in srgb, var(--app-accent) 16%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+
+.cp-apps-list__row:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--app-accent) 70%, transparent);
+  box-shadow:
+    0 14px 34px color-mix(in srgb, var(--app-accent) 28%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.cp-apps-list__avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid color-mix(in srgb, var(--app-accent) 55%, transparent);
+  box-shadow: 0 0 14px var(--app-glow);
+  background: #0b1220;
+}
+
+.cp-apps-list__main {
+  min-width: 0;
+}
+
+.cp-apps-list__main strong,
+.cp-apps-list__main span,
+.cp-apps-list__main em {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cp-apps-list__main strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: #f8fafc;
+  line-height: 1.25;
+}
+
+.cp-apps-list__main span {
+  margin-top: 3px;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.cp-apps-list__main em {
+  margin-top: 3px;
+  font-size: 11px;
+  font-style: normal;
+  color: #94a3b8;
+}
+
+.cp-apps-list__side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.cp-apps-list__time {
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+.cp-apps-list__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  border: 1px solid transparent;
+}
+
+.cp-apps-list__badge--new {
+  color: #86efac;
+  background: rgba(34, 197, 94, 0.16);
+  border-color: rgba(74, 222, 128, 0.35);
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.2);
+}
+
+.cp-apps-list__badge--reviewed {
+  color: #93c5fd;
+  background: rgba(59, 130, 246, 0.16);
+  border-color: rgba(96, 165, 250, 0.35);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
+}
+
+.cp-apps-list__badge--shortlisted {
+  color: #fdba74;
+  background: rgba(249, 115, 22, 0.16);
+  border-color: rgba(251, 146, 60, 0.38);
+  box-shadow: 0 0 12px rgba(249, 115, 22, 0.2);
+}
+
+.cp-apps-list__badge--interview {
+  color: #d8b4fe;
+  background: rgba(168, 85, 247, 0.16);
+  border-color: rgba(192, 132, 252, 0.38);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.22);
+}
+
+.cp-apps-list__badge--rejected {
+  color: #fda4af;
+  background: rgba(244, 63, 94, 0.14);
+  border-color: rgba(251, 113, 133, 0.35);
+}
+
+.cp-apps-list__row--mint {
+  --app-accent: #6ee7b7;
+  --app-glow: rgba(52, 211, 153, 0.35);
+}
+
+.cp-apps-list__row--aurora {
+  --app-accent: #5eead4;
+  --app-glow: rgba(45, 212, 191, 0.34);
+}
+
+.cp-apps-list__row--cobalt {
+  --app-accent: #60a5fa;
+  --app-glow: rgba(59, 130, 246, 0.36);
+}
+
+.cp-apps-list__row--solar {
+  --app-accent: #fbbf24;
+  --app-glow: rgba(251, 191, 36, 0.34);
+}
+
+.cp-apps-list__row--plasma {
+  --app-accent: #c084fc;
+  --app-glow: rgba(168, 85, 247, 0.34);
+}
+
+.cp-apps-list__row--coral {
+  --app-accent: #fb7185;
+  --app-glow: rgba(251, 113, 133, 0.34);
+}
+
+@media (max-width: 640px) {
+  .cp-apps-list__row {
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .cp-apps-list__side {
+    grid-column: 2;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+}

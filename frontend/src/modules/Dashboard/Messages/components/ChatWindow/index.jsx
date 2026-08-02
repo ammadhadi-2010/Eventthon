@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EmojiPicker from '../../../components/Global/EmojiPicker';
+import CompanyAiPanel from '../companyCollab/CompanyAiPanel';
+import '../companyCollab/company-collab.css';
 import ChatComposer from './ChatComposer';
 import ChatHeader from './ChatHeader';
+import SmartConversationHeader from './smartHeader/SmartConversationHeader';
 import ChatThreadSection from './ChatThreadSection';
 import useChatWindowState from './useChatWindowState';
+import useCompanyChatCollab from './useCompanyChatCollab';
 
 const ChatWindow = ({
   selectedMessage,
@@ -19,8 +23,13 @@ const ChatWindow = ({
   onFetchConversationPreference,
   sending,
   onBack,
+  onOpenWorkspace,
+  companyMode = false,
+  squadMode = false,
 }) => {
   const navigate = useNavigate();
+  const [aiOpen, setAiOpen] = useState(false);
+  const richMode = companyMode || squadMode;
   const state = useChatWindowState({
     selectedMessage,
     allMessages,
@@ -35,6 +44,11 @@ const ChatWindow = ({
     sending,
     navigate,
   });
+  const collab = useCompanyChatCollab(selectedMessage, companyMode && !squadMode);
+
+  useEffect(() => {
+    setAiOpen(false);
+  }, [selectedMessage?._id]);
 
   if (!selectedMessage) {
     return (
@@ -44,18 +58,56 @@ const ChatWindow = ({
     );
   }
 
+  const headerProps = {
+    selectedMessage,
+    headerMenuOpen: state.headerMenuOpen,
+    headerMenuRef: state.headerMenuRef,
+    onOpenAudioCall: () => state.setCallModalType('audio'),
+    onOpenVideoCall: () => state.setCallModalType('video'),
+    onToggleHeaderMenu: () => state.setHeaderMenuOpen((prev) => !prev),
+    onHeaderMenuAction: state.handleHeaderMenuAction,
+    onBack,
+    onOpenWorkspace,
+  };
+
+  const insertDraftText = (text) => {
+    const chunk = String(text || '').trim();
+    if (!chunk) return;
+    state.setDraft((prev) => {
+      const base = String(prev || '');
+      if (!base.trim()) return chunk;
+      const needsSpace = !/\s$/.test(base);
+      return `${base}${needsSpace ? ' ' : ''}${chunk}`;
+    });
+  };
+
   return (
-    <section className="msgx-chat">
-      <ChatHeader
-        selectedMessage={selectedMessage}
-        headerMenuOpen={state.headerMenuOpen}
-        headerMenuRef={state.headerMenuRef}
-        onOpenAudioCall={() => state.setCallModalType('audio')}
-        onOpenVideoCall={() => state.setCallModalType('video')}
-        onToggleHeaderMenu={() => state.setHeaderMenuOpen((prev) => !prev)}
-        onHeaderMenuAction={state.handleHeaderMenuAction}
-        onBack={onBack}
-      />
+    <section className={`msgx-chat${richMode ? ' msgx-chat--company' : ''}`}>
+      {companyMode && !squadMode ? (
+        <SmartConversationHeader
+          {...headerProps}
+          onScheduleInterview={() => state.setCallModalType('interview')}
+          assignment={collab.assignment}
+          isTyping={Boolean(String(state.draft || '').trim())}
+          onAssignmentChange={collab.setAssignment}
+          onInsertMention={insertDraftText}
+          aiOpen={aiOpen}
+          onToggleAi={() => setAiOpen((v) => !v)}
+        />
+      ) : (
+        <ChatHeader {...headerProps} />
+      )}
+
+      {companyMode && !squadMode ? (
+        <CompanyAiPanel
+          open={aiOpen}
+          selectedMessage={selectedMessage}
+          thread={state.thread}
+          profile={collab.profile}
+          draft={state.draft}
+          onInsertText={insertDraftText}
+        />
+      ) : null}
 
       <ChatThreadSection
         orderInfo={state.orderInfo}
@@ -66,6 +118,8 @@ const ChatWindow = ({
         onShowNotice={state.showNotice}
         onOpenMessageMenu={state.openMessageMenuAt}
         onToggleLike={state.toggleLike}
+        richStatus={richMode}
+        peerTyping={richMode && Boolean(String(state.draft || '').trim())}
       />
 
       <ChatComposer
@@ -74,6 +128,7 @@ const ChatWindow = ({
         fileInputRef={state.fileInputRef}
         imageInputRef={state.imageInputRef}
         onPickFile={state.handlePickFile}
+        onDropFiles={state.handleDropFiles}
         pendingAttachments={state.pendingAttachments}
         onRemovePendingAttachment={(idx) =>
           state.setPendingAttachments((prev) => prev.filter((_, rowIdx) => rowIdx !== idx))
@@ -83,19 +138,60 @@ const ChatWindow = ({
         onSend={state.handleSend}
         sending={sending}
         isDraftConversation={state.isDraftConversation}
+        companyMode={richMode}
+        squadMode={squadMode}
+        toAbsoluteUrl={state.toAbsoluteUrl}
+        onOpenEmoji={state.handleOpenComposerEmoji}
+        onInsertCode={state.handleInsertCode}
+        onToggleRecording={state.toggleRecording}
+        isRecording={state.isRecording}
+        recordingSecs={state.recordingSecs}
+        typingVisible={false}
+        onPickGif={(url, label) => {
+          state.setPendingAttachments((prev) => [
+            ...prev,
+            { name: `${label || 'gif'}.gif`, url, imageurl: url, type: 'image', kind: 'gif' },
+          ]);
+          state.showNotice('GIF attached.');
+        }}
       />
 
       {state.chatNotice ? <div className="msgx-chat-notice">{state.chatNotice}</div> : null}
       {state.callModalType ? (
         <div className="msgx-call-backdrop" onClick={() => state.setCallModalType('')}>
           <div className="msgx-call-modal" onClick={(event) => event.stopPropagation()}>
-            <h4>{state.callModalType === 'audio' ? 'Start Voice Call' : 'Start Video Call'}</h4>
-            <p>Direct telecom calling is not built in here. Standard chat products usually use browser-based WebRTC calling.</p>
-            <div className="msgx-call-actions">
-              <button type="button" onClick={() => state.startBrowserCall(state.callModalType)}>Open Browser Call</button>
-              <button type="button" onClick={() => state.copyCallLink(state.callModalType)}>Copy Call Link</button>
-              <button type="button" onClick={() => state.setCallModalType('')}>Cancel</button>
-            </div>
+            {state.callModalType === 'interview' ? (
+              <>
+                <h4>Schedule Interview</h4>
+                <p>
+                  Propose an interview slot with{' '}
+                  <strong>{selectedMessage.from_user_name || selectedMessage.from_user_id || 'the candidate'}</strong>.
+                  Confirm the time in chat to keep the hiring thread audit-ready.
+                </p>
+                <div className="msgx-call-actions">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      state.showNotice('Interview request drafted — send timing details in chat to confirm.');
+                      state.setCallModalType('');
+                    }}
+                  >
+                    Draft in chat
+                  </button>
+                  <button type="button" onClick={() => state.setCallModalType('')}>Cancel</button>
+                </div>
+              </>
+            ) : (
+              <>
+                <h4>{state.callModalType === 'audio' ? 'Start Voice Call' : 'Start Video Call'}</h4>
+                <p>Direct telecom calling is not built in here. Standard chat products usually use browser-based WebRTC calling.</p>
+                <div className="msgx-call-actions">
+                  <button type="button" onClick={() => state.startBrowserCall(state.callModalType)}>Open Browser Call</button>
+                  <button type="button" onClick={() => state.copyCallLink(state.callModalType)}>Copy Call Link</button>
+                  <button type="button" onClick={() => state.setCallModalType('')}>Cancel</button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       ) : null}

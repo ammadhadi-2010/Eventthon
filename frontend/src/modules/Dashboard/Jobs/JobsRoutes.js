@@ -22,7 +22,9 @@ const JobsRoutes = () => (
     <Routes>
       <Route index element={<JobsPage defaultSection="browse" />} />
       <Route path="showrooms" element={<JobsShowroomPanelsLayoutPage />} />
-      <Route path="alerts/new" element={<CreateJobAlertPage />} />
+      <Route path="alerts/new" element={<CreateJobAlertPage mode="alert" />} />
+      <Route path="alerts/opportunity/new" element={<CreateJobAlertPage mode="opportunityAlert" />} />
+      <Route path="opportunities/new" element={<CreateJobAlertPage mode="opportunity" />} />
       {MENU_SECTIONS.map((section) => (
         <Route key={section} path={section} element={<JobsPage defaultSection={section} />} />
       ))}

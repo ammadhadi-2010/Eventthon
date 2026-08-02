@@ -1,0 +1,75 @@
+/* Projects hub breadcrumbs — Home → Projects → current */
+.ph-breadcrumb {
+  width: 100%;
+  margin: 0 0 12px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.ph-breadcrumb__list {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.ph-breadcrumb__list::-webkit-scrollbar {
+  display: none;
+}
+
+.ph-breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.ph-breadcrumb__sep {
+  color: #475569;
+  flex-shrink: 0;
+}
+
+.ph-breadcrumb__link {
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ph-breadcrumb__link:hover,
+.ph-breadcrumb__link:focus-visible {
+  color: #e2e8f0;
+  outline: none;
+}
+
+.ph-breadcrumb__current {
+  color: #f1f5f9;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ph-breadcrumb--compact {
+  margin: 0 0 10px;
+}
+
+.ph-layout__center > .ph-breadcrumb {
+  padding: 4px 2px 0;
+}
+
+@media (max-width: 1023px) {
+  .ph-layout__center > .ph-breadcrumb {
+    position: sticky;
+    top: 0;
+    z-index: 45;
+    margin: 0 0 8px;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(9, 13, 22, 0.96);
+  }
+}

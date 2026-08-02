@@ -1,41 +1,43 @@
 .cp-messages-page__head {
-  margin-bottom: 12px;
+  margin-bottom: 0;
 }
 
-.cp-messages-page__title-row {
+.cp-messages-page__head--compact {
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0 8px;
+  margin: 0;
 }
 
-.cp-messages-page__title-copy {
-  min-width: 0;
-}
-
-.cp-messages-page__head h1 {
-  margin: 0 0 4px;
-  font-size: 20px;
-  font-weight: 800;
-  color: #f8fafc;
-}
-
-.cp-messages-page__head p {
-  margin: 0 0 10px;
-  font-size: 13px;
-  color: #94a3b8;
+.cp-messages-page__back {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #e2e8f0;
+  cursor: pointer;
 }
 
 .cp-messages-page__channels {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
 }
 
 .cp-messages-page__tab {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
+  gap: 6px;
+  padding: 5px 10px;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.04);
@@ -76,11 +78,55 @@
   border-radius: 0;
   border-left: none;
   border-right: none;
-  padding: 8px 0 0;
+  padding: 0;
 }
 
+/* Keep list | chat | workspace on company messages */
 .cp-messages-page .msgx-main-grid {
-  min-height: calc(100vh - 200px);
+  grid-template-columns: minmax(260px, 300px) minmax(0, 1fr) minmax(270px, 310px);
+  gap: 10px;
+  min-height: calc(100vh - 140px);
+  height: calc(100vh - 140px);
+}
+
+.cp-messages-page .msgx-main-grid > .msgx-sidebar,
+.cp-messages-page .msgx-main-grid > .msgx-chat,
+.cp-messages-page .msgx-main-grid > .msgx-details-side {
+  min-height: 0;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.cp-messages-page .msgx-sidebar--company {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cp-messages-page .msgx-sidebar--company .msgx-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+  overflow: auto;
+}
+
+.cp-messages-page .msgx-main-grid > .msgx-chat {
+  min-height: 0;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cp-messages-page .chs-side {
+  height: 100%;
+  max-height: 100%;
+  overflow: auto;
+}
+
+@media (max-width: 1260px) {
+  .cp-messages-page .msgx-main-grid {
+    grid-template-columns: minmax(230px, 260px) minmax(0, 1fr) minmax(240px, 270px);
+  }
 }
 
 .cp-notifications-page {

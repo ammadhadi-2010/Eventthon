@@ -42,6 +42,21 @@ class CreateJobAlertPayload(BaseModel):
     email_notifications: bool = True
     notification_email: Optional[str] = None
     company_id: Optional[str] = Field(None, max_length=120)
+    alert_kind: str = Field("job", max_length=32)
+
+
+class CreateJobListingPayload(CreateJobAlertPayload):
+    """Public job post — company hiring or community opportunity (not a seeker alert)."""
+    listing_kind: str = Field("opportunity", max_length=32)
+    email_notifications: bool = False
+    opportunity_type: Optional[str] = Field(None, max_length=48)
+    budget_model: Optional[str] = Field(None, max_length=40)
+    budget_amount: Optional[str] = Field(None, max_length=40)
+    equity_share: Optional[str] = Field(None, max_length=40)
+    duration: Optional[str] = Field(None, max_length=40)
+    deadline: Optional[str] = Field(None, max_length=40)
+    people_needed: Optional[int] = Field(1, ge=1, le=50)
+    attachment_names: Optional[List[str]] = None
 
 
 class UpdateJobAlertPayload(BaseModel):
@@ -80,15 +95,19 @@ def alert_to_card(doc: dict) -> dict:
     smin = int(doc.get("salary_min") or 60)
     smax = int(doc.get("salary_max") or 100)
     exp = doc.get("experience_level") or "1-3 Years"
+    kind = str(doc.get("alert_kind") or "job").strip().lower()
+    if kind not in {"job", "opportunity"}:
+        kind = "job"
     return {
         "id": str(doc.get("_id") or doc.get("id") or ""),
-        "title": doc.get("title") or "Job Alert",
+        "title": doc.get("title") or ("Opportunity Alert" if kind == "opportunity" else "Job Alert"),
         "salary": f"${smin}k - ${smax}k",
         "workMode": doc.get("work_mode") or "Remote",
         "experience": exp,
         "logoText": (doc.get("title") or "J")[:1].upper(),
         "logoClass": doc.get("logo_class") or "google",
         "emailEnabled": bool(doc.get("email_enabled", True)),
+        "alertKind": kind,
     }
 
 
@@ -103,6 +122,8 @@ def application_to_card(doc: dict) -> dict:
         "status": normalize_status(doc.get("status")),
         "logoText": doc.get("logo_text") or "E",
         "logoClass": doc.get("logo_class") or "google",
+        "imageurl": str(doc.get("imageurl") or doc.get("company_imageurl") or "").strip(),
+        "listingKind": str(doc.get("listing_kind") or "").strip(),
         "flowSteps": application_flow_steps(doc.get("status")),
     }
 

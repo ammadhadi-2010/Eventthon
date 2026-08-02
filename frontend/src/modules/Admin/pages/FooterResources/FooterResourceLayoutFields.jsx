@@ -1,4 +1,11 @@
 import React from 'react';
+import DocumentationAdminFields from './DocumentationAdminFields';
+import GuidesAdminFields from './GuidesAdminFields';
+import TutorialsAdminFields from './TutorialsAdminFields';
+import BlogAdminFields from './BlogAdminFields';
+import CaseStudiesAdminFields from './CaseStudiesAdminFields';
+import HelpCenterAdminFields from './HelpCenterAdminFields';
+import CommunityAdminFields from './CommunityAdminFields';
 import FooterMediaSubmitButton from './FooterMediaSubmitButton';
 import {
   FooterField,
@@ -13,6 +20,49 @@ export default function FooterResourceLayoutFields({ formData, onChange, onMedia
 
   return (
     <>
+      {flags.showDocumentation ? (
+        <DocumentationAdminFields formData={formData} onChange={onChange} />
+      ) : null}
+
+      {flags.showGuides ? (
+        <GuidesAdminFields formData={formData} onChange={onChange} />
+      ) : null}
+
+      {flags.showTutorials ? (
+        <TutorialsAdminFields
+          formData={formData}
+          onChange={onChange}
+          onMediaUploaded={onMediaUploaded}
+          saving={saving}
+        />
+      ) : null}
+
+      {flags.showBlog ? (
+        <BlogAdminFields
+          formData={formData}
+          onChange={onChange}
+          onMediaUploaded={onMediaUploaded}
+          saving={saving}
+        />
+      ) : null}
+
+      {flags.showCaseStudies ? (
+        <CaseStudiesAdminFields
+          formData={formData}
+          onChange={onChange}
+          onMediaUploaded={onMediaUploaded}
+          saving={saving}
+        />
+      ) : null}
+
+      {flags.showHelpCenter ? (
+        <HelpCenterAdminFields formData={formData} onChange={onChange} />
+      ) : null}
+
+      {flags.showCommunity ? (
+        <CommunityAdminFields formData={formData} onChange={onChange} />
+      ) : null}
+
       {flags.showContent ? (
         <FooterField id="footer-resource-content" label="Content" hint="Rich text / HTML template blocks.">
           <FooterTextArea

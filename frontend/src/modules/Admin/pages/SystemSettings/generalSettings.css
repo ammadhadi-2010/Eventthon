@@ -96,6 +96,11 @@
   background: rgba(99, 102, 241, 0.12);
 }
 
+.gs-edit-btn--spacer {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .gs-toggle {
   position: relative;
   width: 44px;

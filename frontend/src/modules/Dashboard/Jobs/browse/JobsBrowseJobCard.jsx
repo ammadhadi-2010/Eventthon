@@ -1,30 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FiMapPin } from 'react-icons/fi';
 import JobBookmarkButton from '../components/JobBookmarkButton';
+import JobCompanyLogo from '../components/JobCompanyLogo';
 import { getJobCardShade } from '../utils/jobCardShades';
-
-function CompanyLogo({ job, shade }) {
-  const [broken, setBroken] = useState(false);
-  const imageurl = String(job.imageurl || '').trim();
-  const showImage = Boolean(imageurl) && !broken;
-
-  if (showImage) {
-    return (
-      <img
-        className="gigs-company-logo gigs-company-logo--image jobs-job-logo"
-        src={imageurl}
-        alt=""
-        onError={() => setBroken(true)}
-      />
-    );
-  }
-
-  return (
-    <div className={`gigs-company-logo jobs-job-logo jobs-job-logo--${shade}`}>
-      {job.logoText}
-    </div>
-  );
-}
 
 export default function JobsBrowseJobCard({
   job,
@@ -52,10 +30,22 @@ export default function JobsBrowseJobCard({
       tabIndex={0}
       aria-label={`View details for ${job.role} at ${job.company}`}
     >
-      <CompanyLogo job={job} shade={shade} />
+      <JobCompanyLogo
+        imageurl={job.imageurl}
+        company={job.company}
+        logoText={job.logoText}
+        logoClass={job.logoClass}
+        listingKind={job.listingKind}
+        shade={shade}
+      />
       <div className="gigs-job-main">
         <h4>{job.role}</h4>
-        <p className="gigs-job-company">{job.company}</p>
+        <p className="gigs-job-company">
+          {job.company}
+          {job.listingKind === 'opportunity' ? (
+            <span className="jobs-job-kind-badge">Opportunity</span>
+          ) : null}
+        </p>
         <div className="gigs-job-tags">
           {(job.tags || []).map((tag) => (
             <span key={tag}>{tag}</span>
@@ -81,7 +71,9 @@ export default function JobsBrowseJobCard({
               onApply?.(job);
             }}
           >
-            <span className="jh-apply-btn__text">Apply Now</span>
+            <span className="jh-apply-btn__text">
+              {job.listingKind === 'opportunity' ? 'Join' : 'Apply Now'}
+            </span>
           </button>
           <span onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
             <JobBookmarkButton job={job} saved={saved} onToggle={onToggleSave} />

@@ -8,6 +8,7 @@ from bson import ObjectId
 from pydantic import BaseModel, Field
 
 from database import job_saved_collection, jobs_collection
+from .hub_listings import job_doc_to_listing_card
 
 USER_FIELD = "user_identifier"
 
@@ -48,31 +49,15 @@ async def _find_job_doc(job_id: str) -> Optional[dict]:
 
 
 def _job_doc_to_card(doc: dict, saved_on: str, save_id: str) -> dict:
-    tags = [str(t).strip() for t in (doc.get("skills_tags") or doc.get("tags") or []) if str(t).strip()][:8]
-    company = doc.get("company_name") or "Company"
-    title = doc.get("title") or "Role"
-    salary = doc.get("salary_range") or doc.get("salary") or "Competitive"
-    remote = bool(doc.get("remote", True))
-    location = doc.get("location") or ("Remote" if remote else "On-site")
-    logo = (company[:1] or "J").upper()
-    return {
-        "id": str(doc.get("_id") or save_id),
-        "saveId": save_id,
-        "jobId": str(doc.get("_id") or ""),
-        "role": title,
-        "company": company,
-        "salary": salary,
-        "type": doc.get("employment_type") or "Full-time",
-        "location": location,
-        "savedOn": saved_on,
-        "logoText": logo,
-        "logoClass": (doc.get("logo_class") or company.split()[0].lower()[:12]),
-        "tags": tags,
-    }
+    card = job_doc_to_listing_card(doc)
+    card["saveId"] = save_id
+    card["savedOn"] = saved_on
+    return card
 
 
 def _snapshot_to_card(snap: dict, job_id: str, saved_on: str, save_id: str) -> dict:
     company = snap.get("company") or "Company"
+    kind = str(snap.get("listingKind") or "company")
     return {
         "id": job_id,
         "saveId": save_id,
@@ -80,11 +65,13 @@ def _snapshot_to_card(snap: dict, job_id: str, saved_on: str, save_id: str) -> d
         "role": snap.get("role") or "Role",
         "company": company,
         "salary": snap.get("salary") or "Competitive",
-        "type": snap.get("type") or "Full-time",
+        "type": snap.get("type") or ("Opportunity" if kind == "opportunity" else "Full-time"),
         "location": snap.get("location") or "Remote",
         "savedOn": saved_on,
         "logoText": snap.get("logoText") or (company[:1] or "J").upper(),
         "logoClass": snap.get("logoClass") or "google",
+        "imageurl": str(snap.get("imageurl") or "").strip(),
+        "listingKind": kind,
         "tags": list(snap.get("tags") or [])[:8],
     }
 
@@ -129,7 +116,7 @@ async def _insert_saved_row(uid: str, job_id: str, snap: Optional[dict]) -> dict
             "id": job_id,
             "saveId": save_id,
             "jobId": job_id,
-            "role": "Saved Job",
+            "role": "Saved listing",
             "company": "—",
             "salary": "—",
             "type": "—",
@@ -137,6 +124,8 @@ async def _insert_saved_row(uid: str, job_id: str, snap: Optional[dict]) -> dict
             "savedOn": saved_on,
             "logoText": "J",
             "logoClass": "google",
+            "imageurl": "",
+            "listingKind": "company",
             "tags": [],
         }
     count = await saved_count(uid)
@@ -151,11 +140,13 @@ async def save_job(payload: SaveJobPayload) -> dict:
         count = await saved_count(uid)
         saved_on = _format_saved_on(existing.get("timestamp") or "")
         snap = existing.get("job_snapshot")
-        if isinstance(snap, dict):
+        job_doc = await _find_job_doc(job_id)
+        if job_doc:
+            card = _job_doc_to_card(job_doc, saved_on, str(existing["_id"]))
+        elif isinstance(snap, dict):
             card = _snapshot_to_card(snap, job_id, saved_on, str(existing["_id"]))
         else:
-            job_doc = await _find_job_doc(job_id)
-            card = _job_doc_to_card(job_doc, saved_on, str(existing["_id"])) if job_doc else None
+            card = None
         return {"saved": True, "data": card, "menuCounts": {"saved": count}}
 
     snap = payload.job_snapshot if isinstance(payload.job_snapshot, dict) else None

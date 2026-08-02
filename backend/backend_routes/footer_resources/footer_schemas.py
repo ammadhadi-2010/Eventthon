@@ -20,6 +20,7 @@ FooterCategory = Literal[
     "Contact Us",
     "Privacy Policy",
     "Terms of Service",
+    "Footer Brand",
 ]
 
 FOOTER_CATEGORIES: tuple[str, ...] = (
@@ -36,12 +37,22 @@ FOOTER_CATEGORIES: tuple[str, ...] = (
     "Contact Us",
     "Privacy Policy",
     "Terms of Service",
+    "Footer Brand",
 )
 
 FOOTER_RESOURCE_CATEGORIES = FOOTER_CATEGORIES[:7]
 FOOTER_COMPANY_CATEGORIES = FOOTER_CATEGORIES[7:]
 COMPANY_CATEGORIES = frozenset(FOOTER_COMPANY_CATEGORIES)
-SIDEBAR_SORT_CATEGORIES = frozenset({"Documentation", "Guides"})
+SIDEBAR_SORT_CATEGORIES = frozenset({
+    "Documentation",
+    "Guides",
+    "Tutorials",
+    "Blog",
+    "Case Studies",
+    "Help Center",
+    "Pricing",
+    "Careers",
+})
 
 
 def slug_from_title(title: str) -> str:
@@ -57,7 +68,7 @@ def footer_block_for(category: str) -> str:
 class FooterResourceBase(BaseModel):
     category: FooterCategory
     title: str = Field(..., min_length=2, max_length=160)
-    content: str = Field("", max_length=12000)
+    content: str = Field("", max_length=20000)
     imageurl: str = Field("", max_length=500)
     videourl: str = Field("", max_length=500)
     excerpt: str = Field("", max_length=2000)
@@ -71,9 +82,15 @@ class FooterResourceBase(BaseModel):
     pricingFeatures: str = Field("", max_length=4000)
     contactEmail: str = Field("", max_length=200)
     contactPhone: str = Field("", max_length=40)
+    contactLocation: str = Field("", max_length=1000)
+    contactHours: str = Field("", max_length=1000)
     jobTitle: str = Field("", max_length=160)
     jobLocation: str = Field("", max_length=120)
-    policyVersion: str = Field("", max_length=40)
+    policyVersion: str = Field("", max_length=80)
+    aboutJourney: str = Field("[]", max_length=12000)
+    aboutTeam: str = Field("[]", max_length=12000)
+    aboutFeedJourney: str = Field("1", max_length=1)
+    aboutFeedTeam: str = Field("1", max_length=1)
     slug: str = Field("", max_length=140)
 
     @field_validator("title")
@@ -92,7 +109,7 @@ class FooterResourceCreate(FooterResourceBase):
 class FooterResourceUpdate(BaseModel):
     category: FooterCategory | None = None
     title: str | None = Field(None, min_length=2, max_length=160)
-    content: str | None = Field(None, max_length=12000)
+    content: str | None = Field(None, max_length=20000)
     imageurl: str | None = Field(None, max_length=500)
     videourl: str | None = Field(None, max_length=500)
     excerpt: str | None = Field(None, max_length=2000)
@@ -106,7 +123,13 @@ class FooterResourceUpdate(BaseModel):
     pricingFeatures: str | None = Field(None, max_length=4000)
     contactEmail: str | None = Field(None, max_length=200)
     contactPhone: str | None = Field(None, max_length=40)
+    contactLocation: str | None = Field(None, max_length=1000)
+    contactHours: str | None = Field(None, max_length=1000)
     jobTitle: str | None = Field(None, max_length=160)
     jobLocation: str | None = Field(None, max_length=120)
-    policyVersion: str | None = Field(None, max_length=40)
+    policyVersion: str | None = Field(None, max_length=80)
+    aboutJourney: str | None = Field(None, max_length=12000)
+    aboutTeam: str | None = Field(None, max_length=12000)
+    aboutFeedJourney: str | None = Field(None, max_length=1)
+    aboutFeedTeam: str | None = Field(None, max_length=1)
     slug: str | None = Field(None, max_length=140)

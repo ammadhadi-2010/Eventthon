@@ -3,16 +3,16 @@ import { Navigate, useParams, useLocation } from 'react-router-dom';
 import ConnectionsNavSidebar from './ConnectionsNavSidebar';
 import UserListCard from './UserListCard';
 import ViewAllListFooter from './ViewAllListFooter';
-import HubMobileTopBar from '../../components/mobile/HubMobileTopBar';
-import { HUB_MOBILE_SEARCH } from '../../components/mobile/hubMobileSearchPresets';
 import ViewAllPageChrome from './ViewAllPageChrome';
 import { fetchConnectionsList } from './fetchConnectionsList';
 import { getListPageMeta, isValidListKey } from './connectionsListConfig';
 import { postProfileSocialAction } from '../services/profileOverviewService';
+import { subscribeHubDrawerToggle } from '../../Navbar/hubDrawerBus';
 import './connections-page.css';
 import './connections-page-mobile-chrome.css';
 import './connections-page-mobile-drawer.css';
 
+/** Connections / View All lists — uses global MemberNavbar (no HubMobileTopBar). */
 export default function ConnectionsPage({ userData }) {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [lastViewAllScroll, setLastViewAllScroll] = useState(0);
@@ -24,6 +24,7 @@ export default function ConnectionsPage({ userData }) {
 
   const [items, setItems] = useState([]);
   const [stats, setStats] = useState({});
+  const [networkTotal, setNetworkTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [query, setQuery] = useState('');
@@ -88,8 +89,11 @@ export default function ConnectionsPage({ userData }) {
     return fetchConnectionsList({ identifier, listKey }).then((res) => {
       setItems(res.items);
       setStats(res.stats || {});
+      setNetworkTotal(Number(res.totalAll) || res.items.length || 0);
     });
   }, [identifier, listKey]);
+
+  useEffect(() => subscribeHubDrawerToggle('profile', openLeftDrawer), [openLeftDrawer]);
 
   const handleSocialAction = useCallback(
     async (targetId, action = 'connect') => {
@@ -125,11 +129,13 @@ export default function ConnectionsPage({ userData }) {
         if (cancelled) return;
         setItems(res.items);
         setStats(res.stats || {});
+        setNetworkTotal(Number(res.totalAll) || res.items.length || 0);
       })
       .catch((e) => {
         if (cancelled) return;
         setError(e?.message || 'Failed to load list');
         setItems([]);
+        setNetworkTotal(0);
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
@@ -197,10 +203,19 @@ export default function ConnectionsPage({ userData }) {
     return <Navigate to="/profile/connections/commanders" replace />;
   }
 
-  const pageTitle = meta.title(stats);
   const hasActiveFilter = Boolean(query.trim()) || onlineOnly;
   const statsTotal = Number(meta.totalFromStats(stats));
-  const totalAll = hasActiveFilter ? filtered.length : statsTotal || filtered.length;
+  const totalAll = hasActiveFilter
+    ? filtered.length
+    : networkTotal || statsTotal || filtered.length;
+  const pageTitle = meta.title({
+    ...stats,
+    top_commanders: listKey === 'commanders' ? totalAll : stats.top_commanders,
+    connections_mutual: listKey === 'mutual' ? totalAll : stats.connections_mutual,
+    followers: listKey === 'followers' ? totalAll : stats.followers,
+    following: listKey === 'following' ? totalAll : stats.following,
+    connections: listKey === 'connections' ? totalAll : stats.connections,
+  });
   const footerNoun = listKey === 'mutual' ? 'connections' : 'results';
   const from = filtered.length ? (safePage - 1) * PAGE_SIZE + 1 : 0;
   const to = filtered.length ? (safePage - 1) * PAGE_SIZE + pageItems.length : 0;
@@ -212,17 +227,6 @@ export default function ConnectionsPage({ userData }) {
 
   return (
     <div className={`pnet-root pnet-mobile-shell${leftDrawerOpen ? ' pnet-root--nav-open' : ''}`}>
-      <HubMobileTopBar
-        isVisible={isHeaderVisible}
-        searchQuery={query}
-        onSearchQueryChange={setQuery}
-        searchPlaceholder={meta.searchPlaceholder || HUB_MOBILE_SEARCH.connections.searchPlaceholder}
-        searchAriaLabel={meta.searchPlaceholder || HUB_MOBILE_SEARCH.connections.searchAriaLabel}
-        headerAriaLabel={HUB_MOBILE_SEARCH.connections.headerAriaLabel}
-        onAvatarClick={openLeftDrawer}
-        avatarAriaLabel="Open profile navigation"
-      />
-
       {leftDrawerOpen ? (
         <button
           type="button"

@@ -3,9 +3,15 @@ from __future__ import annotations
 
 from database import jobs_collection
 
-from backend_routes.public.public_marketplace_defaults import JOB_BOARD_STATS
 from .hub_listings import public_listings_query
 from .hub_sidebar import _format_count, compute_market_insights
+
+STAT_META = (
+    ("active", "Active Jobs", "violet"),
+    ("companies", "Companies Hiring", "green"),
+    ("remote", "Remote Jobs", "blue"),
+    ("salary", "Avg. Salary", "amber"),
+)
 
 
 async def _distinct_company_count(query: dict) -> int:
@@ -28,7 +34,7 @@ async def build_search_stats() -> list[dict]:
     }
     remote_jobs = await jobs_collection.count_documents(remote_query)
     market = await compute_market_insights()
-    avg_salary = market.get("averageSalary") or "$85K"
+    avg_salary = market.get("averageSalary") or "$0"
 
     live_values = {
         "active": _format_count(active),
@@ -36,16 +42,13 @@ async def build_search_stats() -> list[dict]:
         "remote": _format_count(remote_jobs),
         "salary": avg_salary if str(avg_salary).startswith("$") else f"${avg_salary}",
     }
-    tones = {"active": "violet", "companies": "green", "remote": "blue", "salary": "amber"}
-    stats = []
-    for row in JOB_BOARD_STATS:
-        row_id = str(row.get("id") or "")
-        stats.append(
-            {
-                **row,
-                "value": live_values.get(row_id, row.get("value")),
-                "change": row.get("delta") or row.get("change") or "",
-                "tone": tones.get(row_id, "violet"),
-            }
-        )
-    return stats
+    return [
+        {
+            "id": row_id,
+            "label": label,
+            "value": live_values.get(row_id, "0"),
+            "change": "Live from listings",
+            "tone": tone,
+        }
+        for row_id, label, tone in STAT_META
+    ]

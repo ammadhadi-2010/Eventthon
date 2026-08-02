@@ -1,12 +1,122 @@
-/* Company Settings — previews, brighter labels, mobile stack */
+/* Company Settings — form layout + previews */
+
+.cp-settings-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.cp-settings-page__hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(ellipse 80% 120% at 0% 0%, rgba(124, 58, 237, 0.35), transparent 55%),
+    radial-gradient(ellipse 70% 100% at 100% 0%, rgba(6, 182, 212, 0.28), transparent 50%),
+    #0d1321;
+  padding: 22px 24px;
+}
+
+.cp-settings-page__hero h1 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.cp-settings-page__hero p {
+  margin: 8px 0 0;
+  max-width: 42rem;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #94a3b8;
+}
+
+.cp-settings-page__panel {
+  padding: 22px 24px;
+}
+
+.cp-settings-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.cp-settings-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 12px;
+  color: #e2e8f0;
+}
 
 .cp-settings-form label > span {
   color: #f1f5f9;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.cp-settings-form input,
+.cp-settings-form select,
+.cp-settings-form textarea {
+  min-height: 42px;
+  border-radius: 11px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(15, 23, 42, 0.72);
+  color: #e2e8f0;
+  padding: 10px 12px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cp-settings-form input:focus,
+.cp-settings-form select:focus,
+.cp-settings-form textarea:focus {
+  outline: none;
+  border-color: rgba(129, 140, 248, 0.55);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18);
+}
+
+.cp-settings-form select {
+  color-scheme: dark;
+}
+
+.cp-settings-form__full {
+  grid-column: 1 / -1;
+}
+
+.cp-settings-block {
+  grid-column: 1 / -1;
+  margin: 4px 0 0;
+  padding: 16px;
+  border: 1px solid rgba(52, 211, 153, 0.22);
+  border-radius: 14px;
+  background: linear-gradient(160deg, rgba(16, 185, 129, 0.08), rgba(15, 23, 42, 0.35));
+}
+
+.cp-settings-block legend {
+  padding: 0 8px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #a7f3d0;
 }
 
 .cp-settings-block__hint {
-  color: #cbd5e1 !important;
+  margin: 0 0 12px;
+  font-size: 12px;
+  color: #cbd5e1;
+  line-height: 1.45;
+}
+
+.cp-settings-proof {
+  margin: 0;
+  font-size: 12px;
+  color: #a5b4fc;
+}
+
+.cp-settings-proof a {
+  color: #93c5fd;
 }
 
 .cp-settings-form input::placeholder,
@@ -17,12 +127,14 @@
 .cp-settings-cover-preview {
   position: relative;
   width: 100%;
-  height: 8rem;
+  height: 9rem;
   margin-bottom: 10px;
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
-  border: 1px solid #1e293b;
-  background: #111622;
+  border: 1px solid rgba(129, 140, 248, 0.28);
+  background:
+    radial-gradient(ellipse at 20% 40%, rgba(99, 102, 241, 0.35), transparent 55%),
+    #111622;
 }
 
 .cp-settings-cover-preview img {
@@ -36,27 +148,28 @@
   position: absolute;
   top: 8px;
   left: 8px;
-  padding: 2px 8px;
-  border-radius: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
   font-size: 10px;
-  font-weight: 700;
-  color: #a5b4fc;
+  font-weight: 800;
+  color: #e0e7ff;
   background: rgba(15, 23, 42, 0.82);
-  border: 1px solid rgba(51, 65, 85, 0.5);
+  border: 1px solid rgba(129, 140, 248, 0.35);
 }
 
 .cp-settings-logo-preview {
-  width: 5rem;
-  height: 5rem;
+  width: 5.5rem;
+  height: 5.5rem;
   margin-bottom: 10px;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
-  border: 1px solid #1e293b;
-  background: #111622;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
 }
 
 .cp-settings-logo-preview img {
@@ -69,6 +182,10 @@
 
 .cp-settings-form__media {
   grid-column: 1 / -1;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px dashed rgba(148, 163, 184, 0.28);
+  background: rgba(15, 23, 42, 0.35);
 }
 
 .cp-settings-form input[type='file'] {
@@ -76,6 +193,28 @@
   max-width: 100%;
   font-size: 12px;
   color: #e2e8f0;
+}
+
+.cp-settings-save {
+  min-height: 44px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(90deg, #7c3aed, #06b6d4);
+  box-shadow: 0 12px 28px rgba(99, 102, 241, 0.3);
+}
+
+.cp-settings-save:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.cp-settings-save:not(:disabled):hover {
+  filter: brightness(1.06);
 }
 
 @media (max-width: 1023px) {

@@ -1,6 +1,6 @@
 import { pickPostMediaPath, resolveMediaUrl } from '../../../../components/shared/utils/resolveMediaUrl';
-import { pickImageurl, resolveDashboardMediaUrl, getUserDisplayName } from '../../utils/dashboardMedia';
-import { resolveFeedAuthorFields } from './feedAuthor';
+import { pickImageurl, resolveDashboardMediaUrl } from '../../utils/dashboardMedia';
+import { isPostByCurrentUser, resolveFeedAuthorFields } from './feedAuthor';
 
 const BRACKET_MEDIA_RE = /\[(?:img|image|media)\][^\n]*/gi;
 const VIDEO_PATH_RE = /\.(mp4|webm|mov|avi|mkv|m4v|ogv)(\?|#|$)/i;
@@ -76,26 +76,12 @@ export function getPostMediaUrls(post) {
   return getPostMediaItems(post).map((item) => item.url);
 }
 
-function isSameAuthor(post, currentUser) {
-  if (!post || !currentUser) return false;
-  const postAuthorId = String(post.author_id || post.user_id || '').trim();
-  const currentId = String(currentUser._id || currentUser.id || '').trim();
-  if (postAuthorId && currentId && postAuthorId === currentId) return true;
-
-  const author = String(post.author_name || '').trim().toLowerCase();
-  const selfName = getUserDisplayName(currentUser).trim().toLowerCase();
-  if (author && selfName && author === selfName) return true;
-
-  const emailPrefix = String(currentUser.email || '').split('@')[0].toLowerCase();
-  return Boolean(emailPrefix && author && author === emailPrefix);
-}
-
 /** Author avatar for post header (imageurl standard). */
 export function resolvePostAuthorAvatar(post, currentUser) {
   const authorFields = resolveFeedAuthorFields(post);
   const fromPost = pickImageurl({ imageurl: authorFields.author_imageurl });
   if (fromPost) return resolveDashboardMediaUrl(fromPost);
-  if (isSameAuthor(post, currentUser)) {
+  if (isPostByCurrentUser(post, currentUser)) {
     const selfUrl = pickImageurl(currentUser);
     if (selfUrl) return resolveDashboardMediaUrl(selfUrl);
   }

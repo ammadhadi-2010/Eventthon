@@ -1,0 +1,221 @@
+.squad-hub__center:has(.sq-chat-inbox) .squad-hub__mobile-pane,
+.squad-hub__mobile-pane--chat-inbox {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Chat tab: company-style inbox fills workspace (right overview rail is unmounted) */
+.squad-hub__workspace--chat-full .squad-hub__aside {
+  display: none !important;
+}
+
+.squad-hub__workspace--chat-full .sq-hub-hero {
+  padding-bottom: 12px;
+  margin-bottom: 0;
+}
+
+.squad-hub__workspace--chat-full .squad-hub__tabs {
+  flex-shrink: 0;
+}
+
+.squad-hub__workspace--chat-full .squad-hub__center {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.squad-hub__workspace--chat-full .sq-chat-inbox .msgx-page--squad,
+.squad-hub__workspace--chat-full .sq-chat-inbox .msgx-page--company {
+  border-top: 1px solid #1e2130;
+}
+
+.sq-chat-inbox {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #0a0c12;
+}
+
+.sq-chat-inbox .msgx-page--company .msgx-main-grid,
+.sq-chat-inbox .msgx-page .msgx-main-grid {
+  min-height: 0;
+  height: 100%;
+  max-height: none;
+}
+
+.sq-chat-inbox .msgx-main-grid > .msgx-chat,
+.sq-chat-inbox .msgx-main-grid > .msgx-details {
+  min-height: 0;
+  max-height: none;
+  height: 100%;
+}
+
+.sq-chat-inbox--empty {
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.sq-chat-inbox .msgx-page {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+}
+
+.sq-chat-inbox .msgx-page--squad .msgx-shell,
+.sq-chat-inbox .msgx-main-grid {
+  height: 100%;
+  min-height: 0;
+}
+
+.sq-chat-inbox .msgx-desktop-only {
+  height: 100%;
+  min-height: 0;
+}
+
+.sq-chat-inbox .msgx-sidebar-head h3 {
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #3b82f6;
+}
+
+/* Right member panel */
+.sq-chat-aside {
+  height: 100%;
+  padding: 18px 16px;
+  overflow-y: auto;
+  background: #13151c;
+  color: #e2e8f0;
+  font-family: inherit;
+}
+
+.sq-chat-aside__empty {
+  margin: 40px 8px;
+  text-align: center;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.sq-chat-aside__profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.sq-chat-aside__avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 1px solid rgba(59, 130, 246, 0.35);
+}
+
+.sq-chat-aside__profile h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.sq-chat-aside__profile p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sq-chat-aside__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #64748b;
+  display: inline-block;
+}
+
+.sq-chat-aside__dot.is-on {
+  background: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.sq-chat-aside__card {
+  padding: 14px;
+  border-radius: 12px;
+  background: #0f1117;
+  border: 1px solid #1e2130;
+  margin-bottom: 12px;
+}
+
+.sq-chat-aside__card h4 {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #3b82f6;
+}
+
+.sq-chat-aside__meta {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sq-chat-aside__meta li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.sq-chat-aside__mono {
+  word-break: break-all;
+  color: #94a3b8;
+}
+
+.sq-chat-aside__btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  background: rgba(59, 130, 246, 0.1);
+  color: #93c5fd;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.sq-chat-aside__btn:hover {
+  background: rgba(59, 130, 246, 0.18);
+}
+
+.sq-chat-aside__card--tip p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #94a3b8;
+}
+
+@media (max-width: 1023px) {
+  .sq-chat-inbox .msgx-page--squad {
+    min-height: 60vh;
+  }
+}

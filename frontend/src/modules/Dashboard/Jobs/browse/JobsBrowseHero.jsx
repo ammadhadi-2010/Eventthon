@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { FiSearch } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
+import { FiPlus, FiSearch } from 'react-icons/fi';
 import { BusinessIcon, BUSINESS_LOTTIE } from '../../../../components/lottie';
 import { useJobsHub } from '../context/JobsHubContext';
 import { saveJobsBrowseFilters } from '../utils/jobsBrowseSession';
+import JobsBrowseCompanyChip from './JobsBrowseCompanyChip';
 import JobsBrowseFilterRow from './JobsBrowseFilterRow';
 import JobsBrowseQuickFilters from './JobsBrowseQuickFilters';
 import JobsBrowseMobileActionStrip from './JobsBrowseMobileActionStrip';
 
-const JobsBrowseHero = ({ onOpenLeftDrawer = () => {} }) => {
+const JobsBrowseHero = () => {
   const { searchFilters, setSearchFilters } = useJobsHub();
   const [draftQ, setDraftQ] = useState(searchFilters.q || '');
 
@@ -29,17 +31,23 @@ const JobsBrowseHero = ({ onOpenLeftDrawer = () => {} }) => {
             Search verified roles, filter by work style, and apply in one click.
           </p>
         </div>
-        <div className="jobs-hero-lottie-wrap" aria-hidden="true">
-          <BusinessIcon
-            src={BUSINESS_LOTTIE.briefcase}
-            size={88}
-            label="Jobs opportunity briefcase animation"
-          />
+        <div className="jobs-hero-actions">
+          <Link to="/jobs/opportunities/new" className="jobs-hero-create-btn">
+            <FiPlus size={16} aria-hidden />
+            Create Opportunity
+          </Link>
+          <div className="jobs-hero-lottie-wrap" aria-hidden="true">
+            <BusinessIcon
+              src={BUSINESS_LOTTIE.briefcase}
+              size={88}
+              label="Jobs opportunity briefcase animation"
+            />
+          </div>
         </div>
       </div>
 
       <div className="jobs-mobile-toolbar">
-        <JobsBrowseMobileActionStrip onOpenLeftDrawer={onOpenLeftDrawer} />
+        <JobsBrowseMobileActionStrip />
 
         <div className="gigs-hero-search-row jobs-hero-search-row">
           <div className="gigs-search-wrap jobs-hero-search-wrap">
@@ -68,6 +76,7 @@ const JobsBrowseHero = ({ onOpenLeftDrawer = () => {} }) => {
         </div>
       </div>
 
+      <JobsBrowseCompanyChip searchFilters={searchFilters} setSearchFilters={setSearchFilters} />
       <JobsBrowseQuickFilters searchFilters={searchFilters} setSearchFilters={setSearchFilters} />
       <JobsBrowseFilterRow setSearchFilters={setSearchFilters} />
     </div>

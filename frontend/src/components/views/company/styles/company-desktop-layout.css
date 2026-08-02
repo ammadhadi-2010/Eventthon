@@ -1,4 +1,4 @@
-/* Company hub — flatten desktop top spacing */
+/* Company hub — flatten desktop top spacing + sticky sidebars */
 
 @media (min-width: 1024px) {
   .et-app-shell:has(.cp-shell:not(.cp-mobile-shell)) .et-main-inner {
@@ -14,16 +14,35 @@
     padding-top: 0;
     padding-bottom: 12px;
     min-height: 0;
-    gap: 12px;
+    gap: 20px;
     align-items: start;
   }
 
-  .cp-shell:not(.cp-mobile-shell) .cp-sidebar {
-    top: 0;
+  /* Pin below fixed navbar — never slide over the header */
+  .et-app-shell:not(.et-app-shell--nav-hidden) .cp-shell:not(.cp-mobile-shell) .cp-sidebar {
+    top: calc(var(--et-nav-height, 70px) + 8px);
+    max-height: calc(100vh - var(--et-nav-height, 70px) - 20px);
   }
 
-  .cn-navbar {
-    min-height: var(--et-nav-height, 70px);
+  /* Right rail lives inside main (already below nav) — keep flush with content top */
+  .et-app-shell:not(.et-app-shell--nav-hidden) .cp-shell:not(.cp-mobile-shell) .cp-right-rail {
+    top: 4px;
+    max-height: calc(100vh - var(--et-nav-height, 70px) - 16px);
+  }
+
+  .et-app-shell--nav-hidden .cp-shell:not(.cp-mobile-shell) .cp-sidebar,
+  .et-app-shell--nav-hidden .cp-shell:not(.cp-mobile-shell) .cp-right-rail {
+    top: 8px;
+    max-height: calc(100vh - 16px);
+  }
+
+  /* Messages / notifications full-bleed — no extra top gap under navbar */
+  .et-app-shell:has(.cp-shell--comms-full) .et-main-inner {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .cp-shell--comms-full:not(.cp-mobile-shell) {
     padding-top: 0;
     padding-bottom: 0;
   }

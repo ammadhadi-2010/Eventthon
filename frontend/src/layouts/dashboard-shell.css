@@ -222,21 +222,23 @@ main.center-content-scroll::-webkit-scrollbar {
   }
 }
 
-/* Jobs hub: keep 3-column pinned layout until mobile CSS (< 1024px) */
+/* Jobs hub: keep 3-column layout; sticky rails (same as ≥1100px jobs fix) */
 @media (max-width: 1100px) and (min-width: 1024px) {
   .et-hub-pin-wrap .jobs-layout {
     display: flex !important;
     flex-direction: row !important;
-    max-height: var(--et-hub-scroll-height) !important;
+    max-height: none !important;
   }
 
   .et-hub-pin-wrap .jobs-layout__center {
-    max-height: var(--et-hub-scroll-height) !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
   }
 
   .et-hub-pin-wrap .jobs-layout__rail {
+    position: sticky !important;
+    top: 12px !important;
+    align-self: flex-start !important;
     max-height: var(--et-hub-scroll-height) !important;
     overflow-y: auto !important;
   }

@@ -2,7 +2,9 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { jobMenu } from '../data/jobsMenuData';
 
-const MENU_IDS = new Set(jobMenu.map((item) => item.id));
+const MENU_IDS = new Set(
+  jobMenu.filter((item) => !item.expandable).map((item) => item.id),
+);
 
 export function useJobsHubNavigation(defaultSection = 'browse') {
   const navigate = useNavigate();

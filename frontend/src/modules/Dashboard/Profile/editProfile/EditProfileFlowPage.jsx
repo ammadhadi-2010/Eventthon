@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useScrollDirection } from '../../../../hooks/useScrollDirection';
+import { Link } from 'react-router-dom';
+import { FiArrowLeft } from 'react-icons/fi';
 import { useMobileHub } from '../../../../hooks/useMobileHub';
-import HubMobileTopBar from '../../components/mobile/HubMobileTopBar';
-import { HUB_MOBILE_SEARCH } from '../../components/mobile/hubMobileSearchPresets';
+import { subscribeHubDrawerToggle } from '../../Navbar/hubDrawerBus';
 import { API_BASE_URL } from '../../../../api/axiosConfig';
 import { normalizeCountryToCode } from '../../../../data/globalCountries';
 import {
@@ -12,7 +12,6 @@ import {
 import EditProfileCenterColumn from './EditProfileCenterColumn';
 import EditProfileLeftRail from './EditProfileLeftRail';
 import EditProfileLivePreview from './EditProfileLivePreview';
-import { GLOBAL_SKILL_NAMES } from '../../../../data/serviceCatalog';
 import { EDIT_PROFILE_STEPS } from './editProfileSteps';
 import { getProfileIdentifier } from '../utils/profileSession';
 import { ensureRankMatrixLoaded } from '../../../../services/rankMatrixCache';
@@ -89,19 +88,46 @@ function sanitizeBioRemoveStrayTopSkillsHeading(html) {
   }
 }
 
+/** Split a display name into first/last parts for the edit-profile draft. */
+export function splitProfileFullName(full = '') {
+  const text = String(full || '').trim();
+  if (!text) return { fullName: '', firstName: '', lastName: '' };
+  const parts = text.split(/\s+/);
+  return {
+    fullName: text,
+    firstName: parts[0] || '',
+    lastName: parts.slice(1).join(' ') || '',
+  };
+}
+
+/** Resolve the best available display name for pre-filling edit profile. */
+export function resolveProfileSeedName(userData) {
+  const fromParts = [userData?.first_name, userData?.last_name].filter(Boolean).join(' ').trim();
+  if (fromParts) return splitProfileFullName(fromParts);
+
+  for (const key of ['full_name', 'display_name', 'fullName', 'name']) {
+    const value = String(userData?.[key] || '').trim();
+    if (value) return splitProfileFullName(value);
+  }
+
+  if (typeof window !== 'undefined') {
+    const stored = String(localStorage.getItem('userName') || '').trim();
+    if (stored) return splitProfileFullName(stored);
+  }
+
+  return splitProfileFullName('');
+}
+
 export function buildDraft(userData) {
-  const fn = userData?.first_name || '';
-  const ln = userData?.last_name || '';
+  const nameSeed = resolveProfileSeedName(userData);
+  const fn = nameSeed.firstName;
+  const ln = nameSeed.lastName;
   const pic =
     userData?.imageurl ||
     userData?.profile_image_url ||
     userData?.avatar ||
     '';
   const banner = userData?.banner || '';
-  const defaultSkillNames =
-    Array.isArray(GLOBAL_SKILL_NAMES) && GLOBAL_SKILL_NAMES.length >= 3
-      ? GLOBAL_SKILL_NAMES.slice(0, 5)
-      : ['React', 'Node.js', 'JavaScript', 'MongoDB', 'Tailwind CSS'];
   const normalizeTopSkillRow = (x, i) => {
     if (typeof x === 'string') {
       const name = x.trim();
@@ -129,8 +155,6 @@ export function buildDraft(userData) {
     skillEntries = rawTopSkills.map(normalizeTopSkillRow).filter((s) => s.name);
   } else if (rawLegacySkills && rawLegacySkills.length > 0) {
     skillEntries = rawLegacySkills.map(normalizeTopSkillRow).filter((s) => s.name);
-  } else {
-    skillEntries = defaultSkillNames.map((n, i) => normalizeTopSkillRow(n, i));
   }
   skillEntries = skillEntries.filter((s) => s.name);
   const skills = skillEntries.map((e) => e.name);
@@ -215,7 +239,7 @@ export function buildDraft(userData) {
   return {
     firstName: fn,
     lastName: ln,
-    fullName: [fn, ln].filter(Boolean).join(' ').trim(),
+    fullName: nameSeed.fullName || [fn, ln].filter(Boolean).join(' ').trim(),
     headline: userData?.headline || '',
     city: userData?.city || '',
     countryCode: normalizeCountryToCode(userData?.country),
@@ -244,14 +268,16 @@ export function buildDraft(userData) {
  */
 const EditProfileFlowPage = ({ userData, refreshData }) => {
   const isMobile = useMobileHub();
-  const scrollDirection = useScrollDirection();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
   const [focusedStepId, setFocusedStepId] = useState(EDIT_PROFILE_STEPS[0]?.id || 'basic');
   const programmaticScrollRef = useRef(false);
   const [draft, setDraft] = useState(() => buildDraft(userData));
   const [preferencesComplete, setPreferencesComplete] = useState(
     () => Boolean(userData?.profile_onboarding_complete),
   );
+
+  const openLeftDrawer = useCallback(() => setLeftDrawerOpen(true), []);
+  const closeLeftDrawer = useCallback(() => setLeftDrawerOpen(false), []);
 
   const activeIndex = useMemo(() => {
     const i = EDIT_PROFILE_STEPS.findIndex((s) => s.id === focusedStepId);
@@ -278,8 +304,9 @@ const EditProfileFlowPage = ({ userData, refreshData }) => {
     setPreferencesComplete(true);
   }, []);
 
-  /** Sync focused step with viewport while scrolling the center column (page scroll). */
+  /** Desktop only: sync focused step with viewport while scrolling stacked sections. */
   useEffect(() => {
+    if (isMobile) return undefined;
     const stepIds = EDIT_PROFILE_STEPS.map((s) => s.id);
     let raf = 0;
 
@@ -317,57 +344,80 @@ const EditProfileFlowPage = ({ userData, refreshData }) => {
       window.removeEventListener('resize', onScroll);
       cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [isMobile]);
 
-  const goToStep = useCallback((idx) => {
-    const step = EDIT_PROFILE_STEPS[idx];
-    if (!step) return;
-    programmaticScrollRef.current = true;
-    setFocusedStepId(step.id);
-    requestAnimationFrame(() => {
-      document.getElementById(`edit-section-${step.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-    window.setTimeout(() => {
-      programmaticScrollRef.current = false;
-    }, 900);
-  }, []);
+  const goToStep = useCallback(
+    (idx) => {
+      const step = EDIT_PROFILE_STEPS[idx];
+      if (!step) return;
+      programmaticScrollRef.current = true;
+      setFocusedStepId(step.id);
+      setLeftDrawerOpen(false);
+      requestAnimationFrame(() => {
+        if (isMobile) {
+          const shell = document.querySelector('.ep-flow-shell');
+          const scrollRoot = document.querySelector('main.center-content-scroll');
+          if (scrollRoot && typeof scrollRoot.scrollTo === 'function') {
+            scrollRoot.scrollTo({ top: 0, behavior: 'smooth' });
+          } else if (shell) {
+            shell.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+          return;
+        }
+        document.getElementById(`edit-section-${step.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      window.setTimeout(() => {
+        programmaticScrollRef.current = false;
+      }, 900);
+    },
+    [isMobile],
+  );
 
   useEffect(() => {
-    const q = (searchQuery || '').trim().toLowerCase();
-    if (!q) return;
-    const idx = EDIT_PROFILE_STEPS.findIndex(
-      (step) =>
-        step.label.toLowerCase().includes(q) ||
-        step.hint.toLowerCase().includes(q) ||
-        step.id.toLowerCase().includes(q),
-    );
-    if (idx >= 0) goToStep(idx);
-  }, [searchQuery, goToStep]);
+    if (!leftDrawerOpen) return undefined;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [leftDrawerOpen]);
+
+  useEffect(() => subscribeHubDrawerToggle('profile', openLeftDrawer), [openLeftDrawer]);
 
   return (
-    <div className={`ep-root min-h-screen w-full min-w-0 bg-[#0b0e14] pb-12 pt-2 text-slate-100 sm:pb-20 sm:pt-3${isMobile ? ' ep-mobile-shell' : ''}`}>
-      {isMobile ? (
-        <HubMobileTopBar
-          scrollDirection={scrollDirection}
-          searchQuery={searchQuery}
-          onSearchQueryChange={setSearchQuery}
-          {...HUB_MOBILE_SEARCH.editProfile}
+    <div
+      className={`ep-root min-h-screen w-full min-w-0 bg-[#0b0e14] pb-12 pt-2 text-slate-100 sm:pb-20 sm:pt-3${isMobile ? ' ep-mobile-shell' : ''}${leftDrawerOpen ? ' ep-mobile-shell--drawer-open' : ''}`}
+    >
+      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(91,33,182,0.14),_transparent_55%)]" />
+      {leftDrawerOpen ? (
+        <button
+          type="button"
+          className="ep-left-drawer-backdrop is-visible"
+          aria-label="Close profile steps menu"
+          onClick={closeLeftDrawer}
         />
       ) : null}
-      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(91,33,182,0.14),_transparent_55%)]" />
       <div className="ep-flow-shell relative">
         <header className="ep-page-header mb-4 flex flex-wrap items-end gap-4 border-b border-white/10 pb-3">
           <div>
+            <Link to="/profile" className="ep-back-link">
+              <FiArrowLeft size={15} aria-hidden />
+              Back to profile
+            </Link>
             <h1 className="text-[1.65rem] font-black leading-tight tracking-tight text-white">Edit profile</h1>
             <p className="mt-1.5 max-w-xl text-[13px] leading-snug text-slate-500">
-              Scroll through every section below — edit in any order. Use Save & Continue on Step 1 when you want to
-              sync basic info to your account.
+              {isMobile
+                ? 'Complete each step, then tap Save & Continue to move to the next one. Open the menu to jump between steps.'
+                : 'Scroll through every section below — edit in any order. Use Save & Continue on Step 1 when you want to sync basic info to your account.'}
             </p>
           </div>
         </header>
 
-        <div className="ep-flow-grid">
-          <div className="ep-flow-grid__cell ep-flow-grid__cell--left order-2 flex flex-col lg:order-1">
+        <div className={`ep-flow-grid${leftDrawerOpen ? ' ep-flow-grid--left-open' : ''}`}>
+          <div
+            className={`ep-flow-grid__cell ep-flow-grid__cell--left order-2 flex flex-col lg:order-1${leftDrawerOpen ? ' is-drawer-open' : ''}`}
+          >
             <EditProfileLeftRail activeIndex={activeIndex} onSelectStep={goToStep} completionPct={completionPct} />
           </div>
           <div className="ep-flow-grid__cell ep-flow-grid__cell--center order-1 lg:order-2">
@@ -379,6 +429,7 @@ const EditProfileFlowPage = ({ userData, refreshData }) => {
               refreshData={refreshData}
               activeStepIndex={activeIndex}
               onGoToStep={goToStep}
+              wizardMode={isMobile}
               onAfterBasicContinue={() => goToStep(1)}
               onAfterAboutContinue={() => goToStep(2)}
               onBackAbout={() => goToStep(0)}
@@ -391,7 +442,6 @@ const EditProfileFlowPage = ({ userData, refreshData }) => {
               onAfterIdentityContinue={() => goToStep(6)}
               onBackIdentity={() => goToStep(4)}
               onBackPreferences={() => goToStep(5)}
-              onAfterPreferencesContinue={() => goToStep(6)}
               onPreferencesSaved={handlePreferencesSaved}
             />
           </div>

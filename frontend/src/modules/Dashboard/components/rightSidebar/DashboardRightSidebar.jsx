@@ -1,23 +1,18 @@
 import React from 'react';
 import useDashboardRightSidebar from './useDashboardRightSidebar';
 import SuggestedSquadsSection from './SuggestedSquadsSection';
-import PeopleYouMayKnowSection from './PeopleYouMayKnowSection';
 import TrendingProjectsSection from './TrendingProjectsSection';
 import UpcomingEventsSection from './UpcomingEventsSection';
 import './dashboard-right-sidebar.css';
 
 export default function DashboardRightSidebar({ userData }) {
   const {
-    visiblePeople,
     joinedSquads,
-    connectState,
-    eventState,
     toggleSquadJoin,
-    requestConnect,
-    dismissPerson,
+    suggestedSquads,
+    eventState,
     registerEvent,
     trendingProjects,
-    suggestedSquads,
   } = useDashboardRightSidebar(userData);
 
   return (
@@ -26,12 +21,6 @@ export default function DashboardRightSidebar({ userData }) {
         joinedSquads={joinedSquads}
         onJoin={toggleSquadJoin}
         squads={suggestedSquads}
-      />
-      <PeopleYouMayKnowSection
-        people={visiblePeople}
-        connectState={connectState}
-        onConnect={requestConnect}
-        onDismiss={dismissPerson}
       />
       <TrendingProjectsSection projects={trendingProjects} />
       <UpcomingEventsSection eventState={eventState} onRegister={registerEvent} />

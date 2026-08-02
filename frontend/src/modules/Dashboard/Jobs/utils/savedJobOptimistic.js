@@ -3,17 +3,20 @@ export function jobToOptimisticSavedRow(job) {
   const jobId = job?.id || job?.jobId;
   if (!jobId) return null;
   const company = job?.company || 'Company';
+  const listingKind = job?.listingKind || 'company';
   return {
     id: jobId,
     jobId,
     role: job?.role || 'Role',
     company,
     salary: job?.salary || 'Competitive',
-    type: job?.type || 'Full-time',
+    type: job?.type || (listingKind === 'opportunity' ? 'Opportunity' : 'Full-time'),
     location: job?.location || 'Remote',
     savedOn: 'Just now',
     logoText: job?.logoText || (company.slice(0, 1).toUpperCase() || 'J'),
     logoClass: job?.logoClass || 'google',
+    imageurl: job?.imageurl || '',
+    listingKind,
     tags: job?.tags || [],
   };
 }

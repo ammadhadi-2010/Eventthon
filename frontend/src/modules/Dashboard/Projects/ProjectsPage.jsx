@@ -26,6 +26,9 @@ import './styles/projects-subpages-mobile.css';
 import './styles/projects-reports-mobile.css';
 import './styles/projects-hub-mobile-tabs.css';
 import './styles/project-row-menu.css';
+import './styles/ph-breadcrumb.css';
+import ProjectsBreadcrumb from './components/ProjectsBreadcrumb';
+import { buildProjectsHubCrumbs } from './utils/projectsBreadcrumbs';
 
 export default function ProjectsPage({ defaultMenu, hideRightRail = false } = {}) {
   const navigate = useNavigate();
@@ -192,13 +195,10 @@ export default function ProjectsPage({ defaultMenu, hideRightRail = false } = {}
 
   const actionBarProps = useMemo(
     () => ({
-      activeMenu: hub.activeMenu,
-      onMenuSelect,
       onViewAnalytics: hub.openAnalytics,
       onNewProject,
-      menuCounts: api.menuCounts,
     }),
-    [hub.activeMenu, hub.openAnalytics, onMenuSelect, onNewProject, api.menuCounts],
+    [hub.openAnalytics, onNewProject],
   );
 
   const { layoutClass, pageShellClass } = getProjectsPageShellClasses({
@@ -225,6 +225,10 @@ export default function ProjectsPage({ defaultMenu, hideRightRail = false } = {}
             />
           </div>
           <div className="ph-layout__center">
+            <ProjectsBreadcrumb
+              items={buildProjectsHubCrumbs(hub.activeMenu)}
+              className="ph-breadcrumb--compact"
+            />
             <ProjectsCenterRouter
               activeMenu={hub.activeMenu}
               onMenuSelect={onMenuSelect}

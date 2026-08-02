@@ -1,39 +1,44 @@
-/* Alert Center — Jobs-style LinkedIn top bar + scroll-hide chrome (< 1024px) */
+/* Alert Center — use global MemberNavbar; toolbar sits under it */
 
 @media (max-width: 1023px) {
   .et-app-shell:has(.alerts-mobile-shell) .et-top-nav {
-    display: none !important;
+    display: block !important;
+  }
+
+  .et-app-shell:has(.alerts-mobile-shell) .member-navbar__hub-drawer-trigger,
+  .et-app-shell:has(.alerts-mobile-shell) .hub-drawer-trigger {
+    display: inline-flex !important;
   }
 
   .alerts-mobile-shell {
-    --alerts-mobile-chrome-h: 6.75rem;
+    --alerts-mobile-chrome-h: auto;
   }
 
   .alerts-mobile-chrome {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    z-index: 50 !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    z-index: 2 !important;
     display: flex !important;
     flex-direction: column !important;
     gap: 0 !important;
     width: 100% !important;
-    padding: 0 0 6px !important;
-    background: #090d16 !important;
-    border-bottom: 1px solid #1e293b !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border-bottom: 0 !important;
     box-sizing: border-box !important;
-    transition: transform 0.3s ease !important;
-    transform: translateY(0) !important;
+    transform: none !important;
   }
 
   .alerts-mobile-chrome--hidden {
-    transform: translateY(-100%) !important;
-    pointer-events: none !important;
+    transform: none !important;
+    pointer-events: auto !important;
   }
 
   .alerts-mobile-shell .alerts-main-content {
-    padding-top: calc(var(--alerts-mobile-chrome-h, 6.75rem) + 4px) !important;
+    padding-top: 0 !important;
   }
 }
 

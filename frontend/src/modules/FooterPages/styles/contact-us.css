@@ -1,0 +1,77 @@
+/* Public Contact Us — CMS-driven intro, context, location */
+
+.contact-copy {
+  margin-bottom: 16px;
+}
+
+.contact-copy__block + .contact-copy__block {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.contact-copy__label {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #a78bfa;
+}
+
+.contact-copy__text {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #cbd5e1;
+}
+
+.contact-copy__text:last-child {
+  margin-bottom: 0;
+}
+
+.contact-info-card__icon {
+  color: #8b5cf6;
+  margin-bottom: 4px;
+}
+
+.contact-info-card__label {
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.contact-info-card__value {
+  margin: 0;
+  font-weight: 700;
+  color: #f1f5f9;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.contact-info-card__value:hover {
+  color: #c4b5fd;
+}
+
+.contact-info-card__muted {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.contact-form__title {
+  margin: 0 0 14px;
+  color: #f8fafc;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+@media (max-width: 767px) {
+  .contact-grid {
+    gap: 12px;
+  }
+}

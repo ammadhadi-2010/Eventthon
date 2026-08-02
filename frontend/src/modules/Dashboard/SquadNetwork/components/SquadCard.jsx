@@ -73,8 +73,9 @@ const styles = {
         borderRadius: '10px',
         cursor: 'pointer',
         marginBottom: '4px',
-        background: active ? '#1e2a4a' : 'transparent',
-        border: active ? '1px solid #2a3a6a' : '1px solid transparent',
+        background: active ? 'rgba(30, 42, 74, 0.95)' : 'transparent',
+        border: active ? '1px solid rgba(59, 130, 246, 0.55)' : '1px solid transparent',
+        boxShadow: active ? '0 0 0 1px rgba(59, 130, 246, 0.2), 0 0 18px rgba(59, 130, 246, 0.18)' : 'none',
         transition: 'all 0.15s',
     }),
     info: {

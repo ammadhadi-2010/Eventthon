@@ -80,18 +80,32 @@ export default function useMessagesInboxActions(state) {
 
   const handleMessageAction = useCallback(async (messageId, chatType, action, value = '') => {
     const id = String(messageId || '').trim();
-    if (!isMongoId(id)) return;
-    await API.post(
+    if (!isMongoId(id)) return null;
+    const res = await API.post(
       '/api/messages/unified-action',
       {
-        message_id: messageId,
-        chat_type: String(chatType || selectedRow?.chat_type || 'gig').toLowerCase(),
+        message_id: id,
+        chat_type: String(chatType || selectedRow?.chat_type || selectedRow?.channel || 'gig').toLowerCase(),
         action,
-        value: String(value || ''),
+        value: String(value ?? ''),
       },
       { headers: getMessagesSessionHeaders() },
     );
-  }, [selectedRow?.chat_type]);
+    const data = res?.data || {};
+    if (action === 'like' && Array.isArray(data.liked_by)) {
+      setRowPatches((prev) => ({
+        ...prev,
+        [id]: {
+          ...(prev[id] || {}),
+          liked_by: data.liked_by,
+          likes: Number(data.likes) || data.liked_by.length,
+          liked: Boolean(data.liked),
+          chat_type: data.chat_type || chatType,
+        },
+      }));
+    }
+    return data;
+  }, [selectedRow?.chat_type, selectedRow?.channel, setRowPatches]);
 
   const fetchConversationPreference = useCallback(async (sellerUserId) => {
     const sellerId = String(sellerUserId || '').trim();
@@ -129,15 +143,22 @@ export default function useMessagesInboxActions(state) {
     if (!['gig', 'job', 'project'].includes(chatType)) return null;
     const sellerId = String(row?.seller_user_id || '').trim();
     const viewerId = String(userId || '').trim();
-    if (!sellerId || !viewerId || !isMongoId(sellerId) || !isMongoId(viewerId)) return null;
+    if (!sellerId || !viewerId) return null;
+    const peerId = String(
+      row?.peer_user_id ||
+        (String(row?.chat_tag || '').toLowerCase() === 'company' ? row?.seller_user_id : '') ||
+        row?.from_user_id ||
+        '',
+    ).trim();
     try {
       const res = await API.get('/api/messages/conversation-sidebar', {
         params: {
           seller_user_id: sellerId,
           viewer_user_id: viewerId,
-          chat_type: String(row?.chat_type || 'gig').toLowerCase(),
+          chat_type: chatType,
           context_id: String(row?.context_id || ''),
           context_title: String(row?.context_title || ''),
+          peer_user_id: peerId || sellerId,
         },
       });
       return res?.data || null;

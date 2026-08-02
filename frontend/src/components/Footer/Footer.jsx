@@ -1,15 +1,37 @@
 import React, { useCallback, useState } from 'react';
 import { FiCheck, FiMoon, FiSun } from 'react-icons/fi';
-import { FOOTER_PAYMENTS, FOOTER_STATS, FOOTER_VALUES } from './footerData';
+import {
+  resolveFooterStatIcon,
+  resolveFooterValueIcon,
+} from './footerData';
 import './footer.css';
 import './footer-sections.css';
 import './footer-mobile.css';
 import FooterLinksGrid from './FooterLinksGrid';
 import RankMatrixModal from './RankMatrixModal';
+import useFooterBrand from '../../modules/FooterPages/hooks/useFooterBrand';
+
+function readInitialDark() {
+  try {
+    const saved = localStorage.getItem('et-theme');
+    if (saved === 'light') {
+      document.documentElement.classList.add('et-theme-light');
+      return false;
+    }
+    if (saved === 'dark') {
+      document.documentElement.classList.remove('et-theme-light');
+      return true;
+    }
+  } catch {
+    /* ignore */
+  }
+  return true;
+}
 
 export default function Footer() {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(readInitialDark);
   const [rankMatrixOpen, setRankMatrixOpen] = useState(false);
+  const { data: brand } = useFooterBrand();
 
   const toggleTheme = useCallback(() => {
     setIsDark((prev) => {
@@ -25,18 +47,21 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="et-footer" aria-label="Site footer">
+    <footer id="site-footer" className="et-footer" aria-label="Site footer">
       <RankMatrixModal open={rankMatrixOpen} onClose={() => setRankMatrixOpen(false)} />
       <div className="et-footer__inner">
         <div className="et-footer__top">
-          <FooterLinksGrid onRankMatrixOpen={() => setRankMatrixOpen(true)} />
+          <FooterLinksGrid
+            brand={brand}
+            onRankMatrixOpen={() => setRankMatrixOpen(true)}
+          />
         </div>
 
         <div className="et-footer__stats">
-          {FOOTER_STATS.map((stat) => {
-            const Icon = stat.icon;
+          {(brand.stats || []).map((stat) => {
+            const Icon = resolveFooterStatIcon(stat.id);
             return (
-              <div key={stat.id} className={`et-footer__stat et-footer__stat--${stat.tone}`}>
+              <div key={stat.id} className={`et-footer__stat et-footer__stat--${stat.tone || 'violet'}`}>
                 <span className="et-footer__stat-icon">
                   <Icon size={18} aria-hidden />
                 </span>
@@ -50,10 +75,10 @@ export default function Footer() {
         </div>
 
         <div className="et-footer__values">
-          {FOOTER_VALUES.map((item) => {
-            const Icon = item.icon;
+          {(brand.values || []).map((item) => {
+            const Icon = resolveFooterValueIcon(item.id);
             return (
-              <div key={item.id} className={`et-footer__value et-footer__value--${item.tone}`}>
+              <div key={item.id} className={`et-footer__value et-footer__value--${item.tone || 'violet'}`}>
                 <span className="et-footer__value-icon">
                   <Icon size={18} aria-hidden />
                 </span>
@@ -69,7 +94,7 @@ export default function Footer() {
         <div className="et-footer__bottom">
           <div className="et-footer__copy">
             <span className="et-footer__copy-mark" aria-hidden />
-            <p>© 2026 EventThon. All rights reserved. Made with ❤️ for creators and innovators.</p>
+            <p>{brand.copyright}</p>
           </div>
           <div className="et-footer__payments">
             <span className="et-footer__payments-label">
@@ -77,7 +102,7 @@ export default function Footer() {
               Secure Payments
             </span>
             <div className="et-footer__payment-row">
-              {FOOTER_PAYMENTS.map((name) => (
+              {(brand.payments || []).map((name) => (
                 <span key={name} className="et-footer__payment-chip">
                   {name}
                 </span>

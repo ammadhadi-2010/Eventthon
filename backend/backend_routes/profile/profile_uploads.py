@@ -58,9 +58,9 @@ async def upload_profile_image(
         image_url = _save_upload(file, sub_dir, file_name)
         if type == "profile":
             await user_collection.update_one(query, {"$set": avatar_set_fields(image_url)})
-        else:
-            await user_collection.update_one(query, {"$set": {"banner": image_url}})
-        return {"status": "success", "url": image_url, "imageurl": image_url}
+            return {"status": "success", "type": "profile", "url": image_url, "imageurl": image_url}
+        await user_collection.update_one(query, {"$set": {"banner": image_url}})
+        return {"status": "success", "type": "banner", "url": image_url, "banner": image_url}
     except HTTPException:
         raise
     except Exception as exc:

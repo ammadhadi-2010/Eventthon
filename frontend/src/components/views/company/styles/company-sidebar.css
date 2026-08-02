@@ -1,0 +1,193 @@
+/* Company hub — left navigation + plan card */
+
+.cp-sidebar {
+  --cp-sticky-top: calc(var(--et-nav-height, 70px) + 8px);
+  padding: 14px 10px 16px;
+  align-self: start;
+  position: sticky;
+  top: var(--cp-sticky-top);
+  max-height: calc(100vh - var(--cp-sticky-top) - 12px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  z-index: 2;
+}
+
+.cp-sidebar::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.cp-sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding: 4px 6px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cp-sidebar__brand-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(145deg, #7c3aed, #4f46e5);
+  box-shadow: 0 8px 18px rgba(99, 102, 241, 0.35);
+}
+
+.cp-sidebar__brand strong {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #f8fafc;
+}
+
+.cp-sidebar__brand span {
+  font-size: 10px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.cp-nav {
+  display: grid;
+  gap: 10px;
+}
+
+.cp-nav__section-label {
+  margin: 0 0 4px 8px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.cp-nav__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  gap: 8px;
+}
+
+.cp-nav__item-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.cp-nav__item--active {
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.28), rgba(99, 102, 241, 0.08));
+  color: #f8fafc;
+  box-shadow: inset 3px 0 0 #818cf8;
+}
+
+.cp-nav__item:hover {
+  background: rgba(99, 102, 241, 0.12);
+  color: #f8fafc;
+}
+
+.cp-nav__badge {
+  font-style: normal;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: #7c3aed;
+  color: #fff;
+}
+
+.cp-nav__soon {
+  font-size: 9px;
+  font-weight: 800;
+  font-style: normal;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fde68a;
+  background: rgba(245, 158, 11, 0.14);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 999px;
+  padding: 2px 6px;
+}
+
+.cp-nav__verified {
+  font-size: 9px;
+  font-weight: 800;
+  font-style: normal;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #86efac;
+  background: rgba(34, 197, 94, 0.14);
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  border-radius: 999px;
+  padding: 2px 6px;
+}
+
+.cp-plan-card {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(99, 102, 241, 0.22), rgba(30, 27, 75, 0.5));
+  border: 1px solid rgba(129, 140, 248, 0.25);
+}
+
+.cp-plan-card__head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #c4b5fd;
+  margin-bottom: 6px;
+}
+
+.cp-plan-card strong {
+  display: block;
+  font-size: 15px;
+  color: #f8fafc;
+}
+
+.cp-plan-card p {
+  margin: 6px 0 12px;
+  font-size: 11px;
+  line-height: 1.45;
+  color: #94a3b8;
+}
+
+.cp-plan-card__btn {
+  width: 100%;
+  padding: 9px 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+}
+
+.cp-plan-card__btn:hover {
+  filter: brightness(1.08);
+}
+
+.cp-premium,
+.cp-sidebar__label {
+  display: none;
+}

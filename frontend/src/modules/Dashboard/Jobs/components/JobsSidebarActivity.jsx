@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import JobCompanyLogo from './JobCompanyLogo';
 
 const STATUS_CLASS = {
   applied: 'jh-app-status--applied',
@@ -27,7 +28,16 @@ export default function JobsSidebarActivity({ activity, loading }) {
         ) : (
           activity.map((item) => (
             <div key={item.id || `${item.company}-${item.role}`} className="gigs-activity-row">
-              <div className={`gigs-activity-logo ${item.logoClass || 'google'}`}>{item.logo}</div>
+              <JobCompanyLogo
+                imageurl={item.imageurl}
+                company={item.company}
+                logoText={item.logo || item.logoText}
+                logoClass={item.logoClass}
+                listingKind={item.listingKind}
+                shade="electric"
+                size={36}
+                className="gigs-activity-logo"
+              />
               <div>
                 <p className="gigs-activity-company">{item.company}</p>
                 <p className="gigs-activity-role">{item.role}</p>

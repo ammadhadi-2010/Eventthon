@@ -35,13 +35,24 @@ def user_session_ids(user: dict) -> set[str]:
     return ids
 
 
-async def assert_inbox_owner(seller_user_id: str, user: dict) -> None:
-    allowed = user_session_ids(user)
-    if seller_user_id.strip() not in allowed:
-        raise HTTPException(status_code=403, detail="You may only access your own inbox")
-
-
 async def assert_sender_owner(from_user_id: str, user: dict) -> None:
     allowed = user_session_ids(user)
-    if from_user_id.strip() not in allowed:
-        raise HTTPException(status_code=403, detail="Sender must match your session")
+    sender = from_user_id.strip()
+    if sender in allowed:
+        return
+    # Case-insensitive email / id match
+    sender_l = sender.lower()
+    if any(str(x).strip().lower() == sender_l for x in allowed):
+        return
+    raise HTTPException(status_code=403, detail="Sender must match your session")
+
+
+async def assert_inbox_owner(seller_user_id: str, user: dict) -> None:
+    allowed = user_session_ids(user)
+    seller = seller_user_id.strip()
+    if seller in allowed:
+        return
+    seller_l = seller.lower()
+    if any(str(x).strip().lower() == seller_l for x in allowed):
+        return
+    raise HTTPException(status_code=403, detail="You may only access your own inbox")

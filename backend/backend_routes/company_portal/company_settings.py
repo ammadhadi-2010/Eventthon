@@ -105,10 +105,15 @@ async def update_company_settings(
         proof_url = await _save_verification_proof(verification_imageurl)
         patch["verification_proof_imageurl"] = proof_url
         patch["verification_submitted_at"] = datetime.utcnow().isoformat()
-        patch["verification_message"] = PENDING_MESSAGE
-        patch["status"] = "pending"
-        patch["is_verified"] = False
-        patch["is_draft"] = False
+        # Do not lock an already-approved company when updating documents.
+        already_ok = bool(company_doc.get("is_verified")) or str(
+            company_doc.get("status") or ""
+        ).lower() in ("active", "verified")
+        if not already_ok:
+            patch["verification_message"] = PENDING_MESSAGE
+            patch["status"] = "pending"
+            patch["is_verified"] = False
+            patch["is_draft"] = False
 
     await companies_collection.update_one({"_id": company_doc["_id"]}, {"$set": patch})
     updated = await companies_collection.find_one({"_id": company_doc["_id"]})

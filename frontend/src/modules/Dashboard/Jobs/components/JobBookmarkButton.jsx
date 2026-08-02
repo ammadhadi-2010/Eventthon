@@ -3,7 +3,8 @@ import { FiBookmark } from 'react-icons/fi';
 
 /** Bookmark control wired to Jobs hub saved-jobs API. */
 export default function JobBookmarkButton({ job, saved, onToggle, className = '' }) {
-  const role = job?.role || 'job';
+  const role = job?.role || 'listing';
+  const kind = job?.listingKind === 'opportunity' ? 'opportunity' : 'job';
   const [busy, setBusy] = useState(false);
 
   const handleClick = async (e) => {
@@ -21,7 +22,7 @@ export default function JobBookmarkButton({ job, saved, onToggle, className = ''
     <button
       type="button"
       className={`${className}${saved ? ' is-saved' : ''}${busy ? ' is-busy' : ''}`.trim()}
-      aria-label={saved ? `Remove ${role} from saved` : `Save ${role}`}
+      aria-label={saved ? `Remove ${role} from saved` : `Save ${kind}: ${role}`}
       aria-pressed={saved}
       disabled={busy}
       onClick={handleClick}

@@ -49,6 +49,49 @@
   padding-bottom: 8px;
 }
 
+/*
+ * Jobs hub (desktop): content-sized wrap (no empty band before footer)
+ * + sticky sidebars so rails stay put while main/footer scrolls.
+ */
+@media (min-width: 1024px) {
+  .et-hub-pin-wrap:has(.jobs-page) {
+    min-height: 0;
+  }
+
+  .et-hub-pin-wrap:has(.jobs-page) .jobs-page {
+    flex: 0 0 auto;
+    min-height: 0;
+    padding-bottom: 8px;
+  }
+
+  .et-hub-pin-wrap:has(.jobs-page) .jobs-layout {
+    flex: 0 0 auto;
+    min-height: 0;
+    max-height: none;
+    align-items: flex-start;
+  }
+
+  .et-hub-pin-wrap:has(.jobs-page) .jobs-layout__center {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .et-hub-pin-wrap:has(.jobs-page) .jobs-layout__rail {
+    position: sticky;
+    top: 12px;
+    align-self: flex-start;
+    max-height: var(--et-hub-scroll-height);
+    overflow-x: visible;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .et-hub-pin-wrap:has(.jobs-page) .jobs-layout__rail::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .gigs-stat-badge--lottie {
   display: flex;
   align-items: center;

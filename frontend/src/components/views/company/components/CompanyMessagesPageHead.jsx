@@ -1,6 +1,5 @@
 import React from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
-import { useNavigate } from 'react-router-dom';
 
 const CHANNELS = [
   { id: 'all', label: 'All threads' },
@@ -11,27 +10,24 @@ const CHANNELS = [
 export default function CompanyMessagesPageHead({
   channel,
   onChannelChange,
-  channelBanner,
   counts = {},
+  inChat = false,
+  onBack,
 }) {
-  const navigate = useNavigate();
-
   return (
-    <header className="cp-messages-page__head">
-      <div className="cp-messages-page__title-row">
-        <button
-          type="button"
-          className="cp-messages-page__back"
-          onClick={() => navigate('/company/dashboard')}
-          aria-label="Back to company dashboard"
-        >
-          <FiArrowLeft size={18} aria-hidden />
-        </button>
-        <div className="cp-messages-page__title-copy">
-          <h1>Company messages</h1>
-          <p>{channelBanner}</p>
-        </div>
-      </div>
+    <header
+      className={`cp-messages-page__head cp-messages-page__head--compact${
+        inChat ? ' cp-messages-page__head--in-chat' : ''
+      }`}
+    >
+      <button
+        type="button"
+        className="cp-messages-page__back"
+        onClick={onBack}
+        aria-label={inChat ? 'Back to conversations' : 'Back to company dashboard'}
+      >
+        <FiArrowLeft size={16} aria-hidden />
+      </button>
       <div className="cp-messages-page__channels" role="tablist" aria-label="Message channels">
         {CHANNELS.map((tab) => (
           <button

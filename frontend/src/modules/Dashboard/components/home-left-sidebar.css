@@ -24,7 +24,28 @@
 
 .hls-profile-card {
   text-align: center;
-  padding-top: 18px;
+  padding: 0 16px 16px;
+  overflow: hidden;
+}
+
+.hls-profile-banner {
+  height: 92px;
+  margin: -16px -16px 0;
+  background: linear-gradient(135deg, #312e81 0%, #4f46e5 45%, #7c3aed 100%);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.hls-profile-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.08), rgba(2, 6, 23, 0.42));
+}
+
+.hls-profile-banner--image {
+  background-color: #0f172a;
 }
 
 .hls-profile-card-link {
@@ -41,7 +62,8 @@
 .hls-avatar-wrap {
   position: relative;
   width: 92px;
-  margin: 0 auto 12px;
+  margin: -52px auto 12px;
+  z-index: 1;
 }
 
 .hls-avatar-ring {
@@ -190,40 +212,99 @@
   font-size: 14px;
 }
 
+.hls-view-profile-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(129, 140, 248, 0.35);
+  background: rgba(79, 70, 229, 0.14);
+  color: #c7d2fe;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.hls-view-profile-btn:hover {
+  background: rgba(79, 70, 229, 0.24);
+  border-color: rgba(167, 139, 250, 0.5);
+  color: #eef2ff;
+}
+
+.hls-wallet-card {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(124, 58, 237, 0.28);
+  background: linear-gradient(160deg, rgba(30, 27, 75, 0.72), rgba(15, 23, 42, 0.95));
+}
+
+.hls-wallet-card::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -30px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.28), transparent 70%);
+  pointer-events: none;
+}
+
+.hls-wallet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.hls-wallet-head .hls-section-title {
+  margin: 0;
+}
+
+.hls-wallet-chip {
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #fde68a;
+  background: rgba(245, 158, 11, 0.16);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+}
+
+.hls-wallet-balance-label {
+  margin: 0 0 4px;
+  font-size: 11px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
 .hls-wallet-balance {
   margin: 0;
   color: #cbd5e1;
   font-size: 12px;
-}
-
-.hls-wallet-card--soon {
-  position: relative;
-}
-
-.hls-wallet-soon-badge {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  padding: 3px 8px;
-  border-radius: 999px;
-  background: rgba(251, 191, 36, 0.14);
-  color: #fbbf24;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.hls-wallet-actions .hls-btn:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .hls-wallet-balance strong {
-  display: block;
-  margin-top: 4px;
   color: #f8fafc;
-  font-size: 22px;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.hls-wallet-unit {
+  font-size: 13px;
+  font-weight: 800;
+  color: #c4b5fd;
 }
 
 .hls-wallet-usd {
@@ -259,6 +340,31 @@
   font-size: 11px;
   font-weight: 700;
   cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+}
+
+.hls-wallet-card--soon {
+  position: relative;
+}
+
+.hls-wallet-soon-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(251, 191, 36, 0.14);
+  color: #fbbf24;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hls-wallet-actions .hls-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 .hls-btn-outline {
@@ -364,4 +470,48 @@
 .hls-link-chevron {
   color: #60a5fa;
   font-size: 15px;
+}
+
+.hls-donate-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(236, 72, 153, 0.28);
+  background: linear-gradient(135deg, rgba(76, 29, 149, 0.45), rgba(15, 23, 42, 0.92));
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.hls-donate-card:hover {
+  border-color: rgba(244, 114, 182, 0.45);
+  transform: translateY(-1px);
+}
+
+.hls-donate-card__icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.hls-donate-card strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+  color: #fdf2f8;
+}
+
+.hls-donate-card p {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: #fbcfe8;
+  line-height: 1.35;
+}
+
+.hls-donate-card__chev {
+  margin-left: auto;
+  color: #f9a8d4;
+  font-size: 16px;
+  flex-shrink: 0;
 }

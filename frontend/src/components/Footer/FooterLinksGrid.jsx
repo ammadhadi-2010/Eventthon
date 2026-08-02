@@ -1,22 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import EventThonLogo from '../brand/EventThonLogo';
 import {
   FaDiscord,
   FaFacebookF,
+  FaInstagram,
   FaLinkedinIn,
   FaXTwitter,
   FaYoutube,
 } from 'react-icons/fa6';
 import { FiCheck, FiSend } from 'react-icons/fi';
 import {
-  FOOTER_DESCRIPTION,
   FOOTER_NAV,
-  FOOTER_NEWSLETTER_CHECKS,
   FOOTER_NEWSLETTER_ICON,
-  FOOTER_SOCIAL,
-  FOOTER_TAGLINE,
 } from './footerData';
+import { subscribeNewsletter } from '../../modules/FooterPages/api/newsletterApi';
 
 const SOCIAL_ICONS = {
   facebook: FaFacebookF,
@@ -24,6 +22,7 @@ const SOCIAL_ICONS = {
   linkedin: FaLinkedinIn,
   discord: FaDiscord,
   youtube: FaYoutube,
+  instagram: FaInstagram,
 };
 
 const SCROLL_NAV_IDS = new Set(['resources', 'company']);
@@ -34,14 +33,14 @@ function scrollPageToTop() {
   if (root) root.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function SocialLinks() {
+function SocialLinks({ social }) {
   return (
     <div className="et-footer__social">
-      {FOOTER_SOCIAL.map((item) => {
+      {(social || []).map((item) => {
         const Icon = SOCIAL_ICONS[item.id];
         return (
           <a
-            key={item.id}
+            key={`${item.id}-${item.href}`}
             href={item.href}
             className="et-footer__social-btn"
             aria-label={item.label}
@@ -92,47 +91,81 @@ function NavColumn({ col, onRankMatrixOpen }) {
   );
 }
 
-function BrandColumn() {
+function BrandColumn({ brand }) {
   return (
     <div className="et-footer__brand-col">
-      <div className="et-footer__brand-head">
+      <Link to="/" className="et-footer__brand-head" onClick={scrollPageToTop}>
         <EventThonLogo variant="footer" />
-        <h2 className="et-footer__brand-name">EventThon</h2>
-      </div>
-      <p className="et-footer__tagline">{FOOTER_TAGLINE}</p>
-      <p className="et-footer__desc">{FOOTER_DESCRIPTION}</p>
-      <SocialLinks />
+        <h2 className="et-footer__brand-name">{brand.brandName}</h2>
+      </Link>
+      <p className="et-footer__tagline">{brand.tagline}</p>
+      <p className="et-footer__desc">{brand.description}</p>
+      <SocialLinks social={brand.social} />
     </div>
   );
 }
 
-function NewsletterCard() {
+function NewsletterCard({ newsletter }) {
   const MailIcon = FOOTER_NEWSLETTER_ICON;
-  const onSubmit = (e) => {
+  const [status, setStatus] = useState('');
+  const [error, setError] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  const onSubmit = async (e) => {
     e.preventDefault();
     const email = e.currentTarget.email?.value?.trim();
     if (!email) return;
-    window.alert('Thanks for subscribing! We will send updates to ' + email);
-    e.currentTarget.reset();
+    setSaving(true);
+    setStatus('');
+    setError('');
+    try {
+      const result = await subscribeNewsletter(email);
+      setStatus(result?.message || 'Thanks for subscribing!');
+      e.currentTarget.reset();
+    } catch (err) {
+      const detail = err?.response?.data?.detail;
+      const msg = typeof detail === 'string'
+        ? detail
+        : Array.isArray(detail)
+          ? detail.map((d) => d?.msg || d).join(' ')
+          : err?.message || 'Could not subscribe. Try again.';
+      setError(msg);
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
     <div className="et-footer__newsletter">
       <h3 className="et-footer__newsletter-title">
         <MailIcon size={16} aria-hidden />
-        Stay in the Loop
+        {newsletter?.title || 'Stay in the Loop'}
       </h3>
       <p className="et-footer__newsletter-desc">
-        Subscribe to our newsletter and get the latest updates, tips and offers.
+        {newsletter?.desc || 'Subscribe to our newsletter and get the latest updates, tips and offers.'}
       </p>
       <form className="et-footer__newsletter-form" onSubmit={onSubmit}>
-        <input type="email" name="email" placeholder="Enter your email" required aria-label="Email address" />
-        <button type="submit" className="et-footer__newsletter-submit" aria-label="Subscribe">
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter your email"
+          required
+          disabled={saving}
+          aria-label="Email address"
+        />
+        <button
+          type="submit"
+          className="et-footer__newsletter-submit"
+          aria-label="Subscribe"
+          disabled={saving}
+        >
           <FiSend size={16} aria-hidden />
         </button>
       </form>
+      {status ? <p className="et-footer__newsletter-status">{status}</p> : null}
+      {error ? <p className="et-footer__newsletter-error">{error}</p> : null}
       <ul className="et-footer__checks">
-        {FOOTER_NEWSLETTER_CHECKS.map((text) => (
+        {(newsletter?.checks || []).map((text) => (
           <li key={text}>
             <FiCheck size={14} aria-hidden />
             {text}
@@ -143,14 +176,14 @@ function NewsletterCard() {
   );
 }
 
-export default function FooterLinksGrid({ onRankMatrixOpen }) {
+export default function FooterLinksGrid({ brand, onRankMatrixOpen }) {
   return (
     <div className="et-footer__links-grid">
-      <BrandColumn />
+      <BrandColumn brand={brand} />
       {FOOTER_NAV.map((col) => (
         <NavColumn key={col.id} col={col} onRankMatrixOpen={onRankMatrixOpen} />
       ))}
-      <NewsletterCard />
+      <NewsletterCard newsletter={brand.newsletter} />
     </div>
   );
 }

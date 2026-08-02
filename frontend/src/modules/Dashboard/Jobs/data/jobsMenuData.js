@@ -9,15 +9,32 @@ import {
   FiSettings,
   FiStar,
   FiTarget,
+  FiZap,
 } from 'react-icons/fi';
+import { OPPORTUNITY_TYPES } from './opportunityTypes';
+
+export { OPPORTUNITY_TYPES };
+export { isOpportunityType } from './opportunityTypes';
 
 /** Sections that show a Coming Soon placeholder instead of full views. */
 export const JOBS_COMING_SOON_SECTION_IDS = new Set(['assessment', 'interview', 'salary']);
 
 export const jobMenu = [
   { id: 'browse', label: 'Browse Jobs', icon: FiBriefcase, count: null, badge: null },
+  {
+    id: 'opportunities',
+    label: 'Browse Opportunities',
+    icon: FiZap,
+    count: null,
+    badge: null,
+    expandable: true,
+    children: [
+      { id: '__all__', label: 'All Opportunities' },
+      ...OPPORTUNITY_TYPES.map((label) => ({ id: label, label })),
+    ],
+  },
   { id: 'applications', label: 'My Applications', icon: FiClipboard, count: null, badge: null },
-  { id: 'saved', label: 'Saved Jobs', icon: FiBookmark, count: null, badge: null },
+  { id: 'saved', label: 'Saved', icon: FiBookmark, count: null, badge: null },
   { id: 'alerts', label: 'Job Alerts', icon: FiBell, count: null, badge: null },
   { id: 'recommended', label: 'Recommended', icon: FiStar, count: null, badge: null },
   {

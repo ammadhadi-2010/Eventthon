@@ -1,0 +1,311 @@
+/* Company chat collaboration + AI + attachments */
+
+.cc-collab {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(99, 102, 241, 0.18);
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.cc-collab--compact {
+  padding: 6px 10px;
+  gap: 0;
+}
+
+.cc-collab--compact .cc-collab__actions {
+  width: 100%;
+}
+
+.cc-collab--compact .cc-collab__assign > button,
+.cc-collab--compact .cc-collab__mention > button {
+  min-height: 28px;
+  font-size: 10px;
+}
+
+.cc-collab__roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.cc-role {
+  min-height: 20px;
+  padding: 0 7px;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.cc-role--owner { color: #fde68a; background: rgba(245, 158, 11, 0.18); }
+.cc-role--admin { color: #ddd6fe; background: rgba(124, 58, 237, 0.22); }
+.cc-role--hr { color: #a7f3d0; background: rgba(16, 185, 129, 0.18); }
+.cc-role--recruiter { color: #bae6fd; background: rgba(14, 165, 233, 0.18); }
+.cc-role--viewer { color: #cbd5e1; background: rgba(148, 163, 184, 0.16); }
+
+.cc-collab__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cc-collab__assign,
+.cc-collab__mention {
+  position: relative;
+}
+
+.cc-collab__assign > button,
+.cc-collab__mention > button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 0 10px;
+  border-radius: 9px;
+  border: 1px solid rgba(129, 140, 248, 0.3);
+  background: rgba(99, 102, 241, 0.14);
+  color: #e2e8f0;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cc-collab__menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 40;
+  min-width: 220px;
+  max-height: 220px;
+  overflow: auto;
+  padding: 6px;
+  border-radius: 12px;
+  border: 1px solid rgba(129, 140, 248, 0.35);
+  background: #0b1220;
+  box-shadow: 0 16px 36px rgba(2, 6, 23, 0.7);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cc-collab__menu button {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  color: #e2e8f0;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.cc-collab__menu button:hover {
+  background: rgba(99, 102, 241, 0.16);
+}
+
+.cc-collab__menu em {
+  font-style: normal;
+  font-size: 10px;
+  color: #94a3b8;
+}
+
+.cc-collab__menu p {
+  margin: 0;
+  padding: 8px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.cc-ai {
+  border-bottom: 1px solid rgba(99, 102, 241, 0.16);
+  background: linear-gradient(120deg, rgba(124, 58, 237, 0.12), rgba(6, 182, 212, 0.08));
+}
+
+.cc-ai--header {
+  overflow: hidden;
+}
+
+.cc-ai--header .cc-ai__body {
+  padding: 8px 12px 10px;
+}
+
+.cc-ai__toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 0;
+  background: transparent;
+  color: #e0e7ff;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.cc-ai__toggle span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.cc-ai__body {
+  overflow: hidden;
+  padding: 0 12px 10px;
+}
+
+.cc-ai__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.cc-ai__actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 28px;
+  padding: 0 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(167, 139, 250, 0.28);
+  background: rgba(15, 23, 42, 0.55);
+  color: #cbd5e1;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cc-ai__actions button.is-active {
+  color: #fff;
+  background: rgba(99, 102, 241, 0.35);
+  border-color: rgba(167, 139, 250, 0.55);
+}
+
+.cc-ai__replies {
+  display: grid;
+  gap: 6px;
+}
+
+.cc-ai__replies button,
+.cc-ai__output button {
+  text-align: left;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(2, 6, 23, 0.45);
+  color: #e2e8f0;
+  font-size: 11px;
+  line-height: 1.4;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.cc-ai__output pre {
+  margin: 0 0 8px;
+  white-space: pre-wrap;
+  font-family: inherit;
+  font-size: 11px;
+  color: #cbd5e1;
+  line-height: 1.45;
+}
+
+.cc-drop {
+  position: relative;
+}
+
+.cc-drop.is-dragging {
+  outline: 2px dashed rgba(167, 139, 250, 0.7);
+  outline-offset: -4px;
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.cc-drop__hint {
+  position: absolute;
+  inset: 8px;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.82);
+  color: #c7d2fe;
+  font-size: 12px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.cc-attach-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 8px;
+  padding: 0 12px 8px;
+}
+
+.cc-attach-card {
+  display: grid;
+  grid-template-columns: 40px 1fr 22px;
+  gap: 8px;
+  align-items: center;
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(129, 140, 248, 0.28);
+  background: rgba(15, 23, 42, 0.7);
+}
+
+.cc-attach-card__thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.cc-attach-card__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  color: #c7d2fe;
+  background: rgba(99, 102, 241, 0.2);
+}
+
+.cc-attach-card__meta {
+  min-width: 0;
+}
+
+.cc-attach-card__meta strong {
+  display: block;
+  font-size: 11px;
+  color: #f8fafc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cc-attach-card__meta span {
+  font-size: 10px;
+  color: #94a3b8;
+}
+
+.cc-attach-card button {
+  border: 0;
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.cc-attach-card--video .cc-attach-card__icon { color: #fda4af; }
+.cc-attach-card--pdf .cc-attach-card__icon { color: #fca5a5; }
+.cc-attach-card--excel .cc-attach-card__icon { color: #86efac; }
+.cc-attach-card--word .cc-attach-card__icon { color: #93c5fd; }
+.cc-attach-card--zip .cc-attach-card__icon { color: #fcd34d; }
+
+@media (max-width: 720px) {
+  .cc-ai__actions button {
+    font-size: 9px;
+  }
+}

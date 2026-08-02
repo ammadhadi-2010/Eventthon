@@ -13,21 +13,36 @@ import useDashboardRightSidebar from './components/rightSidebar/useDashboardRigh
 import MobileFeedSuggestedSquadsCarousel from './components/mobile/MobileFeedSuggestedSquadsCarousel';
 import MobileFeedPeopleCarousel from './components/mobile/MobileFeedPeopleCarousel';
 import { fetchHomeTimelineFeed } from './components/FeedSystem/homeFeedQuery';
-import { readStoredUserStub } from '../../utils/storedUser';
+import { readStoredUserStub, persistUserSession, hasStoredSession } from '../../utils/storedUser';
+import { useLiveProfileCard } from './hooks/useLiveProfileCard';
 import { useDashboardShell } from './context/dashboardShellContext';
+import GuestWelcomeBanner from './components/GuestWelcomeBanner';
+import SupportCauseFeedCard from '../Donation/components/SupportCauseFeedCard';
+import { fetchPublicDonationConfig } from '../Donation/donationApi';
+import { mergeDonationSettings } from '../Donation/donationContent';
+import AboutJourneyFeedCard from '../FooterPages/components/AboutJourneyFeedCard';
+import useAboutFeedContent from '../FooterPages/hooks/useAboutFeedContent';
+import './components/growth/growth-ui.css';
+import '../Donation/styles/donation.css';
+import '../FooterPages/styles/about-us.css';
 
 const MainDashboard = ({ userData }) => {
   const { mobileLeftDrawerOpen, setMobileLeftDrawerOpen, toggleMobileLeftDrawer } = useDashboardShell();
   const [posts, setPosts] = useState([]);
   const [feedLoading, setFeedLoading] = useState(true);
+  const [donationFeedEnabled, setDonationFeedEnabled] = useState(true);
+  const [donationFeedSettings, setDonationFeedSettings] = useState(null);
+  const aboutFeedPage = useAboutFeedContent();
 
+  const liveProfile = useLiveProfileCard(userData);
   const effectiveUser = useMemo(() => {
     const stub = readStoredUserStub();
-    if (!userData) return stub;
-    return { ...stub, ...userData };
-  }, [userData]);
+    if (!liveProfile) return stub;
+    return { ...stub, ...liveProfile };
+  }, [liveProfile]);
 
   const sidebar = useDashboardRightSidebar(effectiveUser);
+  const isGuest = !hasStoredSession();
 
   const fetchAllPosts = useCallback(async () => {
     setFeedLoading(true);
@@ -45,6 +60,19 @@ const MainDashboard = ({ userData }) => {
   useEffect(() => {
     fetchAllPosts();
   }, [fetchAllPosts]);
+
+  useEffect(() => {
+    fetchPublicDonationConfig()
+      .then((data) => {
+        const settings = mergeDonationSettings(data?.settings);
+        setDonationFeedEnabled(Boolean(settings.feedCardEnabled ?? true));
+        setDonationFeedSettings(settings);
+      })
+      .catch(() => {
+        setDonationFeedEnabled(true);
+        setDonationFeedSettings(null);
+      });
+  }, []);
 
   useEffect(() => subscribeHubDrawerToggle('home', () => toggleMobileLeftDrawer?.()), [toggleMobileLeftDrawer]);
 
@@ -81,7 +109,23 @@ const MainDashboard = ({ userData }) => {
         onConnect={sidebar.requestConnect}
       />
     ),
+    supportCause: donationFeedEnabled ? (
+      <SupportCauseFeedCard
+        title={donationFeedSettings?.feedCardTitle}
+        subtitle={donationFeedSettings?.feedCardSubtitle}
+      />
+    ) : null,
+    aboutJourney: aboutFeedPage?.feedJourneyEnabled && aboutFeedPage?.timeline?.length ? (
+      <AboutJourneyFeedCard steps={aboutFeedPage.timeline} subtitle={aboutFeedPage.subtitle} />
+    ) : null,
   };
+
+  const aboutFeed = aboutFeedPage
+    ? {
+        journeyEnabled: aboutFeedPage.feedJourneyEnabled,
+        timeline: aboutFeedPage.timeline,
+      }
+    : null;
 
   return (
     <div className="dash-home-shell dash-home-mobile-shell hub-inner-mobile-shell">
@@ -114,6 +158,7 @@ const MainDashboard = ({ userData }) => {
         </aside>
 
         <main className="dash-center-feed">
+          {isGuest ? <GuestWelcomeBanner /> : null}
           <UpdatesCarousel />
           <PostSystem
             userData={effectiveUser}
@@ -125,6 +170,7 @@ const MainDashboard = ({ userData }) => {
             userData={effectiveUser}
             posts={safePosts}
             mobileWidgets={mobileWidgets}
+            aboutFeed={aboutFeed}
             onItemDeleted={(id) => {
               setPosts((prev) => (Array.isArray(prev) ? prev : []).filter((p) => String(p?._id) !== String(id)));
               fetchAllPosts();

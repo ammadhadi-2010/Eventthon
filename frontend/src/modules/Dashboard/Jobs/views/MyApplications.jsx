@@ -6,6 +6,7 @@ import JobsMobileSubViewShell from '../components/JobsMobileSubViewShell';
 import JobsStatusTabs from '../components/JobsStatusTabs';
 import { useJobsHub } from '../context/JobsHubContext';
 import { APPLICATION_STATUS_KEYS, tabCounts } from '../utils/applicationStatus';
+import { getJobCardShade } from '../utils/jobCardShades';
 
 export default function MyApplications() {
   const { applications, setSelectedApplicationId, loading } = useJobsHub();
@@ -32,18 +33,23 @@ export default function MyApplications() {
               <p>Loading applications…</p>
             </div>
           ) : filtered.length ? (
-            filtered.map((application) => (
-              <React.Fragment key={application.id}>
-                <ApplicationRow
-                  application={application}
-                  onOpen={(row) => setSelectedApplicationId(row.id)}
-                />
-                <ApplicationMobileCard
-                  application={application}
-                  onOpen={(row) => setSelectedApplicationId(row.id)}
-                />
-              </React.Fragment>
-            ))
+            filtered.map((application, index) => {
+              const shade = getJobCardShade(index);
+              return (
+                <React.Fragment key={application.id}>
+                  <ApplicationRow
+                    application={application}
+                    shade={shade}
+                    onOpen={(row) => setSelectedApplicationId(row.id)}
+                  />
+                  <ApplicationMobileCard
+                    application={application}
+                    shade={shade}
+                    onOpen={(row) => setSelectedApplicationId(row.id)}
+                  />
+                </React.Fragment>
+              );
+            })
           ) : (
             <div className="gigs-card jh-empty-card">
               <p>No applications in this stage yet.</p>

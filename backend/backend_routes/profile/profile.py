@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import base64
 import os
+import time
 
 from fastapi import APIRouter, Depends, HTTPException
 
@@ -66,7 +67,7 @@ async def update_identity_status(identifier: str, payload: dict, _user: dict = D
             if "," in b64_str:
                 header, encoded = b64_str.split(",", 1)
                 file_ext = header.split("/")[1].split(";")[0]
-                filename = f"{safe_id}_{side}_{int(os.path.getmtime(IDENTITY_DIR) or 0)}.{file_ext}"
+                filename = f"{safe_id}_{side}_{int(time.time() * 1000)}.{file_ext}"
                 filepath = os.path.join(IDENTITY_DIR, filename)
                 with open(filepath, "wb") as handle:
                     handle.write(base64.b64decode(encoded))

@@ -1,0 +1,138 @@
+/* Company hub — coming soon + registration + settings forms */
+
+.cp-coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 280px;
+  padding: 32px 24px;
+}
+
+.cp-coming-soon__icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  margin-bottom: 14px;
+  color: #c4b5fd;
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(129, 140, 248, 0.28);
+}
+
+.cp-coming-soon h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #f1f5ff;
+}
+
+.cp-coming-soon p {
+  margin: 12px 0 0;
+  max-width: 340px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #94a3b8;
+}
+
+.cp-coming-soon__badge {
+  margin-top: 12px;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fde68a;
+  background: rgba(245, 158, 11, 0.14);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+
+.cp-coming-soon__back {
+  margin-top: 18px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: transparent;
+  color: #e2e8f0;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cp-coming-soon__back:hover {
+  border-color: rgba(59, 130, 246, 0.45);
+  color: #fff;
+}
+
+.cp-register-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.cp-register-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.cp-register-form input,
+.cp-register-form select {
+  min-height: 38px;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(15, 23, 42, 0.6);
+  color: #e2e8f0;
+  padding: 0 10px;
+}
+
+.cp-registration-note {
+  margin: 0 0 12px;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.cp-form-error {
+  margin: 0 0 10px;
+  color: #fda4af;
+  font-size: 12px;
+}
+
+.cp-form-success {
+  margin: 0 0 10px;
+  color: #86efac;
+  font-size: 12px;
+}
+
+.cp-draft-banner {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  background: rgba(30, 58, 138, 0.22);
+  margin-bottom: 4px;
+}
+
+.cp-draft-banner strong {
+  font-size: 13px;
+  color: #e2e8f0;
+}
+
+.cp-draft-banner span {
+  font-size: 12px;
+  color: #94a3b8;
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+  .cp-register-form {
+    grid-template-columns: 1fr;
+  }
+}

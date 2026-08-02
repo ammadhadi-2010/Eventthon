@@ -1,22 +1,14 @@
 import React, { useMemo } from 'react';
-import { API_BASE_URL } from '../../../../api/axiosConfig';
+import { resolveMediaUrl } from '../../../../components/shared/utils/resolveMediaUrl';
 import { postProfileSocialAction } from '../services/profileOverviewService';
 import DevProfileOverviewSidebarCard from './DevProfileOverviewSidebarCard';
 import DevProfileOverviewFacepile from './DevProfileOverviewFacepile';
 import { viewAllHrefForSidebarKey } from '../connectionsPage/connectionsListConfig';
 
-function resolveAvatar(url) {
-  if (!url || typeof url !== 'string') return '';
-  const v = url.trim();
-  if (!v) return '';
-  if (v.startsWith('http') || v.startsWith('blob:')) return v;
-  return `${API_BASE_URL}${v.startsWith('/') ? v : `/${v}`}`;
-}
-
 function avatarOrSeed(u) {
-  const r = resolveAvatar(u.avatar);
+  const r = resolveMediaUrl(u?.avatar || '');
   if (r) return r;
-  return `https://api.dicebear.com/8.x/avataaars/svg?seed=${encodeURIComponent(u.name || u.id)}`;
+  return `https://api.dicebear.com/8.x/avataaars/svg?seed=${encodeURIComponent(u?.name || u?.id || 'member')}`;
 }
 
 function fmtCountLabel(n) {
@@ -67,18 +59,22 @@ export default function DevProfileOverviewSidebar({ bundle, identifier, onAfterF
       <section className="dpo-panel dpo-sidebar-card">
         <DevProfileOverviewSidebarCard title="Quick Connect" onViewAll={() => window.alert('Discovery list coming soon.')} />
         <ul className="dpo-suggest-list">
-          {quickRows.map((u) => (
-            <li key={u.id} className="dpo-suggest-row">
-              <img className="dpo-suggest-av" src={avatarOrSeed(u)} alt="" />
-              <div className="dpo-suggest-mid">
-                <div className="dpo-suggest-name">{u.name}</div>
-                <div className="dpo-muted-sm">{u.headline}</div>
-              </div>
-              <button type="button" className="dpo-btn-mini" onClick={() => followOne(u.id)}>
-                Connect
-              </button>
-            </li>
-          ))}
+          {quickRows.length ? (
+            quickRows.map((u) => (
+              <li key={u.id} className="dpo-suggest-row">
+                <img className="dpo-suggest-av" src={avatarOrSeed(u)} alt="" />
+                <div className="dpo-suggest-mid">
+                  <div className="dpo-suggest-name">{u.name}</div>
+                  <div className="dpo-muted-sm">{u.headline}</div>
+                </div>
+                <button type="button" className="dpo-btn-mini" onClick={() => followOne(u.id)}>
+                  Connect
+                </button>
+              </li>
+            ))
+          ) : (
+            <li className="dpo-placeholder">No suggestions yet.</li>
+          )}
         </ul>
       </section>
 
@@ -90,7 +86,6 @@ export default function DevProfileOverviewSidebar({ bundle, identifier, onAfterF
         <DevProfileOverviewFacepile
           suggested={suggested}
           total={topCommanders}
-          seedPrefix="cmd"
         />
       </section>
 
@@ -99,7 +94,7 @@ export default function DevProfileOverviewSidebar({ bundle, identifier, onAfterF
           title={`Mutual Connections (${fmtCountLabel(mutual)})`}
           viewAllTo={viewAllHrefForSidebarKey('mutual')}
         />
-        <DevProfileOverviewFacepile suggested={suggested} total={mutual} seedPrefix="mutual" />
+        <DevProfileOverviewFacepile suggested={suggested} total={mutual} />
       </section>
 
       <section className="dpo-panel dpo-sidebar-card">
@@ -107,7 +102,7 @@ export default function DevProfileOverviewSidebar({ bundle, identifier, onAfterF
           title={`Followers (${fmtCountLabel(followers)})`}
           viewAllTo={viewAllHrefForSidebarKey('followers')}
         />
-        <DevProfileOverviewFacepile suggested={suggested} total={followers} seedPrefix="fol" />
+        <DevProfileOverviewFacepile suggested={suggested} total={followers} />
       </section>
 
       <section className="dpo-panel dpo-sidebar-card">
@@ -115,7 +110,7 @@ export default function DevProfileOverviewSidebar({ bundle, identifier, onAfterF
           title={`Following (${fmtCountLabel(following)})`}
           viewAllTo={viewAllHrefForSidebarKey('following')}
         />
-        <DevProfileOverviewFacepile suggested={suggested} total={following} seedPrefix="fing" />
+        <DevProfileOverviewFacepile suggested={suggested} total={following} />
       </section>
 
       <section className="dpo-panel dpo-sidebar-card">
@@ -123,7 +118,7 @@ export default function DevProfileOverviewSidebar({ bundle, identifier, onAfterF
           title={`Connections (${fmtCountLabel(connections)})`}
           viewAllTo={viewAllHrefForSidebarKey('connections')}
         />
-        <DevProfileOverviewFacepile suggested={suggested} total={connections} seedPrefix="conn" />
+        <DevProfileOverviewFacepile suggested={suggested} total={connections} />
       </section>
     </aside>
   );

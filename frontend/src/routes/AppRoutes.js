@@ -3,6 +3,8 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { fetchProfileMe } from '../modules/Dashboard/Profile/services/profileService';
 import { hasStoredSession, persistUserSession, readStoredUserStub, clearStaleSession } from '../utils/storedUser';
+import { resolveCompanyHubAccess } from '../modules/Dashboard/Navbar/useCompanyHubAccess';
+import { prefetchCompanyPortalDashboard } from '../components/views/company/services/prefetchCompanyPortalDashboard';
 
 import AuthRoutes from '../modules/Auth/AuthRoutes';
 import AdminRoutes from '../modules/Admin/AdminRoutes';
@@ -22,10 +24,13 @@ import ProjectsRoutes from '../modules/Dashboard/Projects/ProjectsRoutes';
 import JobsRoutes from '../modules/Dashboard/Jobs/JobsRoutes';
 import CompanyPathGate from '../components/views/company/CompanyPathGate';
 import CompanyHubRoutes from '../components/views/company/CompanyHubRoutes';
+import CompanyInviteAcceptPage from '../components/views/company/pages/CompanyInviteAcceptPage';
 import MessagesRoutes from '../modules/Dashboard/Messages/MessagesRoutes';
 import PublicRoutes from '../modules/Public/PublicRoutes';
 import ShowroomRoutes from '../modules/Public/ShowroomRoutes';
 import UpdatesRoutes from '../modules/Dashboard/Updates/UpdatesRoutes';
+import DonationPage from '../modules/Donation/DonationPage';
+import DonationLearnMorePage from '../modules/Donation/DonationLearnMorePage';
 
 function resolveHomePath(userData) {
   if (!hasStoredSession()) return '/';
@@ -63,6 +68,9 @@ const AppRoutes = () => {
       if (profile) {
         persistUserSession(profile);
         setUserData(profile);
+        if (resolveCompanyHubAccess(profile)) {
+          prefetchCompanyPortalDashboard();
+        }
         window.dispatchEvent(new CustomEvent('et:profile-updated', { detail: profile }));
       }
     } catch (err) {
@@ -95,6 +103,23 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/public/*" element={<PublicRoutes />} />
       <Route path="/auth/*" element={<AuthRoutes />} />
+      <Route path="/company/invite/:token" element={<CompanyInviteAcceptPage />} />
+      <Route
+        path="/donate/learn-more"
+        element={
+          <DashboardLayout userData={userData} refreshData={refreshProfile}>
+            <DonationLearnMorePage />
+          </DashboardLayout>
+        }
+      />
+      <Route
+        path="/donate"
+        element={
+          <DashboardLayout userData={userData} refreshData={refreshProfile}>
+            <DonationPage userData={userData} />
+          </DashboardLayout>
+        }
+      />
       <Route
         path="/"
         element={
@@ -161,6 +186,8 @@ const AppRoutes = () => {
               <Route path="article/*" element={<ArticleRoutes userData={userData} />} />
               <Route path="updates/*" element={<UpdatesRoutes userData={userData} />} />
               <Route path="resources/*" element={<ResourcesRoutes />} />
+              <Route path="donate/learn-more" element={<DonationLearnMorePage />} />
+              <Route path="donate" element={<DonationPage userData={userData} />} />
               <Route path="founders-story" element={<FoundersStoryPage userData={userData} />} />
               <Route
                 path="*"

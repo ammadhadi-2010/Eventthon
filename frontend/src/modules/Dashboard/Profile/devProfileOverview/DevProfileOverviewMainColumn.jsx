@@ -3,14 +3,10 @@ import { Link } from 'react-router-dom';
 import ProfilePostsSection from '../../accountHub/profilePosts/ProfilePostsSection';
 import DevProfileOverviewActivityFeed from './DevProfileOverviewActivityFeed';
 import { Code2, Clock, HeartHandshake, ThumbsUp } from 'lucide-react';
-import { ReviewCard, toReviewCardProps } from '../../../../components/reviews';
 import { FiStar } from 'react-icons/fi';
 import { resolvePreviewMedia } from '../editProfile/EditProfileLivePreview/livePreviewUtils';
 import {
-  DEFAULT_ABOUT,
   FEATURE_BULLETS,
-  MOCK_REVIEWS,
-  STAR_BARS,
 } from '../viewFullProfile/viewFullProfileConstants';
 import { bioPlain, buildFeaturedProjects, fmtMemberSince } from '../viewFullProfile/viewFullProfileUtils';
 
@@ -18,33 +14,20 @@ const ABOUT_BADGE_ICONS = [Code2, ThumbsUp, Clock, HeartHandshake];
 
 function memberSinceDisplay(userData) {
   const raw = userData?.created_at ?? userData?.createdAt ?? userData?.joined_at;
-  if (!raw) return 'Jan 15, 2024';
+  if (!raw) return '—';
   const d = new Date(typeof raw === 'string' || typeof raw === 'number' ? raw : String(raw));
-  if (Number.isNaN(d.getTime())) return fmtMemberSince(userData) || 'Jan 15, 2024';
+  if (Number.isNaN(d.getTime())) return fmtMemberSince(userData) || '—';
   return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
-/** Rich copy + metrics for placeholder featured cards (matches portfolio UI). */
-const FEATURED_CARD_PRESETS = {
-  'ph-1': {
-    desc: 'A comprehensive SEO audit dashboard that analyzes website performance, backlinks, and competitors with actionable reporting.',
-    tech: ['React', 'Node.js', 'MongoDB'],
-    metrics: ['↑ 150% Traffic', '↓ 35% Bounce Rate'],
-    thumbTone: 'seo',
-  },
-  'ph-2': {
-    desc: 'An intelligent chatbot built with NLP that helps businesses automate support and hand off seamlessly to humans.',
-    tech: ['Next.js', 'OpenAI API', 'Tailwind CSS'],
-    metrics: ['↑ 10K+ Conversations', '↑ 90% Satisfaction'],
-    thumbTone: 'ai',
-  },
-  'ph-3': {
-    desc: 'Full-stack e-commerce solution with secure payments, order tracking, and seller tools for modern storefronts.',
-    tech: ['Next.js', 'Express.js', 'MongoDB'],
-    metrics: ['↑ 550K+ Sales', '↑ 99.9% Uptime'],
-    thumbTone: 'shop',
-  },
-};
+function satisfactionDisplay(gamification) {
+  const stars = Number(gamification?.stars_current);
+  if (!Number.isFinite(stars) || stars <= 0) return '—';
+  return stars.toFixed(1);
+}
+
+/** Rich copy + metrics for user-added featured cards only. */
+const FEATURED_CARD_PRESETS = {};
 
 function featuredCardDesc(p) {
   const id = String(p.id || '');
@@ -75,8 +58,14 @@ function featuredThumbTone(p) {
 
 export default function DevProfileOverviewMainColumn({ activeTab, userData, draft, bundle, refreshData }) {
   void refreshData;
-  const aboutText = bioPlain(draft?.bio) || DEFAULT_ABOUT;
+  const bio = bioPlain(draft?.bio);
+  const aboutText = bio || 'Add your bio in Edit profile to tell visitors about your work.';
+  const hasBio = Boolean(bio);
   const featured = useMemo(() => buildFeaturedProjects(draft?.projects || []), [draft?.projects]);
+  const gamification = bundle?.gamification || {};
+  const stats = bundle?.stats || {};
+  const onTimePct = Number(stats.success_score);
+  const onTimeDisplay = Number.isFinite(onTimePct) && onTimePct > 0 ? `${Math.round(onTimePct)}%` : '—';
 
   if (activeTab === 'activity') {
     return (
@@ -136,34 +125,7 @@ export default function DevProfileOverviewMainColumn({ activeTab, userData, draf
       <main>
         <section className="dpo-panel">
           <h2 className="dpo-panel-title">Reviews</h2>
-          <div className="dpo-rev-summary">
-            <strong>4.9</strong>
-            <span className="dpo-muted"> / 5</span>
-          </div>
-          {STAR_BARS.map(([label, pct]) => (
-            <div key={label} className="dpo-mini-bar">
-              <span>{label}</span>
-              <div className="dpo-skill-bar-track">
-                <span style={{ width: `${pct}%` }} />
-              </div>
-              <span>{pct}%</span>
-            </div>
-          ))}
-          <div className="dpo-rev-list">
-            {MOCK_REVIEWS.map((r) => (
-              <ReviewCard
-                key={r.id}
-                variant="list"
-                {...toReviewCardProps({
-                  name: r.name,
-                  projectTag: r.projectTag,
-                  rating: r.rating,
-                  text: r.text,
-                  timeAgo: r.timeAgo,
-                })}
-              />
-            ))}
-          </div>
+          <p className="dpo-placeholder">No reviews yet.</p>
         </section>
       </main>
     );
@@ -190,17 +152,19 @@ export default function DevProfileOverviewMainColumn({ activeTab, userData, draf
       <section className="dpo-panel dpo-about-card">
         <h2 className="dpo-about-heading">About Me</h2>
         <p className="dpo-about-lead">{aboutText}</p>
-        <div className="dpo-about-badges" role="list">
-          {FEATURE_BULLETS.map((t, i) => {
-            const Icon = ABOUT_BADGE_ICONS[i % ABOUT_BADGE_ICONS.length];
-            return (
-              <span key={t} className="dpo-about-badge" role="listitem">
-                <Icon className="dpo-about-badge__icon" size={16} strokeWidth={2} aria-hidden />
-                {t}
-              </span>
-            );
-          })}
-        </div>
+        {hasBio ? (
+          <div className="dpo-about-badges" role="list">
+            {FEATURE_BULLETS.map((t, i) => {
+              const Icon = ABOUT_BADGE_ICONS[i % ABOUT_BADGE_ICONS.length];
+              return (
+                <span key={t} className="dpo-about-badge" role="listitem">
+                  <Icon className="dpo-about-badge__icon" size={16} strokeWidth={2} aria-hidden />
+                  {t}
+                </span>
+              );
+            })}
+          </div>
+        ) : null}
         <div className="dpo-about-stats" aria-label="Profile metrics">
           <div className="dpo-about-stat dpo-about-stat--cyan">
             <span className="dpo-about-stat__label">Member Since</span>
@@ -208,22 +172,25 @@ export default function DevProfileOverviewMainColumn({ activeTab, userData, draf
           </div>
           <div className="dpo-about-stat dpo-about-stat--violet">
             <span className="dpo-about-stat__label">Response Time</span>
-            <span className="dpo-about-stat__value">2 hrs</span>
+            <span className="dpo-about-stat__value">—</span>
           </div>
           <div className="dpo-about-stat dpo-about-stat--amber">
             <span className="dpo-about-stat__label">On-time Delivery</span>
-            <span className="dpo-about-stat__value">{bundle?.stats?.success_score ?? 98}%</span>
+            <span className="dpo-about-stat__value">{onTimeDisplay}</span>
           </div>
           <div className="dpo-about-stat dpo-about-stat--rose">
             <span className="dpo-about-stat__label">Client Satisfaction</span>
             <span className="dpo-about-stat__value dpo-about-stat__value--stars">
-              4.9
-              <FiStar className="dpo-about-stat__star" aria-hidden />
+              {satisfactionDisplay(gamification)}
+              {Number(gamification?.stars_current) > 0 ? (
+                <FiStar className="dpo-about-stat__star" aria-hidden />
+              ) : null}
             </span>
           </div>
         </div>
       </section>
 
+      {featured.length > 0 ? (
       <section className="dpo-panel dpo-feat-panel">
         <div className="dpo-feat-head">
           <h2 className="dpo-feat-title">Featured Projects</h2>
@@ -233,8 +200,7 @@ export default function DevProfileOverviewMainColumn({ activeTab, userData, draf
         </div>
         <div className="dpo-feat-grid">
           {featured.map((p) => {
-            const isPh = String(p.id || '').startsWith('ph-');
-            const img = p.imageUrl && !isPh ? resolvePreviewMedia(p.imageUrl) : '';
+            const img = p.imageUrl ? resolvePreviewMedia(p.imageUrl) : '';
             const tone = featuredThumbTone(p);
             const tech = featuredCardTech(p);
             const metrics = featuredCardMetrics(p);
@@ -255,16 +221,19 @@ export default function DevProfileOverviewMainColumn({ activeTab, userData, draf
                       ))}
                     </div>
                   ) : null}
-                  <div className="dpo-feat-metrics">
-                    <span className="dpo-feat-metric">{metrics[0]}</span>
-                    <span className="dpo-feat-metric">{metrics[1]}</span>
-                  </div>
+                  {metrics[0] || metrics[1] ? (
+                    <div className="dpo-feat-metrics">
+                      {metrics[0] ? <span className="dpo-feat-metric">{metrics[0]}</span> : null}
+                      {metrics[1] ? <span className="dpo-feat-metric">{metrics[1]}</span> : null}
+                    </div>
+                  ) : null}
                 </div>
               </article>
             );
           })}
         </div>
       </section>
+      ) : null}
 
       <DevProfileOverviewActivityFeed userData={userData} draft={draft} bundle={bundle} />
     </main>

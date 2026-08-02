@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { navStyles } from './NavStyles';
 import EventThonLogo from '../../../components/brand/EventThonLogo';
-import { FiSearch, FiHome, FiUsers, FiBriefcase, FiBell, FiCreditCard, FiMessageSquare } from 'react-icons/fi';
+import { FiSearch, FiHome, FiUsers, FiBriefcase, FiBell, FiCreditCard, FiLayers, FiMessageSquare } from 'react-icons/fi';
 import UserMenu from './UserMenu.jsx';
 import MobileUserMenuOverlay from './MobileUserMenuOverlay';
 import CompanyHubSwitch from './CompanyHubSwitch.jsx';
@@ -16,15 +16,24 @@ import './navbar-mobile.css';
 import './member-navbar-mobile.css';
 import '../../Admin/layout/styles/admin-mobile-header.css';
 
+const NAV_ICON_COLORS = {
+  Home: '#7dd3fc',
+  Squads: '#c4b5fd',
+  Projects: '#6ee7b7',
+  Gigs: '#fbbf24',
+  Jobs: '#f9a8d4',
+  Alerts: '#fca5a5',
+};
+
 const NAV_ICON_MAP = {
   Home: FiHome,
   Squads: FiUsers,
   Projects: FiBriefcase,
-  Gigs: FiBriefcase,
+  Gigs: FiLayers,
   Jobs: FiBriefcase,
 };
 
-const Navbar = ({ user, notifCount = 0 }) => {
+const Navbar = ({ user }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,12 +48,21 @@ const Navbar = ({ user, notifCount = 0 }) => {
   useEffect(() => {
     if (!isMenuOpen) return undefined;
     const onDocClick = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+      const target = event.target;
+      // Mobile menu is portaled to document.body — do not treat it as "outside"
+      if (target?.closest?.('.et-user-menu-mobile-panel, .et-user-menu, .et-user-menu-mobile-overlay')) {
+        return;
+      }
+      if (menuRef.current && !menuRef.current.contains(target)) {
         setIsMenuOpen(false);
       }
     };
     document.addEventListener('mousedown', onDocClick);
-    return () => document.removeEventListener('mousedown', onDocClick);
+    document.addEventListener('touchstart', onDocClick, { passive: true });
+    return () => {
+      document.removeEventListener('mousedown', onDocClick);
+      document.removeEventListener('touchstart', onDocClick);
+    };
   }, [isMenuOpen]);
 
   const inAdminContext = isAdminContextPath(location.pathname);
@@ -66,14 +84,12 @@ const Navbar = ({ user, notifCount = 0 }) => {
     profileOpen: isMenuOpen,
     onToggleProfile: () => handleAvatarClick(isMenuOpen, setIsMenuOpen),
     onCloseProfile: () => setIsMenuOpen(false),
-    notifCount,
     onChat: () => navigate('/messages'),
-    onNotif: () => navigate('/notifications/alerts'),
   };
 
   return (
     <nav style={navStyles.container} className="dash-nav">
-      <MemberNavbarMobile user={user} notifCount={notifCount} actionProps={actionProps} />
+      <MemberNavbarMobile user={user} actionProps={actionProps} />
 
       <div className="dash-nav__desktop">
         <div style={navStyles.sectionLeft}>
@@ -99,10 +115,13 @@ const Navbar = ({ user, notifCount = 0 }) => {
         <div style={navStyles.sectionCenter} className="dash-nav-center-links">
           {navItems.map((item) => {
             const isActive = location.pathname.startsWith(item.path);
+            const tone = NAV_ICON_COLORS[item.name] || '#94a3b8';
             return (
               <div key={item.name} onClick={() => navigate(item.path)} style={navStyles.navItem(isActive)}>
-                <div style={{ color: isActive ? '#3b82f6' : '#94a3b8' }}>{item.icon}</div>
-                <span style={{ fontSize: '11px', fontWeight: '700', marginTop: '6px' }}>{item.name}</span>
+                <div style={{ color: isActive ? '#38bdf8' : tone }}>{item.icon}</div>
+                <span style={{ fontSize: '11px', fontWeight: '700', marginTop: '6px', color: isActive ? '#38bdf8' : tone }}>
+                  {item.name}
+                </span>
                 {isActive ? <div style={navStyles.activeGlowLine} /> : null}
               </div>
             );
@@ -113,16 +132,12 @@ const Navbar = ({ user, notifCount = 0 }) => {
           <div className="dash-nav-desktop-only" style={navStyles.rightSideIcon} onClick={() => navigate('/messages')}>
             <FiMessageSquare size={18} />
           </div>
-          <div style={navStyles.rightSideIcon} onClick={() => navigate('/notifications/alerts')}>
-            <FiBell size={18} />
-            {notifCount > 0 ? <span style={navStyles.neonBadge}>{notifCount}</span> : null}
-          </div>
           <div className="dash-nav-desktop-only" style={navStyles.rightSideIcon} onClick={() => navigate('/wallet')} title="My Wallet">
             <FiCreditCard size={18} />
           </div>
           <div className="dash-nav-desktop-only dash-nav-hub-switches">
             <HubUserAdminSwitch />
-            <CompanyHubSwitch />
+            <CompanyHubSwitch user={user} />
           </div>
           <div
             style={navStyles.profileBox}

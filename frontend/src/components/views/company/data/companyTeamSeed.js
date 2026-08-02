@@ -1,0 +1,73 @@
+/** Seed rows for Company Hub Team Members page. */
+
+export const COMPANY_TEAM_MEMBERS_SEED = [
+  {
+    id: 'team-1',
+    name: 'Ayesha Malik',
+    role: 'Owner',
+    email: 'ayesha@eventthone.com',
+    department: 'Leadership',
+    status: 'Active',
+    joined: 'Jan 2024',
+    imageurl: '',
+  },
+  {
+    id: 'team-2',
+    name: 'Hamza Saeed',
+    role: 'Admin',
+    email: 'hamza@eventthone.com',
+    department: 'Hiring',
+    status: 'Active',
+    joined: 'Mar 2024',
+    imageurl: '',
+  },
+  {
+    id: 'team-3',
+    name: 'Sara Khan',
+    role: 'Recruiter',
+    email: 'sara@eventthone.com',
+    department: 'Talent',
+    status: 'Active',
+    joined: 'May 2024',
+    imageurl: '',
+  },
+  {
+    id: 'team-4',
+    name: 'Usman Javed',
+    role: 'Hiring Manager',
+    email: 'usman@eventthone.com',
+    department: 'Engineering',
+    status: 'Active',
+    joined: 'Jun 2024',
+    imageurl: '',
+  },
+  {
+    id: 'team-5',
+    name: 'Hina Fatima',
+    role: 'Recruiter',
+    email: 'hina@eventthone.com',
+    department: 'Design',
+    status: 'Invited',
+    joined: 'Pending',
+    imageurl: '',
+  },
+  {
+    id: 'team-6',
+    name: 'Bilal Ahmed',
+    role: 'Viewer',
+    email: 'bilal@eventthone.com',
+    department: 'Operations',
+    status: 'Active',
+    joined: 'Aug 2024',
+    imageurl: '',
+  },
+];
+
+export const TEAM_ROLE_FILTERS = [
+  { id: 'all', label: 'All' },
+  { id: 'Owner', label: 'Owner' },
+  { id: 'Admin', label: 'Admin' },
+  { id: 'Recruiter', label: 'Recruiter' },
+  { id: 'Hiring Manager', label: 'Hiring Manager' },
+  { id: 'Viewer', label: 'Viewer' },
+];

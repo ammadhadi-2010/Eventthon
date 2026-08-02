@@ -44,5 +44,5 @@ def merge_profile_stats(user: dict) -> Dict[str, Any]:
         "total_earnings_usd": float(ps.get("total_earnings_usd", user.get("earnings_k") or 0)),
         "followers_delta_month": int(ps.get("followers_delta_month", 0)),
         "connections_mutual": int(ps.get("connections_mutual", mutual)),
-        "top_commanders": int(ps.get("top_commanders", 8)),
+        "top_commanders": int(ps.get("top_commanders", 0)),
     }

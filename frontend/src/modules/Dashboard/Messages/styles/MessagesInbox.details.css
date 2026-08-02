@@ -3,7 +3,9 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  border-left: 1px solid rgba(51, 65, 85, 0.45);
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
 }
 
 .msgx-details-side h4 {
@@ -40,6 +42,13 @@
   display: grid;
   place-items: center;
   font-weight: 700;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.msgx-side-avatar--img {
+  padding: 0;
+  display: block;
 }
 
 .msgx-side-name-row {
@@ -75,9 +84,13 @@
   width: 8px;
   height: 8px;
   border-radius: 999px;
-  background: #22c55e;
+  background: #64748b;
   display: inline-block;
 }
+
+.msgx-side-online.is-online i { background: #22c55e; }
+.msgx-side-online.is-away i { background: #eab308; }
+.msgx-side-online.is-offline i { background: #64748b; }
 
 .msgx-side-kv {
   display: flex;

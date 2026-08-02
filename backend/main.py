@@ -6,6 +6,7 @@ from backend_routes.admin.admin_profile import router as admin_profile_router
 from backend_routes.admin.rank_management import router as admin_rank_management_router
 from backend_routes.ranks import router as rank_system_router
 from backend_routes.admin.system_settings import router as admin_system_settings_router
+from backend_routes.admin.job_hub_settings import router as admin_job_hub_settings_router
 from backend_routes.admin.gig_management import router as admin_gig_management_router
 from backend_routes.admin.gig_admin_list import router as admin_gig_list_router
 from backend_routes.admin.job_management import router as admin_job_management_router
@@ -22,6 +23,7 @@ from backend_routes.admin.email_outreach_schedule import ScheduleOutreachBody, c
 from backend_routes.admin.email_outreach_send import SendOutreachBody, perform_outreach_send
 from backend_routes.admin.email_outreach_scheduler import start_outreach_scheduler, stop_outreach_scheduler
 from backend_routes.admin.admin_chat import router as admin_chat_router
+from backend_routes.admin.admin_blog_broadcast import router as admin_blog_broadcast_router
 from backend_routes.admin.admin_notifications import router as admin_notifications_router
 from backend_routes.admin.system_health import router as admin_system_health_router
 from backend_routes.admin.wallet_management import router as admin_wallet_router
@@ -74,6 +76,9 @@ from backend_routes.jobs import router as jobs_hub_router
 from backend_routes.company_portal import router as company_portal_router
 from backend_routes.public import router as public_router
 from backend_routes.footer_resources import router as footer_resources_router
+from backend_routes.newsletter import router as newsletter_router
+from backend_routes.referrals import router as referrals_router
+from backend_routes.donations import router as donations_router
 from backend_routes.founders_story import router as founders_story_router
 from backend_routes.public.public_showroom_seed import ensure_all_public_seeds
 from database import user_collection
@@ -109,6 +114,7 @@ SUB_FOLDERS = [
     "messages",
     "comments",
     "gigs",
+    "donation",
 ]
 
 
@@ -118,9 +124,10 @@ def ensure_upload_directories() -> None:
         os.makedirs(os.path.join(UPLOAD_DIR, folder), exist_ok=True)
 
 
+# --- 2. STATIC FILES (uploads fallback route MUST register before mount) ---
+from backend_routes.common.static_media_routes import router as static_media_router
 
-# --- 2. STATIC FILES MOUNTING ---
-# Ensure karein ke 'static' folder physically exist karta ho
+app.include_router(static_media_router)
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 # --- 3. CORS SETTINGS ---
@@ -213,7 +220,8 @@ async def get_user_by_mobile(mobile: str):
 
 # --- 6. ROUTES REGISTRATION ---
 app.include_router(auth.router, prefix="/api/auth", tags=["Standard Auth"])
-app.include_router(google_auth.router, prefix="/api/google", tags=["Google Auth"])
+app.include_router(google_auth.router, prefix="/api/auth", tags=["Google Auth"])
+app.include_router(google_auth.legacy_router, prefix="/api/google", tags=["Google Auth Legacy"])
 app.include_router(admin.router, prefix="/api/admin", tags=["Admin"])
 app.include_router(admin_user_management_router, prefix="/api/admin")
 app.include_router(admin_dashboard_summary_router, prefix="/api/admin")
@@ -222,6 +230,7 @@ app.include_router(admin_profile_router, prefix="/api/admin")
 app.include_router(admin_rank_management_router, prefix="/api/admin")
 app.include_router(rank_system_router, prefix="/api/ranks")
 app.include_router(admin_system_settings_router, prefix="/api/admin")
+app.include_router(admin_job_hub_settings_router, prefix="/api/admin")
 app.include_router(admin_gig_management_router, prefix="/api/admin")
 app.include_router(admin_gig_list_router, prefix="/api/admin")
 app.include_router(admin_company_management_router, prefix="/api/admin")
@@ -235,6 +244,7 @@ app.include_router(outreach_public_router, prefix="/api/outreach")
 app.include_router(admin_job_hub_lists_router, prefix="/api/admin")
 app.include_router(admin_job_management_router, prefix="/api/admin")
 app.include_router(admin_chat_router, prefix="/api/admin")
+app.include_router(admin_blog_broadcast_router, prefix="/api/admin")
 app.include_router(admin_notifications_router, prefix="/api/admin")
 app.include_router(admin_system_health_router, prefix="/api/admin")
 app.include_router(admin_wallet_router, prefix="/api/admin")
@@ -255,6 +265,8 @@ app.include_router(alerts.router, prefix="/api/alerts", tags=["Alerts"])
 app.include_router(employer_alerts_router, prefix="/api/alerts", tags=["Employer Alerts"])
 app.include_router(user_notifications_router, prefix="/api/notifications", tags=["Notifications"])
 app.include_router(profile_router, prefix="/api/profile")
+app.include_router(referrals_router, prefix="/api")
+app.include_router(donations_router, prefix="/api")
 app.include_router(profile_overview_router, prefix="/api/profile")
 app.include_router(gigs_router, prefix="/api")
 app.include_router(gigs_category_browse_router, prefix="/api/gigs")
@@ -272,6 +284,7 @@ app.include_router(jobs_hub_router, prefix="/api")
 app.include_router(company_portal_router, prefix="/api")
 app.include_router(public_router, prefix="/api")
 app.include_router(footer_resources_router, prefix="/api")
+app.include_router(newsletter_router, prefix="/api")
 app.include_router(founders_story_router, prefix="/api")
 app.include_router(telemetry_router, prefix="/api/telemetry", tags=["Telemetry"])
 app.include_router(feedback_router, prefix="/api")

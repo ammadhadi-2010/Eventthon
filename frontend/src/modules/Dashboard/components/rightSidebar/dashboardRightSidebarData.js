@@ -13,10 +13,10 @@ export const SUGGESTED_SQUADS = [
 ];
 
 export const PEOPLE_SUGGESTIONS = [
-  { id: 'p-sarah', name: 'Sarah Khan', role: 'UI/UX Designer', mutual: 12 },
-  { id: 'p-usman', name: 'Usman Ali', role: 'Full Stack Developer', mutual: 8 },
-  { id: 'p-hira', name: 'Hira Saeed', role: 'Product Manager', mutual: 5 },
-  { id: 'p-bilal', name: 'Bilal Ahmed', role: 'DevOps Engineer', mutual: 3 },
+  { id: 'p-sarah', name: 'Sarah Khan', role: 'UI/UX Designer', mutual: 12, banner: '#6366f1', color: '#818cf8' },
+  { id: 'p-usman', name: 'Usman Ali', role: 'Full Stack Developer', mutual: 8, banner: '#0891b2', color: '#06b6d4' },
+  { id: 'p-hira', name: 'Hira Saeed', role: 'Product Manager', mutual: 5, banner: '#7c3aed', color: '#a855f7' },
+  { id: 'p-bilal', name: 'Bilal Ahmed', role: 'DevOps Engineer', mutual: 3, banner: '#059669', color: '#34d399' },
 ];
 
 export const TRENDING_PROJECTS = [

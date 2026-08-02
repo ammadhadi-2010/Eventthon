@@ -29,6 +29,7 @@ const useUnifiedInbox = (sellerUserId) => {
   const [refreshing, setRefreshing] = useState(false);
   const [errorText, setErrorText] = useState('');
   const [messages, setMessages] = useState([]);
+  const [threadMessages, setThreadMessages] = useState([]);
   const [counts, setCounts] = useState(EMPTY_COUNTS);
 
   const loadInbox = useCallback(
@@ -39,6 +40,7 @@ const useUnifiedInbox = (sellerUserId) => {
         setLoading(false);
         setRefreshing(false);
         setMessages([]);
+        setThreadMessages([]);
         setCounts(EMPTY_COUNTS);
         return;
       }
@@ -48,11 +50,13 @@ const useUnifiedInbox = (sellerUserId) => {
       try {
         const body = await fetchUnifiedInbox(sellerId);
         setMessages(Array.isArray(body.messages) ? body.messages : []);
+        setThreadMessages(Array.isArray(body.thread_messages) ? body.thread_messages : []);
         setCounts(body.counts_by_type || EMPTY_COUNTS);
       } catch (error) {
         const detail = parseErrorDetail(error?.response?.data?.detail);
         setErrorText(detail || error?.message || 'Failed to load inbox.');
         setMessages([]);
+        setThreadMessages([]);
         setCounts(EMPTY_COUNTS);
       } finally {
         setLoading(false);
@@ -66,7 +70,7 @@ const useUnifiedInbox = (sellerUserId) => {
     loadInbox(false);
   }, [loadInbox]);
 
-  return { loading, refreshing, errorText, messages, counts, loadInbox };
+  return { loading, refreshing, errorText, messages, threadMessages, counts, loadInbox };
 };
 
 export default useUnifiedInbox;

@@ -97,6 +97,9 @@ async def user_application_feed(uid: str, limit: int = 6) -> List[dict]:
                 "time": _relative_time(doc.get("created_at") or doc.get("applied_date")),
                 "logo": str(doc.get("logo_text") or company[:1].upper()),
                 "logoClass": logo_class,
+                "logoText": str(doc.get("logo_text") or company[:1].upper()),
+                "imageurl": str(doc.get("imageurl") or doc.get("company_imageurl") or "").strip(),
+                "listingKind": str(doc.get("listing_kind") or "").strip(),
             }
         )
     return rows

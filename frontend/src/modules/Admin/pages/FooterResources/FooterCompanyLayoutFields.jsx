@@ -1,8 +1,10 @@
 import React from 'react';
-import FooterMediaSubmitButton from './FooterMediaSubmitButton';
+import AboutUsAdminFields from './AboutUsAdminFields';
+import FooterBrandAdminFields from './FooterBrandAdminFields';
+import PrivacyPolicyAdminFields from './PrivacyPolicyAdminFields';
+import TermsOfServiceAdminFields from './TermsOfServiceAdminFields';
 import {
   FooterField,
-  FooterResourceImagePreview,
   FooterTextArea,
   FooterTextInput,
 } from './FooterResourceFieldKit';
@@ -13,39 +15,42 @@ export default function FooterCompanyLayoutFields({ formData, onChange, onMediaU
   return (
     <>
       {flags.showAboutBlock ? (
-        <>
-          <FooterField id="footer-about-excerpt" label="About Summary" hint="Short company overview blurb.">
-            <FooterTextArea
-              id="footer-about-excerpt"
-              value={formData.excerpt}
-              onChange={setField('excerpt')}
-              placeholder="Who we are and what we build..."
-              maxLength={2000}
-              rows={3}
-            />
-          </FooterField>
-          <FooterField id="footer-about-content" label="About Content" hint="Full about page copy / HTML blocks.">
-            <FooterTextArea
-              id="footer-about-content"
-              value={formData.content}
-              onChange={setField('content')}
-              placeholder="Mission, vision, and team story..."
-              maxLength={12000}
-              rows={6}
-            />
-          </FooterField>
-          <FooterField id="footer-about-image" label="About Cover Image URL">
-            <FooterMediaSubmitButton onUploaded={onMediaUploaded} disabled={saving} />
-            <FooterTextInput
-              id="footer-about-image"
-              value={formData.imageurl}
-              onChange={setField('imageurl')}
-              placeholder="https://..."
-              maxLength={500}
-            />
-            <FooterResourceImagePreview imageurl={formData.imageurl} tall />
-          </FooterField>
-        </>
+        <AboutUsAdminFields
+          formData={formData}
+          onChange={onChange}
+          onMediaUploaded={onMediaUploaded}
+          saving={saving}
+        />
+      ) : null}
+
+      {flags.showFooterBrand ? (
+        <FooterBrandAdminFields formData={formData} onChange={onChange} />
+      ) : null}
+
+      {flags.showPrivacyPolicy ? (
+        <PrivacyPolicyAdminFields formData={formData} onChange={onChange} />
+      ) : null}
+
+      {flags.showTermsOfService ? (
+        <TermsOfServiceAdminFields formData={formData} onChange={onChange} />
+      ) : null}
+
+      {flags.showPricingCard || flags.showCareersListing ? (
+        <FooterField
+          id="footer-company-order"
+          label="Sort Order"
+          hint="Lower numbers appear first. Use 1 for the featured pricing plan."
+        >
+          <FooterTextInput
+            id="footer-company-order"
+            type="number"
+            min={0}
+            max={9999}
+            value={formData.sidebarOrder}
+            onChange={setField('sidebarOrder')}
+            placeholder="0"
+          />
+        </FooterField>
       ) : null}
 
       {flags.showPricingCard ? (
@@ -93,12 +98,25 @@ export default function FooterCompanyLayoutFields({ formData, onChange, onMediaU
 
       {flags.showCareersListing ? (
         <>
-          <FooterField id="footer-job-title" label="Role Title" hint="Careers listing headline.">
+          <FooterField
+            id="footer-job-title"
+            label="Role Title"
+            hint="EventThon company role only (e.g. Frontend Engineer). Public page shows “Role @ EventThon”."
+          >
             <FooterTextInput
               id="footer-job-title"
               value={formData.jobTitle}
-              onChange={setField('jobTitle')}
-              placeholder="Senior Frontend Engineer"
+              onChange={(e) => {
+                const jobTitle = e.target.value;
+                onChange({
+                  ...formData,
+                  jobTitle,
+                  title: String(jobTitle || '')
+                    .replace(/\s*@\s*eventthon\s*$/i, '')
+                    .trim(),
+                });
+              }}
+              placeholder="Frontend Engineer"
               maxLength={160}
             />
           </FooterField>
@@ -107,18 +125,21 @@ export default function FooterCompanyLayoutFields({ formData, onChange, onMediaU
               id="footer-job-location"
               value={formData.jobLocation}
               onChange={setField('jobLocation')}
-              placeholder="Remote · Lahore, PK"
+              placeholder="Remote · Worldwide"
               maxLength={120}
             />
           </FooterField>
-          <FooterField id="footer-job-excerpt" label="Role Summary">
-            <FooterTextArea
+          <FooterField
+            id="footer-job-excerpt"
+            label="Department"
+            hint="Engineering, Design, Product, etc. Used for filter chips on /company/careers."
+          >
+            <FooterTextInput
               id="footer-job-excerpt"
               value={formData.excerpt}
               onChange={setField('excerpt')}
-              placeholder="What this role owns..."
-              maxLength={2000}
-              rows={3}
+              placeholder="Engineering"
+              maxLength={120}
             />
           </FooterField>
           <FooterField id="footer-job-content" label="Role Details">
@@ -126,17 +147,21 @@ export default function FooterCompanyLayoutFields({ formData, onChange, onMediaU
               id="footer-job-content"
               value={formData.content}
               onChange={setField('content')}
-              placeholder="Responsibilities and requirements..."
+              placeholder="What this EventThon role owns, requirements, and impact..."
               maxLength={12000}
               rows={5}
             />
           </FooterField>
-          <FooterField id="footer-job-apply-url" label="Apply / Careers URL">
+          <FooterField
+            id="footer-job-apply-url"
+            label="Apply URL"
+            hint="Optional. If empty, Apply opens careers@eventthon.com."
+          >
             <FooterTextInput
               id="footer-job-apply-url"
               value={formData.externalUrl}
               onChange={setField('externalUrl')}
-              placeholder="https://careers.eventthon.com/apply"
+              placeholder="https://eventthon.com/apply/frontend"
               maxLength={500}
             />
           </FooterField>
@@ -145,7 +170,7 @@ export default function FooterCompanyLayoutFields({ formData, onChange, onMediaU
 
       {flags.showContactLeads ? (
         <>
-          <FooterField id="footer-contact-email" label="Contact Email" hint="Lead routing inbox.">
+          <FooterField id="footer-contact-email" label="Contact Email" hint="Shown on /company/contact and used for lead routing.">
             <FooterTextInput
               id="footer-contact-email"
               value={formData.contactEmail}
@@ -163,48 +188,55 @@ export default function FooterCompanyLayoutFields({ formData, onChange, onMediaU
               maxLength={40}
             />
           </FooterField>
-          <FooterField id="footer-contact-excerpt" label="Contact Intro">
+          <FooterField
+            id="footer-contact-location"
+            label="Location"
+            hint="Office / HQ address. One line per row. Synced to the public Contact Us map pin card."
+          >
+            <FooterTextArea
+              id="footer-contact-location"
+              value={formData.contactLocation}
+              onChange={setField('contactLocation')}
+              placeholder={'1200 Innovation Drive, Suite 400\nSan Francisco, CA'}
+              maxLength={1000}
+              rows={3}
+            />
+          </FooterField>
+          <FooterField id="footer-contact-hours" label="Office Hours" hint="Shown on the public Contact Us page.">
+            <FooterTextInput
+              id="footer-contact-hours"
+              value={formData.contactHours}
+              onChange={setField('contactHours')}
+              placeholder="Mon–Fri, 9:00 AM – 6:00 PM PST"
+              maxLength={200}
+            />
+          </FooterField>
+          <FooterField
+            id="footer-contact-excerpt"
+            label="Contact Intro"
+            hint="Hero subtitle + intro blurb on /company/contact."
+          >
             <FooterTextArea
               id="footer-contact-excerpt"
               value={formData.excerpt}
               onChange={setField('excerpt')}
-              placeholder="How we respond to inquiries..."
+              placeholder="Reach the EventThon team for support, partnerships, or press."
               maxLength={2000}
-              rows={2}
+              rows={3}
             />
           </FooterField>
-          <FooterField id="footer-contact-content" label="Contact Context">
+          <FooterField
+            id="footer-contact-content"
+            label="Contact Context"
+            hint="Longer details under Contact Intro (support tiers, response time, partnerships, etc.)."
+          >
             <FooterTextArea
               id="footer-contact-content"
               value={formData.content}
               onChange={setField('content')}
-              placeholder="Office hours, support tiers, SLA notes..."
+              placeholder="We respond within one business day. For partnerships, include your company name and timeline..."
               maxLength={12000}
-              rows={4}
-            />
-          </FooterField>
-        </>
-      ) : null}
-
-      {flags.showPolicyBlock ? (
-        <>
-          <FooterField id="footer-policy-version" label="Policy Version" hint="e.g. v2.1 · Jan 2026">
-            <FooterTextInput
-              id="footer-policy-version"
-              value={formData.policyVersion}
-              onChange={setField('policyVersion')}
-              placeholder="v1.0"
-              maxLength={40}
-            />
-          </FooterField>
-          <FooterField id="footer-policy-content" label="Policy Body" hint="Legal copy / HTML policy blocks.">
-            <FooterTextArea
-              id="footer-policy-content"
-              value={formData.content}
-              onChange={setField('content')}
-              placeholder="Section 1. Data we collect..."
-              maxLength={12000}
-              rows={8}
+              rows={5}
             />
           </FooterField>
         </>

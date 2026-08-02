@@ -1,12 +1,16 @@
 /* Footer — mobile responsiveness (< 1024px / breakpoints per spec) */
 
 @media (max-width: 767px) {
+  .et-footer {
+    margin-top: 0;
+  }
+
   .et-footer__inner {
-    padding: 32px 16px 24px;
+    padding: 24px 16px 24px;
   }
 
   .et-footer__links-grid {
-    padding: 32px 0;
+    padding: 24px 0;
   }
 
   .et-footer__stats {

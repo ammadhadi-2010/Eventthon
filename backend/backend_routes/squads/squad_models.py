@@ -6,6 +6,9 @@ from pydantic import BaseModel
 class InvitedMemberPayload(BaseModel):
     name: str
     role: Optional[str] = "Member"
+    invitee_user_id: Optional[str] = None
+    email: Optional[str] = None
+    mobile: Optional[str] = None
 
 
 class CreateSquadPayload(BaseModel):
@@ -43,6 +46,8 @@ class InvitePayload(BaseModel):
     role: Optional[str] = "Member"
     invited_by: Optional[str] = None
     invitee_user_id: Optional[str] = None
+    email: Optional[str] = None
+    mobile: Optional[str] = None
 
 
 class LeavePayload(BaseModel):
@@ -161,6 +166,13 @@ class UpdateSquadSettingsPayload(BaseModel):
 class InviteRespondPayload(BaseModel):
     action: str
     user_id: Optional[str] = None
+
+
+class HireSquadPayload(BaseModel):
+    buyer_user_id: Optional[str] = None
+    message: Optional[str] = None
+    budget: Optional[str] = None
+    timeline: Optional[str] = None
 
 
 DEFAULT_SQUAD_SETTINGS = {

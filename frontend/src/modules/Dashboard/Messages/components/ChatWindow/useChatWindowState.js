@@ -48,43 +48,107 @@ const useChatWindowState = ({
   const recordingTimerRef = useRef(null);
 
   const seedThread = useMemo(() => buildThreadFromMessage(selectedMessage), [selectedMessage]);
+
+  const normalizeAttachments = useCallback((raw) => {
+    if (!Array.isArray(raw)) return [];
+    return raw
+      .map((att) => {
+        const url = String(att?.imageurl || att?.url || att?.src || '').trim();
+        const type = String(att?.type || att?.kind || '').trim().toLowerCase() || 'file';
+        return {
+          ...att,
+          name: String(att?.name || 'attachment').trim(),
+          url,
+          imageurl: url,
+          type,
+          kind: type,
+        };
+      })
+      .filter((att) => att.url || att.name);
+  }, []);
+
   const syncedThread = useMemo(() => {
     if (!selectedMessage || !Array.isArray(allMessages) || allMessages.length === 0) return [];
-    const sellerId = String(selectedMessage.seller_user_id || '').trim();
+    const sellerId = String(selectedMessage.seller_user_id || '').trim().toLowerCase();
     const ctxId = String(selectedMessage.context_id || '').trim();
     const ctxTitle = String(selectedMessage.context_title || '').trim();
     const chatType = String(selectedMessage.chat_type || '').trim().toLowerCase();
-    const userId = String(currentUserId || '').trim();
+    const channel = String(selectedMessage.channel || '').trim().toLowerCase();
+    const isSupport = chatType === 'admin_support' || channel === 'admin_support';
+    const userId = String(currentUserId || '').trim().toLowerCase();
+    const userEmail = String(localStorage.getItem('userEmail') || '').trim().toLowerCase();
 
     const rows = allMessages
       .filter((row) => {
         if (row?.deleted) return false;
-        if (String(row?.seller_user_id || '').trim() !== sellerId) return false;
-        if (String(row?.chat_type || '').trim().toLowerCase() !== chatType) return false;
+        const rowType = String(row?.chat_type || '').trim().toLowerCase();
+        const rowChannel = String(row?.channel || '').trim().toLowerCase();
+        if (isSupport) {
+          const supportRow = rowType === 'admin_support' || rowChannel === 'admin_support';
+          if (!supportRow) return false;
+          const rowSeller = String(row?.seller_user_id || '').trim().toLowerCase();
+          const rowCtx = String(row?.context_id || '').trim();
+          if (ctxId && rowCtx && rowCtx !== ctxId) return false;
+          if (sellerId && rowSeller && rowSeller !== sellerId) return false;
+          return true;
+        }
+        const rowSeller = String(row?.seller_user_id || '').trim().toLowerCase();
+        if (sellerId && rowSeller && rowSeller !== sellerId) return false;
+        if (rowType && chatType && rowType !== chatType) return false;
         const rowCtx = String(row?.context_id || '').trim();
         const rowTitle = String(row?.context_title || '').trim();
+        const selectedPeer = String(
+          selectedMessage.candidate_user_id || selectedMessage.peer_user_id || selectedMessage.from_user_id || '',
+        )
+          .trim()
+          .toLowerCase();
+        const rowPeer = String(row?.candidate_user_id || row?.peer_user_id || '').trim().toLowerCase();
+        const rowFrom = String(row?.from_user_id || '').trim().toLowerCase();
+        // Company team/candidate threads: keep all messages for this peer + context
+        if (selectedPeer) {
+          const touchesPeer =
+            rowPeer === selectedPeer ||
+            rowFrom === selectedPeer ||
+            (rowPeer && selectedPeer && rowPeer === selectedPeer);
+          if (touchesPeer) {
+            if (ctxId) return !rowCtx || rowCtx === ctxId;
+            return true;
+          }
+        }
         if (ctxId) return rowCtx === ctxId;
         return rowTitle === ctxTitle;
       })
       .sort((a, b) => new Date(a.created_at || 0).getTime() - new Date(b.created_at || 0).getTime());
 
-    return rows.map((row) => ({
-      id: String(row._id || `row-${Math.random()}`),
-      sender: String(row.from_user_id || '').trim() === userId ? 'buyer' : 'seller',
-      text: row.body || 'Attachment',
-      time: row.created_at,
-      delivery: row.delivery_status || 'sent',
-      reaction: row.reaction || '',
-      starred: Boolean(row.starred),
-      liked: false,
-      likes: 0,
-      attachments: (Array.isArray(row.attachments) ? row.attachments : []).map((att) => ({
-        ...att,
-        url: att?.imageurl || att?.url || '',
-        imageurl: att?.imageurl || att?.url || '',
-      })),
-    }));
-  }, [selectedMessage, allMessages, currentUserId]);
+    const myIds = new Set(
+      [userId, userEmail, currentUserId]
+        .map((v) => String(v || '').trim().toLowerCase())
+        .filter(Boolean),
+    );
+    return rows.map((row) => {
+      const fromId = String(row.from_user_id || '').trim().toLowerCase();
+      const mine = fromId && (myIds.has(fromId));
+      const likedBy = Array.isArray(row.liked_by)
+        ? row.liked_by.map((v) => String(v || '').trim().toLowerCase()).filter(Boolean)
+        : [];
+      const liked = likedBy.some((id) => myIds.has(id)) || Boolean(row.liked);
+      const likes = Math.max(Number(row.likes) || 0, likedBy.length);
+      return {
+        id: String(row._id || `row-${Math.random()}`),
+        chat_type: String(row.chat_type || row.channel || selectedMessage?.chat_type || selectedMessage?.channel || '').toLowerCase(),
+        sender: mine ? 'buyer' : 'seller',
+        text: row.body || (normalizeAttachments(row.attachments).length ? 'Attachment' : ''),
+        time: row.created_at,
+        delivery: row.delivery_status || 'sent',
+        reaction: row.reaction || '',
+        starred: Boolean(row.starred),
+        liked,
+        likes,
+        liked_by: likedBy,
+        attachments: normalizeAttachments(row.attachments),
+      };
+    });
+  }, [selectedMessage, allMessages, currentUserId, normalizeAttachments]);
 
   const isDraftConversation = Boolean(selectedMessage?._isDraft);
   const orderInfo = useMemo(() => {
@@ -103,19 +167,21 @@ const useChatWindowState = ({
 
   const normalizeThreadRows = useCallback(
     (rows) =>
-      rows.map((msg, idx) => ({
+      rows.map((msg) => ({
         ...msg,
         delivery:
           msg.delivery || (msg.sender === 'buyer' ? (selectedMessage?.delivery_status || 'sent') : 'delivered'),
         liked: Boolean(msg.liked),
-        likes: msg.likes || (idx === 2 ? 1 : 0),
+        likes: Number(msg.likes) || 0,
+        liked_by: Array.isArray(msg.liked_by) ? msg.liked_by : [],
         starred: Boolean(msg.starred),
         reaction: msg.reaction || '',
-        attachments: Array.isArray(msg.attachments) ? msg.attachments : [],
+        attachments: normalizeAttachments(msg.attachments),
       })),
-    [selectedMessage?.delivery_status],
+    [selectedMessage?.delivery_status, normalizeAttachments],
   );
 
+  // Full reset only when switching conversations
   useEffect(() => {
     setDraft('');
     const base = syncedThread.length > 0 ? syncedThread : seedThread;
@@ -127,7 +193,64 @@ const useChatWindowState = ({
     setCallModalType('');
     setAwayEnabled(false);
     setChatMuted(false);
-  }, [selectedMessage?._id, seedThread, syncedThread, normalizeThreadRows]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- conversation switch only
+  }, [selectedMessage?._id]);
+
+  // Merge inbox/outbox updates without wiping local attachment messages
+  useEffect(() => {
+    if (!selectedMessage?._id) return;
+    const incoming = syncedThread.length > 0 ? syncedThread : seedThread;
+    if (!incoming.length) return;
+    const deliveryRank = { failed: 0, sending: 1, sent: 2, delivered: 3, read: 4, seen: 4 };
+    setThread((prev) => {
+      const prevById = new Map(prev.map((m) => [String(m.id), m]));
+      const merged = incoming.map((msg) => {
+        const old = prevById.get(String(msg.id));
+        const incomingAtts = normalizeAttachments(msg.attachments);
+        const oldAtts = normalizeAttachments(old?.attachments);
+        const oldD = String(old?.delivery || '').toLowerCase();
+        const newD = String(msg.delivery || '').toLowerCase();
+        const pickDelivery =
+          oldD === 'failed' || oldD === 'sending'
+            ? oldD
+            : ((deliveryRank[newD] || 0) >= (deliveryRank[oldD] || 0) ? (newD || oldD || 'sent') : (oldD || newD || 'sent'));
+        const serverLikes = Number(msg.likes);
+        const hasServerLike = Array.isArray(msg.liked_by) || Number.isFinite(serverLikes);
+        return {
+          ...msg,
+          delivery: pickDelivery,
+          attachments: incomingAtts.length ? incomingAtts : oldAtts,
+          liked: hasServerLike ? Boolean(msg.liked) : Boolean(old?.liked),
+          likes: hasServerLike
+            ? (Number.isFinite(serverLikes) ? serverLikes : (msg.liked_by?.length || 0))
+            : (old?.likes || 0),
+          liked_by: Array.isArray(msg.liked_by) ? msg.liked_by : (old?.liked_by || []),
+          reaction: msg.reaction || old?.reaction || '',
+          starred: Boolean(msg.starred || old?.starred),
+          replyTo: old?.replyTo || msg.replyTo || null,
+        };
+      });
+      // Keep optimistic/sent messages not yet present in inbox snapshot
+      const mergedIds = new Set(merged.map((m) => String(m.id)));
+      prev.forEach((m) => {
+        const id = String(m.id || '');
+        if (!id || mergedIds.has(id)) return;
+        const hasAtts = normalizeAttachments(m.attachments).length > 0;
+        if (
+          id.startsWith('local-') ||
+          hasAtts ||
+          m.delivery === 'sending' ||
+          m.delivery === 'sent' ||
+          m.delivery === 'failed'
+        ) {
+          merged.push(m);
+          mergedIds.add(id);
+        }
+      });
+      merged.sort((a, b) => new Date(a.time || 0).getTime() - new Date(b.time || 0).getTime());
+      return merged;
+    });
+  }, [syncedThread, seedThread, selectedMessage?._id, normalizeAttachments]);
 
   useEffect(() => {
     if (!selectedMessage?.seller_user_id) return;
@@ -175,13 +298,18 @@ const useChatWindowState = ({
       if (composerPickerRef.current && composerPickerRef.current.contains(event.target)) return;
       if (composerToolsRef.current && composerToolsRef.current.contains(event.target)) return;
       if (headerMenuRef.current && headerMenuRef.current.contains(event.target)) return;
+      if (event.target?.closest?.('.sch-more__menu')) return;
       setMenuState((prev) => ({ ...prev, open: false }));
       setEmojiPickerFor('');
       setComposerEmojiOpen(false);
       setHeaderMenuOpen(false);
     };
     window.addEventListener('mousedown', closeMenus);
-    return () => window.removeEventListener('mousedown', closeMenus);
+    window.addEventListener('touchstart', closeMenus, { passive: true });
+    return () => {
+      window.removeEventListener('mousedown', closeMenus);
+      window.removeEventListener('touchstart', closeMenus);
+    };
   }, [menuState.open, emojiPickerFor, composerEmojiOpen, headerMenuOpen]);
 
   const showNotice = (text) => setChatNotice(text);
@@ -225,6 +353,10 @@ const useChatWindowState = ({
   };
 
   const handleHeaderMenuAction = async (key) => {
+    if (key === 'close') {
+      setHeaderMenuOpen(false);
+      return;
+    }
     if (key === 'manage_conversations') {
       try {
         const pref = await onFetchConversationPreference?.(selectedMessage?.seller_user_id);
@@ -258,27 +390,64 @@ const useChatWindowState = ({
         // keep local UX responsive even if backend save fails
       }
       showNotice(nextMuted ? 'Conversation muted.' : 'Conversation unmuted.');
+    } else if (key === 'view_profile') {
+      const handle = String(selectedMessage?.from_user_id || '').trim();
+      if (handle) {
+        navigate(`/profile/${encodeURIComponent(handle)}`);
+      } else {
+        showNotice('Candidate profile is not linked yet.');
+      }
     }
     setHeaderMenuOpen(false);
   };
 
   const toggleLike = (id) => {
-    let nextLiked = false;
+    const target = thread.find((msg) => String(msg.id) === String(id));
+    if (!target) return;
+    const nextLiked = !target.liked;
+    const prevSnapshot = { liked: target.liked, likes: target.likes || 0, liked_by: target.liked_by || [] };
     setThread((prev) => prev.map((msg) => {
-      if (msg.id !== id) return msg;
-      nextLiked = !msg.liked;
-      return { ...msg, liked: nextLiked, likes: Math.max(0, (msg.likes || 0) + (nextLiked ? 1 : -1)) };
+      if (String(msg.id) !== String(id)) return msg;
+      return {
+        ...msg,
+        liked: nextLiked,
+        likes: Math.max(0, (msg.likes || 0) + (nextLiked ? 1 : -1)),
+      };
     }));
-    if (!isMongoId(id)) return;
-    Promise.resolve(onMessageAction?.(id, selectedMessage?.chat_type, 'like', String(nextLiked))).catch(() => {
-      showNotice('Like sync failed.');
-    });
+    if (!isMongoId(id)) {
+      showNotice('Like saved only after message sync.');
+      return;
+    }
+    const chatType = target.chat_type || selectedMessage?.chat_type || selectedMessage?.channel || 'gig';
+    Promise.resolve(onMessageAction?.(id, chatType, 'like', String(nextLiked)))
+      .then((data) => {
+        if (!data || !Array.isArray(data.liked_by)) return;
+        const likedBy = data.liked_by.map((v) => String(v || '').trim().toLowerCase()).filter(Boolean);
+        setThread((prev) => prev.map((msg) => {
+          if (String(msg.id) !== String(id)) return msg;
+          return {
+            ...msg,
+            liked: Boolean(data.liked),
+            likes: Number(data.likes) || likedBy.length,
+            liked_by: likedBy,
+            chat_type: data.chat_type || msg.chat_type,
+          };
+        }));
+      })
+      .catch(() => {
+        setThread((prev) => prev.map((msg) => (
+          String(msg.id) === String(id) ? { ...msg, ...prevSnapshot } : msg
+        )));
+        showNotice('Like sync failed.');
+      });
   };
 
   const setReaction = (id, emoji) => {
+    const target = thread.find((msg) => String(msg.id) === String(id));
     setThread((prev) => prev.map((msg) => (msg.id === id ? { ...msg, reaction: emoji || '' } : msg)));
     if (!isMongoId(id)) return;
-    Promise.resolve(onMessageAction?.(id, selectedMessage?.chat_type, 'react', emoji || '')).catch(() => {
+    const chatType = target?.chat_type || selectedMessage?.chat_type || selectedMessage?.channel || 'gig';
+    Promise.resolve(onMessageAction?.(id, chatType, 'react', emoji || '')).catch(() => {
       showNotice('Reaction save failed.');
     });
   };
@@ -359,15 +528,15 @@ const useChatWindowState = ({
     if ((!body && pendingAttachments.length === 0) || sending) return;
     const tempId = `local-${Date.now()}`;
     const now = new Date().toISOString();
-    const sendAttachments = [...pendingAttachments];
+    const sendAttachments = normalizeAttachments(pendingAttachments);
     setThread((prev) => [
       ...prev,
       {
         id: tempId,
         sender: 'buyer',
-        text: body || 'Attachment',
+        text: body || (sendAttachments.length ? 'Attachment' : ''),
         time: now,
-        delivery: 'sent',
+        delivery: 'sending',
         likes: 0,
         liked: false,
         starred: false,
@@ -387,18 +556,30 @@ const useChatWindowState = ({
         reply_to_id: replyTo?.id || '',
         message_type: messageType,
       });
+      if (!res) {
+        throw new Error('Send returned empty');
+      }
       const persistedId = String(res?.id || tempId);
-      const backendDelivery = String(res?.delivery_status || 'sent');
+      const peerOnline =
+        String(selectedMessage?.online_status || '').toLowerCase() === 'online' ||
+        selectedMessage?.is_online === true;
+      // sent = 1 tick; delivered (peer online) = 2 grey; read set when they open chat
+      const nextDelivery = peerOnline ? 'delivered' : 'sent';
+      const persistedAtts = Array.isArray(res?.message?.attachments) && res.message.attachments.length
+        ? res.message.attachments.map((att) => ({
+          ...att,
+          url: att?.imageurl || att?.url || '',
+          imageurl: att?.imageurl || att?.url || '',
+        }))
+        : sendAttachments;
       setThread((prev) => prev.map((msg) => (
-        msg.id === tempId ? { ...msg, id: persistedId, delivery: backendDelivery } : msg
+        msg.id === tempId
+          ? { ...msg, id: persistedId, delivery: nextDelivery, attachments: persistedAtts }
+          : msg
       )));
-      if (persistedId && persistedId !== tempId) {
-        setTimeout(async () => {
-          try {
-            await onUpdateDeliveryStatus?.(persistedId, selectedMessage?.chat_type, 'delivered');
-            setThread((prev) => prev.map((msg) => (msg.id === persistedId ? { ...msg, delivery: 'delivered' } : msg)));
-          } catch {}
-        }, 800);
+      const chatType = String(selectedMessage?.chat_type || '').toLowerCase();
+      if (peerOnline && persistedId && persistedId !== tempId && chatType !== 'admin_support') {
+        onUpdateDeliveryStatus?.(persistedId, selectedMessage?.chat_type, 'delivered').catch(() => {});
       }
       sentOk = true;
     } catch {
@@ -421,19 +602,38 @@ const useChatWindowState = ({
   };
 
   const handlePickFile = async (event, kind = 'file') => {
-    const file = event?.target?.files?.[0];
-    if (!file) return;
+    const files = Array.from(event?.target?.files || []);
+    if (!files.length) return;
     try {
-      const uploaded = await onUploadAttachment?.(file, kind);
-      if (uploaded) {
-        setPendingAttachments((prev) => [...prev, uploaded]);
-        appendToDraft(`[${kind}: ${uploaded.name || file.name}]`);
-        showNotice(`${kind} uploaded: ${uploaded.name || file.name}`);
+      for (const file of files) {
+        const uploaded = await onUploadAttachment?.(file, kind);
+        if (uploaded) {
+          setPendingAttachments((prev) => [...prev, uploaded]);
+          showNotice(`${uploaded.type || kind} uploaded: ${uploaded.name || file.name}`);
+        }
       }
     } catch {
       showNotice(`${kind} upload failed.`);
     } finally {
       event.target.value = '';
+    }
+  };
+
+  const handleDropFiles = async (files = []) => {
+    const list = Array.from(files || []);
+    if (!list.length) return;
+    try {
+      for (const file of list) {
+        const mime = String(file.type || '');
+        const kind = mime.startsWith('image/') ? 'image' : mime.startsWith('video/') ? 'video' : 'file';
+        const uploaded = await onUploadAttachment?.(file, kind);
+        if (uploaded) {
+          setPendingAttachments((prev) => [...prev, uploaded]);
+        }
+      }
+      showNotice(`${list.length} file(s) attached.`);
+    } catch {
+      showNotice('Attachment upload failed.');
     }
   };
 
@@ -550,6 +750,7 @@ const useChatWindowState = ({
     appendToDraft,
     toAbsoluteUrl,
     handlePickFile,
+    handleDropFiles,
     handleOpenComposerEmoji,
     handleInsertCode,
     toggleRecording,

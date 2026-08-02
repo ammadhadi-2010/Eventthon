@@ -17,6 +17,15 @@
   align-items: flex-start;
 }
 
+.ja-preview-logo,
+.ja-preview-card__head .gigs-company-logo,
+.ja-preview-card__head .gigs-company-logo--image {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
 .ja-preview-bell {
   width: 40px;
   height: 40px;
@@ -26,6 +35,15 @@
   justify-content: center;
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.35), rgba(76, 29, 149, 0.4));
   color: #c4b5fd;
+  flex-shrink: 0;
+}
+
+.ja-preview-logo,
+.ja-preview-card__head .gigs-company-logo,
+.ja-preview-card__head .gigs-company-logo--image {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
   flex-shrink: 0;
 }
 

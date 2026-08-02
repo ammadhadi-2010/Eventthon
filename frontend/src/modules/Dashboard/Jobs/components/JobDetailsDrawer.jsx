@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { FiBriefcase, FiClock, FiMapPin, FiX } from 'react-icons/fi';
 import JobBookmarkButton from './JobBookmarkButton';
+import JobCompanyLogo from './JobCompanyLogo';
 import { enrichJobDetails } from '../utils/jobDetailsCopy';
 import { isJobsUserSignedIn } from '../utils/jobsUser';
 import '../styles/jobs-job-details.css';
@@ -51,7 +52,14 @@ export default function JobDetailsDrawer({
       <button type="button" className="jh-job-detail-overlay__backdrop" onClick={onClose} aria-label="Close" />
       <aside className="jh-job-detail-drawer gigs-card">
         <header className="jh-job-detail-drawer__head">
-          <div className={`gigs-company-logo ${detail.logoClass}`}>{detail.logoText}</div>
+          <JobCompanyLogo
+            imageurl={detail.imageurl}
+            company={detail.company}
+            logoText={detail.logoText}
+            logoClass={detail.logoClass}
+            listingKind={detail.listingKind}
+            shade="electric"
+          />
           <div className="jh-job-detail-drawer__titles">
             <h2>{detail.role}</h2>
             <p>{detail.company}</p>
@@ -134,7 +142,15 @@ export default function JobDetailsDrawer({
             Upload resume
           </button>
           <button type="button" className="jh-apply-btn" onClick={handleApply} disabled={busy}>
-            <span className="jh-apply-btn__text">{busy ? 'Applying…' : 'Apply Now'}</span>
+            <span className="jh-apply-btn__text">
+              {busy
+                ? detail.listingKind === 'opportunity'
+                  ? 'Joining…'
+                  : 'Applying…'
+                : detail.listingKind === 'opportunity'
+                  ? 'Join'
+                  : 'Apply Now'}
+            </span>
           </button>
         </footer>
       </aside>

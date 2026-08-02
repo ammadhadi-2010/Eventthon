@@ -65,11 +65,15 @@ const AlertDetailPage = ({ userData, employerMode = false }) => {
 
   const actorProfile = useMemo(() => {
     if (!alert) return null;
+    const imageurl = resolveAlertAvatarUrl(alert);
     return {
       name: alert.actor_name || 'EventThon',
       designation: categoryLabel(alert.category),
       headline: alert.title || 'Alert',
       verified: alert.priority === 'high',
+      imageurl: imageurl !== '/default-avatar.png' ? imageurl : '',
+      profile_image_url: imageurl !== '/default-avatar.png' ? imageurl : '',
+      avatar: imageurl !== '/default-avatar.png' ? imageurl : '',
     };
   }, [alert]);
 

@@ -17,6 +17,19 @@ export const FOOTER_TAGLINE = 'Connect. Collaborate. Create Impact.';
 export const FOOTER_DESCRIPTION =
   'The all-in-one platform for squads, projects, and collaborations. Build, innovate and deliver impactful solutions together.';
 
+export const FOOTER_COPYRIGHT =
+  '© 2026 EventThon. All rights reserved. Made with ❤️ for creators and innovators.';
+
+export const FOOTER_NEWSLETTER = {
+  title: 'Stay in the Loop',
+  desc: 'Subscribe to our newsletter and get the latest updates, tips and offers.',
+  checks: [
+    'Weekly platform updates',
+    'Exclusive tips & resources',
+    'No spam. Unsubscribe anytime.',
+  ],
+};
+
 export const FOOTER_SOCIAL = [
   { id: 'facebook', label: 'Facebook', href: 'https://facebook.com' },
   { id: 'x', label: 'X', href: 'https://x.com' },
@@ -38,6 +51,7 @@ export const FOOTER_NAV = [
       { label: 'Blog', to: '/resources/blog' },
       { label: 'Case Studies', to: '/resources/case-studies' },
       { label: 'Help Center', to: '/resources/help' },
+      { label: 'Donate ❤️', to: '/donate' },
       { label: 'Community', to: '/resources/community' },
     ],
   },
@@ -49,7 +63,7 @@ export const FOOTER_NAV = [
       { label: 'About Us', to: '/company/about' },
       { label: "Founder's Story", to: '/founders-story' },
       { label: 'Pricing', to: '/company/pricing' },
-      { label: 'Careers', to: '/company/careers' },
+      { label: 'Careers at EventThon', to: '/company/careers' },
       { label: 'Contact Us', to: '/company/contact' },
       { label: 'Privacy Policy', to: '/company/privacy' },
       { label: 'Terms of Service', to: '/company/terms' },
@@ -57,11 +71,24 @@ export const FOOTER_NAV = [
   },
 ];
 
-export const FOOTER_NEWSLETTER_CHECKS = [
-  'Weekly platform updates',
-  'Exclusive tips & resources',
-  'No spam. Unsubscribe anytime.',
-];
+export const FOOTER_NEWSLETTER_CHECKS = FOOTER_NEWSLETTER.checks;
+
+export const FOOTER_STAT_ICONS = {
+  users: FiUsers,
+  squads: FiUsers,
+  projects: FiFolder,
+  gigs: FiBriefcase,
+  satisfaction: FiAward,
+};
+
+export const FOOTER_VALUE_ICONS = {
+  secure: FiLock,
+  fast: FiZap,
+  collab: FiUsers,
+  data: FiBarChart2,
+  global: FiGlobe,
+  support: FiHeadphones,
+};
 
 export const FOOTER_STATS = [
   { id: 'users', value: '25K+', label: 'Active Users', icon: FiUsers, tone: 'violet' },
@@ -83,3 +110,11 @@ export const FOOTER_VALUES = [
 export const FOOTER_PAYMENTS = ['Visa', 'Mastercard', 'PayPal', 'Stripe', 'Apple Pay', 'Google Pay'];
 
 export const FOOTER_NEWSLETTER_ICON = FiMail;
+
+export function resolveFooterStatIcon(id) {
+  return FOOTER_STAT_ICONS[id] || FiUsers;
+}
+
+export function resolveFooterValueIcon(id) {
+  return FOOTER_VALUE_ICONS[id] || FiZap;
+}

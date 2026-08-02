@@ -6,14 +6,27 @@
   .et-app-shell:has(.gigs-page) .et-top-nav,
   .et-app-shell:has(.jobs-page) .et-top-nav,
   .et-app-shell:has(.ph-page.ph-mobile-shell) .et-top-nav,
+  .et-app-shell:has(.alerts-mobile-shell) .et-top-nav,
+  .et-app-shell:has(.vfps-mobile-shell) .et-top-nav,
+  .et-app-shell:has(.ep-mobile-shell) .et-top-nav,
+  .et-app-shell:has(.pnet-mobile-shell) .et-top-nav,
+  .et-app-shell:has(.upd-explorer-mobile-shell) .et-top-nav,
   .et-app-shell:has(.admin-preview-frame) .et-top-nav {
     display: block !important;
   }
 
+  .et-app-shell:has(.ep-mobile-shell) .member-navbar__hub-drawer-trigger,
+  .et-app-shell:has(.ep-mobile-shell) .hub-drawer-trigger {
+    display: inline-flex !important;
+  }
+
   .gigs-page .gigs-layout.gigs-mobile-shell__body,
-  .jobs-mobile-shell__body,
   .ph-mobile-shell__body {
     padding-top: 1rem !important;
+  }
+
+  .jobs-mobile-shell__body {
+    padding-top: 0 !important;
   }
 
   .dash-home-mobile-drawer-layer {

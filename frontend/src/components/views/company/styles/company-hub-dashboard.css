@@ -1,0 +1,84 @@
+/* Company hub — spacious vertical dashboard stack */
+
+.cp-dashboard-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 22px;
+  align-items: start;
+}
+
+.cp-dashboard--stack {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-width: 0;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.cp-dashboard--stack::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.cp-dashboard--stack .cp-locked-content {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  overflow-x: hidden;
+}
+
+.cp-dashboard--stack .cp-section {
+  padding: 22px 24px;
+}
+
+.cp-dashboard--stack .cp-section__head {
+  margin-bottom: 16px;
+}
+
+.cp-dashboard--stack .cp-section__head h2,
+.cp-dashboard--stack .cp-section__title {
+  font-size: 16px;
+  letter-spacing: 0.01em;
+}
+
+.cp-status-pill {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.cp-status--pending {
+  color: #86efac;
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.cp-status--reviewing {
+  color: #93c5fd;
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(96, 165, 250, 0.3);
+}
+
+.cp-status--shortlisted {
+  color: #fdba74;
+  background: rgba(249, 115, 22, 0.15);
+  border: 1px solid rgba(251, 146, 60, 0.3);
+}
+
+.cp-status--rejected {
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(248, 113, 113, 0.28);
+}
+
+@media (max-width: 1280px) {
+  .cp-dashboard-layout {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}

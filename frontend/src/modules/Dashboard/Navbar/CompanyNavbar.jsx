@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FiBell, FiMessageSquare, FiSearch } from 'react-icons/fi';
+import { FiMessageSquare, FiSearch } from 'react-icons/fi';
+import { useMobileHub } from '../../../hooks/useMobileHub';
+import CompanyMobileTopBar from '../../../components/views/company/components/mobile/CompanyMobileTopBar';
 import { navStyles } from './NavStyles';
 import { useCompanyWorkspace } from '../../../components/views/company/context/CompanyWorkspaceContext';
 import { resolvePortalImageurl } from '../../../components/views/company/utils/portalImage';
@@ -12,15 +14,15 @@ import './company-navbar.css';
 
 const ADMIN_COMPANIES_PATH = '/admin-control/companies';
 
-export default function CompanyNavbar({ user, notifCount = 0 }) {
+export default function CompanyNavbar({ user }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const isMobile = useMobileHub();
   const menuRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const workspace = useCompanyWorkspace();
   const data = workspace?.data;
   const company = data?.company || null;
-
   const [logoSrc, setLogoSrc] = useState(() =>
     resolvePortalImageurl(company?.imageurl, company?.name),
   );
@@ -37,6 +39,10 @@ export default function CompanyNavbar({ user, notifCount = 0 }) {
     document.addEventListener('mousedown', close);
     return () => document.removeEventListener('mousedown', close);
   }, [menuOpen]);
+
+  if (isMobile) {
+    return <CompanyMobileTopBar embedded />;
+  }
 
   return (
     <nav className="cn-navbar" style={navStyles.container}>
@@ -63,16 +69,6 @@ export default function CompanyNavbar({ user, notifCount = 0 }) {
         {shouldShowSwitchToAdmin(location.pathname, user) ? (
           <SwitchToAdminButton to={ADMIN_COMPANIES_PATH} className="cn-navbar__hub-switch" />
         ) : null}
-        <button
-          type="button"
-          className="cn-navbar__icon-btn"
-          style={navStyles.rightSideIcon}
-          onClick={() => navigate('/company/notifications')}
-          aria-label="Notifications"
-        >
-          <FiBell size={18} />
-          {notifCount > 0 ? <span style={navStyles.neonBadge}>{notifCount}</span> : null}
-        </button>
         <button
           type="button"
           className="cn-navbar__icon-btn"

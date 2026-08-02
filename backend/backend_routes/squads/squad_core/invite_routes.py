@@ -7,7 +7,12 @@ from backend_routes.alerts.alert_factory import push_alert
 
 from ..squads_chat_context import build_squad_invite_chat_context
 from ..squads_session import assert_actor_id, assert_squad_leader, verify_squads_session
-from ..squad_permissions import assert_can_invite, hydrate_squad_members, resolve_session_user_id
+from ..squad_permissions import (
+    assert_can_invite,
+    find_member,
+    hydrate_squad_members,
+    resolve_session_user_id,
+)
 from ..squad_shared import (
     InvitePayload,
     InviteRespondPayload,
@@ -41,8 +46,8 @@ async def invite_squad_member(
     new_member = {
         "id": member_id,
         "name": profile.get("name") or clean_name,
-        "email": profile.get("email"),
-        "mobile": profile.get("mobile"),
+        "email": (payload.email or "").strip() or profile.get("email"),
+        "mobile": (payload.mobile or "").strip() or profile.get("mobile"),
         "role": clean_role,
         "online": False,
         "invite_status": "pending",
@@ -157,15 +162,28 @@ async def respond_squad_invite(
         return {"status": "error", "message": "user_id required"}
     await assert_actor_id(uid, user)
     members = squad.get("members", [])
-    target = next((m for m in members if str(m.get("id") or "") == uid), None)
+    target = find_member(squad, user) or next(
+        (m for m in members if str(m.get("id") or "") == uid),
+        None,
+    )
     if not target:
         return {"status": "error", "message": "Invitation not found"}
+    if str(target.get("invite_status") or "").lower() not in ("pending", ""):
+        return {"status": "error", "message": "No pending invitation for this squad"}
+    target_id = str(target.get("id") or uid).strip()
     action = str(payload.action or "").strip().lower()
     if action == "accept":
         new_members = []
         for member in members:
-            if str(member.get("id") or "") == uid:
-                new_members.append({**member, "invite_status": "accepted", "online": True})
+            if str(member.get("id") or "") == target_id:
+                new_members.append(
+                    {
+                        **member,
+                        "id": uid or target_id,
+                        "invite_status": "accepted",
+                        "online": True,
+                    }
+                )
             else:
                 new_members.append(member)
         await squad_collection.update_one(
@@ -186,7 +204,7 @@ async def respond_squad_invite(
         await squad_collection.update_one(
             {"_id": squad_id},
             {
-                "$pull": {"members": {"id": uid}},
+                "$pull": {"members": {"id": target_id}},
                 "$set": {"updated_at": datetime.utcnow()},
             },
         )

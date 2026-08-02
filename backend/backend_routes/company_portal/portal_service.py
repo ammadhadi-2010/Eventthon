@@ -5,7 +5,7 @@ from collections import Counter
 from typing import Any, Dict, List, Optional
 
 from database import companies_collection, job_applications_collection, jobs_collection, user_collection
-from backend_routes.admin.company_format import parse_imageurl
+from backend_routes.admin.company_format import _is_verified, parse_imageurl
 from backend_routes.jobs.hub_listings import _parse_band
 
 from .portal_resolve import ensure_company_for_user, find_user
@@ -28,13 +28,17 @@ def _format_followers(count: int) -> str:
     return str(count)
 
 
-async def build_company_profile(doc: dict, open_jobs: int) -> dict:
+async def build_company_profile(doc: dict, open_jobs: int, hired: int = 0, total_apps: int = 0) -> dict:
+    from .portal_followers import followers_count_from_company
+
     cid = str(doc.get("_id") or "")
+    followers_raw = followers_count_from_company(doc)
+    profile_views = int(doc.get("profile_views") or 0)
     return {
         "id": cid,
         "name": str(doc.get("name") or "Company"),
         "imageurl": parse_imageurl(doc),
-        "isVerified": bool(doc.get("is_verified")) or str(doc.get("status") or "") == "verified",
+        "isVerified": _is_verified(doc),
         "status": str(doc.get("status") or "draft").strip().lower(),
         "tagline": str(doc.get("tagline") or "").strip(),
         "description": str(doc.get("description") or "").strip(),
@@ -48,12 +52,38 @@ async def build_company_profile(doc: dict, open_jobs: int) -> dict:
         "industry": str(doc.get("industry") or "General").strip(),
         "employees": str(doc.get("size") or "—"),
         "openJobs": open_jobs,
-        "followers": _format_followers(int(doc.get("followers") or 0)),
+        "hired": hired,
+        "totalApplications": total_apps,
+        "followers": _format_followers(followers_raw),
+        "followersRaw": followers_raw,
+        "profileViews": profile_views,
+        "rating": doc.get("rating") if doc.get("rating") is not None else None,
+        "linkedin": str(doc.get("linkedin") or doc.get("social_linkedin") or "").strip(),
+        "twitter": str(doc.get("twitter") or doc.get("social_twitter") or "").strip(),
+        "facebook": str(doc.get("facebook") or doc.get("social_facebook") or "").strip(),
+        "instagram": str(doc.get("instagram") or doc.get("social_instagram") or "").strip(),
         "joinedYear": format_joined_year(doc.get("created_at")),
         "isDraft": bool(doc.get("is_draft")),
         "reviewMessage": str(doc.get("verification_message") or "").strip(),
         "verificationProofImageurl": str(doc.get("verification_proof_imageurl") or "").strip(),
+        "planName": str(doc.get("plan_name") or "Business").strip() or "Business",
+        "planRenewal": str(doc.get("plan_renewal") or "").strip(),
     }
+
+
+def _is_active_job(doc: dict) -> bool:
+    status = str(doc.get("status") or "").strip().lower()
+    if doc.get("is_draft") is True or status in {"draft", "closed", "archived", "inactive"}:
+        return False
+    return True
+
+
+async def count_active_jobs(company_id: str) -> int:
+    total = 0
+    async for doc in jobs_collection.find({"company_id": company_id}, {"status": 1, "is_draft": 1}):
+        if _is_active_job(doc):
+            total += 1
+    return total
 
 
 async def build_open_jobs(company_id: str, limit: int = 8) -> List[dict]:
@@ -67,21 +97,30 @@ async def build_open_jobs(company_id: str, limit: int = 8) -> List[dict]:
         async for row in job_applications_collection.aggregate(pipeline):
             app_counts[str(row["_id"])] = int(row["count"])
     rows: List[dict] = []
-    async for doc in jobs_collection.find({"company_id": company_id}).sort("created_at", -1).limit(limit):
+    async for doc in jobs_collection.find({"company_id": company_id}).sort("updated_at", -1):
+        if not _is_active_job(doc):
+            continue
         jid = str(doc.get("_id") or "")
         smin, smax = _parse_band(doc)
         tags = [str(doc.get("employment_type") or "Full-time")]
         if doc.get("work_mode"):
             tags.append(str(doc["work_mode"]))
+        created = doc.get("created_at")
+        posted = relative_time(created) if created else "Recently"
         rows.append(
             {
                 "id": jid,
                 "title": doc.get("title") or "Role",
                 "tags": tags[:3],
+                "employmentType": str(doc.get("employment_type") or "Full-time"),
+                "location": str(doc.get("location") or doc.get("work_mode") or "Remote"),
                 "salaryRange": doc.get("salary_range") or f"${int(smin)}k - ${int(smax)}k",
                 "applicants": app_counts.get(jid, 0),
+                "posted": posted,
             }
         )
+        if len(rows) >= limit:
+            break
     return rows
 
 
@@ -138,6 +177,12 @@ async def build_top_skills(apps: List[dict], company_id: str) -> List[dict]:
 
 async def build_recent_applicants(apps: List[dict], limit: int = 5) -> List[dict]:
     apps_sorted = sorted(apps, key=lambda d: str(d.get("created_at") or ""), reverse=True)[:limit]
+    job_titles: Dict[str, str] = {}
+    for doc in apps_sorted:
+        jid = str(doc.get("job_id") or "")
+        if jid and jid not in job_titles:
+            job = await jobs_collection.find_one({"_id": jid}, {"title": 1})
+            job_titles[jid] = str((job or {}).get("title") or "Role")
     rows: List[dict] = []
     for doc in apps_sorted:
         uid = str(doc.get("user_identifier") or doc.get("user_id") or "")
@@ -151,12 +196,14 @@ async def build_recent_applicants(apps: List[dict], limit: int = 5) -> List[dict
             name = uid or "Applicant"
             imageurl = ""
         bucket = portal_bucket(doc.get("status"))
+        jid = str(doc.get("job_id") or "")
         rows.append(
             {
                 "id": str(doc.get("_id") or ""),
                 "name": name,
                 "imageurl": imageurl,
                 "position": str(doc.get("role") or "Role"),
+                "appliedFor": job_titles.get(jid, "Role"),
                 "status": BUCKET_LABELS.get(bucket, "Pending"),
                 "statusKey": bucket,
                 "time": relative_time(doc.get("created_at")),
@@ -166,18 +213,27 @@ async def build_recent_applicants(apps: List[dict], limit: int = 5) -> List[dict
 
 
 async def build_dashboard_payload(user_id: str) -> Optional[dict]:
+    from .portal_pipeline import build_talent_pipeline, pipeline_stage
+
     company_doc = await ensure_company_for_user(user_id)
     if not company_doc:
         return None
     cid = str(company_doc.get("_id") or "")
-    open_count = await jobs_collection.count_documents({"company_id": cid})
+    open_count = await count_active_jobs(cid)
     open_jobs_list = await build_open_jobs(cid)
     apps = await _applications_for_company(cid)
+    hired = sum(
+        1
+        for doc in apps
+        if pipeline_stage(doc.get("status")) in ("hired", "offer")
+        or portal_bucket(doc.get("status")) == "shortlisted"
+    )
     return {
-        "company": await build_company_profile(company_doc, open_count),
+        "company": await build_company_profile(company_doc, open_count, hired, len(apps)),
         "openJobs": open_jobs_list,
         "applicationMetrics": await build_application_metrics(apps),
         "topSkills": await build_top_skills(apps, cid),
         "recentApplications": await build_recent_applicants(apps),
+        "talentPipeline": await build_talent_pipeline(apps),
         "analytics": build_analytics(apps, company_doc, open_count),
     }

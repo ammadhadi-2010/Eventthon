@@ -1,5 +1,5 @@
 ﻿.vfph-hero-stack {
-  background: #05070a;
+  background: #0b0f17;
 }
 .vfph-title {
   margin: 0 0 0.55rem;
@@ -98,11 +98,16 @@
   align-self: flex-end;
   margin-bottom: 5px;
   overflow: hidden;
-  border-radius: 14px;
-  padding: 0.72rem 0.8rem;
+  border-radius: 16px;
+  padding: 0.7rem 0.75rem 0.8rem;
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
   background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 11.5rem;
+  max-width: 11.5rem;
 }
 .vfph-rank-card::before {
   content: '';
@@ -119,83 +124,185 @@
   position: relative;
   z-index: 2;
 }
-@media (max-width: 960px) {
-  .vfph-skill-row { justify-content: center; }
-  .vfph-rank-card {
-    width: 100%;
-    max-width: 280px;
-    align-self: center;
+
+/* Circular badge orb — same language as avatar ring, slightly smaller */
+.vfph-rank-orb {
+  display: flex;
+  justify-content: center;
+  margin: 0.15rem 0 0.55rem;
+}
+.vfph-rank-orb__ring {
+  padding: 3px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 28%, #38bdf8 62%, #6366f1 100%);
+  box-shadow:
+    0 0 0 3px #0b0f17,
+    0 8px 22px rgba(0, 0, 0, 0.4),
+    0 0 22px rgba(56, 189, 248, 0.28);
+}
+.vfph-rank-orb__inner {
+  position: relative;
+  width: 5.35rem;
+  height: 5.35rem;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 3px solid #0b0f17;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(56, 189, 248, 0.28), transparent 55%),
+    radial-gradient(circle at 70% 75%, rgba(167, 139, 250, 0.22), transparent 50%),
+    #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.vfph-rank-orb__float {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 78%;
+  height: 78%;
+  animation: vfph-rank-float 4.8s ease-in-out infinite;
+  will-change: transform;
+}
+.vfph-rank-orb__badge {
+  width: 100%;
+  height: 100%;
+}
+.vfph-rank-orb__badge img,
+.vfph-rank-orb__badge .et-rank-badge-img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: contain;
+  display: block;
+}
+
+@keyframes vfph-rank-float {
+  0% {
+    transform: translate(0, 0) rotate(-2deg);
+  }
+  20% {
+    transform: translate(4px, -5px) rotate(2deg);
+  }
+  40% {
+    transform: translate(-3px, -2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(3px, 4px) rotate(2deg);
+  }
+  80% {
+    transform: translate(-4px, 2px) rotate(-2deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(-2deg);
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .vfph-rank-orb__float {
+    animation: none;
+  }
+}
+
 .vfph-rank-card__eyebrow {
   margin: 0 0 0.35rem;
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #fff;
+  color: #cbd5e1;
+  text-align: center;
+  width: 100%;
 }
-.vfph-rank-card__head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.55rem;
-  margin-bottom: 0.55rem;
-}
-.vfph-rank-card__titleblock {
+
+/* Colored text block under the orb */
+.vfph-rank-card__labelblock {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.15rem;
-  flex: 1;
-  min-width: 0;
-}
-.vfph-rank-card__code,
-.vfph-rank-card__role {
-  color: #ffffff;
+  align-items: center;
+  gap: 0.12rem;
+  width: 100%;
+  margin-bottom: 0.55rem;
+  padding: 0.45rem 0.5rem;
+  border-radius: 10px;
+  text-align: center;
+  background: linear-gradient(145deg, rgba(56, 189, 248, 0.22) 0%, rgba(99, 102, 241, 0.28) 55%, rgba(167, 139, 250, 0.2) 100%);
+  border: 1px solid rgba(125, 211, 252, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 .vfph-rank-card__code {
-  font-size: 1.45rem;
+  font-size: 1.2rem;
   font-weight: 900;
   line-height: 1.05;
   letter-spacing: -0.03em;
+  color: #e0f2fe;
 }
 .vfph-rank-card__role {
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: #c4b5fd;
 }
+
+/* legacy head layout unused but keep harmless */
+.vfph-rank-card__head,
+.vfph-rank-card__titleblock,
 .vfph-rank-card__icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  flex-shrink: 0;
+  display: none;
 }
 
 @media (max-width: 960px) {
-  .vfph-rank-card__icon {
-    width: 48px;
-    height: 48px;
+  .vfph-skill-row { justify-content: flex-start; }
+  .vfph-rank-card {
+    width: 7.75rem;
+    max-width: 7.75rem;
+    flex: 0 0 7.75rem;
+    align-self: flex-start;
+    margin-top: 0.15rem;
+    margin-bottom: 0;
+    padding: 0.45rem 0.4rem 0.55rem;
   }
-}
 
-@media (max-width: 399px) {
-  .vfph-rank-card__icon {
-    width: 44px;
-    height: 44px;
+  .vfph-rank-orb__inner {
+    width: 4.35rem;
+    height: 4.35rem;
+  }
+
+  .vfph-rank-card__labelblock {
+    padding: 0.35rem 0.3rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .vfph-rank-card__code {
+    font-size: 1rem;
+  }
+
+  .vfph-rank-card__role {
+    font-size: 0.62rem;
+  }
+
+  .vfph-rank-card__eyebrow {
+    font-size: 8px;
+    margin-bottom: 0.2rem;
+  }
+
+  .vfph-rank-card__progress-label,
+  .vfph-rank-card__pct {
+    font-size: 9px;
   }
 }
 .vfph-rank-card__progress-label {
   font-size: 10px;
   font-weight: 700;
-  color: #ffffff;
+  color: #cbd5e1;
   margin-bottom: 0.28rem;
+  width: 100%;
+  text-align: center;
 }
 .vfph-rank-card__bar {
+  width: 100%;
   height: 4px;
   border-radius: 99px;
   background: rgba(255, 255, 255, 0.07);
@@ -212,8 +319,9 @@
   margin-top: 0.28rem;
   font-size: 11px;
   font-weight: 800;
-  color: #ffffff;
-  text-align: right;
+  color: #e0f2fe;
+  text-align: center;
+  width: 100%;
 }
 .vfph-stats {
   display: grid;

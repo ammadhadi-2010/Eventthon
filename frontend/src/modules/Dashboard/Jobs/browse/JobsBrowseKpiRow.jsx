@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { BusinessIcon } from '../../../../components/lottie';
 import { useJobsHub } from '../context/JobsHubContext';
-import { JOBS_BROWSE_STATS } from '../data/jobsBrowseData';
 import { JOBS_KPI_LOTTIE } from './jobsBrowseKpiLottie';
 
 const JobsBrowseKpiRow = () => {
@@ -9,16 +8,16 @@ const JobsBrowseKpiRow = () => {
 
   const stats = useMemo(() => {
     const live = Array.isArray(searchStats) && searchStats.length ? searchStats : boardStats;
-    if (Array.isArray(live) && live.length) {
-      return live.map((row) => ({
-        label: row.label,
-        value: row.value,
-        change: row.change || row.delta || '',
-        tone: row.tone || 'violet',
-      }));
-    }
-    return JOBS_BROWSE_STATS;
+    if (!Array.isArray(live) || !live.length) return [];
+    return live.map((row) => ({
+      label: row.label,
+      value: row.value,
+      change: row.change || row.delta || '',
+      tone: row.tone || 'violet',
+    }));
   }, [searchStats, boardStats]);
+
+  if (!stats.length) return null;
 
   return (
     <div className="gigs-grid-4 gigs-stats-grid jobs-stats-grid jobs-mobile-swipe-lane">

@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {
+  alertAvatarInitial,
+  resolveAlertAvatarUrl,
+} from '../../../Dashboard/Alerts/utils/alertAvatar';
 import {
   BUG_REPORTS_PANEL_PATH,
   formatBugReportAlertTitle,
@@ -30,6 +34,21 @@ const formatTime = (value) => {
 };
 
 function AlertAvatar({ item }) {
+  const [broken, setBroken] = useState(false);
+  const url = resolveAlertAvatarUrl(item);
+  const showImg = !broken && url && url !== '/default-avatar.png';
+
+  if (showImg) {
+    return (
+      <img
+        src={url}
+        alt=""
+        className="alerts-avatar alerts-avatar--img"
+        onError={() => setBroken(true)}
+      />
+    );
+  }
+
   if (isBugReportAlert(item)) {
     return (
       <div className="alerts-avatar alerts-avatar--bug" aria-hidden>
@@ -37,7 +56,8 @@ function AlertAvatar({ item }) {
       </div>
     );
   }
-  return <div className="alerts-avatar">{(item.title || 'A').charAt(0)}</div>;
+
+  return <div className="alerts-avatar">{alertAvatarInitial(item)}</div>;
 }
 
 export default function AdminAlertsTimeline({ items, onOpenAlert }) {

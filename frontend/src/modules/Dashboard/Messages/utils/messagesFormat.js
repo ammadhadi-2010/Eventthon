@@ -27,13 +27,48 @@ export const formatDaySeparator = (isoText) => {
   return dt.toLocaleDateString([], { weekday: 'long', month: 'short', day: 'numeric' });
 };
 
-export const filterMessages = (messages, activeFilter, query) => {
+export const filterMessages = (messages, activeFilter, query, advanced = null) => {
   const q = String(query || '').trim().toLowerCase();
+  const stage = String(advanced?.stage || '').trim().toLowerCase();
+  const skillsQ = String(advanced?.skills || '').trim().toLowerCase();
+  const dateKey = String(advanced?.date || '').trim();
+  const labels = Array.isArray(advanced?.labels) ? advanced.labels.map((x) => String(x).toLowerCase()) : [];
+
   return messages.filter((row) => {
     if (activeFilter === 'unread' && String(row.status || '').toLowerCase() !== 'new') return false;
     if (activeFilter === 'mentions' && !String(row.body || '').includes('@')) return false;
+
+    if (stage) {
+      const rowStage = String(row.hiring_stage || '').toLowerCase();
+      if (rowStage !== stage) return false;
+    }
+    if (labels.length) {
+      const rowLabels = Array.isArray(row.labels) ? row.labels.map((x) => String(x).toLowerCase()) : [];
+      if (!labels.every((lab) => rowLabels.includes(lab))) return false;
+    }
+    if (skillsQ) {
+      const skills = Array.isArray(row.candidate_skills) ? row.candidate_skills.join(' ') : '';
+      if (!`${skills}`.toLowerCase().includes(skillsQ)) return false;
+    }
+    if (dateKey) {
+      const created = row.created_at ? new Date(row.created_at) : null;
+      if (!created || Number.isNaN(created.getTime())) return false;
+      const iso = created.toISOString().slice(0, 10);
+      if (iso !== dateKey) return false;
+    }
+
     if (!q) return true;
-    const hay = `${row.context_title || ''} ${row.body || ''} ${row.from_user_id || ''}`.toLowerCase();
+    const hay = [
+      row.context_title,
+      row.body,
+      row.from_user_id,
+      row.from_user_name,
+      ...(Array.isArray(row.candidate_skills) ? row.candidate_skills : []),
+      ...(Array.isArray(row.labels) ? row.labels : []),
+      row.hiring_stage,
+    ]
+      .join(' ')
+      .toLowerCase();
     return hay.includes(q);
   });
 };

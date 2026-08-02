@@ -13,6 +13,7 @@ const ActivityFeed = ({
   posts = [],
   onItemDeleted,
   mobileWidgets = null,
+  aboutFeed = null,
 }) => {
   const [activeFilter, setActiveFilter] = useState('All');
   const safePosts = useMemo(
@@ -35,8 +36,8 @@ const ActivityFeed = ({
 
   const includeMobileWidgets = Boolean(mobileWidgets) && activeFilter === 'All';
   const feedSequence = useMemo(
-    () => buildFeedRenderSequence(filteredPosts, includeMobileWidgets),
-    [filteredPosts, includeMobileWidgets],
+    () => buildFeedRenderSequence(filteredPosts, includeMobileWidgets, aboutFeed),
+    [filteredPosts, includeMobileWidgets, aboutFeed],
   );
 
   return (
@@ -74,6 +75,12 @@ const ActivityFeed = ({
             }
             if (entry.kind === 'mobile_people_you_may_know') {
               return <React.Fragment key={entry.key}>{mobileWidgets.peopleYouMayKnow}</React.Fragment>;
+            }
+            if (entry.kind === 'support_cause' && mobileWidgets.supportCause) {
+              return <React.Fragment key={entry.key}>{mobileWidgets.supportCause}</React.Fragment>;
+            }
+            if (entry.kind === 'about_journey' && mobileWidgets.aboutJourney) {
+              return <React.Fragment key={entry.key}>{mobileWidgets.aboutJourney}</React.Fragment>;
             }
             return null;
           })

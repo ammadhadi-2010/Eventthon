@@ -25,13 +25,6 @@ const FILTER_LABELS = {
 };
 const FILTER_TABS = FILTER_IDS.map((id) => ({ id, label: FILTER_LABELS[id] }));
 
-const DEMO_CONTRIBUTORS = [
-  'https://api.dicebear.com/8.x/avataaars/svg?seed=c1',
-  'https://api.dicebear.com/8.x/avataaars/svg?seed=c2',
-  'https://api.dicebear.com/8.x/avataaars/svg?seed=c3',
-  'https://api.dicebear.com/8.x/avataaars/svg?seed=c4',
-];
-
 function avatarFor(userData, draft) {
   const raw =
     draft?.profileImageUrl ||
@@ -53,24 +46,24 @@ function renderFeedRail(row, faceUrls) {
   switch (row.kind) {
     case 'project_post':
       return (
-        <FeedProjectThumbRail imageUrl={row.projectImageUrl} contributorUrls={row.contributorUrls || DEMO_CONTRIBUTORS} />
+        <FeedProjectThumbRail imageUrl={row.projectImageUrl} contributorUrls={row.contributorUrls || []} />
       );
     case 'liked_project':
       return (
         <FeedProjectThumbRail
           likedMini
           badgeLabel={row.badgeLabel || 'Project'}
-          contributorUrls={row.contributorUrls || DEMO_CONTRIBUTORS}
+          contributorUrls={row.contributorUrls || []}
         />
       );
     case 'follow':
-      return <FeedFollowRail urls={faceUrls} />;
+      return faceUrls.length ? <FeedFollowRail urls={faceUrls} /> : null;
     case 'api':
       if (!row.project) return null;
       return (
         <FeedProjectThumbRail
           imageUrl={row.project.imageUrl}
-          contributorUrls={row.project.contributorUrls || DEMO_CONTRIBUTORS}
+          contributorUrls={row.project.contributorUrls || []}
         />
       );
     default:
@@ -137,7 +130,6 @@ export default function DevProfileOverviewActivityFeed({ userData, draft, bundle
   const av = avatarFor(userData, draft);
 
   const rows = useMemo(() => {
-    const now = Date.now();
     const apiItems = (bundle?.activity || []).map((a) => {
       const t = String(a.type || '').toLowerCase();
       const isProjectType = t === 'project' || t === 'portfolio';
@@ -161,77 +153,18 @@ export default function DevProfileOverviewActivityFeed({ userData, draft, bundle
           ? {
               imageUrl: img,
               title: projectTitle,
-              techStack: tech.length ? tech : ['react', 'node', 'typescript'],
-              contributorUrls: DEMO_CONTRIBUTORS,
-              subtitle:
-                subtitle.trim() ||
-                'Ship faster with a live preview of audits, exports, and client-ready reports.',
+              techStack: tech,
+              contributorUrls: [],
+              subtitle: subtitle.trim(),
             }
           : null,
       };
     });
 
-    const demo = [
-      {
-        id: 'demo-1',
-        kind: 'squad_join',
-        filters: ['all', 'squads'],
-        created_at: new Date(now - 25 * 60 * 1000).toISOString(),
-        actorName: displayName,
-        squadName: 'Code Warriors',
-      },
-      {
-        id: 'demo-2',
-        kind: 'follow',
-        filters: ['all', 'connections'],
-        created_at: new Date(now - 5 * 60 * 60 * 1000).toISOString(),
-        actorName: displayName,
-        leadName: 'Sarah Khan',
-        followTrail: ', Usman Ali, and 12 others',
-      },
-      {
-        id: 'demo-3',
-        kind: 'liked_project',
-        filters: ['all', 'posts', 'projects'],
-        created_at: new Date(now - 86400 * 1000).toISOString(),
-        actorName: displayName,
-        projectTitle: 'AI Chatbot Assistant',
-        badgeLabel: 'AI ChatBot',
-        projectSubtitle: 'RAG pipeline with guardrails and a clean support UI.',
-        techStack: ['react', 'python', 'mongodb'],
-        contributorUrls: DEMO_CONTRIBUTORS,
-      },
-      {
-        id: 'demo-4',
-        kind: 'project_post',
-        filters: ['all', 'projects'],
-        created_at: new Date(now - 86400 * 1000).toISOString(),
-        actorName: displayName,
-        projectTitle: 'SEO Audit Dashboard',
-        projectImageUrl: '',
-        projectSubtitle: 'Track audits, meta fixes, and client deliverables in one workspace.',
-        techStack: ['react', 'node', 'javascript', 'mongodb'],
-        contributorUrls: DEMO_CONTRIBUTORS,
-      },
-      {
-        id: 'demo-5',
-        kind: 'connection',
-        filters: ['all', 'connections'],
-        created_at: new Date(now - 2 * 86400 * 1000).toISOString(),
-        actorName: displayName,
-        peerName: 'Bilal Ahmed',
-      },
-    ];
-
-    const merged = [...apiItems.slice(0, 3), ...demo];
-    return merged.filter((r) => filter === 'all' || r.filters.includes(filter));
+    return apiItems.filter((r) => filter === 'all' || r.filters.includes(filter));
   }, [bundle?.activity, displayName, filter]);
 
-  const faceUrls = [
-    'https://api.dicebear.com/8.x/avataaars/svg?seed=sarah',
-    'https://api.dicebear.com/8.x/avataaars/svg?seed=usman',
-    'https://api.dicebear.com/8.x/avataaars/svg?seed=extra',
-  ];
+  const faceUrls = [];
 
   return (
     <section className="dpo-panel dpo-af" aria-label="Activity feed">
@@ -252,11 +185,15 @@ export default function DevProfileOverviewActivityFeed({ userData, draft, bundle
       </div>
 
       <ul className="dpo-af-list">
-        {rows.map((row) => (
-          <FeedItem key={row.id} avatarSrc={av} avatarAlt="" rightRail={renderFeedRail(row, faceUrls)}>
-            {renderFeedMain(row)}
-          </FeedItem>
-        ))}
+        {rows.length ? (
+          rows.map((row) => (
+            <FeedItem key={row.id} avatarSrc={av} avatarAlt="" rightRail={renderFeedRail(row, faceUrls)}>
+              {renderFeedMain(row)}
+            </FeedItem>
+          ))
+        ) : (
+          <li className="dpo-placeholder">No activity yet. Posts and updates will appear here.</li>
+        )}
       </ul>
     </section>
   );

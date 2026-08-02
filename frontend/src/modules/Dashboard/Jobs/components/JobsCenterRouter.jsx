@@ -7,7 +7,8 @@ import RecommendedJobs from '../views/RecommendedJobs';
 import Companies from '../views/Companies';
 import JobsSettings from '../views/JobsSettings';
 import JobsComingSoon from '../views/JobsComingSoon';
-import { isJobsComingSoonSection } from '../data/jobsMenuData';
+import { useJobsHub } from '../context/JobsHubContext';
+import { isSectionComingSoon } from '../utils/jobsMenuFromSettings';
 
 const VIEW_MAP = {
   browse: BrowseJobs,
@@ -20,7 +21,8 @@ const VIEW_MAP = {
 };
 
 function JobsCenterRouter({ activeSection, onOpenLeftDrawer = () => {} }) {
-  if (isJobsComingSoonSection(activeSection)) {
+  const { platformSettings } = useJobsHub();
+  if (isSectionComingSoon(activeSection, platformSettings)) {
     return <JobsComingSoon sectionId={activeSection} />;
   }
   if (activeSection === 'browse') {

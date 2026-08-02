@@ -1,31 +1,26 @@
 import React from 'react';
-import { API_BASE_URL } from '../../../../api/axiosConfig';
+import { resolveMediaUrl } from '../../../../components/shared/utils/resolveMediaUrl';
 
-function resolveAvatar(url) {
-  if (!url || typeof url !== 'string') return '';
-  const v = url.trim();
-  if (!v) return '';
-  if (v.startsWith('http') || v.startsWith('blob:')) return v;
-  return `${API_BASE_URL}${v.startsWith('/') ? v : `/${v}`}`;
-}
-
-function dicebear(seed) {
+function resolveAvatar(url, seed = 'member') {
+  const resolved = resolveMediaUrl(url || '');
+  if (resolved) return resolved;
   return `https://api.dicebear.com/8.x/avataaars/svg?seed=${encodeURIComponent(seed)}`;
 }
 
-/** Up to `shown` avatar URLs: prefer `suggested` avatars, then generated. */
-export function buildFacepileUrls(suggested, shown, seedPrefix) {
-  const out = [];
+/** Up to `shown` avatar URLs from real `suggested` members only (no generated fillers). */
+export function buildFacepileUrls(suggested, shown, total = 0) {
   const list = Array.isArray(suggested) ? suggested : [];
-  for (let i = 0; i < list.length && out.length < shown; i++) {
-    const u = resolveAvatar(list[i]?.avatar);
-    if (u) out.push(u);
+  const cap = Math.min(
+    shown,
+    Math.max(0, Math.floor(Number(total) || 0) || list.length),
+  );
+  if (cap <= 0) return [];
+  const out = [];
+  for (let i = 0; i < list.length && out.length < cap; i++) {
+    const seed = list[i]?.name || list[i]?.id || `m${i}`;
+    out.push(resolveAvatar(list[i]?.avatar, seed));
   }
-  let n = 0;
-  while (out.length < shown) {
-    out.push(dicebear(`${seedPrefix}-${n++}`));
-  }
-  return out.slice(0, shown);
+  return out;
 }
 
 function fmtRemainderBadge(total, shown) {
@@ -40,9 +35,21 @@ function fmtRemainderBadge(total, shown) {
   return `+${rest}`;
 }
 
-export default function DevProfileOverviewFacepile({ suggested, total, shown = 7, seedPrefix = 'fp' }) {
-  const urls = buildFacepileUrls(suggested, shown, seedPrefix);
+export default function DevProfileOverviewFacepile({ suggested, total, shown = 7 }) {
+  const urls = buildFacepileUrls(suggested, shown, total);
   const badge = fmtRemainderBadge(total, shown);
+
+  if (!urls.length) {
+    const n = Math.max(0, Math.floor(Number(total) || 0));
+    if (n > 0) {
+      return (
+        <p className="dpo-muted-sm dpo-facepile-empty">
+          {n} member{n === 1 ? '' : 's'} — open View All
+        </p>
+      );
+    }
+    return <p className="dpo-muted-sm dpo-facepile-empty">No members yet.</p>;
+  }
 
   return (
     <div className="dpo-facepile">

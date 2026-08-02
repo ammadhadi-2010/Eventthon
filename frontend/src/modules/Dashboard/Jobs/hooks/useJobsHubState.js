@@ -4,8 +4,10 @@ import {
   registerJobApplication,
   createJobAlert,
   fetchJobAlerts,
+  fetchJobAlertMatches,
   fetchJobApplications,
   fetchJobsHubMetrics,
+  fetchJobsPlatformSettings,
   fetchRecommendedJobs,
   fetchSavedJobs,
   patchJobAlert,
@@ -13,22 +15,28 @@ import {
   updateJobApplicationFlow,
   uploadJobResume,
 } from '../services/jobsHubApi';
-import { JOB_ALERTS_LIST } from '../data/jobAlertsData';
-import { RECOMMENDED_JOBS } from '../data/recommendedJobsData';
-import { EMPTY_JOBS_FILTERS, loadJobsBrowseFilters } from '../utils/jobsBrowseSession';
+import { loadJobsBrowseFilters } from '../utils/jobsBrowseSession';
 import { toJobSnapshot } from '../utils/jobSnapshot';
-import { mergeHubJobsWithDemo } from '../utils/mergeDemoJobs';
 import { resolveJobsUserId } from '../utils/jobsUser';
 import { runSavedJobToggle } from './runSavedJobToggle';
+
+function normalizeAlerts(rows) {
+  return (Array.isArray(rows) ? rows : []).map((row) => ({
+    ...row,
+    alertKind: row.alertKind === 'opportunity' ? 'opportunity' : 'job',
+  }));
+}
 
 export function useJobsHubState() {
   const [metrics, setMetrics] = useState(null);
   const [applications, setApplications] = useState([]);
   const [alerts, setAlerts] = useState([]);
+  const [alertMatches, setAlertMatches] = useState([]);
   const [savedJobs, setSavedJobs] = useState([]);
   const [jobListings, setJobListings] = useState([]);
   const [searchStats, setSearchStats] = useState([]);
   const [recommendedJobs, setRecommendedJobs] = useState([]);
+  const [platformSettings, setPlatformSettings] = useState({ jobs: null, opportunities: null });
   const [searchFilters, setSearchFilters] = useState(() => loadJobsBrowseFilters());
   const [listingsLoading, setListingsLoading] = useState(false);
   const [selectedApplicationId, setSelectedApplicationId] = useState(null);
@@ -37,24 +45,30 @@ export function useJobsHubState() {
   const refreshHub = useCallback(async () => {
     setLoading(true);
     try {
-      const [metricsRes, apps, alertRows, savedRows, recRows] = await Promise.all([
+      const [metricsRes, apps, alertRows, matchRows, savedRows, recRows, platform] = await Promise.all([
         fetchJobsHubMetrics(),
         fetchJobApplications('all'),
         fetchJobAlerts(),
+        fetchJobAlertMatches(),
         fetchSavedJobs(),
         fetchRecommendedJobs(),
+        fetchJobsPlatformSettings(),
       ]);
-      setMetrics(metricsRes);
-      setApplications(apps);
-      setAlerts(alertRows.length ? alertRows : JOB_ALERTS_LIST);
+      setMetrics(metricsRes || null);
+      setApplications(Array.isArray(apps) ? apps : []);
+      setAlerts(normalizeAlerts(alertRows));
+      setAlertMatches(Array.isArray(matchRows) ? matchRows : []);
       setSavedJobs(Array.isArray(savedRows) ? savedRows : []);
-      setRecommendedJobs(
-        Array.isArray(recRows) && recRows.length ? recRows : RECOMMENDED_JOBS,
-      );
+      setRecommendedJobs(Array.isArray(recRows) ? recRows : []);
+      setPlatformSettings(platform || { jobs: null, opportunities: null });
     } catch {
-      setAlerts(JOB_ALERTS_LIST);
+      setMetrics(null);
+      setApplications([]);
+      setAlerts([]);
+      setAlertMatches([]);
       setSavedJobs([]);
-      setRecommendedJobs(RECOMMENDED_JOBS);
+      setRecommendedJobs([]);
+      setPlatformSettings({ jobs: null, opportunities: null });
     } finally {
       setLoading(false);
     }
@@ -65,10 +79,10 @@ export function useJobsHubState() {
     try {
       const result = await searchHubJobs(filters);
       const rows = result?.rows || [];
-      setJobListings(mergeHubJobsWithDemo(Array.isArray(rows) ? rows : []));
+      setJobListings(Array.isArray(rows) ? rows : []);
       setSearchStats(Array.isArray(result?.stats) ? result.stats : []);
     } catch {
-      setJobListings(mergeHubJobsWithDemo([]));
+      setJobListings([]);
       setSearchStats([]);
     } finally {
       setListingsLoading(false);
@@ -94,8 +108,13 @@ export function useJobsHubState() {
 
   const menuCounts = useMemo(() => {
     const base = metrics?.menuCounts || {};
-    return { ...base, saved: base.saved ?? savedJobs.length, applications: base.applications ?? applications.length };
-  }, [metrics, savedJobs.length, applications.length]);
+    return {
+      ...base,
+      saved: base.saved ?? savedJobs.length,
+      applications: base.applications ?? applications.length,
+      alerts: base.alerts ?? alerts.length,
+    };
+  }, [metrics, savedJobs.length, applications.length, alerts.length]);
 
   const selectedApplication = useMemo(
     () => applications.find((row) => row.id === selectedApplicationId) || null,
@@ -210,6 +229,7 @@ export function useJobsHubState() {
     metrics,
     applications,
     alerts,
+    alertMatches,
     savedJobs,
     savedJobIds,
     jobListings,
@@ -220,6 +240,7 @@ export function useJobsHubState() {
     listingsLoading,
     loading,
     menuCounts,
+    platformSettings,
     boardStats: metrics?.stats || null,
     selectedApplication,
     selectedApplicationId,

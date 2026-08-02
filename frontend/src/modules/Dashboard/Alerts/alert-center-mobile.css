@@ -56,7 +56,18 @@
     min-width: 0 !important;
     flex: 1 1 auto !important;
     padding: 0 !important;
+    gap: 0 !important;
     box-sizing: border-box !important;
+  }
+
+  .alerts-mobile-shell .alerts-mobile-chrome + .alerts-main-content,
+  .alerts-mobile-shell .alerts-main-content {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  .alerts-mobile-shell .alerts-stats-grid.alerts-stats-lane {
+    margin-top: 0 !important;
   }
 
   .alerts-right-sidebar-rail {
@@ -77,7 +88,7 @@
     width: 100% !important;
     max-width: none !important;
     height: auto !important;
-    padding: 12px !important;
+    padding: 8px 12px 12px !important;
     margin: 0 !important;
     box-sizing: border-box !important;
     scrollbar-width: none !important;

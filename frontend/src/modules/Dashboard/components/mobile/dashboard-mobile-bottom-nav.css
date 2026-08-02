@@ -49,9 +49,34 @@
   flex-shrink: 0;
 }
 
+/* Profile-style colored icons on every hub page */
+.dash-mobile-bottom-nav__item[data-nav='home'] {
+  color: #7dd3fc;
+}
+
+.dash-mobile-bottom-nav__item[data-nav='squads'] {
+  color: #c4b5fd;
+}
+
+.dash-mobile-bottom-nav__item[data-nav='projects'] {
+  color: #6ee7b7;
+}
+
+.dash-mobile-bottom-nav__item[data-nav='gigs'] {
+  color: #fbbf24;
+}
+
+.dash-mobile-bottom-nav__item[data-nav='jobs'] {
+  color: #f9a8d4;
+}
+
+.dash-mobile-bottom-nav__item[data-nav='alerts'] {
+  color: #fca5a5;
+}
+
 .dash-mobile-bottom-nav__item--active {
-  color: #38bdf8;
-  text-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+  color: #38bdf8 !important;
+  text-shadow: 0 0 14px rgba(56, 189, 248, 0.45);
 }
 
 @media (max-width: 1023px) {

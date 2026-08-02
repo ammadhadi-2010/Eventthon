@@ -82,6 +82,8 @@ async def get_user_telemetry_schema():
 async def log_telemetry_activity(
     payload: TelemetryActivityPayload,
     x_user_id: str | None = Header(default=None, alias="X-User-Id"),
+    x_user_email: str | None = Header(default=None, alias="X-User-Email"),
+    x_user_mobile: str | None = Header(default=None, alias="X-User-Mobile"),
 ):
     """Persist client telemetry for the active MongoDB user account."""
     document = build_user_telemetry_log(
@@ -92,6 +94,28 @@ async def log_telemetry_activity(
         scroll_depth_percentage=payload.scroll_depth_percentage,
     )
     await _persist_log(document)
+
+    # Keep messaging presence fresh while the user is active in the app
+    try:
+        from datetime import datetime
+
+        from backend_routes.messages.helpers import _find_user_by_identifier
+
+        ident = (
+            str(x_user_email or "").strip()
+            or str(x_user_mobile or "").strip()
+            or str(x_user_id or "").strip()
+            or str(payload.user_id or "").strip()
+        )
+        user = await _find_user_by_identifier(ident) if ident else None
+        if user and user.get("_id") is not None:
+            await user_collection.update_one(
+                {"_id": user["_id"]},
+                {"$set": {"is_online": True, "last_seen": datetime.utcnow(), "last_active": datetime.utcnow()}},
+            )
+    except Exception as exc:
+        logger.debug("Presence update skipped: %s", exc)
+
     return {"status": "accepted", "message": "Telemetry log stored."}
 
 
