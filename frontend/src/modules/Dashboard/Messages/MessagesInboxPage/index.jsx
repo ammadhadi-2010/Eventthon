@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import useMessagesInboxState from './hooks/useMessagesInboxState';
 import useMessagesInboxActions from './hooks/useMessagesInboxActions';
 import useMarketplaceChatIntents from './hooks/useMarketplaceChatIntents';
@@ -66,6 +66,10 @@ const MessagesInboxPage = ({
     return () => window.clearTimeout(timer);
   }, [state.selectedId]);
 
+  const markedReadRef = useRef(new Set());
+  const chatRowsRef = useRef(state.chatRows);
+  chatRowsRef.current = state.chatRows;
+
   useEffect(() => {
     const row = state.selectedRow;
     if (!row || row._isDraft) return;
@@ -78,28 +82,35 @@ const MessagesInboxPage = ({
         .map((v) => String(v || '').trim().toLowerCase())
         .filter(Boolean),
     );
+    const ctxId = String(row.context_id || '').trim();
 
-    // Mark unread peer messages in this thread as read
-    const targets = (state.chatRows || []).filter((msg) => {
+    // Mark unread peer messages once — do not re-run on every chatRows patch
+    const targets = (chatRowsRef.current || []).filter((msg) => {
       if (!isMongoId(msg._id)) return false;
+      if (markedReadRef.current.has(String(msg._id))) return false;
       if (String(msg.delivery_status || '').toLowerCase() === 'read') return false;
       const from = String(msg.from_user_id || '').trim().toLowerCase();
       if (!from || (viewer && from === viewer)) return false;
-      const sameCtx =
-        String(msg.context_id || '').trim() === String(row.context_id || '').trim() ||
-        peerIds.has(String(msg.candidate_user_id || '').trim().toLowerCase()) ||
-        peerIds.has(from);
-      return sameCtx;
+      const msgPeer = String(msg.candidate_user_id || msg.peer_user_id || '').trim().toLowerCase();
+      const sameCtx = !ctxId || String(msg.context_id || '').trim() === ctxId;
+      const touchesPeer = peerIds.has(from) || (msgPeer && peerIds.has(msgPeer));
+      return sameCtx && touchesPeer;
     });
 
-    targets.slice(0, 20).forEach((msg) => {
+    targets.slice(0, 12).forEach((msg) => {
+      markedReadRef.current.add(String(msg._id));
       actions.handleUpdateDeliveryStatus(msg._id, msg.chat_type || chatType, 'read').catch(() => {});
     });
 
-    if (isMongoId(row._id) && String(row.delivery_status || '').toLowerCase() !== 'read') {
+    if (
+      isMongoId(row._id) &&
+      !markedReadRef.current.has(String(row._id)) &&
+      String(row.delivery_status || '').toLowerCase() !== 'read'
+    ) {
+      markedReadRef.current.add(String(row._id));
       actions.handleUpdateDeliveryStatus(row._id, chatType, 'read').catch(() => {});
     }
-  }, [state.selectedRow?._id, state.chatRows, state.userId, actions.handleUpdateDeliveryStatus]);
+  }, [state.selectedRow?._id, state.userId, actions.handleUpdateDeliveryStatus]);
 
   const handleSelectConversation = (nextId) => {
     state.handleSelectConversation(nextId, state.selectedRow);

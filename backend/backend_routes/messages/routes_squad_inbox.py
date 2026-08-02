@@ -13,6 +13,9 @@ from backend_routes.squads.squad_shared import get_squad_or_none
 
 from .helpers import (
     _mark_messages_delivered,
+    _pick_user_avatar,
+    _pick_user_name,
+    _presence_from_user,
     _resolve_user_avatar,
     _resolve_user_name,
     _resolve_user_presence,
@@ -117,6 +120,48 @@ def _serialize_squad_row(doc: dict, from_name: str, squad_id: str, squad_name: s
     return row
 
 
+async def _prefetch_users(ids: set[str], name_cache: dict[str, str], avatar_cache: dict[str, str]) -> None:
+    """One Mongo round-trip for unique peers instead of N lookups per message."""
+    cleaned = [str(i or "").strip() for i in ids if str(i or "").strip()]
+    if not cleaned:
+        return
+    clauses = []
+    object_ids = []
+    for uid in cleaned:
+        clauses.extend(
+            [
+                {"mobile": uid},
+                {"user_id": uid},
+                {"email": uid},
+                {"email": uid.lower()},
+            ]
+        )
+        if ObjectId.is_valid(uid):
+            object_ids.append(ObjectId(uid))
+    if object_ids:
+        clauses.append({"_id": {"$in": object_ids}})
+    cursor = user_collection.find({"$or": clauses}).limit(200)
+    async for user in cursor:
+        if not user:
+            continue
+        name = _pick_user_name(user)
+        avatar = _pick_user_avatar(user)
+        presence = _presence_from_user(user)
+        keys = {
+            str(user.get("_id") or "").strip(),
+            str(user.get("user_id") or "").strip(),
+            str(user.get("email") or "").strip(),
+            str(user.get("email") or "").strip().lower(),
+            str(user.get("mobile") or "").strip(),
+        }
+        for key in keys:
+            if not key:
+                continue
+            name_cache[key] = name or name_cache.get(key, "")
+            avatar_cache[f"avatar::{key}"] = avatar
+            avatar_cache[f"presence::{key}"] = presence
+
+
 def _group_member_threads(rows: list[dict], viewer_id: str) -> list[dict]:
     grouped: dict[str, dict] = {}
     viewer = str(viewer_id or "").strip().lower()
@@ -167,9 +212,14 @@ async def list_squad_inbox(
 
     name_cache: dict[str, str] = {}
     avatar_cache: dict[str, str] = {}
-    await _mark_messages_delivered(job_contact_messages_collection, [viewer])
+    # Delivered marks are non-blocking for inbox open speed
+    try:
+        await _mark_messages_delivered(job_contact_messages_collection, [viewer])
+    except Exception:
+        pass
 
     viewer_re = {"$regex": f"^{viewer}$", "$options": "i"}
+    history_limit = min(max(limit * 2, 80), 120)
     cursor = job_contact_messages_collection.find(
         {
             "job_id": context_id,
@@ -179,10 +229,26 @@ async def list_squad_inbox(
                 {"candidate_user_id": viewer_re},
             ],
         }
-    ).sort("created_at", -1).limit(400)
+    ).sort("created_at", -1).limit(history_limit)
+
+    raw_docs = [doc async for doc in cursor]
+    lookup_ids: set[str] = set()
+    for doc in raw_docs:
+        for key in ("from_user_id", "candidate_user_id", "peer_user_id", "seller_user_id", "to_user_id"):
+            val = str(doc.get(key) or "").strip()
+            if val:
+                lookup_ids.add(val)
+        peer = _peer_for_viewer(doc, viewer)
+        if peer:
+            lookup_ids.add(peer)
+    for member in members:
+        peer = _member_peer_id(member)
+        if peer:
+            lookup_ids.add(peer)
+    await _prefetch_users(lookup_ids, name_cache, avatar_cache)
 
     merged = []
-    async for doc in cursor:
+    for doc in raw_docs:
         uid = str(doc.get("from_user_id") or "").strip()
         peer = _peer_for_viewer(doc, viewer)
         display = await _resolve_user_name(peer or uid, name_cache)

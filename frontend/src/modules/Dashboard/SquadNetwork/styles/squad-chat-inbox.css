@@ -27,6 +27,12 @@
   flex-direction: column;
 }
 
+.squad-hub__workspace--chat-full .squad-hub__content-scroll {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
 .squad-hub__workspace--chat-full .sq-chat-inbox .msgx-page--squad,
 .squad-hub__workspace--chat-full .sq-chat-inbox .msgx-page--company {
   border-top: 1px solid #1e2130;
@@ -215,7 +221,30 @@
 }
 
 @media (max-width: 1023px) {
+  .sq-chat-inbox {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+  }
+
   .sq-chat-inbox .msgx-page--squad {
-    min-height: 60vh;
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+    max-height: none;
+  }
+
+  /* Inside squad hub — do not fight with page 100dvh chrome */
+  .squad-hub-mobile-shell .sq-chat-inbox .msgx-mobile-chat-shell {
+    height: 100%;
+    max-height: none;
+    min-height: 0;
+  }
+
+  .squad-hub-mobile-shell .sq-chat-inbox .msgx-chat-compose {
+    position: relative;
+    bottom: auto;
   }
 }

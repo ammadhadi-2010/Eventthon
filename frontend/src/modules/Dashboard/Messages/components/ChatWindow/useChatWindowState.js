@@ -104,16 +104,17 @@ const useChatWindowState = ({
           .toLowerCase();
         const rowPeer = String(row?.candidate_user_id || row?.peer_user_id || '').trim().toLowerCase();
         const rowFrom = String(row?.from_user_id || '').trim().toLowerCase();
-        // Company team/candidate threads: keep all messages for this peer + context
+        // 1:1 threads (incl. squad members): only messages that touch this peer.
+        // Do NOT fall through to context_id alone — that pulls every squad chat into one thread.
         if (selectedPeer) {
+          const rowTo = String(row?.to_user_id || '').trim().toLowerCase();
           const touchesPeer =
             rowPeer === selectedPeer ||
             rowFrom === selectedPeer ||
-            (rowPeer && selectedPeer && rowPeer === selectedPeer);
-          if (touchesPeer) {
-            if (ctxId) return !rowCtx || rowCtx === ctxId;
-            return true;
-          }
+            rowTo === selectedPeer;
+          if (!touchesPeer) return false;
+          if (ctxId) return !rowCtx || rowCtx === ctxId;
+          return true;
         }
         if (ctxId) return rowCtx === ctxId;
         return rowTitle === ctxTitle;

@@ -5,8 +5,8 @@ const THROTTLE_MS = 80;
 const DELTA = 10;
 const EXTRA_ROOT_SELECTORS = [
   '.squad-hub-mobile-shell .squad-hub__content-scroll',
-  '.squad-hub-mobile-shell .squad-chat-messages',
-  '.msgx-mobile-screen .msgx-chat-thread',
+  // Intentionally omit .msgx-chat-thread — hiding chrome while chat scrolls
+  // changes hub padding / 100dvh and jumps the composer + last bubbles.
   '.msgx-mobile-screen .msgx-mobile-list-shell',
 ];
 
